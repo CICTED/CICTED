@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CICTED.crosscutting")]
+[assembly: AssemblyProduct("CICTED.Crosscutting")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5d3ecd97-509c-49ec-95a1-f30cda1aec17")]
+[assembly: Guid("9a76022c-883a-44b7-8bce-4ca18fbc3f14")]
