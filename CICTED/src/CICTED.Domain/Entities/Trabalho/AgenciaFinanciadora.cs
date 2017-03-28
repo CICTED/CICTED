@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CICTED.Domain.Entities.Localizacao
+namespace CICTED.Domain.Entities.Trabalho
 {
-    public class País
+    public class AgenciaFinanciadora
     {
         [Key]
         public long Id { get; set; }
-        [Required]
+
         public string Nome { get; set; }
+
     }
 }
