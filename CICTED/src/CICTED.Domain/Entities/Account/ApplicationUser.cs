@@ -44,6 +44,6 @@ namespace CICTED.Domain.Entities.Account
 
         public long CursosId { get; set; }
 
-        public virtual Cursos.Cursos Cursos { get; set; }
+        
     }
 }
