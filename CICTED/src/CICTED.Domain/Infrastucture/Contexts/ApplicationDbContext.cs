@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using CICTED.Domain.Entities.Account;
 
 namespace CICTED.Domain.Infrastucture.Contexts
 {

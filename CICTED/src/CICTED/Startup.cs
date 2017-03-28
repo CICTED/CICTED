@@ -8,6 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CICTED.Domain.Models.Settings;
+using CICTED.Domain.Infrastucture.Contexts;
+using Microsoft.EntityFrameworkCore;
+using CICTED.Domain.Entities.Account;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CICTED
 {
@@ -28,6 +32,22 @@ namespace CICTED
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add framework services.
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionString"], option => option.MigrationsAssembly("CICTED"));
+            });
+
+            services.AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext, long>()
+                .AddDefaultTokenProviders();
 
             // Configure MyOptions using config by installing Microsoft.Extensions.Options.ConfigurationExtensions
             services.Configure<CustomSettings>(Configuration);
