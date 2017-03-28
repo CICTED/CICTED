@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using CICTED.Domain.Entities.Cursos;
 
 namespace CICTED.Domain.Entities.Account
 {
@@ -40,5 +41,8 @@ namespace CICTED.Domain.Entities.Account
 
         [Required]
         public bool Bolsista { get; set; }
+
+
+        public virtual Cursos.Cursos Cursos { get; set; }
     }
 }
