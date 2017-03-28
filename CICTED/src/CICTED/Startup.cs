@@ -32,7 +32,6 @@ namespace CICTED
             // Configure MyOptions using config by installing Microsoft.Extensions.Options.ConfigurationExtensions
             services.Configure<CustomSettings>(Configuration);
 
-            // Configure MyOptions using code
             services.Configure<CustomSettings>(myOptions =>
             {
                 myOptions.ConnectionString = Configuration["ConnectionString"];
