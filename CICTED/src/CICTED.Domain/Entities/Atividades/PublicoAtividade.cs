@@ -10,9 +10,5 @@ namespace CICTED.Domain.Entities.Atividades
         public long PublicoAlvoId { get; set; }
 
         public long AtividadeAcademicaId { get; set; }
-
-        public PublicoAlvo PublicoAlvo { get; set; }
-
-        public AtividadeAcademica AtividadeAcademica { get; set; }
     }
 }
