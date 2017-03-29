@@ -13,7 +13,7 @@ namespace CICTED.Domain.Entities.Trabalho
         [Required]
         public long StatusUsuarioId { get; set; }
         [Required]
-        public long UserId { get; set; }
+        public long UsuarioId { get; set; }
       
     }
 }

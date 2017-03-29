@@ -11,6 +11,6 @@ namespace CICTED.Domain.Entities.Localizacao
         [Key]
         public long Id { get; set; }
 
-        public string Nome { get; set; }
+        public string EstadoNome { get; set; }
     }
 }

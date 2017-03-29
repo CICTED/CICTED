@@ -12,6 +12,6 @@ namespace CICTED.Domain.Entities.Cursos
         public long Id { get; set; }
 
         [Required]
-        public string Nome { get; set; }
+        public string CursoNome { get; set; }
     }
 }

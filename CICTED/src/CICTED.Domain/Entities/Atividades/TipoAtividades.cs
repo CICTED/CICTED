@@ -10,7 +10,8 @@ namespace CICTED.Domain.Entities.Atividades
     {
         [Key]
         public long Id { get; set; }
+
         [Required]
-        public string Nome { get; set; }
+        public string TipoAtividade { get; set; }
     }
 }

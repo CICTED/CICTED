@@ -12,7 +12,7 @@ namespace CICTED.Domain.Entities.Trabalho
         public long Id { get; set; }
         [Required]
         public string Nome { get; set; }
-
+        [Required]
         public long AreaConhecimentoId { get; set; }
 
         
