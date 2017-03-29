@@ -12,7 +12,5 @@ namespace CICTED.Domain.Entities.Localizacao
         public long Id { get; set; }
 
         public string Nome { get; set; }
-
-        public long PaisId { get; set; }
     }
 }
