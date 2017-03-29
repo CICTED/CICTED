@@ -8,7 +8,7 @@ namespace CICTED.Domain.Entities.Atividades
 {
     public class Recursos
     {
-        [Required]
+        [Key]
         public long Id { get; set; }
         [Required]
         public string Nome { get; set; }

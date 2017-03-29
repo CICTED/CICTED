@@ -8,7 +8,7 @@ namespace CICTED.Domain.Entities.Trabalho
 {
     public class StatusTrabalho
     {
-        [Required]
+        [Key]
         public long Id { get; set; }
         [Required]
         public string Nome { get; set; }

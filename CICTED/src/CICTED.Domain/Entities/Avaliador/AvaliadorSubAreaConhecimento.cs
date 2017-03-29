@@ -13,8 +13,6 @@ namespace CICTED.Domain.Entities.Avaliador
 
         public long SubAreaConhecimentoId { get; set; }
 
-        public ApplicationUser User { get; set; }
-
-        public SubAreaConhecimento AreaConhecimento { get; set; }
+        
     }
 }

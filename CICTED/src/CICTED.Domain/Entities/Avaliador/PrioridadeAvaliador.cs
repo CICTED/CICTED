@@ -9,13 +9,12 @@ namespace CICTED.Domain.Entities.Avaliador
 {
     public class PrioridadeAvaliador
     {
-        [Required]
+        [Key]
         public long Id { get; set; }
         [Required]
         public long UserId { get; set; }
         [Required]
         public int Prioridade { get; set; }
 
-        public ApplicationUser UsuarioId { get; set; }
     }
 }

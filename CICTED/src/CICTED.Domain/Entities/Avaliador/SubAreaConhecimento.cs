@@ -15,6 +15,6 @@ namespace CICTED.Domain.Entities.Trabalho
 
         public long AreaConhecimentoId { get; set; }
 
-        public AreaConhecimento AreaConhecimento { get; set; }
+        
     }
 }

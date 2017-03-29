@@ -13,7 +13,6 @@ namespace CICTED.Domain.Entities.Trabalho
         [Required]
         public long TrabalhoId { get; set; }
 
-        public PalavraChave PalavraChave { get; set; }
-        public Trabalho Trabalho { get; set; }
+       
     }
 }

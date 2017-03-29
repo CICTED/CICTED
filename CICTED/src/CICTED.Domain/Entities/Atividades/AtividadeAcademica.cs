@@ -2,6 +2,7 @@
 using CICTED.Domain.Entities.Trabalho;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,9 @@ namespace CICTED.Domain.Entities.Atividades
 {
     public class AtividadeAcademica
     {
+        [Key]
+        public long Id { get; set; }
+
         public long TipoAtividadeId { get; set; }
 
         public long StatusTrabalhoId { get; set; }
@@ -31,10 +35,6 @@ namespace CICTED.Domain.Entities.Atividades
 
         public DateTime DataCadastro { get; set; }
 
-        public TipoAtividades TipoAtividade { get; set; }
-
-        public StatusTrabalho StatusTrabalho { get; set; }
-
-        public ApplicationUser User { get; set; }
+      
     }
 }
