@@ -10,9 +10,5 @@ namespace CICTED.Domain.Entities.Trabalho
         public long ImagemId { get; set; }
 
         public long TrabalhoId { get; set; }
-
-        public Trabalho Trabalho { get; set; }
-
-        public Imagens Imagem { get; set; }
     }
 }
