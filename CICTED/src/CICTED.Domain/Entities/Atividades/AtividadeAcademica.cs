@@ -33,6 +33,7 @@ namespace CICTED.Domain.Entities.Atividades
 
         public string Observacao { get; set; }
 
+        [Required]
         public DateTime DataCadastro { get; set; }
 
       
