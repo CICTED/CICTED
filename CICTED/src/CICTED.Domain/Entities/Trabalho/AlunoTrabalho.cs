@@ -7,5 +7,7 @@ namespace CICTED.Domain.Entities.Trabalho
 {
     public class AlunoTrabalho
     {
+        public long TrabalhoId { get; set; }
+        public long AlunoId { get; set; }
     }
 }
