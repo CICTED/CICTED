@@ -10,9 +10,5 @@ namespace CICTED.Domain.Entities.Atividades
         public long MinistranteId { get; set; }
 
         public long AtividadeAcademicaId { get; set; }
-
-        public Ministrantes Ministrante { get; set; }
-
-        public AtividadeAcademica AtividadeAcademica { get; set; }
     }
 }
