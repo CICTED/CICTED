@@ -23,17 +23,47 @@ namespace CICTED.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<bool>("Bolsista");
+
+                    b.Property<string>("CPF")
+                        .IsRequired();
+
+                    b.Property<string>("Celular")
+                        .IsRequired();
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<long>("CursosId");
+
+                    b.Property<DateTime>("DataCadastro");
+
+                    b.Property<DateTime>("DataNascimento");
+
+                    b.Property<string>("Documento");
 
                     b.Property<string>("Email")
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("EmailSecundario")
+                        .IsRequired();
+
+                    b.Property<long>("EnderecoId");
+
+                    b.Property<bool>("Estudante");
+
+                    b.Property<bool>("Genero");
+
+                    b.Property<long>("InstituicaoId");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
 
                     b.Property<string>("NormalizedEmail")
                         .HasAnnotation("MaxLength", 256);
@@ -48,6 +78,9 @@ namespace CICTED.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Sobrenome")
+                        .IsRequired();
 
                     b.Property<bool>("TwoFactorEnabled");
 
