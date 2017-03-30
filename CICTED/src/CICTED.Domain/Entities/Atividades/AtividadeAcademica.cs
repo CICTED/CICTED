@@ -14,10 +14,10 @@ namespace CICTED.Domain.Entities.Atividades
         public long Id { get; set; }
 
         [Required]
-        public long TipoAtividadeId { get; set; }
+        public int TipoAtividadeId { get; set; }
 
         [Required]
-        public long StatusTrabalhoId { get; set; }
+        public int StatusTrabalhoId { get; set; }
 
         [Required]
         public long UsuarioId { get; set; }
