@@ -12,7 +12,7 @@ namespace CICTED.Domain.Entities.Localizacao
         public int Id { get; set; }
 
         [Required]
-        public string Nome { get; set; }
+        public string PaisNome { get; set; }
 
         [Required]
         public string Sigla { get; set; }
