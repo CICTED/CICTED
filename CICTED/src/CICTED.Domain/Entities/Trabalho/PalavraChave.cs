@@ -12,6 +12,6 @@ namespace CICTED.Domain.Entities.Trabalho
         public long Id { get; set; }
 
         [Required]
-        public string PalavraChaveNome { get; set; }
+        public string Palavra { get; set; }
     }
 }
