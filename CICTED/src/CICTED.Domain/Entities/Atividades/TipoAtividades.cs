@@ -9,7 +9,7 @@ namespace CICTED.Domain.Entities.Atividades
     public class TipoAtividades
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string TipoAtividade { get; set; }

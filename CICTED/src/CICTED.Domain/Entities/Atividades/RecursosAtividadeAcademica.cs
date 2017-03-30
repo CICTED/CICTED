@@ -9,7 +9,7 @@ namespace CICTED.Domain.Entities.Atividades
     public class RecursosAtividadeAcademica
     {
         [Required]
-        public long RecursosId { get; set; }
+        public int RecursosId { get; set; }
 
         [Required]
         public long AtividadeAcademicaId { get; set; }
