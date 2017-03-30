@@ -9,7 +9,7 @@ namespace CICTED.Domain.Entities.Avaliador
     public class AvaliadorEvento
     {
         [Required]
-        public long EventoId { get; set; }
+        public int EventoId { get; set; }
 
         [Required]
         public long UsuarioId { get; set; }
