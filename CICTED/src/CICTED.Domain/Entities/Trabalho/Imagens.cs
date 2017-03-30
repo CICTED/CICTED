@@ -11,6 +11,6 @@ namespace CICTED.Domain.Entities.Trabalho
         [Key]
         public long Id { get; set; }
         [Required]
-        public byte Arquivo { get; set; }
+        public byte[] Imagem { get; set; }
     }
 }

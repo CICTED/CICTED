@@ -13,22 +13,28 @@ namespace CICTED.Domain.Entities.Atividades
         [Key]
         public long Id { get; set; }
 
+        [Required]
         public long TipoAtividadeId { get; set; }
 
+        [Required]
         public long StatusTrabalhoId { get; set; }
 
-        public long UserId { get; set; }
+        [Required]
+        public long UsuarioId { get; set; }
 
         public string Departamento { get; set; }
 
         public DateTime DataApresentacao { get; set; }
 
+        [Required]
         public string Identificacao { get; set; }
 
         public int QtdPublico { get; set; }
 
+        [Required]
         public string Titulo { get; set; }
 
+        [Required]
         public string Resumo { get; set; }
 
         public string Observacao { get; set; }

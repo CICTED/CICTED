@@ -35,6 +35,7 @@ namespace CICTED.Domain.Entities.Trabalho
 
         public DateTime DataSubmissao { get; set; }
 
+        [Required]
         public DateTime DataCadastro { get; set; }
 
         public string TextoFinanciadora { get; set; }
@@ -43,11 +44,11 @@ namespace CICTED.Domain.Entities.Trabalho
 
         public long AgenciaFinanciadoraId { get; set; }
 
+        [Required]
         public long EventoId { get; set; }
 
         public long ArtigoId { get; set; }
 
         public long SubAreaConhecimento { get; set; }
-
     }
 }

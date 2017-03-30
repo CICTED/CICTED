@@ -11,7 +11,7 @@ namespace CICTED.Domain.Entities.Trabalho
         [Key]
         public long Id { get; set; }
         [Required]
-        public string Nome { get; set; }
+        public string AgenciaNome { get; set; }
 
     }
 }
