@@ -9,7 +9,7 @@ namespace CICTED.Domain.Entities.Cursos
     public class Cursos
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string CursoNome { get; set; }

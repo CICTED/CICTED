@@ -9,7 +9,7 @@ namespace CICTED.Domain.Entities.Trabalho
     public class AgenciaFinanciadora
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string AgenciaNome { get; set; }
 

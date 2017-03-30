@@ -42,13 +42,13 @@ namespace CICTED.Domain.Entities.Trabalho
 
         public string CodigoCEP { get; set; }
 
-        public long AgenciaFinanciadoraId { get; set; }
+        public int AgenciaFinanciadoraId { get; set; }
 
         [Required]
-        public long EventoId { get; set; }
+        public int EventoId { get; set; }
 
         public long ArtigoId { get; set; }
 
-        public long SubAreaConhecimento { get; set; }
+        public int SubAreaConhecimento { get; set; }
     }
 }

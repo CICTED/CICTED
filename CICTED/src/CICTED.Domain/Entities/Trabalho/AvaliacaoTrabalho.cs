@@ -15,7 +15,7 @@ namespace CICTED.Domain.Entities.Trabalho
         public long TrabalhoId { get; set; }
 
         [Required]
-        public long StatusTrabalhoId { get; set; }
+        public int StatusTrabalhoId { get; set; }
 
         [Required]
         public long UsuarioId { get; set; }
