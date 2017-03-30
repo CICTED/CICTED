@@ -15,16 +15,16 @@ namespace CICTED.Domain.Entities.Trabalho
         public string EventoNome { get; set; }
 
         [Required]
-        public string SiglaEvento { get; set; }
+        public string Sigla { get; set; }
 
         [Required]
-        public string DescricaoEvento { get; set; }
+        public string Descricao { get; set; }
 
         [Required]
-        public string ObjetivoEvento { get; set; }
+        public string Objetivo { get; set; }
 
         [Required]
-        public string PublicoAlvoEvento { get; set; }
+        public string PublicoAlvo { get; set; }
 
     }
 }
