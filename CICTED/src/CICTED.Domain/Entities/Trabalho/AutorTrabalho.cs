@@ -11,7 +11,7 @@ namespace CICTED.Domain.Entities.Trabalho
     public class AutorTrabalho
     {
         [Required]
-        public long StatusUsuarioId { get; set; }
+        public int StatusUsuarioId { get; set; }
         [Required]
         public long UsuarioId { get; set; }
       

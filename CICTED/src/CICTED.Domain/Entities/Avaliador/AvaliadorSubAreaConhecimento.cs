@@ -11,10 +11,10 @@ namespace CICTED.Domain.Entities.Avaliador
     public class AvaliadorSubAreaConhecimento
     {
         [Required]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         [Required]
-        public long SubAreaConhecimentoId { get; set; }
+        public int SubAreaConhecimentoId { get; set; }
 
         
     }

@@ -42,7 +42,7 @@ namespace CICTED.Domain.Entities.Account
         [Required]
         public bool Bolsista { get; set; }
 
-        public long CursosId { get; set; }
+        public int CursosId { get; set; }
 
         public long InstituicaoId { get; set; }
 
