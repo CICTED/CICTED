@@ -32,7 +32,7 @@ namespace CICTED
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionString"], option => option.MigrationsAssembly("CICTED"));
