@@ -11,6 +11,6 @@ namespace CICTED.Domain.Entities.Status
         [Key]
         public int Id { get; set; }
 
-        public string Nome { get; set; }
+        public string StatusNome { get; set; }
     }
 }
