@@ -12,9 +12,6 @@ namespace CICTED.Domain.Entities.Localizacao
         public long Id { get; set; }
 
         [Required]
-        public string Logradouro { get; set; }
-
-        [Required]
         public string Cidade { get; set; }
 
         [Required]
