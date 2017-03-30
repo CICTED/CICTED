@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CICTED.Domain.Entities.Atividades
 {
-    public class TipoAtividades
+    public class TipoAtividade
     {
         [Key]
         public long Id { get; set; }
 
         [Required]
-        public string TipoAtividade { get; set; }
+        public string TipoAtividadeNome { get; set; }
     }
 }
