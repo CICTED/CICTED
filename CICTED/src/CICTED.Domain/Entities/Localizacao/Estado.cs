@@ -9,8 +9,12 @@ namespace CICTED.Domain.Entities.Localizacao
     public class Estado
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
+        [Required]
         public string EstadoNome { get; set; }
+
+        [Required]
+        public string Sigla { get; set; }
     }
 }
