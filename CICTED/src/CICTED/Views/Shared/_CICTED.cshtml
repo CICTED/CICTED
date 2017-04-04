@@ -5,12 +5,19 @@
     <environment>
         <link rel="stylesheet" href="~/css/site.css"/>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/font-awesome.css" />
     </environment>
+
 </head>
 <body>
-    <div class="navbar"></div>
+    <div class="navbar">
+        <img class="margin-right-100 float-right" src="~/images/logoUNITAU/logotipo_branco_unitau.png"  />
+    </div>
     <div >
         @RenderBody()        
+    </div>
+    <div class="footer">
+        <span style="font-size:40px" class="fa fa-envelope margin-left-100">cicted@unitau.br</span>
     </div>
 </body>
 </html>
