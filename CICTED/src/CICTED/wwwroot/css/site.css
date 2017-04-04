@@ -36,3 +36,10 @@ textarea {
     display: none
   }
 }
+
+.navbar{
+    top: 0;
+    width: 100%;
+    height:50px;
+    background: #3f70be;
+}
