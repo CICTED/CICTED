@@ -36,14 +36,3 @@ textarea {
     display: none
   }
 }
-
-.navbar{
-    position: fixed;
-    top: 0px;
-
-}
-
-.footer{
-    bottom: 0px;
-
-}
