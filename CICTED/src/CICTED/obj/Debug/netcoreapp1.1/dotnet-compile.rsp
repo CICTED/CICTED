@@ -219,7 +219,6 @@
 --resource:"C:\Users\VALID04\Documents\GitHub\CICTED\CICTED\src\CICTED\obj\Debug\netcoreapp1.1\CICTEDdotnet-compile.deps.json",CICTED.deps.json
 C:\Users\VALID04\Documents\GitHub\CICTED\CICTED\src\CICTED\Program.cs
 C:\Users\VALID04\Documents\GitHub\CICTED\CICTED\src\CICTED\Startup.cs
+C:\Users\VALID04\Documents\GitHub\CICTED\CICTED\src\CICTED\Controllers\AccountController.cs
 C:\Users\VALID04\Documents\GitHub\CICTED\CICTED\src\CICTED\Controllers\HomeController.cs
-C:\Users\VALID04\Documents\GitHub\CICTED\CICTED\src\CICTED\Migrations\20170328191240_FirstUse.cs
-C:\Users\VALID04\Documents\GitHub\CICTED\CICTED\src\CICTED\Migrations\20170328191240_FirstUse.Designer.cs
 C:\Users\VALID04\Documents\GitHub\CICTED\CICTED\src\CICTED\Migrations\ApplicationDbContextModelSnapshot.cs
