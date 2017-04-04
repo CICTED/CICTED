@@ -31,5 +31,14 @@ namespace CICTED.Controllers
             return View();
         }
 
+
+        [HttpGet("cadastro")]
+        [AllowAnonymous]
+        public IActionResult Cadastrar(string returnURL = null)
+        {
+            ViewData["ReturnURL"] = returnURL;
+
+            return View();
+        }
     }
 }
