@@ -49,6 +49,6 @@ namespace CICTED.Domain.Entities.Trabalho
 
         public long ArtigoId { get; set; }
 
-        public int SubAreaConhecimento { get; set; }
+        public int SubAreaConhecimentoId { get; set; }
     }
 }
