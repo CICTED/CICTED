@@ -24,9 +24,11 @@ namespace CICTED.Controllers
 
         [HttpGet("login")]
         [AllowAnonymous]
-        public IActionResult login()
+        public IActionResult Login(string returnURL = null)
         {
+            ViewData["ReturnURL"] = returnURL;
 
+            return View();
         }
 
     }
