@@ -2,8 +2,149 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-
+    Layout = null;
 }
 <head>
     <title>Cadastrar</title>
+    <link rel="stylesheet" href="site.css" />
 </head>
+
+<body>
+
+
+    <form>
+        <h1>Cadastro</h1>
+
+        <div>
+            <label>Email Principal:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>Email Secundario:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>Nome Completo:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>CPF:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>Outros Documentos(RG, Passaporte, Etc):</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>Data de Nascimento:</label>
+            <input type="datetime" />
+        </div>
+
+        <div>
+            <label>Genero: </label>
+            <select id="Genero">
+                <option value="-1">Selecione um genero</option>
+                <option value="0">Masculino</option>
+                <option value="1">Feminino</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Endereço:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>Bairro:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>CEP:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <div>
+                <label>Estado:</label>
+                <select id="dropEstado" style="width:170px" asp-for="Estado">
+                    <option value="-1">Selecione seu estado</option>
+                </select>
+            </div>
+
+
+            <div>
+                <label>Cidade: </label>
+                <select id="dropCidades" style="width:170px" asp-for="CidadeId">
+                    <option value="-1">Selecione sua cidade</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <label>Telefone:</label>
+            <input type="tel" />
+        </div>
+
+        <div>
+            <label>Celular:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>Instituição:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>CEP:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>Você está cursando?</label>
+            <input type="radio" value="0"/>Não
+            <input type="radio" value="1" />Sim
+        </div>
+
+        <div>
+            <label>Curso:</label>
+            <input type="text" />
+        </div>
+
+        <div>
+            <label>Você é bolsista?</label>
+            <input type="radio" value="0"/>Não
+            <input type="radio" value="1" />Sim
+        </div>
+
+        <div>
+            <label>Agência financiadora*:</label>
+            <select id="dropAgencias" style="width:170px" asp-for="AgenciasId">
+                <option value="-1">Selecione a agência financiadora</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Senha:</label>
+            <input type="password" />
+        </div>
+
+        <div>
+            <label>Confirme a senha:</label>
+            <input type="password" />
+        </div>
+
+        <div align="center">
+            <button type="submit">Voltar</button>
+            <button type="submit">Cadastrar</button>
+        </div>
+
+    </form>
+</body>
+
