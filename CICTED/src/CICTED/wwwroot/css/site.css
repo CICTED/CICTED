@@ -294,3 +294,19 @@ textarea {
     position: absolute; 
     -webkit-box-shadow: -1px -1px 30px #808080;
 }
+.form-login{
+    width: 300px;
+    min-height: 200px;
+    height: auto;
+    margin: auto;
+    background-color: #FFFFFF;
+    border: 0.5px solid;
+    border-color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    border-radius: 5px;
+    padding: 20px;
+    color: #868585;
+    font-family: 'Lucida Sans', serif;
+    font-size: 12px;
+
+}
