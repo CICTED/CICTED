@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = null;
+    Layout = "_CICTED";
 }
 <head>
     <title>Cadastrar</title>
@@ -47,7 +47,7 @@
 
         <div>
             <label>Genero: </label>
-            <select id="Genero">
+            <select >
                 <option value="-1">Selecione um genero</option>
                 <option value="0">Masculino</option>
                 <option value="1">Feminino</option>
@@ -72,7 +72,7 @@
         <div>
             <div>
                 <label>Estado:</label>
-                <select id="dropEstado" style="width:170px" asp-for="Estado">
+                <select >
                     <option value="-1">Selecione seu estado</option>
                 </select>
             </div>
@@ -80,7 +80,7 @@
 
             <div>
                 <label>Cidade: </label>
-                <select id="dropCidades" style="width:170px" asp-for="CidadeId">
+                <select  >
                     <option value="-1">Selecione sua cidade</option>
                 </select>
             </div>
@@ -125,7 +125,7 @@
 
         <div>
             <label>Agência financiadora*:</label>
-            <select id="dropAgencias" style="width:170px" asp-for="AgenciasId">
+            <select >
                 <option value="-1">Selecione a agência financiadora</option>
             </select>
         </div>
