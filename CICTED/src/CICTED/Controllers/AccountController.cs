@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CICTED.Controllers
 {
+    [Route("account")]
     public class AccountController : Controller
     {
         private SignInManager<ApplicationUser> _signInManager;
