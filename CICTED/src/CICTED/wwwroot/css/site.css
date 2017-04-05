@@ -15,6 +15,10 @@ h1, h2, h3, h4, h5, h6, label{
     padding-right: 15px;
 }
 
+.admin-content{
+    padding-top:40px;
+    padding-bottom: 40px;
+}
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
@@ -285,7 +289,7 @@ textarea {
     padding-bottom: 10px;
     width: 100%;
     height:auto;
-    background: #2873ba;
+    background: #143458;
 }
 
 .footer {
@@ -294,7 +298,7 @@ textarea {
     width: 100%;
     height: 50px;
     padding: 5px 80px 5px 80px;
-    -webkit-box-shadow: 0px 0px 3px rgba(66, 66, 66, 0.43);
+    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.31);
 }
 
 .barra{
@@ -312,9 +316,7 @@ textarea {
 }
 
     .link:hover{
-        text-decoration:none !important;
         color: #4b4b4b;
-        cursor: pointer;
     }
 
 

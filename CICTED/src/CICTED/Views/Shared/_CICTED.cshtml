@@ -12,7 +12,7 @@
     <div class="navbar">
         <img class="margin-right-100 float-right" src="~/images/logoUNITAU/logotipo_branco_unitau.png" />
     </div>
-    <div>
+    <div class="admin-content">
         @RenderBody()
     </div>
 
@@ -31,5 +31,8 @@
         <h4 class="float-right margin-right-20">APOIO:</h4>
         <div class="barra float-right"></div>
     </div>
+
+    
+    @RenderSection("scripts", required: false)
 </body>
 </html>
