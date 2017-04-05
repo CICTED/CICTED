@@ -2,7 +2,7 @@
     padding-top: 0;
     padding-bottom: 0;
     margin: 0;
-    background-color: #F6F4ED;
+    background-color: #FBFAF5;
 }
 
 h1, h2, h3, h4, h5, h6, label{        
@@ -346,21 +346,6 @@ textarea {
 
 }
 
-.form-cadastro{
-    width: 400px;
-    min-height: 900px;
-    height: auto;
-    margin: auto;
-    background-color: #FFFFFF;
-    border: 0.5px solid;
-    border-color: #FFFFFF;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
-    border-radius: 5px;
-    padding: 20px;
-    color: #868585;
-    font-family: 'Lucida Sans', serif;
-    font-size: 12px;
-}
 
 .row {
     width: 100% !important;
