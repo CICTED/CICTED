@@ -293,6 +293,15 @@ textarea {
     padding: 5px 80px 5px 80px;
     -webkit-box-shadow: 0px 0px 3px rgba(66, 66, 66, 0.43);
 }
+
+.barra{
+    height: 40px;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.31);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .form-login{
     width: 300px;
     min-height: 200px;
