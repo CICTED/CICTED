@@ -2,7 +2,7 @@
     padding-top: 0;
     padding-bottom: 0;
     margin: 0;
-    background-color: #FBFAF5;
+    background-color: #F2F2F2;
 }
 
 h1, h2, h3, h4, h5, h6, label{        
@@ -369,8 +369,8 @@ textarea {
 }
 
 .btn-primary {
-    border: #02B6E6;
-    background: #02B6E6;
+    border: #337ab7;
+    background:#337ab7;
     color: #ffffff;
 }
 
