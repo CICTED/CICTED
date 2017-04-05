@@ -318,11 +318,48 @@ textarea {
     font-size: 12px;
 
 }
+
+.form-cadastro{
+    width: 400px;
+    min-height: 900px;
+    height: auto;
+    margin: auto;
+    background-color: #FFFFFF;
+    border: 0.5px solid;
+    border-color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    border-radius: 5px;
+    padding: 20px;
+    color: #868585;
+    font-family: 'Lucida Sans', serif;
+    font-size: 12px;
+}
+
 .row {
     width: 100% !important;
     height: auto !important;
     margin-right: 0px;
     margin-left: 0px;
+}
+
+.btn {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none;
+    border: 0.5px solid;
+    border-radius: 5px;
+    font-family: 'Lucida Sans';
+    color: #000000;
+    background: #E6E9E7;
+    cursor: pointer;
+}
+
+.btn-primary {
+    border: #02B6E6;
+    background: #02B6E6;
+    color: #ffffff;
 }
 
 .form-control {
