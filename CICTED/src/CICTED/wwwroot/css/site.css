@@ -5,7 +5,7 @@
     background-color: #F2F2F2 !important;
 }
 
-h1, h2, h3, h4, h5, h6, label{        
+h1, h2, h3, h4, h5, h6, label {
     font-family: 'Source Sans Pro', sans-serif !important;
 }
 /* Wrapping element */
@@ -15,8 +15,8 @@ h1, h2, h3, h4, h5, h6, label{
     padding-right: 15px;
 }
 
-.admin-content{
-    padding-top:40px;
+.admin-content {
+    padding-top: 40px;
     padding-bottom: 40px;
 }
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -33,18 +33,45 @@ textarea {
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"]
-{
+.carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-  /* Hide captions */
-  .carousel-caption {
-    display: none
-  }
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
 }
+
+
+/*Fonts*/
+.font-size-12 {
+    font-size: 12pt !important;
+}
+
+.font-size-15 {
+    font-size: 15pt !important;
+}
+
+.font-size-20 {
+    font-size: 20pt !important;
+}
+
+.font-size-25 {
+    font-size: 25pt !important;
+}
+
+.font-size-30 {
+    font-size: 30pt !important;
+}
+
+.font-size-35 {
+    font-size: 35pt !important;
+}
+/*EndFonts*/
+
 
 /*Margins*/
 .margin-left-10 {
@@ -283,12 +310,12 @@ textarea {
 }
 /*EndFloat*/
 
-.navbar{
+.navbar {
     top: 0;
     padding-top: 10px;
     padding-bottom: 10px;
     width: 100%;
-    height:auto;
+    height: auto;
     background: #143458;
 }
 
@@ -301,7 +328,7 @@ textarea {
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.31);
 }
 
-.barra{
+.barra {
     height: 40px;
     width: 1px;
     background: rgba(0, 0, 0, 0.31);
@@ -309,13 +336,13 @@ textarea {
     margin-right: 20px;
 }
 
-.link{
-    text-decoration:none !important;
+.link {
+    text-decoration: none !important;
     color: #333;
     cursor: pointer;
 }
 
-    .link:hover{
+    .link:hover {
         color: #4b4b4b;
     }
 
@@ -328,24 +355,36 @@ textarea {
     cursor: pointer;
 }
 
-
-.form-login{
+.form-login {
     width: 300px;
-    min-height: 250px;
     height: auto;
     margin: auto;
     background-color: #FFFFFF;
-    border: 0.5px solid;
-    border-color: #FFFFFF;
+    padding: 0px 20px 20px 20px;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
-    border-radius: 5px;
-    padding: 20px;
     color: #868585;
-    font-family: 'Lucida Sans', serif;
     font-size: 12px;
-
 }
 
+    .form-login input {
+        border: 0;
+        height: 30px;
+        width: 260px;
+        outline: none;
+        border-bottom: 1px solid #DDD;
+    }
+
+        .form-login input:focus {
+            border-bottom: 1px solid;
+        }
+
+    .form-login span {
+        color: rgba(0, 0, 0, 0.31);
+    }
+
+    .form-login h1 {
+    font-weight: 300;
+}
 
 .row {
     width: 100% !important;

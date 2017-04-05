@@ -6,46 +6,48 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+
     <title>Login - CICTED</title>
 </head>
 <body>
     <div class="float-center margin-top-50 logo-login"></div>
 
-    <div class="margin-top-100" style="width: 794px; margin: 0 auto; height: 100%; text-align: center;">
+    <div class="margin-top-100" style="width: 794px; margin: 0 auto; height: 100%;">
 
-        <form style="padding:0px 20px 0px 20px" class="form-login float-left margin-left-50">
-            <h1>Já tem cadastro:</h1>
-            <div class="row margin-top-10">
-                <label>Digite seu email:</label>
-                <input class="form-control" />
+        <form class="form-login float-left margin-left-50">
+            <h1>Login</h1>
+            <div class="row margin-top-10" style="height:30px !important; ">
+                <span class="fa fa-user float-left font-size-15"></span>
+                <input class="float-right margin-left-20" placeholder="Email" />
             </div>
-            <div class="row margin-top-10">
-                <label>Digite sua senha:</label>
-                <input class="form-control" />
-            </div>
-            <div class="row margin-top-10 ">
-                <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
-            </div>
-        </form>
+                <div class="row margin-top-20" style="height:30px !important;">
+                    <span class="fa fa-key float-left font-size-15"></span>
+                    <input class="float-right margin-left-10" placeholder="Senha" />
+                </div>
+                <div class="row margin-top-20 ">
+                    <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
+                </div>
+</form>
 
 
         <div class="float-left margin-left-10">
-            <form style="padding:0px 20px 0px 20px; height: 325px !important" class="form-login float-left margin-left-50">
+            <form style="padding:0px 20px 0px 20px; height: 255px !important" class="form-login float-left margin-left-50">
                 <h1>Ainda não tem cadastro?</h1>
-                <div class="row margin-top-10">
-                    <label>Digite seu email:</label>
-                    <input class="form-control" />
+                <div class="row margin-top-10 " style="height:30px !important; ">
+                    <span class="fa fa-user float-left font-size-15"></span>
+                    <input class="float-right margin-left-20" placeholder="Email" />
                 </div>
-                <div class="row margin-top-10">
-                    <label>Digite sua senha:</label>
-                    <input class="form-control" />
+                <div class="row margin-top-20 " style="height:30px !important;">
+                    <span class="fa fa-key float-left font-size-15"></span>
+                    <input class="float-right margin-left-10" placeholder="Senha" />
                 </div>
-                <div class="row margin-top-10">
-                    <label>Confirme sua senha:</label>
-                    <input class="form-control" />
+                <div class="row margin-top-20 " style="height:30px !important;">
+                    <span class="fa fa-check float-left font-size-15"></span>
+                    <input class="float-right margin-left-10" placeholder="Confirme sua senha" />
                 </div>
                 <div class="row margin-top-10 ">
-                    <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
+                    <button type="submit" class="btn btn-primary float-center" style="width: 100%">Cadastrar</button>
                 </div>
             </form>
         </div>
