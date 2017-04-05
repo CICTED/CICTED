@@ -5,6 +5,9 @@
     background-color: #fff;
 }
 
+h1, h2, h3, h4, h5, h6, label{        
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -301,6 +304,18 @@ textarea {
     margin-left: 20px;
     margin-right: 20px;
 }
+
+.link{
+    text-decoration:none !important;
+    color: black;
+    cursor: pointer;
+}
+
+    .link:hover{
+        text-decoration:none !important;
+        color: black;
+        cursor: pointer;
+    }
 
 .form-login{
     width: 300px;
