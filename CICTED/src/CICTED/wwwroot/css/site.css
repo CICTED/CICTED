@@ -321,9 +321,9 @@ textarea {
 
 
 .logo-login {
-    width: 170px;
-    height: 70px;
-    background-image: url(../images/logoCICTED/logo_teste.jpg);
+    width: 260px;
+    height: 75px;
+    background-image: url(../images/logoCICTED/logo_blue.png);
     background-size: cover;
     cursor: pointer;
 }
@@ -331,7 +331,7 @@ textarea {
 
 .form-login{
     width: 300px;
-    min-height: 200px;
+    min-height: 250px;
     height: auto;
     margin: auto;
     background-color: #FFFFFF;

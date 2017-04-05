@@ -6,23 +6,49 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>Login - CICTED</title>
 </head>
 <body>
-    <div class="float-center margin-top-100 logo-login">
-        
+    <div class="float-center margin-top-50 logo-login"></div>
+
+    <div class="margin-top-50" style="width:1000px; margin: 0 auto">
+
+        <form style="padding:0px 20px 0px 20px" class="form-login float-left margin-left-50">
+            <h1>Já tem cadastro:</h1>
+            <div class="row margin-top-10">
+                <label>Digite seu email:</label>
+                <input class="form-control" />
+            </div>
+            <div class="row margin-top-10">
+                <label>Digite sua senha:</label>
+                <input class="form-control" />
+            </div>
+            <div class="row margin-top-10 ">
+                <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
+            </div>
+        </form>
+
+
+        <div class="float-left margin-left-10">
+            <form style="padding:0px 20px 0px 20px; height: 325px !important" class="form-login float-left margin-left-50">
+                <h1>Ainda não tem cadastro?</h1>
+                <div class="row margin-top-10">
+                    <label>Digite seu email:</label>
+                    <input class="form-control" />
+                </div>
+                <div class="row margin-top-10">
+                    <label>Digite sua senha:</label>
+                    <input class="form-control" />
+                </div>
+                <div class="row margin-top-10">
+                    <label>Confirme sua senha:</label>
+                    <input class="form-control" />
+                </div>
+                <div class="row margin-top-10 ">
+                    <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <form class="form-login float-center margin-top-40">
-        <div class="row margin-top-10">
-            <label>Digite seu email:</label>
-            <input class="form-control"/>
-        </div>
-        <div class="row margin-top-10">
-            <label>Digite sua senha:</label>
-            <input class="form-control"/>
-        </div>
-        <div class="row margin-top-10 ">
-            <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
-        </div>
-    </form>
 </body>
 </html>
