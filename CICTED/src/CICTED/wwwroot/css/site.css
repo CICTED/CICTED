@@ -305,7 +305,6 @@ textarea {
     margin-right: 20px;
 }
 
-<<<<<<< HEAD
 .link{
     text-decoration:none !important;
     color: black;
@@ -318,7 +317,7 @@ textarea {
         cursor: pointer;
     }
 
-=======
+
 .logo-login {
     width: 170px;
     height: 70px;
@@ -327,7 +326,7 @@ textarea {
     cursor: pointer;
 }
 
->>>>>>> 80645ddd9cea7e1947feb6f1f98a5ed96cef34fb
+
 .form-login{
     width: 300px;
     min-height: 200px;
