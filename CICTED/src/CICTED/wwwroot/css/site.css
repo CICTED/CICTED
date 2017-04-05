@@ -307,13 +307,13 @@ textarea {
 
 .link{
     text-decoration:none !important;
-    color: black;
+    color: #333;
     cursor: pointer;
 }
 
     .link:hover{
         text-decoration:none !important;
-        color: black;
+        color: #4b4b4b;
         cursor: pointer;
     }
 
