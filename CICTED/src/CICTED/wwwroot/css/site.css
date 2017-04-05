@@ -369,8 +369,8 @@ textarea {
 }
 
 .btn-primary {
-    border: #337ab7;
-    background:#337ab7;
+    border: #143458 !important;
+    background: #143458 !important;
     color: #ffffff;
 }
 
