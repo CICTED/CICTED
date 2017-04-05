@@ -302,6 +302,14 @@ textarea {
     margin-right: 20px;
 }
 
+.logo-login {
+    width: 170px;
+    height: 70px;
+    background-image: url(../images/logoCICTED/logo_teste.jpg);
+    background-size: cover;
+    cursor: pointer;
+}
+
 .form-login{
     width: 300px;
     min-height: 200px;
