@@ -289,8 +289,8 @@ textarea {
     bottom: 0px;
     background: #e1e1e1;
     width:100%;
-    height: auto;
-    padding: 10px;
+    height: 50px;
+    padding: 5px 80px 5px 80px;
     -webkit-box-shadow: -1px -1px 30px #808080;
 }
 .form-login{
