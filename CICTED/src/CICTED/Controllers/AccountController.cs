@@ -20,21 +20,18 @@ namespace CICTED.Controllers
     {
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
-        private ILogger _logger;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger logger)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _logger = logger;
         }
 
         [HttpGet("login")]
         [AllowAnonymous]
-        public IActionResult Login(string returnURL = null)
+        public IActionResult Login()
         {
             LoginViewModel model = new LoginViewModel();
-            ViewData["ReturnURL"] = returnURL;
 
             return View(model);
         }
@@ -51,7 +48,7 @@ namespace CICTED.Controllers
 
             if (result.Succeeded)
             {
-                _logger.LogInformation(1, "Usuario logado.");
+                
 
             }
 
