@@ -1,5 +1,5 @@
-﻿@*
-*@
+﻿@model CICTED.Domain.Infrastucture.ViewModels.Account.LoginViewModel
+
 @{
     Layout = null;
 }
@@ -28,6 +28,13 @@
                 <div class="row margin-top-20 ">
                     <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
                 </div>
+
+            <div class="checkbox">
+                <label asp-for="RememberMe">
+                    <input asp-for="RememberMe" />
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                </label>
+            </div>
 </form>
 
 
