@@ -8,26 +8,21 @@ namespace CICTED.Domain.ViewModels.Account
 {
     public class LoginViewModel
     {
-        [Required]
         [EmailAddress]
         public string EmailLogin { get; set; }
 
-        [Required]
         [DataType(DataType.Password)]
         public string SenhaLogin { get; set; }
         [Display(Name = "Remember me?")]
 
         public bool RememberMe { get; set; }
 
-        [Required]
         [EmailAddress]
         public string EmailCadastro { get; set; }
 
-        [Required]
         [DataType(DataType.Password)]
         public string SenhaCadastro { get; set; }
 
-        [Required]
         [DataType(DataType.Password)]
         public string ConfirmSenhaCadastro { get; set; }
     }
