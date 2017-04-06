@@ -32,6 +32,8 @@ namespace CICTED.Controllers
             return View();
         }
 
+        [HttpPost("login")]
+
 
         [HttpGet("cadastro")]
         [AllowAnonymous]
