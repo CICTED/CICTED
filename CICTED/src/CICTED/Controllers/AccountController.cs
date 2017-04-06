@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Authorization;
+using CICTED.Domain.Infrastucture;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,11 +43,20 @@ namespace CICTED.Controllers
 
         [HttpGet("cadastro")]
         [AllowAnonymous]
-        public IActionResult Cadastrar(string returnURL = null)
+        public async Task<IActionResult> Cadastrar(string returnURL = null)
         {
             ViewData["ReturnURL"] = returnURL;
 
             return View();
+        }
+
+        [HttpPost("cadastro")]
+        public async Task<IActionResult> Cadastrar(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
         }
 
         

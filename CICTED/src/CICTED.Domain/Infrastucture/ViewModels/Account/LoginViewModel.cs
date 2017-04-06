@@ -30,8 +30,5 @@ namespace CICTED.Domain.Infrastucture
         [Required]
         [DataType(DataType.Password)]
         public string ConfirmSenhaCadastro { get; set; }
-
-
-
     }
 }
