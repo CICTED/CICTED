@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.Infrastucture;
 using CICTED.Domain.ViewModels.Account;
 using CICTED.Domain.Infrastucture.Helpers;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,29 +20,50 @@ namespace CICTED.Controllers
     {
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
+        private ILogger _logger;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _logger = logger;
         }
 
         [HttpGet("login")]
         [AllowAnonymous]
         public IActionResult Login(string returnURL = null)
         {
-            LoginViewModel model = new LoginViewModel();
             ViewData["ReturnURL"] = returnURL;
 
             return View();
         }
 
-        //[HttpPost("login")]
-        //public Task<IActionResult> Login()
-        //{
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
 
-        //}
-        
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await _signInManager.PasswordSignInAsync(model.EmailLogin, model.SenhaLogin, model.RememberMe, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                _logger.LogInformation(1, "Usuario logado.");
+
+            }
+
+            else
+            {
+                ModelState.AddModelError("Email", "Usuário ou senha incorreta");
+                return View(model);
+            }
+
+
+            return RedirectToAction("login");
+        }
+
 
 
         [HttpGet("cadastro")]
