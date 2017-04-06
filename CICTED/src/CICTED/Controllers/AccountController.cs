@@ -33,6 +33,11 @@ namespace CICTED.Controllers
         }
 
         [HttpPost("login")]
+        public Task<IActionResult> Login()
+        {
+
+        }
+        
 
 
         [HttpGet("cadastro")]
