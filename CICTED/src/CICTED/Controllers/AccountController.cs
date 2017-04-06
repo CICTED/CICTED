@@ -33,9 +33,10 @@ namespace CICTED.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnURL = null)
         {
+            LoginViewModel model = new LoginViewModel();
             ViewData["ReturnURL"] = returnURL;
 
-            return View();
+            return View(model);
         }
 
         [HttpPost("login")]
