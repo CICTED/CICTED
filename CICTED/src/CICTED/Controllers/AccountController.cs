@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.Infrastucture;
+using CICTED.Domain.ViewModels.Account;
+using CICTED.Domain.Infrastucture.Helpers;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,16 +30,17 @@ namespace CICTED.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnURL = null)
         {
+            LoginViewModel model = new LoginViewModel();
             ViewData["ReturnURL"] = returnURL;
 
             return View();
         }
 
-        [HttpPost("login")]
-        public Task<IActionResult> Login()
-        {
+        //[HttpPost("login")]
+        //public Task<IActionResult> Login()
+        //{
 
-        }
+        //}
         
 
 
@@ -56,6 +59,33 @@ namespace CICTED.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest();
+            }
+
+            if(model.SenhaCadastro != model.ConfirmSenhaCadastro)
+            {
+                ModelState.AddModelError("ConfirmSenhaCadastro", "Senha não correspondente");
+                return View("Cadastrar", model);
+            }
+
+            var user = new ApplicationUser
+            {
+                Email = model.EmailCadastro,
+                NormalizedEmail = model.EmailCadastro.ToUpper(),
+                UserName = model.EmailCadastro,
+                NormalizedUserName = model.EmailCadastro.ToUpper(),
+            };
+            var result = await _userManager.CreateAsync(user, model.SenhaCadastro);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "AUTOR");
+                return View("Login", new LoginViewModel());
+            }
+            else
+            {
+                ViewBag.Errors = result.ConvertToHTML();
+                return View("Login", model);
+
             }
         }
 
