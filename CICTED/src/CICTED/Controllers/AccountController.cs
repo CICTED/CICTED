@@ -48,7 +48,7 @@ namespace CICTED.Controllers
 
             if (result.Succeeded)
             {
-                
+
 
             }
 
@@ -65,11 +65,10 @@ namespace CICTED.Controllers
 
         [HttpGet("registrar")]
         [AllowAnonymous]
-        public async Task<IActionResult> Registrar(string returnURL = null)
+        public IActionResult Registrar()
         {
-            ViewData["ReturnURL"] = returnURL;
-
-            return View();
+            RegistrarViewModel model = new RegistrarViewModel();
+            return View(model);
         }
 
         [HttpPost("registrar")]
@@ -92,7 +91,22 @@ namespace CICTED.Controllers
         [HttpPost("cadastro")]
         public async Task<IActionResult> Cadastrar(LoginViewModel model)
         {
+<<<<<<< HEAD
             try
+=======
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (model.SenhaCadastro != model.ConfirmSenhaCadastro)
+            {
+                ViewBag.ErroSenha = "Senha não correspondente";
+                return View("Login", model);
+            }
+
+            var user = new ApplicationUser
+>>>>>>> cb756e52bcfc8133ba181706146e6377b01a8ba2
             {
                 if (!ModelState.IsValid)
                 {
@@ -135,7 +149,7 @@ namespace CICTED.Controllers
             }
         }
 
-        
+
 
     }
 }
