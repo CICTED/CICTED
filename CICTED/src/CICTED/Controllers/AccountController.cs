@@ -40,10 +40,15 @@ namespace CICTED.Controllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
 
-            if (ModelState.IsValid)
+            try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+         
                 var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
-                   model.SenhaLogin, model.RememberMe, false);
+                   model.SenhaLogin, model.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
@@ -56,11 +61,12 @@ namespace CICTED.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
+            }catch(Exception ex)
+            {
+                BadRequest(ex.Message);
+                return View(model);
             }
-            ModelState.AddModelError("", "Invalid login attempt");
-            return View(model);
-
-
+            
         }
 
         [HttpPost("cadastro")]
