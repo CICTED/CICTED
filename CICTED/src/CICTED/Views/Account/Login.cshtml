@@ -15,15 +15,15 @@
 
     <div class="margin-top-100" style="width: 794px; margin: 0 auto; height: 100%;">
 
-        <form class="form-login float-left margin-left-50">
+        <form class="form-login float-left margin-left-50" asp-contoller="account" asp-action="login">
             <h1>Login</h1>
             <div class="row margin-top-10" style="height:30px !important; ">
                 <span class="fa fa-user float-left font-size-15"></span>
-                <input class="float-right margin-left-20" placeholder="Email" asp-for="EmailLogin" value="@Model.EmailLogin" />
+                <input class="float-right margin-left-20" placeholder="Email" name="EmailLogin" value="@Model.EmailLogin" />
             </div>
             <div class="row margin-top-20" style="height:30px !important;">
                 <span class="fa fa-key float-left font-size-15"></span>
-                <input class="float-right margin-left-10" placeholder="Senha" value="@Model.SenhaLogin" asp-for="SenhaLogin" />
+                <input class="float-right margin-left-10" placeholder="Senha" value="@Model.SenhaLogin" name="SenhaLogin" type="password" />
             </div>
             <div class="row margin-top-20 ">
                 <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
@@ -57,6 +57,21 @@
                
                 <div class="row margin-top-10 " style="height:30px !important; ">
                     <span class="fa fa-user float-left font-size-15"></span>
+<<<<<<< HEAD
+                    <input class="float-right margin-left-20" placeholder="Email" value="@Model.EmailCadastro" name="EmailCadastro" />
+                </div>
+                <div class="row margin-top-20 " style="height:30px !important;">
+                    <span class="fa fa-key float-left font-size-15"></span>
+                    <input type="password" class="float-right margin-left-10" placeholder="Senha" value="@Model.SenhaCadastro" name="SenhaCadastro" />
+                </div>
+                <div class="row margin-top-20 " style="height:30px !important;">
+                    <span class="fa fa-check float-left font-size-15"></span>
+                    <input type="password" class="float-right margin-left-10" placeholder="Confirme sua senha" value="@Model.ConfirmSenhaCadastro" name="ConfirmSenhaCadastro" />                    
+                </div>
+                @if(ViewBag.ErroSenha != null) {
+                <div style="margin-bottom: -10px" class="alert alert-danger margin-left-40" role="alert">
+                    <label style="color:red">Senha não correspondente</label>
+=======
                     <input class="float-right margin-left-20" placeholder="Email" value="@Model.EmailCadastro" asp-for="EmailCadastro" required/>
                 </div>
                 <div class="row margin-top-20 " style="height:30px !important;">
@@ -66,6 +81,7 @@
                 <div class="row margin-top-20 " style="height:30px !important;">
                     <span class="fa fa-check float-left font-size-15"></span>
                     <input type="password" class="float-right margin-left-10" placeholder="Confirme sua senha" value="@Model.ConfirmSenhaCadastro" asp-for="ConfirmSenhaCadastro" required />
+>>>>>>> 67bcf3fbecfe02476ef538aaadac974c03746c2b
                 </div>
                 @if (ViewBag.ErroSenha != null)
                 {
