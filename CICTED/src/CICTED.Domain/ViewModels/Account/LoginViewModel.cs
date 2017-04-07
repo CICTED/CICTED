@@ -17,6 +17,8 @@ namespace CICTED.Domain.ViewModels.Account
 
         public bool RememberMe { get; set; }
 
+        public string ReturnUrl { get; set; }
+
         [EmailAddress]
         public string EmailCadastro { get; set; }
 

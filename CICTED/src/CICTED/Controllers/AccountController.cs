@@ -29,9 +29,9 @@ namespace CICTED.Controllers
 
         [HttpGet("login")]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = " ")
         {
-            LoginViewModel model = new LoginViewModel();
+            LoginViewModel model = new LoginViewModel {ReturnUrl = returnUrl};
 
             return View(model);
         }
@@ -40,53 +40,27 @@ namespace CICTED.Controllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
+                   model.SenhaLogin, model.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
             }
-            var result = await _signInManager.PasswordSignInAsync(model.EmailLogin, model.SenhaLogin, model.RememberMe, lockoutOnFailure: false);
-
-            if (result.Succeeded)
-            {
-                
-
-            }
-
-            else
-            {
-                ModelState.AddModelError("Email", "Usuário ou senha incorreta");
-                return View(model);
-            }
+            ModelState.AddModelError("", "Invalid login attempt");
+            return View(model);
 
 
-            return RedirectToAction("login");
-        }
-
-
-        [HttpGet("registrar")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Registrar(string returnURL = null)
-        {
-            ViewData["ReturnURL"] = returnURL;
-
-            return View();
-        }
-
-        [HttpPost("registrar")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Registrar(RegistrarViewModel model)
-        {
-            return View("Registrar", model);
-        }
-
-
-        [HttpGet("cadastro")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Cadastrar(string returnURL = null)
-        {
-            ViewData["ReturnURL"] = returnURL;
-
-            return View();
         }
 
         [HttpPost("cadastro")]
@@ -137,7 +111,21 @@ namespace CICTED.Controllers
             }
         }
 
-        
 
+        [HttpGet("registrar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Registrar(string returnURL = null)
+        {
+            ViewData["ReturnURL"] = returnURL;
+
+            return View();
+        }
+
+        [HttpPost("registrar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Registrar(RegistrarViewModel model)
+        {
+            return View("Registrar", model);
+        }                
     }
 }
