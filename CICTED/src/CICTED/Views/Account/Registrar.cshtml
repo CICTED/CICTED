@@ -1,0 +1,139 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_CICTED";
+}
+
+<title>Registro - CICTED</title>
+
+
+<form class="form-cadastro !important">
+    <div style="margin-left:-15px">
+        <h1>Registrar</h1>
+    </div>
+    <div class="margin-top-10 row">
+        <label>Nome:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Sobrenome:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>CPF:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Outros Documentos(RG, Passaporte, Etc):</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <div class="float-left">
+            <label>Data de Nascimento:</label>
+            <input type="date" class="form-control" />
+        </div>
+
+        <div class="float-right">
+            <label>Gênero: </label>
+            <select class="form-control">
+                <option value="-1">Selecione um genero</option>
+                <option value="0">Masculino</option>
+                <option value="1">Feminino</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Endereço:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Bairro:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>CEP:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <div class="float-left">
+            <label>Estado:</label>
+            <select class="form-control">
+                <option value="-1">Selecione seu estado</option>
+            </select>
+        </div>
+
+
+        <div class="float-right">
+            <label>Cidade: </label>
+            <select class="form-control">
+                <option value="-1">Selecione sua cidade</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Telefone:</label>
+        <input type="tel" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Celular:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Instituição:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Você está cursando?</label>
+        <input type="radio" value="0" />Não
+        <input type="radio" value="1" />Sim
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Curso:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Você é bolsista?</label>
+        <input type="radio" value="0" />Não
+        <input type="radio" value="1" />Sim
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Agência financiadora*:</label>
+        <select class="form-control">
+            <option value="-1">Selecione a agência financiadora</option>
+        </select>
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Email Principal:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Email Secundario:</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="margin-top-10" align="center">
+        <button type="submit" class="btn btn-primary">Voltar</button>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </div>
+    <div class="row margin-top-10">
+        Já está cadastrado? <a asp-controller="account" asp-action="login" class="links hover-from-center">Clique aqui para entrar.</a>
+    </div>
+</form>
