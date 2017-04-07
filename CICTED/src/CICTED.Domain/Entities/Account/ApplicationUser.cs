@@ -42,7 +42,7 @@ namespace CICTED.Domain.Entities.Account
 
         public int CursosId { get; set; }
 
-        public long InstituicaoId { get; set; }
+        public int InstituicaoId { get; set; }
 
         public long EnderecoId { get; set; }
     }
