@@ -84,7 +84,7 @@ namespace CICTED.Controllers
             if(model.SenhaCadastro != model.ConfirmSenhaCadastro)
             {
                 ModelState.AddModelError("ConfirmSenhaCadastro", "Senha não correspondente");
-                return View("Cadastrar", model);
+                return View("Login", model);
             }
 
             var user = new ApplicationUser

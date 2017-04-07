@@ -366,7 +366,7 @@ textarea {
     font-size: 12px;
 }
 
-    .form-login input {
+    .form-login input{
         border: 0;
         height: 30px;
         width: 260px;
@@ -385,6 +385,11 @@ textarea {
     .form-login h1 {
     font-weight: 300;
 }
+
+    input[type=checkbox]{
+        width: auto !important;
+        height: auto !important;
+    }
 
 .form-cadastro {
     width: 420px; 
