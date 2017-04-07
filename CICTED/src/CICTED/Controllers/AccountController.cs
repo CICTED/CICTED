@@ -92,7 +92,6 @@ namespace CICTED.Controllers
         [HttpPost("cadastro")]
         public async Task<IActionResult> Cadastrar(LoginViewModel model)
         {
-<<<<<<< HEAD
             try
             {
                 if (!ModelState.IsValid)
@@ -133,38 +132,6 @@ namespace CICTED.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-
-=======
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            if(model.SenhaCadastro != model.ConfirmSenhaCadastro)
-            {
-                ViewBag.ErroSenha = "Senha não correspondente";
-                return View("Login", model);
-            }
-
-            var user = new ApplicationUser
-            {
-                Email = model.EmailCadastro,
-                NormalizedEmail = model.EmailCadastro.ToUpper(),
-                UserName = model.EmailCadastro,
-                NormalizedUserName = model.EmailCadastro.ToUpper(),
-            };
-            var result = await _userManager.CreateAsync(user, model.SenhaCadastro);
-
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, "AUTOR");
-                return View("Login", new LoginViewModel());
->>>>>>> 4a56ea9a552fa77d51f323339426286cc24ba258
-            }
-            else
-            {
-                ViewBag.Errors = result.ConvertToHTML();
-                return View("Login", model);
 
             }
         }
