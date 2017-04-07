@@ -512,3 +512,9 @@ label {
     margin-bottom: 15px;
     overflow: hidden;
 }
+
+.message-error{
+    color: red !important;
+    margin-bottom:-10px !important;
+    margin-top:-10px !important;
+}

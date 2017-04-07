@@ -39,19 +39,22 @@
 
 
         <div class="float-left margin-left-10">
+
+
+
             <form style="padding:0px 20px 0px 20px; height: 255px !important" class="form-login float-left margin-left-50" method="post" asp-controller="account" asp-action="cadastrar">
                 <h1>Ainda não tem cadastro?</h1>
 
                 @if (ViewBag.Errors != null)
                 {
-                    <div class="alert alert-danger" role="alert">
+                    <div style="margin-left:-35px" class="message-error">
                         @Html.Raw(ViewBag.Errors)
                     </div>
                 }
 
                 @if (ViewBag.Cadastrado != null)
                 {
-                    <div style="margin-bottom: -10px" class="alert alert-danger margin-left-40" role="alert">
+                    <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
                         <label style="color:green">Cadastrado com sucesso</label>
                     </div>
                 }
@@ -70,11 +73,10 @@
                 </div>
                 @if (ViewBag.ErroSenha != null)
                 {
-                    <div style="margin-bottom: -10px" class="alert alert-danger margin-left-40" role="alert">
+                    <div class="message-error alert alert-danger margin-left-40" role="alert">
                         <label style="color:red">Senha não correspondente</label>
                     </div>
                 }
-
 
                 <button type="submit" class="btn btn-primary float-center margin-top-20" style="width: 100%">Cadastrar</button>
 

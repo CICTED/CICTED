@@ -112,7 +112,9 @@ namespace CICTED.Controllers
                     UserName = model.EmailCadastro,
                     NormalizedUserName = model.EmailCadastro.ToUpper(),
                     DataCadastro = DateTime.Now,
-                    CursosId = 1
+                    CursosId = 1,
+                    InstituicaoId = 1,
+                    EnderecoId = 1
                 };
 
                 var result = await _userManager.CreateAsync(user, model.SenhaCadastro);
