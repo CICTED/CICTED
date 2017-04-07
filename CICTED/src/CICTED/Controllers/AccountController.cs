@@ -83,7 +83,7 @@ namespace CICTED.Controllers
 
             if(model.SenhaCadastro != model.ConfirmSenhaCadastro)
             {
-                ModelState.AddModelError("ConfirmSenhaCadastro", "Senha não correspondente");
+                ViewBag.ErroSenha = "Senha não correspondente";
                 return View("Login", model);
             }
 
