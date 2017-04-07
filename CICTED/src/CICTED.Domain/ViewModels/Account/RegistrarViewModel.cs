@@ -4,9 +4,6 @@ using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Entities.Trabalho;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CICTED.Domain.ViewModels.Account
 {
@@ -30,33 +27,33 @@ namespace CICTED.Domain.ViewModels.Account
 
         public string CEP { get; set; }
 
-        //public int EstadoID { get; set; }
+        public int EstadoID { get; set; }
 
-        //public List<Estado> Estado { get; set; }
+        public List<Estado> Estado { get; set; }
 
-        //public int CidadeId { get; set; }
+        public int CidadeId { get; set; }
 
-        //public List<Cidade> Cidade { get; set; }
+        public List<Cidade> Cidade { get; set; }
 
         public string Telefone { get; set; }
 
         public string Celular { get; set; }
 
-        //public int InstituicaoId { get; set; }
+        public int InstituicaoId { get; set; }
 
-        //public List<Instituicao> Instituicao { get; set; }
+        public List<Instituicao> Instituicao { get; set; }
 
         public bool Estudante { get; set; }
 
-        //public int CursoId { get; set; }
+        public int CursoId { get; set; }
 
-        //public List<Cursos> Curso { get; set; }
+        public List<Cursos> Curso { get; set; }
 
         public bool Bolsista { get; set; }
 
-        //public int AgenciaId { get; set; }
+        public int AgenciaId { get; set; }
 
-        //public List<AgenciaFinanciadora> Agencia { get; set; }
+        public List<AgenciaFinanciadora> Agencia { get; set; }
 
         public string EmailPrincipal { get; set; }
 

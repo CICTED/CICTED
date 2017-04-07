@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Authorization;
-using CICTED.Domain.Infrastucture;
 using CICTED.Domain.ViewModels.Account;
 using CICTED.Domain.Infrastucture.Helpers;
-using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -122,7 +118,7 @@ namespace CICTED.Controllers
 
         [HttpGet("registrar")]
         [AllowAnonymous]
-        public async Task<IActionResult> Registrar(string returnURL = null)
+        public IActionResult Registrar(string returnURL = null)
         {
             ViewData["ReturnURL"] = returnURL;
 
