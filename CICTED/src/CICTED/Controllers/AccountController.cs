@@ -63,6 +63,22 @@ namespace CICTED.Controllers
         }
 
 
+        [HttpGet("registrar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Registrar(string returnURL = null)
+        {
+            ViewData["ReturnURL"] = returnURL;
+
+            return View();
+        }
+
+        [HttpPost("registrar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Registrar(RegistrarViewModel model)
+        {
+            return View("Registrar", model);
+        }
+
 
         [HttpGet("cadastro")]
         [AllowAnonymous]
