@@ -92,36 +92,46 @@ namespace CICTED.Controllers
         [HttpPost("cadastro")]
         public async Task<IActionResult> Cadastrar(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest();
-            }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
 
-            if(model.SenhaCadastro != model.ConfirmSenhaCadastro)
-            {
-                ViewBag.ErroSenha = "Senha não correspondente";
-                return View("Login", model);
-            }
+                if (model.SenhaCadastro != model.ConfirmSenhaCadastro)
+                {
+                    ViewBag.ErroSenha = "Senha não correspondente";
+                    return View("Login", model);
+                }
 
-            var user = new ApplicationUser
-            {
-                Email = model.EmailCadastro,
-                NormalizedEmail = model.EmailCadastro.ToUpper(),
-                UserName = model.EmailCadastro,
-                NormalizedUserName = model.EmailCadastro.ToUpper(),
-            };
-            var result = await _userManager.CreateAsync(user, model.SenhaCadastro);
+                var user = new ApplicationUser
+                {
+                    Email = model.EmailCadastro,
+                    NormalizedEmail = model.EmailCadastro.ToUpper(),
+                    UserName = model.EmailCadastro,
+                    NormalizedUserName = model.EmailCadastro.ToUpper(),
+                    DataCadastro = DateTime.Now
+                };
 
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, "AUTOR");
-                return View("Login", new LoginViewModel());
-            }
-            else
-            {
-                ViewBag.Errors = result.ConvertToHTML();
-                return View("Login", model);
+                var result = await _userManager.CreateAsync(user, model.SenhaCadastro);
 
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "AUTOR");
+                    ViewBag.Cadastrado = "cadastrado";
+                    return View("Login", new LoginViewModel());
+                }
+                else
+                {
+                    ViewBag.Errors = result.ConvertToHTML();
+                    return View("Login", model);
+
+                }
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+                
             }
         }
 

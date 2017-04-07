@@ -22,12 +22,10 @@ namespace CICTED.Domain.Entities.Account
         [Required]
         public string CPF { get; set; }
 
-        [Required]
         public DateTime DataCadastro { get; set; }
         
         public string Documento { get; set; }
 
-        [Required]
         public DateTime DataNascimento { get; set; }
         
         [Required]

@@ -41,26 +41,41 @@
         <div class="float-left margin-left-10">
             <form style="padding:0px 20px 0px 20px; height: 255px !important" class="form-login float-left margin-left-50" method="post" asp-controller="account" asp-action="cadastrar">
                 <h1>Ainda não tem cadastro?</h1>
+
+                @if (ViewBag.Errors != null) { 
+                    <div class="alert alert-danger" role="alert">
+                        @Html.Raw(ViewBag.Errors)
+                    </div>
+                }
+
+                @if (ViewBag.Cadastrado != null)
+                {
+                    <div style="margin-bottom: -10px" class="alert alert-danger margin-left-40" role="alert">
+                        <label style="color:green">Cadastrado com sucesso</label>
+                    </div>
+                }
+               
                 <div class="row margin-top-10 " style="height:30px !important; ">
                     <span class="fa fa-user float-left font-size-15"></span>
-                    <input class="float-right margin-left-20" placeholder="Email" value="@Model.EmailCadastro" asp-for="EmailCadastro" />
+                    <input class="float-right margin-left-20" placeholder="Email" value="@Model.EmailCadastro" asp-for="EmailCadastro" required/>
                 </div>
                 <div class="row margin-top-20 " style="height:30px !important;">
                     <span class="fa fa-key float-left font-size-15"></span>
-                    <input type="password" class="float-right margin-left-10" placeholder="Senha" value="@Model.SenhaCadastro" asp-for="SenhaCadastro" />
+                    <input type="password" class="float-right margin-left-10" placeholder="Senha" value="@Model.SenhaCadastro" asp-for="SenhaCadastro" required />
                 </div>
                 <div class="row margin-top-20 " style="height:30px !important;">
                     <span class="fa fa-check float-left font-size-15"></span>
-                    <input type="password" class="float-right margin-left-10" placeholder="Confirme sua senha" value="@Model.ConfirmSenhaCadastro" asp-for="ConfirmSenhaCadastro" />                    
+                    <input type="password" class="float-right margin-left-10" placeholder="Confirme sua senha" value="@Model.ConfirmSenhaCadastro" asp-for="ConfirmSenhaCadastro" required />
                 </div>
-                @if(ViewBag.ErroSenha != null) {
-                <div style="margin-bottom: -10px" class="alert alert-danger margin-left-40" role="alert">
-                    <label style="color:red">Senha não correspondente</label>
-                </div>
+                @if (ViewBag.ErroSenha != null)
+                {
+                    <div style="margin-bottom: -10px" class="alert alert-danger margin-left-40" role="alert">
+                        <label style="color:red">Senha não correspondente</label>
+                    </div>
                 }
 
-                    <button type="submit" class="btn btn-primary float-center margin-top-20" style="width: 100%">Cadastrar</button>
-                
+                <button type="submit" class="btn btn-primary float-center margin-top-20" style="width: 100%">Cadastrar</button>
+
             </form>
         </div>
     </div>
