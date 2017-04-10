@@ -11,8 +11,6 @@ using CICTED.Domain.ViewModels.Account;
 using CICTED.Domain.Infrastucture.Helpers;
 using Microsoft.Extensions.Logging;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CICTED.Controllers
 {
     [Route("account")]
@@ -31,7 +29,7 @@ namespace CICTED.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = " ")
         {
-            LoginViewModel model = new LoginViewModel {ReturnUrl = returnUrl};
+            LoginViewModel model = new LoginViewModel { ReturnUrl = returnUrl };
 
             return View(model);
         }
@@ -46,7 +44,7 @@ namespace CICTED.Controllers
                 {
                     return BadRequest();
                 }
-         
+
                 var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
                    model.SenhaLogin, model.RememberMe, lockoutOnFailure: false);
 
@@ -60,17 +58,19 @@ namespace CICTED.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                }else
+                }
+                else
                 {
                     ModelState.AddModelError("", "Invalid login attempt");
                     return View(model);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
 
-            
+
 
 
         }
@@ -128,18 +128,63 @@ namespace CICTED.Controllers
 
         [HttpGet("registrar")]
         [AllowAnonymous]
-        public async Task<IActionResult> Registrar(string returnURL = null)
+        public async Task<IActionResult> Registrar()
         {
-            ViewData["ReturnURL"] = returnURL;
+            RegistrarViewModel model = new RegistrarViewModel();
 
-            return View();
+            return View(model);
         }
 
         [HttpPost("registrar")]
         [AllowAnonymous]
         public async Task<IActionResult> Registrar(RegistrarViewModel model)
         {
-            return View("Registrar", model);
-        }                
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                var user = new ApplicationUser()
+                {
+                    Nome = model.Nome,
+                    Sobrenome = model.Sobrenome,
+                    EmailSecundario = model.EmailSecundario,
+                    CPF = model.CPF,
+                    Documento = model.Documento,
+                    DataNascimento = model.DataNascimento,
+                    Genero = model.Genero,
+                    Celular = model.Celular,
+                    Estudante = model.Estudante,
+                    Bolsista = model.Bolsista,
+                    CursosId = model.CursoId,
+                    InstituicaoId = model.InstituicaoId,
+                    EnderecoId = model.EnderecoId
+                };
+
+
+                var result = await _userManager.CreateAsync(user, model.CPF);
+
+                if (result.Succeeded)
+                {
+                    model.ReturnMessage = "Alterações salvas com sucesso";
+                    return View("Login", new LoginViewModel());
+                }
+
+                else
+                {
+                    ViewBag.Errors = result.ConvertToHTML();
+                    return View("Register", model);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
     }
 }

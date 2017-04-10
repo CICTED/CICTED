@@ -17,11 +17,13 @@ namespace CICTED.Domain.ViewModels.Account
 
         public string Documento { get; set; }
 
-        public DateTime Birthday { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         public bool Genero { get; set; }
 
         public string Endereco { get; set; }
+
+        public int EnderecoId { get; set; }
 
         public string Bairro { get; set; }
 
