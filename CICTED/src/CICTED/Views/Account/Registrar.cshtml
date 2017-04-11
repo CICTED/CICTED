@@ -6,7 +6,7 @@
 <title>Registro - CICTED</title>
 
 
-<form class="form-cadastro !important">
+<form class="form-cadastro !important" asp-controller="account" asp-action="registrar/usuario" method="post"> 
     <div style="margin-left:-15px">
         <h1>Registrar</h1>
     </div>
@@ -38,10 +38,10 @@
 
         <div class="float-right">
             <label>Gênero: </label>
-            <select class="form-control" >
+            <select class="form-control" asp-for="Genero" value="@Model.Genero">
                 <option value="-1">Selecione um genero</option>
-                <option value="0">Masculino</option>
-                <option value="1">Feminino</option>
+                <option value="false">Masculino</option>
+                <option value="true">Feminino</option>
             </select>
         </div>
     </div>
@@ -97,8 +97,8 @@
 
     <div class="margin-top-10 row">
         <label>Você está cursando?</label>
-        <input type="radio" value="0" />Não
-        <input type="radio" value="1" />Sim
+        <input type="radio" value="false" asp-for="Estudante"/>Não
+        <input type="radio" value="true" asp-for="Estudante"/>Sim
     </div>
 
     <div class="margin-top-10 row">
@@ -108,8 +108,8 @@
 
     <div class="margin-top-10 row">
         <label>Você é bolsista?</label>
-        <input type="radio" value="0" />Não
-        <input type="radio" value="1" />Sim
+        <input type="radio" value="false" asp-for="Bolsista"/>Não
+        <input type="radio" value="true" asp-for="Bolsista"/>Sim
     </div>
 
     <div class="margin-top-10 row">
@@ -127,6 +127,11 @@
     <div class="margin-top-10 row">
         <label>Email Secundario:</label>
         <input type="text" class="form-control" asp-for="EmailSecundario" value="@Model.EmailSecundario"/>
+    </div>
+
+    <div class="margin-top-10 row">
+        <label>Senha:</label>
+        <input type="password" class="form-control" asp-for="Senha" value="@Model.Senha" />
     </div>
 
     <div class="margin-top-10" align="center">

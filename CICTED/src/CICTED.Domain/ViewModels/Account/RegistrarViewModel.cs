@@ -46,20 +46,19 @@ namespace CICTED.Domain.ViewModels.Account
         public List<Instituicao> Instituicao { get; set; }
 
         public bool Estudante { get; set; }
-
-        public int CursoId { get; set; }
+        
 
         public List<Cursos> Curso { get; set; }
 
         public bool Bolsista { get; set; }
-
-        public int AgenciaId { get; set; }
-
+        
         public List<AgenciaFinanciadora> Agencia { get; set; }
 
         public string EmailPrincipal { get; set; }
 
         public string EmailSecundario { get; set; }
+
+        public string Senha { get; set; }
 
         public string ReturnMessage { get; set; }
     }

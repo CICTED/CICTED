@@ -128,43 +128,38 @@ namespace CICTED.Controllers
 
         [HttpGet("registrar")]
         [AllowAnonymous]
-        public async Task<IActionResult> Registrar()
+        public IActionResult Registrar()
         {
             RegistrarViewModel model = new RegistrarViewModel();
 
             return View(model);
         }
 
-        [HttpPost("registrar")]
+        [HttpPost("registrar/usuario")]
         [AllowAnonymous]
-        public async Task<IActionResult> Registrar(RegistrarViewModel model)
+        public async Task<IActionResult> RegistrarUsuario(RegistrarViewModel model)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
 
                 var user = new ApplicationUser()
                 {
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
+                    Email = model.EmailPrincipal,
                     EmailSecundario = model.EmailSecundario,
+                    UserName = model.EmailPrincipal,
                     CPF = model.CPF,
                     Documento = model.Documento,
                     DataNascimento = model.DataNascimento,
                     Genero = model.Genero,
                     Celular = model.Celular,
-                    Estudante = model.Estudante,
                     Bolsista = model.Bolsista,
-                    CursosId = model.CursoId,
-                    InstituicaoId = model.InstituicaoId,
-                    EnderecoId = model.EnderecoId
+                    Estudante = model.Estudante                    
                 };
 
 
-                var result = await _userManager.CreateAsync(user, model.CPF);
+                var result = await _userManager.CreateAsync(user, model.Senha);
 
                 if (result.Succeeded)
                 {
