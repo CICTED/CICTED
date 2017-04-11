@@ -64,16 +64,33 @@
     <div class="margin-top-10 row">
         <div class="float-left">
             <label>Estado:</label>
-            <select class="form-control">
+            <select class="form-control" id="dropEstados" asp-for="Estado" value="@Model.EstadoID">
                 <option value="-1">Selecione seu estado</option>
+                @foreach (var estado in Model.Estados)
+                {
+                    if (estado.Id == Model.Estado)
+                    {
+                        <option value="@estado.Id" selected>@estado.Sigla</option>
+
+                    }
+                    else
+                    {
+                        <option value="@estado.Id">@estado.Sigla</option>
+                    }
+                }
             </select>
         </div>
 
 
         <div class="float-right">
             <label>Cidade: </label>
-            <select class="form-control">
+            <select class="form-control" id="dropCidade" asp-for="CidadeNome" value="@Model.CidadeId">
                 <option value="-1">Selecione sua cidade</option>
+                @if (Model.CidadeId > 0)
+                {
+                    <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
+
+                }
             </select>
         </div>
     </div>
@@ -142,3 +159,8 @@
         Já está cadastrado? <a asp-controller="account" asp-action="login" class="links hover-from-center">Clique aqui para entrar.</a>
     </div>
 </form>
+
+<script type="text/javascript">
+    $('#dropEstado').states($('#dropCidade'));
+</script>
+

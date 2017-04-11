@@ -31,11 +31,15 @@ namespace CICTED.Domain.ViewModels.Account
 
         public int EstadoID { get; set; }
 
-        public List<Estado> Estado { get; set; }
+        public int Estado { get; set; }
+
+        public List<Estado> Estados { get; set; }
 
         public int CidadeId { get; set; }
 
-        public List<Cidade> Cidade { get; set; }
+        public string CidadeNome { get; set; }
+
+        public List<Cidade> Cidades { get; set; }
 
         public string Telefone { get; set; }
 
