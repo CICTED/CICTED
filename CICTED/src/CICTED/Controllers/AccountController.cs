@@ -10,6 +10,7 @@ using CICTED.Domain.Infrastucture;
 using CICTED.Domain.ViewModels.Account;
 using CICTED.Domain.Infrastucture.Helpers;
 using Microsoft.Extensions.Logging;
+using CICTED.Domain.Repository.Interfaces;
 using MimeKit;
 using MailKit.Net.Smtp;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
@@ -22,6 +23,7 @@ namespace CICTED.Controllers
         private IEmailServices _emailServices;
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
+        private ILocalizacaoRepository _localizacaoRepository;
 
         public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices)
         {
@@ -178,9 +180,12 @@ namespace CICTED.Controllers
         
         [HttpGet("registrar")]
         [AllowAnonymous]
-        public IActionResult Registrar()
+        public async Task<IActionResult> Registrar()
         {
             RegistrarViewModel model = new RegistrarViewModel();
+
+            var estados = await _localizacaoRepository.GetEstado();
+            model.Estados = estados;
 
             return View(model);
         }
