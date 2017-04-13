@@ -144,31 +144,38 @@ namespace CICTED.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ConfirmEmail(string username, string code)
+        public async Task<IActionResult> ConfirmEmail(string user, string code)
         {
             try
             {
-                // validacao
-
-                var user = await _userManager.FindByNameAsync(username);
-                var result = await _userManager.ConfirmEmailAsync(user, code);
-
-                if(result.Succeeded)
+                if (user != null && code != null)
                 {
 
-                }
-                else
-                {
+                    var findUser = await _userManager.FindByNameAsync(user);
+                    var result = await _userManager.ConfirmEmailAsync(findUser, code);
 
+
+                    if (result.Succeeded)
+                    {
+                        return View();
+
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }else
+                {
+                    return BadRequest();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                return BadRequest(ex.Message);
             }
         }
 
-
+        
         [HttpGet("registrar")]
         [AllowAnonymous]
         public IActionResult Registrar()
