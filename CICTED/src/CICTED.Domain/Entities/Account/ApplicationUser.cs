@@ -45,5 +45,6 @@ namespace CICTED.Domain.Entities.Account
         public int InstituicaoId { get; set; }
 
         public long EnderecoId { get; set; }
+        
     }
 }

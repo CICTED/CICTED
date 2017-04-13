@@ -17,11 +17,13 @@ namespace CICTED.Domain.ViewModels.Account
 
         public string Documento { get; set; }
 
-        public DateTime Birthday { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         public bool Genero { get; set; }
 
         public string Endereco { get; set; }
+
+        public int EnderecoId { get; set; }
 
         public string Bairro { get; set; }
 
@@ -29,11 +31,15 @@ namespace CICTED.Domain.ViewModels.Account
 
         public int EstadoID { get; set; }
 
-        public List<Estado> Estado { get; set; }
+        public int Estado { get; set; }
+
+        public List<Estado> Estados { get; set; }
 
         public int CidadeId { get; set; }
 
-        public List<Cidade> Cidade { get; set; }
+        public string CidadeNome { get; set; }
+
+        public List<Cidade> Cidades { get; set; }
 
         public string Telefone { get; set; }
 
@@ -44,20 +50,19 @@ namespace CICTED.Domain.ViewModels.Account
         public List<Instituicao> Instituicao { get; set; }
 
         public bool Estudante { get; set; }
-
-        public int CursoId { get; set; }
+        
 
         public List<Cursos> Curso { get; set; }
 
         public bool Bolsista { get; set; }
-
-        public int AgenciaId { get; set; }
-
+        
         public List<AgenciaFinanciadora> Agencia { get; set; }
 
         public string EmailPrincipal { get; set; }
 
         public string EmailSecundario { get; set; }
+
+        public string Senha { get; set; }
 
         public string ReturnMessage { get; set; }
     }
