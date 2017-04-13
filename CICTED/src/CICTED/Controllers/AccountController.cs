@@ -10,13 +10,10 @@ using CICTED.Domain.Infrastucture;
 using CICTED.Domain.ViewModels.Account;
 using CICTED.Domain.Infrastucture.Helpers;
 using Microsoft.Extensions.Logging;
-<<<<<<< HEAD
 using CICTED.Domain.Repository.Interfaces;
-=======
 using MimeKit;
 using MailKit.Net.Smtp;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
->>>>>>> caf3e4a063541e23e20bb012874f5edf8815f57c
 
 namespace CICTED.Controllers
 {
