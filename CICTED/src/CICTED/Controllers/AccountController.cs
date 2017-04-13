@@ -44,7 +44,6 @@ namespace CICTED.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-
             try
             {
                 if (!ModelState.IsValid)
@@ -76,10 +75,6 @@ namespace CICTED.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
-
-
         }
 
         [HttpPost("cadastro")]
@@ -126,7 +121,7 @@ namespace CICTED.Controllers
                     var url = $"http://localhost:54134{callbackUrl}";
 
                     //email
-                    var email = await _emailServices.EnviarEmail(user.Email, url);                   
+                    var email = await _emailServices.EnviarEmail(user.Email, url);
 
                     ViewBag.Cadastrado = "cadastrado";
                     return View("Login", new LoginViewModel());
@@ -134,14 +129,12 @@ namespace CICTED.Controllers
                 else
                 {
                     ViewBag.Errors = result.ConvertToHTML();
-                    return View("Login", model);
-
+                    return View("Cadastrar", new RegistrarViewModel());
                 }
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-
             }
         }
 
@@ -166,7 +159,8 @@ namespace CICTED.Controllers
                     {
                         return BadRequest();
                     }
-                }else
+                }
+                else
                 {
                     return BadRequest();
                 }
@@ -177,22 +171,30 @@ namespace CICTED.Controllers
             }
         }
 
-        
+
+
         [HttpGet("registrar")]
         [AllowAnonymous]
         public async Task<IActionResult> Registrar()
         {
-            RegistrarViewModel model = new RegistrarViewModel();
+            try
+            {
+                RegistrarViewModel model = new RegistrarViewModel();
 
-            var estados = await _localizacaoRepository.GetEstado();
-            model.Estados = estados;
+                var estados = await _localizacaoRepository.GetEstado();
+                model.Estados = estados;
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPost("registrar/usuario")]
+        [HttpPost("registrar")]
         [AllowAnonymous]
-        public async Task<IActionResult> RegistrarUsuario(RegistrarViewModel model)
+        public async Task<IActionResult> Registrar(RegistrarViewModel model)
         {
             try
             {
@@ -210,7 +212,7 @@ namespace CICTED.Controllers
                     Genero = model.Genero,
                     Celular = model.Celular,
                     Bolsista = model.Bolsista,
-                    Estudante = model.Estudante                    
+                    Estudante = model.Estudante
                 };
 
 
