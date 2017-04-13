@@ -12,6 +12,8 @@ using CICTED.Domain.Infrastucture.Contexts;
 using Microsoft.EntityFrameworkCore;
 using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using CICTED.Domain.Infrastucture.Services.Interfaces;
+using CICTED.Domain.Infrastucture.Services;
 
 namespace CICTED
 {
@@ -56,7 +58,8 @@ namespace CICTED
             {
                 myOptions.ConnectionString = Configuration["ConnectionString"];
             });
-            
+
+            services.AddTransient<IEmailServices, EmailServices>();
 
             services.AddMvc();
         }

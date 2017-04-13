@@ -10,19 +10,27 @@ using CICTED.Domain.Infrastucture;
 using CICTED.Domain.ViewModels.Account;
 using CICTED.Domain.Infrastucture.Helpers;
 using Microsoft.Extensions.Logging;
+<<<<<<< HEAD
 using CICTED.Domain.Repository.Interfaces;
+=======
+using MimeKit;
+using MailKit.Net.Smtp;
+using CICTED.Domain.Infrastucture.Services.Interfaces;
+>>>>>>> caf3e4a063541e23e20bb012874f5edf8815f57c
 
 namespace CICTED.Controllers
 {
     [Route("account")]
     public class AccountController : Controller
     {
+        private IEmailServices _emailServices;
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
         private ILocalizacaoRepository _localizacaoRepository;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices)
         {
+            _emailServices = emailServices;
             _signInManager = signInManager;
             _userManager = userManager;
         }
@@ -110,6 +118,19 @@ namespace CICTED.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "AUTOR");
+
+
+                    //link
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(
+                       "ConfirmEmail", "Account",
+                       new { user = user.UserName, code = code });
+
+                    var url = $"http://localhost:54134{callbackUrl}";
+
+                    //email
+                    var email = await _emailServices.EnviarEmail(user.Email, url);                   
+
                     ViewBag.Cadastrado = "cadastrado";
                     return View("Login", new LoginViewModel());
                 }
@@ -123,6 +144,31 @@ namespace CICTED.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string username, string code)
+        {
+            try
+            {
+                // validacao
+
+                var user = await _userManager.FindByNameAsync(username);
+                var result = await _userManager.ConfirmEmailAsync(user, code);
+
+                if(result.Succeeded)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            catch(Exception ex)
+            {
 
             }
         }
