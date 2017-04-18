@@ -79,7 +79,8 @@ namespace CICTED.Controllers
 
                             ViewBag.EmailNaoConfirmado = true;
                             return View("Login", new LoginViewModel());
-                        }else
+                        }
+                        else
                         {
                             return RedirectToAction("Index", "Home");
                         }
@@ -206,7 +207,6 @@ namespace CICTED.Controllers
 
                 var estados = await _localizacaoServices.GetEstado();
                 model.Estados = estados;
-
                 return View(model);
             }
             catch (Exception ex)
@@ -235,7 +235,7 @@ namespace CICTED.Controllers
                     Genero = model.Genero,
                     Celular = model.Celular,
                     Bolsista = model.Bolsista,
-                    Estudante = model.Estudante 
+                    Estudante = model.Estudante
                 };
 
 
