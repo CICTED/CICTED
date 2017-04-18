@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CICTED.Domain.Repository.Interfaces
+namespace CICTED.Domain.Infrastucture.Services.Interfaces
 {
-    public interface ILocalizacaoRepository
+    public interface ILocalizacaoServices
     {
         Task<List<Estado>> GetEstado();
         Task<List<Cidade>> GetCidade(int estadoId);
