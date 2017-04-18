@@ -17,13 +17,15 @@ namespace CICTED.Controllers
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
         private ILocalizacaoServices _localizacaoServices;
+        private ISmsService _smsService;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoServices localizacaoServices)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoServices localizacaoServices, ISmsService smsService)
         {
             _localizacaoServices = localizacaoServices;
             _emailServices = emailServices;
             _signInManager = signInManager;
             _userManager = userManager;
+            _smsService = smsService;
         }
 
         [HttpGet("login")]
@@ -51,6 +53,23 @@ namespace CICTED.Controllers
                         return BadRequest();
                     }
 
+                    if (model.ConfirmaEmail && !user.EmailConfirmed)
+                    {
+                        //link
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Action(
+                           "ConfirmEmail", "Account",
+                           new { user = user.UserName, code = code });
+
+                        var url = $"http://localhost:54134{callbackUrl}";
+
+                        //email
+                        var email = await _emailServices.EnviarEmail(user.Email, url);
+
+                        ViewBag.EmailNaoConfirmado = true;
+                        return View("Login", new LoginViewModel());
+                    }
+
                     var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
                        model.SenhaLogin, model.RememberMe, user.EmailConfirmed);
 
@@ -62,24 +81,9 @@ namespace CICTED.Controllers
                         }
                         else if (user.FirstAccess == true && user.EmailConfirmed == true)
                         {
-                            return RedirectToAction("Registrar", "Account");
+                            return View("Registrar");
                         }
-                        else if (user.EmailConfirmed == false)
-                        {
-                            //link
-                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                            var callbackUrl = Url.Action(
-                               "ConfirmEmail", "Account",
-                               new { user = user.UserName, code = code });
-
-                            var url = $"http://localhost:54134{callbackUrl}";
-
-                            //email
-                            var email = await _emailServices.EnviarEmail(user.Email, url);
-
-                            ViewBag.EmailNaoConfirmado = true;
-                            return View("Login", new LoginViewModel());
-                        }else
+                        else
                         {
                             return RedirectToAction("Index", "Home");
                         }
@@ -134,6 +138,9 @@ namespace CICTED.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, "AUTOR");
 
+                    //var phoneNumber = "+55012991206314";
+                    //var phoneToken = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
+                    //await _smsService.SendAccountConfirmation(phoneNumber, phoneToken);
 
                     //link
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -198,15 +205,15 @@ namespace CICTED.Controllers
 
         [HttpGet("registrar")]
         [AllowAnonymous]
-        public async Task<IActionResult> Registrar()
+        public async Task<IActionResult> Registrar() 
         {
             try
             {
                 RegistrarViewModel model = new RegistrarViewModel();
-
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var estados = await _localizacaoServices.GetEstado();
                 model.Estados = estados;
-
+                model.EmailPrincipal = user.Email;
                 return View(model);
             }
             catch (Exception ex)
