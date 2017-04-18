@@ -1,6 +1,6 @@
 ﻿using CICTED.Domain.Entities.Localizacao;
+using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Models.Settings;
-using CICTED.Domain.Repository.Interfaces;
 using Dapper;
 using Microsoft.Extensions.Options;
 using System;
@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CICTED.Domain.Repository
+namespace CICTED.Domain.Infrastucture.Services
 {
     public class LocalizacaoServices : ILocalizacaoServices
     {
