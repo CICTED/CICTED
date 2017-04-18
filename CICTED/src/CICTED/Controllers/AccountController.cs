@@ -235,7 +235,7 @@ namespace CICTED.Controllers
                     Genero = model.Genero,
                     Celular = model.Celular,
                     Bolsista = model.Bolsista,
-                    Estudante = model.Estudante
+                    Estudante = model.Estudante 
                 };
 
 
