@@ -58,7 +58,7 @@ namespace CICTED
             {
                 myOptions.ConnectionString = Configuration["ConnectionString"];
             });
-
+            services.AddTransient<ILocalizacaoServices, LocalizacaoServices>();
             services.AddTransient<IEmailServices, EmailServices>();
 
             services.AddMvc();
@@ -81,6 +81,8 @@ namespace CICTED
             }
 
             app.UseStaticFiles();
+
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {
