@@ -27,5 +27,7 @@ namespace CICTED.Domain.ViewModels.Account
 
         [DataType(DataType.Password)]
         public string ConfirmSenhaCadastro { get; set; }
+
+        public bool ConfirmaEmail { get; set; }
     }
 }

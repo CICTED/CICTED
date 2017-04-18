@@ -57,9 +57,14 @@ namespace CICTED
             services.Configure<CustomSettings>(myOptions =>
             {
                 myOptions.ConnectionString = Configuration["ConnectionString"];
+                myOptions.TwillioAccountSID = Configuration["TwillioAccountSID"];
+                myOptions.TwillioNumber = Configuration["TwillioNumber"];
+                myOptions.TwillioToken = Configuration["TwillioToken"];
+                myOptions.TwillioURL = Configuration["TwillioURL"];
             });
             services.AddTransient<ILocalizacaoServices, LocalizacaoServices>();
             services.AddTransient<IEmailServices, EmailServices>();
+            services.AddTransient<ISmsService, SmsService>();
 
             services.AddMvc();
         }
