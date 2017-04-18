@@ -42,34 +42,62 @@ namespace CICTED.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
+                var user = await _userManager.FindByNameAsync(model.EmailLogin);
 
-                var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
-                   model.SenhaLogin, model.RememberMe, lockoutOnFailure: false);
-
-                if (result.Succeeded)
+                if (user != null)
                 {
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    if (!ModelState.IsValid)
                     {
-                        return Redirect(model.ReturnUrl);
+                        return BadRequest();
+                    }
+
+                    var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
+                       model.SenhaLogin, model.RememberMe, user.EmailConfirmed);
+
+                    if (result.Succeeded)
+                    {
+                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                        {
+                            return Redirect(model.ReturnUrl);
+                        }
+                        else if (user.FirstAccess == true && user.EmailConfirmed == true)
+                        {
+                            return RedirectToAction("Registrar", "Account");
+                        }
+                        else if (user.EmailConfirmed == false)
+                        {
+                            //link
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            var callbackUrl = Url.Action(
+                               "ConfirmEmail", "Account",
+                               new { user = user.UserName, code = code });
+
+                            var url = $"http://localhost:54134{callbackUrl}";
+
+                            //email
+                            var email = await _emailServices.EnviarEmail(user.Email, url);
+
+                            ViewBag.EmailNaoConfirmado = true;
+                            return View("Login", new LoginViewModel());
+                        }else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        ModelState.AddModelError("", "Invalid login attempt");
+                        return View(model);
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid login attempt");
-                    return View(model);
-                }
+                ViewBag.UsuarioNaoExiste = true;
+                return View("Login", model);
             }
             catch (Exception ex)
             {
@@ -102,7 +130,8 @@ namespace CICTED.Controllers
                     DataCadastro = DateTime.Now,
                     CursosId = 1,
                     InstituicaoId = 1,
-                    EnderecoId = 1
+                    EnderecoId = 1,
+                    FirstAccess = true
                 };
 
                 var result = await _userManager.CreateAsync(user, model.SenhaCadastro);
@@ -129,7 +158,7 @@ namespace CICTED.Controllers
                 else
                 {
                     ViewBag.Errors = result.ConvertToHTML();
-                    return View("Cadastrar", new RegistrarViewModel());
+                    return View("Login", model);
                 }
             }
             catch (Exception ex)
