@@ -79,31 +79,30 @@ namespace CICTED.Controllers
                         {
                             return Redirect(model.ReturnUrl);
                         }
-                        else if (user.FirstAccess == true && user.EmailConfirmed == true)
+                        else if (user.FirstAccess == true)
                         {
-                            return View("Registrar");
-                        }
-
-                        else if (user.EmailConfirmed == false)
-                        {
-                            //link
-                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                            var callbackUrl = Url.Action(
-                               "ConfirmEmail", "Account",
-                               new { user = user.UserName, code = code });
-
-                            var url = $"http://localhost:54134{callbackUrl}";
-
-                            //email
-                            var email = await _emailServices.EnviarEmail(user.Email, url);
-
-                            ViewBag.EmailNaoConfirmado = true;
-                            return View("Login", new LoginViewModel());
-                        }
+                            return RedirectToAction("Registrar");
+                        }                       
                         else
                         {
                             return RedirectToAction("Index", "Home");
                         }
+                    }
+                    else if (model.ConfirmaEmail && user.EmailConfirmed == false)
+                    {
+                        //link
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Action(
+                           "ConfirmEmail", "Account",
+                           new { user = user.UserName, code = code });
+
+                        var url = $"http://localhost:54134{callbackUrl}";
+
+                        //email
+                        var email = await _emailServices.EnviarEmail(user.Email, url);
+
+                        ViewBag.EmailNaoConfirmado = true;
+                        return View("Login", new LoginViewModel());
                     }
                     else
                     {
