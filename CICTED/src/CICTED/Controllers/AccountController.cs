@@ -83,6 +83,25 @@ namespace CICTED.Controllers
                         {
                             return View("Registrar");
                         }
+<<<<<<< HEAD
+=======
+                        else if (user.EmailConfirmed == false)
+                        {
+                            //link
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            var callbackUrl = Url.Action(
+                               "ConfirmEmail", "Account",
+                               new { user = user.UserName, code = code });
+
+                            var url = $"http://localhost:54134{callbackUrl}";
+
+                            //email
+                            var email = await _emailServices.EnviarEmail(user.Email, url);
+
+                            ViewBag.EmailNaoConfirmado = true;
+                            return View("Login", new LoginViewModel());
+                        }
+>>>>>>> 3726edd17cac72aae06bec0c86306fb8918e70ac
                         else
                         {
                             return RedirectToAction("Index", "Home");
@@ -213,7 +232,10 @@ namespace CICTED.Controllers
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var estados = await _localizacaoServices.GetEstado();
                 model.Estados = estados;
+<<<<<<< HEAD
                 model.EmailPrincipal = user.Email;
+=======
+>>>>>>> 3726edd17cac72aae06bec0c86306fb8918e70ac
                 return View(model);
             }
             catch (Exception ex)

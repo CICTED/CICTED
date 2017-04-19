@@ -112,29 +112,42 @@
         </select>
     </div>
 
-    <div class="margin-top-10 row">
-        <label>Você está cursando?</label>
-        <input type="radio" value="false" asp-for="Estudante"/>Não
-        <input type="radio" value="true" asp-for="Estudante"/>Sim
+    <div class="form-group margin-top-10">
+        <label>Você é cursando?</label>
+        <div class="onoffswitch margin-right-10">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkEstudante" asp-for="Estudante" checked="@((Model.Estudante) ? true : false)">
+            <label class="onoffswitch-label" for="checkEstudante">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+        <div id="estudante" style="display: none;">
+            <div class="float-left row">
+                <label>Curso:</label>
+                <input type="text" class="form-control" />
+            </div>
+        </div>
     </div>
 
-    <div class="margin-top-10 row">
-        <label>Curso:</label>
-        <input type="text" class="form-control"/>
-    </div>
-
-    <div class="margin-top-10 row">
+    <div class="form-group margin-top-10">
         <label>Você é bolsista?</label>
-        <input type="radio" value="false" asp-for="Bolsista"/>Não
-        <input type="radio" value="true" asp-for="Bolsista"/>Sim
+        <div class="onoffswitch margin-right-10">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkBolsista" asp-for="Bolsista" checked="@((Model.Bolsista) ? true : false)">
+            <label class="onoffswitch-label" for="checkBolsista">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+        <div id="bolsista" style="display: none;">
+            <div class="float-left row">
+                <label>Agência financiadora:</label>
+                <select class="form-control">
+                    <option value="-1">Selecione a agência financiadora</option>
+                </select>
+            </div>
+        </div>
     </div>
 
-    <div class="margin-top-10 row">
-        <label>Agência financiadora*:</label>
-        <select class="form-control">
-            <option value="-1">Selecione a agência financiadora</option>
-        </select>
-    </div>
 
     <div class="margin-top-10 row">
         <label>Email Principal:</label>
@@ -162,5 +175,23 @@
 
 <script type="text/javascript">
     $('#dropEstado').states($('#dropCidade'));
+
+    $("#checkBolsista").on("change", function () {
+        if ($(this).is(":checked")) {
+            $("#bolsista").css("display", "block");
+        } else {
+            $("#bolsista").css("display", "none");
+
+        }
+    });
+
+    $("#checkEstudante").on("change", function () {
+        if ($(this).is(":checked")) {
+            $("#estudante").css("display", "block");
+        } else {
+            $("#estudante").css("display", "none");
+
+        }
+    });
 </script>
 
