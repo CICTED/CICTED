@@ -51,33 +51,37 @@ namespace CICTED.Controllers
                     if (!ModelState.IsValid)
                     {
                         return BadRequest();
-                    }
-
-                    if (model.ConfirmaEmail && !user.EmailConfirmed)
-                    {
-                        //link
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        var callbackUrl = Url.Action(
-                           "ConfirmEmail", "Account",
-                           new { user = user.UserName, code = code });
-
-                        var url = $"http://localhost:54134{callbackUrl}";
-
-                        //email
-                        var email = await _emailServices.EnviarEmail(user.Email, url);
-
-                        ViewBag.EmailNaoConfirmado = true;
-                        return View("Login", new LoginViewModel());
-                    }
-
+                    }                    
+                    
                     var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
                        model.SenhaLogin, model.RememberMe, user.EmailConfirmed);
-
+                    
                     if (result.Succeeded)
                     {
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                         {
                             return Redirect(model.ReturnUrl);
+                        }
+                        else if (model.ConfirmaEmail && user.EmailConfirmed == false)
+                        {
+                            //link
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            var callbackUrl = Url.Action(
+                               "ConfirmEmail", "Account",
+                               new { user = user.UserName, code = code });
+
+                            var url = $"http://localhost:54134{callbackUrl}";
+
+                            //email
+                            var email = await _emailServices.EnviarEmail(user.Email, url);
+
+                            ViewBag.EnviadoEmail = true;
+                            return View("Login", new LoginViewModel());
+                        }
+                        else if (model.ConfirmaEmail==false && user.EmailConfirmed == false)
+                        {
+                            ViewBag.EmailNaoConfirmado = true;
+                            return View("Login", new LoginViewModel());
                         }
                         else if (user.FirstAccess == true)
                         {
@@ -87,22 +91,6 @@ namespace CICTED.Controllers
                         {
                             return RedirectToAction("Index", "Home");
                         }
-                    }
-                    else if (model.ConfirmaEmail && user.EmailConfirmed == false)
-                    {
-                        //link
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        var callbackUrl = Url.Action(
-                           "ConfirmEmail", "Account",
-                           new { user = user.UserName, code = code });
-
-                        var url = $"http://localhost:54134{callbackUrl}";
-
-                        //email
-                        var email = await _emailServices.EnviarEmail(user.Email, url);
-
-                        ViewBag.EmailNaoConfirmado = true;
-                        return View("Login", new LoginViewModel());
                     }
                     else
                     {

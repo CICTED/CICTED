@@ -17,10 +17,16 @@
 
         <form class="form-login float-left margin-left-50" asp-contoller="account" asp-action="login">
             <h1>Login</h1>
-            @if (ViewBag.EmailNaoConfirmado == true)
+            @if (ViewBag.EnviadoEmail == true)
             {
                 <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
                     <label style="color:green">Email de confirmação enviado novamente</label>
+                </div>
+            }
+            @if (ViewBag.EmailNaoConfirmado == true)
+            {
+                <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
+                    <label style="color:red">Email não confirmado</label>
                 </div>
             }
             @if (ViewBag.UsuarioNaoExiste == true)
