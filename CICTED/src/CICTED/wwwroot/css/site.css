@@ -327,12 +327,13 @@ textarea {
     width: 100%;
     position: fixed;
     padding: 5px; 
-    padding-left: 100px;
+    padding-left: 5%;
+    font-family:'Source Sans Pro', sans-serif !important;
 }
     .menu ul{
         margin: 0;
         list-style: none;
-        width: 500px;
+        width: 100%;
         
     }       
 
