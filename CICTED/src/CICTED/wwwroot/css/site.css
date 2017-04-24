@@ -19,6 +19,17 @@ h1, h2, h3, h4, h5, h6, label {
     padding-top: 40px;
     padding-bottom: 40px;
 }
+
+.autor-home-content{
+    height: auto;
+    width: auto;
+    padding: 1px 30px 10px 20px;
+    background: white;
+    border-radius: 5px;
+    margin: 30px 100px 0px 100px;
+}
+
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
@@ -327,8 +338,7 @@ textarea {
     width: 100%;
     position: fixed;
     padding: 5px; 
-    padding-left: 5%;
-    font-family:'Source Sans Pro', sans-serif !important;
+    padding-left: 55px;
 }
     .menu ul{
         margin: 0;
@@ -347,7 +357,7 @@ textarea {
                 color: #fff;
                 text-decoration: none;
                 padding: 5px 10px;                
-                font-size: 18px;
+                font-size: 14px;
             }
                 
 
@@ -477,9 +487,7 @@ textarea {
     height: auto !important;
     margin-right: 0px;
     margin-left: 0px;
-}
-
-.btn {
+}.btn {
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 10px;
