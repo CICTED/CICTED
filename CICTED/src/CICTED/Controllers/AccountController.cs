@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.ViewModels.Account;
 using CICTED.Domain.Infrastucture.Helpers;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
+using CICTED.Domain.Entities.Localizacao;
 
 namespace CICTED.Controllers
 {
@@ -51,11 +52,11 @@ namespace CICTED.Controllers
                     if (!ModelState.IsValid)
                     {
                         return BadRequest();
-                    }                    
-                    
+                    }
+
                     var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
                        model.SenhaLogin, model.RememberMe, user.EmailConfirmed);
-                    
+
                     if (result.Succeeded)
                     {
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
@@ -78,7 +79,7 @@ namespace CICTED.Controllers
                             ViewBag.EnviadoEmail = true;
                             return View("Login", new LoginViewModel());
                         }
-                        else if (model.ConfirmaEmail==false && user.EmailConfirmed == false)
+                        else if (model.ConfirmaEmail == false && user.EmailConfirmed == false)
                         {
                             ViewBag.EmailNaoConfirmado = true;
                             return View("Login", new LoginViewModel());
@@ -86,7 +87,7 @@ namespace CICTED.Controllers
                         else if (user.FirstAccess == true)
                         {
                             return RedirectToAction("Registrar");
-                        }                       
+                        }
                         else
                         {
                             return RedirectToAction("Index", "Home");
@@ -209,7 +210,7 @@ namespace CICTED.Controllers
 
         [HttpGet("registrar")]
         [AllowAnonymous]
-        public async Task<IActionResult> Registrar() 
+        public async Task<IActionResult> Registrar()
         {
             try
             {
@@ -231,18 +232,46 @@ namespace CICTED.Controllers
         {
             try
             {
-                var user = new ApplicationUser()
+                var enderecoId = 0;
+                if (model.EnderecoExterior == true)
+                {
+                    var enderecoExterior = new EnderecoExterior()
+                    {
+                        Cidade = model.CidadeExterior,
+                        Estado = model.EstadoExterior,
+                        Pais = model.Pais
+                    };
+
+                    enderecoId = _localizacaoServices.InsertEnderecoExterior(enderecoExterior);
+                }
+                else
+                {
+                    var endereco = new Endereco()
+                    {
+                        Logradouro = model.Logradouro,
+
+                    };
+                }
+
+                var user = new RegistrarViewModel()
                 {
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
-                    Email = model.EmailPrincipal,
-                    EmailSecundario = model.EmailSecundario,
-                    UserName = model.EmailPrincipal,
                     CPF = model.CPF,
-                    Documento = model.Documento,
                     DataNascimento = model.DataNascimento,
+                    Documento = model.Documento,
                     Genero = model.Genero,
+                    Telefone = model.Telefone,
                     Celular = model.Celular,
+                    EmailSecundario = model.EmailSecundario,
+
+
+
+
+
+
+
+
                     Bolsista = model.Bolsista,
                     Estudante = model.Estudante
                 };

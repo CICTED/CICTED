@@ -20,6 +20,9 @@ namespace CICTED.Domain.Entities.Localizacao
         [Required]
         public string Numero { get; set; }
 
+        [Required]
+        public string Bairro { get; set; }
+
         public string Complemento { get; set; }
 
         public long CidadeId { get; set; }
