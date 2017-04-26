@@ -9,6 +9,6 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
     public interface ILocalizacaoServices
     {
         Task<List<Estado>> GetEstado();
-        Task<List<Cidade>> GetCidade(int estadoId);
+        Task<List<Cidade>> GetCidades(int estadoId);
     }
 }

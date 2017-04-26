@@ -38,7 +38,7 @@ namespace CICTED.Domain.Infrastucture.Services
             }
         }
 
-        public async Task<List<Cidade>> GetCidade(int estadoId)
+        public async Task<List<Cidade>> GetCidades(int estadoId)
         {
             try
             {

@@ -409,7 +409,6 @@ textarea {
     height: 75px;
     background-image: url(../images/logoCICTED/logo_blue.png);
     background-size: cover;
-    cursor: pointer;
 }
 
 .form-login {

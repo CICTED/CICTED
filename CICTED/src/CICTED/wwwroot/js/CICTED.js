@@ -1,24 +1,24 @@
 ﻿(function ($) {
 
-    $.fn.states = function (dropCities) {
+    $.fn.states = function (dropCidades) {
         var dropDown = $(this);
 
         dropDown.on('change', function () {
-            var stateID = $(this).val();
-            dropCities.html('<option value="-1">Selecione sua cidade</option>');
+            var estadoID = $(this).val();
+            dropCidades.html('<option value="-1">Selecione sua cidade</option>');
 
             $.ajax({
-                url: '/localization/list/cities/' + stateID,
+                url: '/localizacao/lista/cidades/' + estadoID,
                 method: 'GET',
                 success: function (data) {
                     $.each(data, function (i, item) {
-                        dropCities.append('<option value="' + item.id + '">' + item.name + '</option>');
+                        dropCidades.append('<option value="' + item.id + '">' + item.cidadeNome + '</option>');
                     });
 
-                    dropCities.removeAttr('disabled');
+                    dropCidades.removeAttr('disabled');
                 },
                 error: function (x, y, message) {
-                    dropCities.attr('disabled', 'disabled');
+                    dropCidades.attr('disabled', 'disabled');
                 }
             });
         });

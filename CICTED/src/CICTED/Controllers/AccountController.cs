@@ -227,12 +227,10 @@ namespace CICTED.Controllers
         }
 
         [HttpPost("registrar")]
-        [AllowAnonymous]
         public async Task<IActionResult> Registrar(RegistrarViewModel model)
         {
             try
             {
-
                 var user = new ApplicationUser()
                 {
                     Nome = model.Nome,

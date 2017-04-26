@@ -6,7 +6,7 @@
 <title>Registro - CICTED</title>
 
 
-<form class="form-cadastro !important">
+<form class="form-cadastro !important" asp-controller="account" asp-action="registrar" method="post">
     <div style="margin:0 auto">
         <h1>Registrar</h1>
     </div>
@@ -100,7 +100,7 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Estado:</label>
-                <select class="form-control" id="dropEstados" name="Estado" value="@Model.EstadoID">
+                <select class="form-control" id="dropEstado" name="Estado" value="@Model.EstadoID">
                     <option value="-1">Selecione seu estado</option>
                     @foreach (var estado in Model.Estados)
                     {
@@ -181,14 +181,20 @@
     </div>
 
     <div class="margin-top-10" align="center">
-        <button type="submit" class="btn btn-primary" asp-controller="account" asp-action="login" method="get">Cancelar</button>
-        <button type="submit" class="btn btn-primary" asp-controller="account" asp-action="registrar" method="post">Cadastrar</button>
+        <button type="button" class="btn btn-primary" id="button-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
     
 </form>
 
 <script type="text/javascript">
+
+    $("#button-cancelar").on("click", function(){
+        location.href = "/account/login";    
+    });
+
     $('#dropEstado').states($('#dropCidade'));
+
 
     $("#checkBolsista").on("change", function () {
         if ($(this).is(":checked")) {

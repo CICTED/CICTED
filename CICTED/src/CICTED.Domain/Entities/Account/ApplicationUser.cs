@@ -17,6 +17,9 @@ namespace CICTED.Domain.Entities.Account
         public string Sobrenome { get; set; }
 
         [Required]
+        public string Email { get; set; }
+
+        [Required]
         public string EmailSecundario { get; set; }
 
         [Required]
