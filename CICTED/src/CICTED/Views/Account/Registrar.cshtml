@@ -66,7 +66,7 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Email Principal:</label>
-                <input type="text" asp-for="EmailPrincipal" value="@Model.EmailPrincipal" disabled="false" />
+                <input type="text" asp-for="Email" value="@Model.Email" disabled="disabled" />
             </div>
 
             <div class="float-right" style="width:50%">
@@ -94,13 +94,13 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Bairro:</label>
-                <input type="text" name="Bairro" value="@Model.Bairro" required/>
+                <input type="text" name="Bairro" value="@Model.Bairro" required />
             </div>
             <div class="float-right" style="width:50%">
                 <label>CEP:</label>
                 <input type="text" name="CEP" value="@Model.CEP" required />
             </div>
-            </div>
+        </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
@@ -141,8 +141,12 @@
         <h4>Educacional:</h4>
         <div class="margin-top-10 row">
             <label>Instituição:</label>
-            <select class="form-control">
+            <select class="form-control" name="InstituicaoId" value="@Model.InstituicaoId">
                 <option value="-1">Selecione sua instituição</option>
+                @foreach (var instituicao in Model.Instituicoes)
+                {
+                    <option value="@instituicao.Id">@instituicao.InstituicaoNome</option>
+                }
             </select>
         </div>
 
@@ -189,13 +193,13 @@
         <button type="button" class="btn btn-primary" id="button-cancelar">Cancelar</button>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
-    
+
 </form>
 
 <script type="text/javascript">
 
-    $("#button-cancelar").on("click", function(){
-        location.href = "/account/login";    
+    $("#button-cancelar").on("click", function () {
+        location.href = "/account/login";
     });
 
     $('#dropEstado').states($('#dropCidade'));
