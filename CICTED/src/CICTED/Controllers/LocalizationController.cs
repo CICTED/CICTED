@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CICTED.Domain.Infrastucture.Services.Interfaces;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Authorization;
+using CICTED.Domain.Infrastucture.Repository.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,9 +16,9 @@ namespace CICTED.Controllers
     {
 
         #region Construtor e Injeção
-        private ILocalizacaoServices _localization;
+        private ILocalizacaoRepository _localization;
 
-        public LocalizacaoController(ILocalizacaoServices localization)
+        public LocalizacaoController(ILocalizacaoRepository localization)
         {
             _localization = localization;
         }

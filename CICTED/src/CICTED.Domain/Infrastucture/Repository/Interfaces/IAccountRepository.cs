@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace CICTED.Domain.Infrastucture.Repository.Interfaces
 {
-    public class IAccountRepository
+    public interface IAccountRepository
     {
+        
     }
 }

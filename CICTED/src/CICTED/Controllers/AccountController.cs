@@ -8,6 +8,7 @@ using CICTED.Domain.ViewModels.Account;
 using CICTED.Domain.Infrastucture.Helpers;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Entities.Localizacao;
+using CICTED.Domain.Infrastucture.Repository.Interfaces;
 
 namespace CICTED.Controllers
 {
@@ -17,16 +18,18 @@ namespace CICTED.Controllers
         private IEmailServices _emailServices;
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
-        private ILocalizacaoServices _localizacaoServices;
+        private ILocalizacaoRepository _localizacaoRepository;
         private ISmsService _smsService;
+        private IAccountRepository _accountRepository;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoServices localizacaoServices, ISmsService smsService)
+        public AccountController(IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoRepository localizacaoRepository, ISmsService smsService)
         {
-            _localizacaoServices = localizacaoServices;
+            _localizacaoRepository = localizacaoRepository;
             _emailServices = emailServices;
             _signInManager = signInManager;
             _userManager = userManager;
             _smsService = smsService;
+            _accountRepository = accountRepository;
         }
 
         [HttpGet("login")]
@@ -216,7 +219,7 @@ namespace CICTED.Controllers
             {
                 RegistrarViewModel model = new RegistrarViewModel();
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
-                var estados = await _localizacaoServices.GetEstado();
+                var estados = await _localizacaoRepository.GetEstado();
                 model.Estados = estados;
                 model.EmailPrincipal = user.Email;
                 return View(model);
@@ -232,7 +235,18 @@ namespace CICTED.Controllers
         {
             try
             {
-                var enderecoId = 0;
+                long cidadeId = 0;
+                long enderecoId = 0;
+                var endereco = new Endereco
+                {
+                    Bairro = model.Bairro,
+                    CEP = model.CEP,
+                    Complemento = model.Complemento,
+                    Logradouro = model.Logradouro,
+                    Numero = model.Numero,
+                };
+
+
                 if (model.EnderecoExterior == true)
                 {
                     var enderecoExterior = new EnderecoExterior()
@@ -242,16 +256,17 @@ namespace CICTED.Controllers
                         Pais = model.Pais
                     };
 
-                    enderecoId = _localizacaoServices.InsertEnderecoExterior(enderecoExterior);
+                    cidadeId = await _localizacaoRepository.InsertEnderecoExterior(enderecoExterior);
+                    enderecoId = await _localizacaoRepository.InsertEndereco(endereco, 0, cidadeId);
+
                 }
                 else
                 {
-                    var endereco = new Endereco()
-                    {
-                        Logradouro = model.Logradouro,
-
-                    };
+                    cidadeId = model.CidadeId;
+                    enderecoId = await _localizacaoRepository.InsertEndereco(endereco, cidadeId);
                 }
+
+                
 
                 var user = new RegistrarViewModel()
                 {
@@ -264,32 +279,26 @@ namespace CICTED.Controllers
                     Telefone = model.Telefone,
                     Celular = model.Celular,
                     EmailSecundario = model.EmailSecundario,
-
-
-
-
-
-
-
-
+                    Instituicao = model.Instituicao,
                     Bolsista = model.Bolsista,
-                    Estudante = model.Estudante
+                    Estudante = model.Estudante,
+                    
                 };
 
 
-                var result = await _userManager.CreateAsync(user, model.Senha);
+                //var result = await _accountRepository.UpdateDadosUsuario(user);
 
-                if (result.Succeeded)
-                {
-                    model.ReturnMessage = "Alterações salvas com sucesso";
-                    return View("Login", new LoginViewModel());
-                }
+                //if (result.Succeeded)
+                //{
+                //    model.ReturnMessage = "Alterações salvas com sucesso";
+                //    return View("Login", new LoginViewModel());
+                //}
 
-                else
-                {
-                    ViewBag.Errors = result.ConvertToHTML();
-                    return View("Register", model);
-                }
+                //else
+                //{
+                //    ViewBag.Errors = result.ConvertToHTML();
+                //    return View("Register", model);
+                //}
 
                 return Ok();
             }

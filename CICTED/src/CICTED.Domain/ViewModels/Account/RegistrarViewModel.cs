@@ -23,7 +23,7 @@ namespace CICTED.Domain.ViewModels.Account
 
         public string Logradouro { get; set; }
 
-        public int Numero { get; set; }
+        public string Numero { get; set; }
 
         public string Bairro { get; set; }
 
@@ -45,7 +45,7 @@ namespace CICTED.Domain.ViewModels.Account
 
         public List<Estado> Estados { get; set; }
 
-        public int CidadeId { get; set; }
+        public long CidadeId { get; set; }
 
         public string CidadeNome { get; set; }
 

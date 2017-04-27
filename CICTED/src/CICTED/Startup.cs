@@ -14,6 +14,8 @@ using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Infrastucture.Services;
+using CICTED.Domain.Infrastucture.Repository.Interfaces;
+using CICTED.Domain.Infrastucture.Repository;
 
 namespace CICTED
 {
@@ -62,9 +64,10 @@ namespace CICTED
                 myOptions.TwillioToken = Configuration["TwillioToken"];
                 myOptions.TwillioURL = Configuration["TwillioURL"];
             });
-            services.AddTransient<ILocalizacaoServices, LocalizacaoServices>();
+            services.AddTransient<ILocalizacaoRepository, LocalizacaoRepository>();
             services.AddTransient<IEmailServices, EmailServices>();
             services.AddTransient<ISmsService, SmsService>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
 
             services.AddMvc();
         }
