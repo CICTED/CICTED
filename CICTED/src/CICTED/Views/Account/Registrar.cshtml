@@ -54,12 +54,12 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Telefone:</label>
-                <input type="tel" name="Telefone" value="@Model.Telefone" />
+                <input type="tel" name="Telefone" id="Telefone" placeholder="(99) 9999-9999" value="@Model.Telefone" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Celular:</label>
-                <input type="text" name="Celular" value="@Model.Celular" />
+                <input type="text" name="Celular" id="Celular"  placeholder="(99) 99999-9999" value="@Model.Celular" />
             </div>
         </div>
 
@@ -98,7 +98,7 @@
             </div>
             <div class="float-right" style="width:50%">
                 <label>CEP:</label>
-                <input type="text" name="CEP" value="@Model.CEP" required />
+                <input type="text" name="CEP" id="Cep" placeholder="99999-999" value="@Model.CEP" required />
             </div>
         </div>
 
@@ -198,7 +198,11 @@
 
 <script type="text/javascript">
 
+<<<<<<< HEAD
+    $("#button-cancelar").on("click", function(){
+=======
     $("#button-cancelar").on("click", function () {
+>>>>>>> e3dd20e5648ffcde1286eff12b2a9b003f0c17ac
         location.href = "/account/login";
     });
 
@@ -222,5 +226,14 @@
 
         }
     });
+
+
+
+    $("#Telefone").mask("(99) 9999-9999");
+    $("#Celular").mask("(99) 99999-9999");
+    $("#Cep").mask("99999-999")
+
+
+
 </script>
 
