@@ -28,6 +28,12 @@
                 <label>CPF:</label>
                 <input type="text" name="CPF" value="@Model.CPF" />
             </div>
+            @if (ViewBag.CPF == true)
+            {
+                <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
+                    <label style="color:red">CPF inválido</label>
+                </div>
+            }
 
             <div class="float-right" style="width:50%">
                 <label>Outros Documentos(RG, Passaporte, Etc):</label>
@@ -198,11 +204,8 @@
 
 <script type="text/javascript">
 
-<<<<<<< HEAD
-    $("#button-cancelar").on("click", function(){
-=======
     $("#button-cancelar").on("click", function () {
->>>>>>> e3dd20e5648ffcde1286eff12b2a9b003f0c17ac
+
         location.href = "/account/login";
     });
 
