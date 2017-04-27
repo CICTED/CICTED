@@ -25,7 +25,7 @@ namespace CICTED.Domain.Infrastucture.Repository
         }
         #endregion
 
-        public async Task<bool> UpdateDadosUsuario(RegistrarViewModel user, long enderecoId)
+        public async Task<bool> UpdateDadosUsuario(RegistrarViewModel user, long enderecoId, long id)
         {
             try
             {
@@ -34,11 +34,12 @@ namespace CICTED.Domain.Infrastucture.Repository
                     var updateDadosQuery = "UPDATE dbo.AspNetUsers SET Bolsista = @Bolsista, CPF = @CPF, Celular = @Celular, " +
                         "DataNascimento = @DataNascimento, Documento = @Documento, EmailSecundario = @EmailSecundario, Estudante = @Estudante, " +
                         "Genero = @Genero, Nome = @Nome, PhoneNumber = @PhoneNumber, Sobrenome = @Sobrenome, EnderecoId = @EnderecoId, " +
-                        "CursosId = @CursosId, InstituicaoId = @InstituicaoId, Email = @Email";
+                        "CursosId = @CursosId, InstituicaoId = @InstituicaoId, Email = @Email WHERE Id = @Id";
 
                     var resultadoDados = await db.ExecuteAsync(updateDadosQuery,
                                                                 new
                                                                 {
+                                                                    Id = id,
                                                                     Bolsista = user.Bolsista,
                                                                     CPF = user.CPF,
                                                                     Celular = user.Celular,

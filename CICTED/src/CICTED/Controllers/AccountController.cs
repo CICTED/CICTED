@@ -237,6 +237,7 @@ namespace CICTED.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                var idUsuario = user.Id;
 
                 long cidadeId = 0;
                 long enderecoId = 0;
@@ -289,7 +290,7 @@ namespace CICTED.Controllers
                 };
 
 
-                var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, enderecoId);
+                var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, enderecoId, idUsuario);
 
                 //if (result.Succeeded)
                 //{
