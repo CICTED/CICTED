@@ -237,6 +237,7 @@ namespace CICTED.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                var idUsuario = user.Id;
 
                 if (validarCPF(model.CPF) == false)
                 {
@@ -293,7 +294,7 @@ namespace CICTED.Controllers
                 };
 
 
-                var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, enderecoId);
+                var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, enderecoId, idUsuario);
 
                 //if (result.Succeeded)
                 //{
