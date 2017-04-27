@@ -1,4 +1,5 @@
-﻿using CICTED.Domain.Entities.Localizacao;
+﻿using CICTED.Domain.Entities.Instituicao;
+using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.Models.Settings;
 using Dapper;
@@ -119,7 +120,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                                 Numero = endereco.Numero,
                                 Complemento = endereco.Complemento,
                                 Bairro = endereco.Bairro,
-                                CidadeId = endereco.CidadeId
+                                CidadeId = cidadeId
                             });
                         return enderecoInsert.FirstOrDefault();
                     }
@@ -130,6 +131,8 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return 0;
             }
         }
+
+        
     }
 }
 

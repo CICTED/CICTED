@@ -212,7 +212,7 @@ namespace CICTED.Controllers
 
 
         [HttpGet("registrar")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Registrar()
         {
             try
@@ -220,8 +220,9 @@ namespace CICTED.Controllers
                 RegistrarViewModel model = new RegistrarViewModel();
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var estados = await _localizacaoRepository.GetEstado();
+                model.Instituicoes = await _accountRepository.GetInstituicao();
                 model.Estados = estados;
-                model.EmailPrincipal = user.Email;
+                model.Email = user.Email;
                 return View(model);
             }
             catch (Exception ex)
@@ -235,6 +236,8 @@ namespace CICTED.Controllers
         {
             try
             {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
                 long cidadeId = 0;
                 long enderecoId = 0;
                 var endereco = new Endereco
@@ -268,7 +271,7 @@ namespace CICTED.Controllers
 
                 
 
-                var user = new RegistrarViewModel()
+                var usuarioDados = new RegistrarViewModel()
                 {
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
@@ -279,14 +282,14 @@ namespace CICTED.Controllers
                     Telefone = model.Telefone,
                     Celular = model.Celular,
                     EmailSecundario = model.EmailSecundario,
-                    Instituicao = model.Instituicao,
+                    InstituicaoId = model.InstituicaoId,
                     Bolsista = model.Bolsista,
                     Estudante = model.Estudante,
-                    
+                    Email = user.Email,                    
                 };
 
 
-                //var result = await _accountRepository.UpdateDadosUsuario(user);
+                var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, enderecoId);
 
                 //if (result.Succeeded)
                 //{

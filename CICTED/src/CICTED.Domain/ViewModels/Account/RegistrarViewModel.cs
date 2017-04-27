@@ -57,7 +57,7 @@ namespace CICTED.Domain.ViewModels.Account
 
         public int InstituicaoId { get; set; }
 
-        public List<Instituicao> Instituicao { get; set; }
+        public List<Instituicao> Instituicoes { get; set; }
 
         public bool Estudante { get; set; }
         
@@ -68,7 +68,7 @@ namespace CICTED.Domain.ViewModels.Account
         
         public List<AgenciaFinanciadora> Agencia { get; set; }
 
-        public string EmailPrincipal { get; set; }
+        public string Email { get; set; }
 
         public string EmailSecundario { get; set; }
 

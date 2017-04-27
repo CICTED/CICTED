@@ -1,4 +1,5 @@
-﻿using CICTED.Domain.Entities.Localizacao;
+﻿using CICTED.Domain.Entities.Instituicao;
+using CICTED.Domain.Entities.Localizacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,5 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<List<Cidade>> GetCidades(int estadoId);
         Task<long> InsertEnderecoExterior(EnderecoExterior endereco);
         Task<long> InsertEndereco(Endereco endereco, long cidadeId, long enderecoExterior = 0);
-    }
+     }
 }
