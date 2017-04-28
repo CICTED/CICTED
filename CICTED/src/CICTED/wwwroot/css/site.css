@@ -20,7 +20,7 @@ h1, h2, h3, h4, h5, h6, label {
     padding-bottom: 40px;
 }
 
-.autor-home-content{
+.autor-home-content {
     height: auto;
     width: auto;
     padding: 1px 30px 10px 20px;
@@ -328,38 +328,38 @@ textarea {
     width: 100%;
     height: auto;
     background: #143458;
-    margin-bottom:0 !important;
+    margin-bottom: 0 !important;
     border-radius: 0;
 }
 
-.menu{
-    height:40px;
+.menu {
+    height: 40px;
     background: rgb(0, 38, 70);
     width: 100%;
     position: fixed;
-    padding: 5px; 
+    padding: 5px;
     padding-left: 55px;
 }
-    .menu ul{
+
+    .menu ul {
         margin: 0;
         list-style: none;
         width: 100%;
-        
-    }       
+    }
 
-            .menu ul li:hover > ul {
-                display: block;
-                position: relative;
-            }
+        .menu ul li:hover > ul {
+            display: block;
+            position: relative;
+        }
 
-            .menu ul li a {
-                display: inline-block;
-                color: #fff;
-                text-decoration: none;
-                padding: 5px 10px;                
-                font-size: 14px;
-            }
-                
+        .menu ul li a {
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
 
     .menu a:hover {
         color: white;
@@ -372,9 +372,9 @@ textarea {
         display: none;
         border-radius: 5px;
     }
-    
 
-       
+
+
 
 .footer {
     bottom: 0px;
@@ -422,7 +422,7 @@ textarea {
     font-size: 12px;
 }
 
-    .form-login input{
+    .form-login input {
         border: 0;
         height: 30px;
         width: 260px;
@@ -439,16 +439,24 @@ textarea {
     }
 
     .form-login h1 {
-    font-weight: 300;
-}
-
-    input[type=checkbox]{
-        width: auto !important;
-        height: auto !important;
+        font-weight: 300;
     }
 
+input[type=checkbox] {
+    width: auto !important;
+    height: auto !important;
+}
+
+form-cadTrabalho {
+    width: 300px;
+    min-height: 300px;
+    height: auto;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+}
+
 .form-cadastro {
-    width: 700px; 
+    width: 700px;
     min-height: 1000px;
     height: auto;
     margin: auto;
@@ -458,10 +466,9 @@ textarea {
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
     color: #868585;
     font-size: 12px;
-
 }
 
-.form-cadastro input{
+    .form-cadastro input {
         border: 0;
         height: 30px;
         width: 100%;
@@ -478,15 +485,17 @@ textarea {
     }
 
     .form-cadastro h1 {
-    font-weight: 300;
-}
+        font-weight: 300;
+    }
 
 .row {
     width: 100% !important;
     height: auto !important;
     margin-right: 0px;
     margin-left: 0px;
-}.btn {
+}
+
+.btn {
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 10px;
@@ -518,7 +527,7 @@ textarea {
     background-color: #fff;
     background-image: none;*/
     border: 1px solid #ccc;
-    border-radius: 0px;    
+    border-radius: 0px;
     outline: none !important;
 }
 
@@ -576,10 +585,10 @@ label {
     overflow: hidden;
 }
 
-.message-error{
+.message-error {
     color: red !important;
-    margin-bottom:-10px !important;
-    margin-top:-10px !important;
+    margin-bottom: -10px !important;
+    margin-top: -10px !important;
 }
 
 /*Switch*/

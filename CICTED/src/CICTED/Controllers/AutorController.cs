@@ -26,5 +26,19 @@ namespace CICTED.Controllers
             //ViewBag.Nome = user.Nome;
             return View();
         }
+
+        [HttpGet("CadastroTrabalho")]
+        public IActionResult cadastroTrabalho()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(); 
+            }
+            return View();
+        }
+
+
+
     }
+
 }
