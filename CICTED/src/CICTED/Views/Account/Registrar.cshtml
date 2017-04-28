@@ -23,12 +23,15 @@
             </div>
         </div>
 
+        
         <div class="margin-top-10 row">
-            <div class="float-left" style="width:40%">
+            
+            <div class="float-left" style="width:40%">               
                 <label>CPF:</label>
                 <input type="text" name="CPF" value="@Model.CPF" />
+              
             </div>
-
+           
             <div class="float-right" style="width:50%">
                 <label>Outros Documentos(RG, Passaporte, Etc):</label>
                 <input type="text" name="Documento" value="@Model.Documento" />
@@ -203,12 +206,24 @@
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
 
+    @if (ViewBag.CPF == true)
+            {
+        <div style="margin-top: 10px; margin-bottom: 10px" class="alert alert-danger margin-left-40" role="alert">
+            <label style="color:red">CPF invalido</label>
+        </div>
+    }
+
 </form>
 
 <script type="text/javascript">
 
+<<<<<<< HEAD
 
     $("#button-cancelar").on("click", function () {
+=======
+    $("#button-cancelar").on("click", function () {
+
+>>>>>>> 8d9e4c701334cbd72b476168cd9abf1989c2c50d
         location.href = "/account/login";
     });
 

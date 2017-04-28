@@ -238,6 +238,12 @@ namespace CICTED.Controllers
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var idUsuario = user.Id;
 
+                if (validarCPF(model.CPF) == false)
+                {
+                    ViewBag.CPF = true;
+                    return RedirectToAction("Registrar");
+                }
+
                 long cidadeId = 0;
                 long enderecoId = 0;
                 var endereco = new Endereco
@@ -267,7 +273,11 @@ namespace CICTED.Controllers
                 {
                     cidadeId = model.CidadeId;
                     enderecoId = await _localizacaoRepository.InsertEndereco(endereco, cidadeId);
+<<<<<<< HEAD
                 }                
+=======
+                }               
+>>>>>>> 8d9e4c701334cbd72b476168cd9abf1989c2c50d
 
                 var usuarioDados = new RegistrarViewModel()
                 {
@@ -310,5 +320,53 @@ namespace CICTED.Controllers
 
             }
         }
+
+        #region validaCPF
+        public static bool validarCPF(string CPF)
+        {
+            int[] mt1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] mt2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            string TempCPF;
+            string Digito;
+            int soma;
+            int resto;
+
+            CPF = CPF.Trim();
+            CPF = CPF.Replace(".", "").Replace("-", "");
+
+            if (CPF.Length != 11)
+                return false;
+
+            TempCPF = CPF.Substring(0, 9);
+            soma = 0;
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(TempCPF[i].ToString()) * mt1[i];
+
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+
+            Digito = resto.ToString();
+            TempCPF = TempCPF + Digito;
+            soma = 0;
+
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(TempCPF[i].ToString()) * mt2[i];
+
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+
+            Digito = Digito + resto.ToString();
+
+            return CPF.EndsWith(Digito);
+        }
+        #endregion
     }
+
 }
+
