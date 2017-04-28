@@ -273,11 +273,11 @@ namespace CICTED.Controllers
                 {
                     cidadeId = model.CidadeId;
                     enderecoId = await _localizacaoRepository.InsertEndereco(endereco, cidadeId);
-<<<<<<< HEAD
+
                 }                
-=======
-                }               
->>>>>>> 8d9e4c701334cbd72b476168cd9abf1989c2c50d
+
+                               
+
 
                 var usuarioDados = new RegistrarViewModel()
                 {
