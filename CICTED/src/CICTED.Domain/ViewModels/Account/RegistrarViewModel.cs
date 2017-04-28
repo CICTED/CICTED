@@ -35,6 +35,8 @@ namespace CICTED.Domain.ViewModels.Account
 
         public int Estado { get; set; }
 
+        public bool FirstAccess { get; set; }
+
         public bool EnderecoExterior { get; set; }
 
         public string CidadeExterior { get; set; }
@@ -60,9 +62,12 @@ namespace CICTED.Domain.ViewModels.Account
         public List<Instituicao> Instituicoes { get; set; }
 
         public bool Estudante { get; set; }
-        
 
-        public List<Cursos> Curso { get; set; }
+        public int CursoId { get; set; }
+
+        public string Curso { get; set; }
+
+        public List<Cursos> Cursos { get; set; }
 
         public bool Bolsista { get; set; }
         
