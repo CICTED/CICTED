@@ -1,4 +1,5 @@
 ﻿
+using CICTED.Domain.Entities.Cursos;
 using CICTED.Domain.Entities.Instituicao;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.Models.Settings;
@@ -34,7 +35,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                     var updateDadosQuery = "UPDATE dbo.AspNetUsers SET Bolsista = @Bolsista, CPF = @CPF, Celular = @Celular, " +
                         "DataNascimento = @DataNascimento, Documento = @Documento, EmailSecundario = @EmailSecundario, Estudante = @Estudante, " +
                         "Genero = @Genero, Nome = @Nome, PhoneNumber = @PhoneNumber, Sobrenome = @Sobrenome, EnderecoId = @EnderecoId, " +
-                        "CursosId = @CursosId, InstituicaoId = @InstituicaoId, Email = @Email WHERE Id = @Id";
+                        "CursosId = @CursosId, InstituicaoId = @InstituicaoId, Email = @Email, FirstAccess = @FirstAccess WHERE Id = @Id";
 
                     var resultadoDados = await db.ExecuteAsync(updateDadosQuery,
                                                                 new
@@ -51,10 +52,11 @@ namespace CICTED.Domain.Infrastucture.Repository
                                                                     Nome = user.Nome,
                                                                     PhoneNumber = user.Telefone,
                                                                     Sobrenome = user.Sobrenome,
-                                                                    EnderecoId = enderecoId,
-                                                                    CursosId = user.Curso,
+                                                                    EnderecoId = enderecoId,                                                                    
                                                                     InstituicaoId = user.InstituicaoId,
-                                                                    Email = user.Email
+                                                                    Email = user.Email,
+                                                                    CursosId = user.CursoId,
+                                                                    FirstAccess = user.FirstAccess
                                                                 });
                 }
                 return true;
@@ -81,6 +83,22 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return null;
             }
         }
-   
+
+        public async Task<List<Cursos>> GetCursos()
+        {
+            try
+            {
+                using(var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var cursos = await db.QueryAsync<Cursos>("SELECT * FROM dbo.Cursos");
+
+                    return cursos.ToList();
+                }
+            }catch(Exception ex)
+            {
+                return null;
+            }
+        }
+
     }        
 }

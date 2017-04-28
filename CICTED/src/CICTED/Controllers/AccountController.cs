@@ -93,7 +93,7 @@ namespace CICTED.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Home", "Autor");
                         }
                     }
                     else
@@ -183,15 +183,12 @@ namespace CICTED.Controllers
             {
                 if (user != null && code != null)
                 {
-
                     var findUser = await _userManager.FindByNameAsync(user);
                     var result = await _userManager.ConfirmEmailAsync(findUser, code);
-
 
                     if (result.Succeeded)
                     {
                         return View();
-
                     }
                     else
                     {
@@ -220,9 +217,11 @@ namespace CICTED.Controllers
                 RegistrarViewModel model = new RegistrarViewModel();
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var estados = await _localizacaoRepository.GetEstado();
+                var cursos = await _accountRepository.GetCursos();
                 model.Instituicoes = await _accountRepository.GetInstituicao();
                 model.Estados = estados;
                 model.Email = user.Email;
+                model.Cursos = cursos;
                 return View(model);
             }
             catch (Exception ex)
@@ -274,7 +273,11 @@ namespace CICTED.Controllers
                 {
                     cidadeId = model.CidadeId;
                     enderecoId = await _localizacaoRepository.InsertEndereco(endereco, cidadeId);
-                }               
+
+                }                
+
+                               
+
 
                 var usuarioDados = new RegistrarViewModel()
                 {
@@ -290,23 +293,24 @@ namespace CICTED.Controllers
                     InstituicaoId = model.InstituicaoId,
                     Bolsista = model.Bolsista,
                     Estudante = model.Estudante,
-                    Email = user.Email,                    
+                    Email = user.Email, 
+                    CursoId = (model.CursoId > 0) ? model.CursoId : 1,
+                    FirstAccess = false
                 };
 
 
                 var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, enderecoId, idUsuario);
 
-                //if (result.Succeeded)
-                //{
-                //    model.ReturnMessage = "Alterações salvas com sucesso";
-                //    return View("Login", new LoginViewModel());
-                //}
+                if (result ==  true)
+                {
+                    model.ReturnMessage = "Alterações salvas com sucesso";
+                    return RedirectToAction("Home", "Autor");
+                }
 
-                //else
-                //{
-                //    ViewBag.Errors = result.ConvertToHTML();
-                //    return View("Register", model);
-                //}
+                else
+                {
+                    return View("Register", model);
+                }
 
                 return Ok();
             }

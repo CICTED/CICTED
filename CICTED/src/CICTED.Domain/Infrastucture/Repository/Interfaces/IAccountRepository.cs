@@ -1,4 +1,5 @@
-﻿using CICTED.Domain.Entities.Instituicao;
+﻿using CICTED.Domain.Entities.Cursos;
+using CICTED.Domain.Entities.Instituicao;
 using CICTED.Domain.ViewModels.Account;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
     {
         Task<bool> UpdateDadosUsuario(RegistrarViewModel user, long enderecoId, long id);
         Task<List<Instituicao>> GetInstituicao();
+        Task<List<Cursos>>GetCursos();
     }
 }
