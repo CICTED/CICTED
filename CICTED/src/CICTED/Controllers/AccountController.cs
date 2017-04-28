@@ -317,7 +317,7 @@ namespace CICTED.Controllers
             }
         }
 
-
+        #region validaCPF
         public static bool validarCPF(string CPF)
         {
             int[] mt1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -361,6 +361,7 @@ namespace CICTED.Controllers
 
             return CPF.EndsWith(Digito);
         }
+        #endregion
     }
 
 }
