@@ -163,7 +163,16 @@
                 <div id="estudante" style="display: none;">
                     <div class="float-right row">
                         <label>Curso:</label>
-                        <input type="text" />
+
+                        <select name="CursoId" value="@Model.CursoId">
+                            <option value="-1">Selecione seu Curso</option>
+                            @foreach (var cursos in Model.Cursos)
+                            {
+                                <option value="@cursos.Id">@cursos.CursoNome</option>
+                            }
+                        </select>
+                        <label class="margin-top-20">Outro:</label>
+                        <input type="text" value="@Model.Curso" />
                     </div>
                 </div>
             </div>
@@ -198,11 +207,8 @@
 
 <script type="text/javascript">
 
-<<<<<<< HEAD
-    $("#button-cancelar").on("click", function(){
-=======
+
     $("#button-cancelar").on("click", function () {
->>>>>>> e3dd20e5648ffcde1286eff12b2a9b003f0c17ac
         location.href = "/account/login";
     });
 
