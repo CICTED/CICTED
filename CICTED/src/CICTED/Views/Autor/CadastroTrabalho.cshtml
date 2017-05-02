@@ -5,14 +5,23 @@
     Layout = "_Autor";
 }
 <body>
-    <form class="form-cadastro" >
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="#Passo1" role="tab" data-toggle="tab">Passo 1</a></li>
-            <li role="presentation"><a href="#">Passo 2</a></li>
-            <li role="presentation"><a href="#">Passo 3</a></li>
-
-
-        </ul>
-    </form>
-
+    <div>
+        <form class="form-cadastro">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#Passo1" aria-controls="Passo1" role="tab" data-toggle="tab">Passo 1</a>oie</li>
+                <li role="presentation"><a href="#Passo2" aria-controls="Passo2" role="tab" data-toggle="tab">Passo 2</a>oiiii</li>
+                <li role="presentation"><a href="#Passo3" aria-controls="Passo3" data-toggle="tab">Passo 3</a></li>
+            </ul>
+        </form>
+    </div>
 </body>
+
+<script type="text/javascript">
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        e.target // newly activated tab
+        e.relatedTarget // previous active tab
+    })
+
+
+</script>
