@@ -52,7 +52,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                                                                     Nome = user.Nome,
                                                                     PhoneNumber = user.Telefone,
                                                                     Sobrenome = user.Sobrenome,
-                                                                    EnderecoId = enderecoId,                                                                    
+                                                                    EnderecoId = enderecoId,
                                                                     InstituicaoId = user.InstituicaoId,
                                                                     Email = user.Email,
                                                                     CursosId = user.CursoId,
@@ -67,7 +67,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-            public async Task<List<Instituicao>> GetInstituicao()
+        public async Task<List<Instituicao>> GetInstituicao()
         {
             try
             {
@@ -88,11 +88,28 @@ namespace CICTED.Domain.Infrastucture.Repository
         {
             try
             {
-                using(var db = new SqlConnection(_settings.ConnectionString))
+                using (var db = new SqlConnection(_settings.ConnectionString))
                 {
                     var cursos = await db.QueryAsync<Cursos>("SELECT * FROM dbo.Cursos");
 
                     return cursos.ToList();
+                }
+            } catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        public async Task<List<long>> GetRoles(long userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var roles = await db.QueryAsync<long>("SELECT RoleId FROM dbo.AspNetUserRoles WHERE UserId = @UserId", new { UserId = userId });
+
+                    return roles.ToList();
                 }
             }catch(Exception ex)
             {
@@ -100,5 +117,5 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-    }        
+    }   
 }

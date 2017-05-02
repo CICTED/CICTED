@@ -13,5 +13,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<bool> UpdateDadosUsuario(RegistrarViewModel user, long enderecoId, long id);
         Task<List<Instituicao>> GetInstituicao();
         Task<List<Cursos>>GetCursos();
+        Task<List<long>> GetRoles(long userId);
     }
 }
