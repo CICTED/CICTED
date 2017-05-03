@@ -33,6 +33,7 @@ namespace CICTED.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
+            ViewBag.Nome = user.Nome;
             return View(model);
         }
     }
