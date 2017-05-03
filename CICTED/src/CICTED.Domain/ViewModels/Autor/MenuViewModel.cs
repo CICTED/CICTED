@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CICTED.Domain.ViewModels.Autor
 {
-    public class Menu
+    public class MenuViewModel
     {
         public List<long> Roles{ get; set; }
     }

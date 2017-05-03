@@ -321,6 +321,13 @@ namespace CICTED.Controllers
             }
         }
 
+        [HttpPost("logoff")]
+        public async Task<IActionResult> Logoff()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
+
         #region validaCPF
         public static bool validarCPF(string CPF)
         {
