@@ -350,6 +350,7 @@ textarea {
         .menu ul li {
             float: left;
             padding-top: 5px;
+            margin-left: 20px;
         }
 
             .menu ul li a {
@@ -361,10 +362,9 @@ textarea {
 
         .menu ul ul {
             display: none;
-            position: fixed;
-            margin-left: -40px;
+            margin-left: -30px;
             margin-top: 10px;
-            width: 155px;
+            width: 160px;
         }
 
             .menu ul ul li {
@@ -378,8 +378,12 @@ textarea {
             position: relative;
         }
 
-
-    .menu a:hover {
+    .menu button{
+       background: transparent;
+       color: white;
+       border: 0px;
+    }
+    .menu a:hover, .menu button:hover {
         color: white;
         cursor: pointer;
         text-shadow: 0px 0px 5px #fff;

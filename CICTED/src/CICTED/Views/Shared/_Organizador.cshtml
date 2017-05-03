@@ -1,4 +1,4 @@
-﻿@model CICTED.Domain.ViewModels.Autor.MenuViewModel
+﻿
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,16 +34,33 @@
     </div>
     <div class="menu">
         <ul>
-
             <li><a><span class="fa fa-home"></span> Inicio</a></li>
 
-            <li><a class="margin-left-30"><span class="fa fa-file-text-o"></span> Consultar trabalho</a></li>
+            <li><a>Dashboard</a></li>
 
-            <li class="float-right margin-left-30 margin-right-100">
+            <li>
+                <a><span class="fa fa-file-text-o"></span> Consultar</a>
+                <ul style="margin-left:-68px!important;">
+                    <li><a><span class="fa fa-file-text-o"></span> Trabalhos</a></li>
+                    <li><a><span class="fa fa-pencil"></span> Atividades</a></li>
+                    <li><a><span class="fa fa-users"></span> Usuários</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a><span class="fa fa-calendar-o"></span> Apresentações</a>
+                <ul style="margin-left:-55px!important;">
+                    <li><a>Calendário</a></li>
+                    <li><a>Consulta</a></li>
+                    <li><a>Espaços</a></li>
+                </ul>
+            </li>
+
+            <li class="float-right margin-right-100">
                 <a><span class="fa fa-refresh"></span> Trocar Papel</a>
-                @if (Model.Roles != null)
+                @*@if (Model.Roles != null)
                 {
-                    <ul>
+                    <ul style="margin-left:-55px!important; width:150px!important">
                         @foreach (var role in Model.Roles)
                         {
                             @if (role == 1)
@@ -64,7 +81,7 @@
                             }
                         }
                     </ul>
-                }
+                }*@
 
             </li>
 

@@ -28,5 +28,7 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public List<Estado> Estado { get; set; }
 
+        public List<long> Roles { get; set; }
+
     }
 }

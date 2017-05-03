@@ -20,55 +20,41 @@
                             Confira atentamente o evento no qual irá participar, pois as regras de submissão são diferentes para cada evento.
                         </h4>
                     </div>
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:200px;">
+                            <label>Evento: </label>
+                        </div>
 
+                        <div class="float-left margin-left-50">
+                            <input type="text" name="Evento" value="@Model.Evento" required />
+                        </div>
+                    </div>
 
-                    <table class="margin-top-20  margin-left-20 table table-responsive">
-                        <tr>
-                            <td>
-                                <div class="margin-left-10">
-                                    <label>Evento: </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="margin-left-50">
-                                    <input type="text" name="Evento" value="@Model.Evento" required />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="margin-left-10">
-                                    <label>Area de conhecimento: </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="margin-left-50">
-                                    <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
-                                        <option disabled selected>Selecione uma área</option>
-                                        <option> Humanas</option>
-                                        <option> Exatas</option>
-                                        <option> Biológicas</option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="margin-left-10">
-                                    <label>Subarea: </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="margin-left-50">
-                                    <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
-                                        <option disabled selected>Selecione uma subarea</option>                                       
-                                    </select>
-                                </div>
-</tr>
-                    </table>
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:200px;">
+                            <label>Area de conhecimento: </label>
+                        </div>
 
-                    <table  class="margin-top-20 margin-left-20">
-                    </table>
+                        <div class="float-left margin-left-50">
+                            <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
+                                <option disabled selected>Selecione uma área</option>
+                                <option> Humanas</option>
+                                <option> Exatas</option>
+                                <option> Biológicas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:200px;">
+                            <label>Subarea: </label>
+                        </div>
+
+                        <div class="float-left margin-left-50">
+                            <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
+                                <option disabled selected>Selecione uma subarea</option>
+                            </select>
+                        </div>
+                    </div>
 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="Passo2"><p>Passo2</p></div>
@@ -79,12 +65,16 @@
 
 </body>
 
-@*<script type="text/javascript">
+<script type="text/javascript">
 
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            e.target // newly activated tab
-            e.relatedTarget // previous active tab
-        })
+    $("#checkFinanciado").on("change", function () {
+        if ($(this).is(":checked")) {
+            $("#TrabalhoFinanciado").css("display", "block");
+        } else {
+            $("#TrabalhoFinanciado").css("display", "none");
+
+        }
+    });
 
 
-    </script>*@
+</script>
