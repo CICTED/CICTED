@@ -36,25 +36,66 @@
             <li>
                 <a class="float-left"> <span class="fa fa-home"></span> Inicio</a>
             </li>
+
             <li>
-                <a class="float-left margin-left-10"><span class="fa fa-folder-open"></span> Trabalhos</a>
+                <a class="float-left"><span class="fa fa-folder-open"></span> Trabalhos</a>
             </li>
+
             <li>
-                <a class="float-left margin-left-10"><span class="fa fa-paste"></span> Avaliar Painel</a>
+                <a class="float-left"><span class="fa fa-paste"></span> Avaliar Painel</a>
             </li>
+
             <li>
-                <a class="float-left margin-left-10"><span class="fa fa-gear"></span> Gerenciar</a>
-                <ul class="float-left">
-                    <a class=""><span class="fa fa-pencil"></span>Organizadores</a>
-                    <a class=""><span class="fa fa-pencil"></span>Avaliadores</a>
-                    <a class=""><span class="fa fa-pencil"></span>Autores</a>
+                <a class="float-left"><span class="fa fa-gear"></span> Gerenciar</a>
+                <ul style="width:180px !important">
+                    <li>
+                        <a><span class="fa fa-pencil"></span> Organizadores</a>
+                    </li>
+                    <li>
+                        <a><span class="fa fa-pencil"></span> Avaliadores</a>
+                    </li>
+                    <li>
+                        <a><span class="fa fa-pencil"></span> Autores</a>
+                    </li>
                 </ul>
             </li>
-            <li>
-                <a class="float-right margin-left-10"><span class="fa fa-external-link"></span> Sair</a>
+
+            <li class="float-right  margin-left-20">
+                <a><span class="fa fa-sign-out"></span> Sair</a>
             </li>
-            <li>
-                <a class="float-right"><span class="fa fa-lock"></span> Alterar Senha</a>
+
+            <li class="float-right margin-left-20">
+                <a><span class="fa fa-lock"></span> Alterar Senha</a>
+            </li>
+            
+
+            <li class="float-right margin-left-30">
+                <a><span class="fa fa-refresh"></span> Trocar Papel</a>
+                @if (Model.Roles != null)
+                {
+                    <ul>
+                        @foreach (var role in Model.Roles)
+                        {
+                            @if (role == 1)
+                            {
+                                <li><a asp-controller="administrador" asp-action="home"> Administrador</a></li>
+                            }
+                            @if (role == 2)
+                            {
+                                <li><a asp-controller="organizador" asp-action="home"> Organizador</a></li>
+                            }
+                            @if (role == 3)
+                            {
+                                <li><a>Avaliador</a></li>
+                            }
+                            @if (role == 4)
+                            {
+                                <li><a asp-controller="autor" asp-action="home"> Autor</a></li>
+                            }
+                        }
+                    </ul>
+                }
+
             </li>
         </ul>
     </div>
@@ -62,7 +103,7 @@
         @RenderBody()
     </div>
 
-    <div class="footer">
+    <div class="footer" style="position:fixed">
 
         <span style="font-size:35px" class="fa fa-envelope margin-left-100 float-left"></span>
         <h5 class="margin-left-10 float-left ">cicted@unitau.br</h5>
