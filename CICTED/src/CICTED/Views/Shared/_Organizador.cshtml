@@ -47,12 +47,18 @@
                 </ul>
             </li>
 
-            <li><a><span class="fa fa-calendar-o"></span> Apresentações</a></li>
-
+            <li>
+                <a><span class="fa fa-calendar-o"></span> Apresentações</a>
+                <ul style="margin-left:-55px!important;">
+                    <li><a>Calendário</a></li>
+                    <li><a>Consulta</a></li>
+                    <li><a>Espaços</a></li>
+                </ul>
+            </li>
 
             <li class="float-right margin-right-100">
                 <a><span class="fa fa-refresh"></span> Trocar Papel</a>
-                @if (Model.Roles != null)
+                @*@if (Model.Roles != null)
                 {
                     <ul style="margin-left:-55px!important; width:150px!important">
                         @foreach (var role in Model.Roles)
@@ -75,7 +81,7 @@
                             }
                         }
                     </ul>
-                }
+                }*@
 
             </li>
 

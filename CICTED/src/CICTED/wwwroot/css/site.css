@@ -378,8 +378,12 @@ textarea {
             position: relative;
         }
 
-
-    .menu a:hover {
+    .menu button{
+       background: transparent;
+       color: white;
+       border: 0px;
+    }
+    .menu a:hover, .menu button:hover {
         color: white;
         cursor: pointer;
         text-shadow: 0px 0px 5px #fff;

@@ -1,4 +1,4 @@
-﻿@model CICTED.Domain.ViewModels.Autor.MenuViewModel
+﻿
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,15 +36,17 @@
         <ul>
 
             <li><a><span class="fa fa-home"></span> Inicio</a></li>
-            
+
             <li><a><span class="fa fa-file-text-o"></span> Consultar trabalho</a></li>
 
-
-            <li class="float-right margin-right-100"><a asp-controller="account" asp-action="Logoff"><span class="fa fa-sign-out"></span> Sair</a></li>
+            <li class="float-right margin-right-100">
+                <form asp-controller="account" asp-action="logoff" method="post">
+                    <button type="submit"><span class="fa fa-sign-out"></span> Log Off</button>
+                </form>
 
             <li class="float-right">
                 <a><span class="fa fa-refresh"></span> Trocar Papel</a>
-                @if (Model.Roles != null)
+                @*@if (Model.Roles != null)
                 {
                     <ul style="margin-left:-55px!important; width:150px!important">
                         @foreach (var role in Model.Roles)
@@ -67,7 +69,7 @@
                             }
                         }
                     </ul>
-                }
+                }*@
 
             </li>
 
@@ -96,9 +98,9 @@
         <div class="barra float-right"></div>
     </div>
 
-    
+
 
     @RenderSection("scripts", required: false)
-   
+
 </body>
 </html>
