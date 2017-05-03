@@ -39,14 +39,18 @@ namespace CICTED.Controllers
         }
 
         [HttpGet("CadastroTrabalho")]
-        public IActionResult cadastroTrabalho()
+        public async Task<IActionResult> CadastroTrabalho()
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(); 
             }
-
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel();
+
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var roles = await _accountRepository.GetRoles(user.Id);           
+            model.Roles = roles;
+            ViewBag.Nome = user.Nome;            
 
             return View(model);
         }
