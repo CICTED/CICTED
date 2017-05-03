@@ -1,27 +1,77 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CICTED.Domain.ViewModels.Trabalho.CadastroTrabalhoViewModel
 @{
     Layout = "_Autor";
 }
 <body>
-    <div>
-        <form class="form-cadastro">
+
+    <form class="form-cadTrabalho">
+        <div>
             <ul class="nav nav-tabs">
-                <li role="presentation" class="active"><a href="#Passo1" aria-controls="Passo1" role="tab" data-toggle="tab">Passo 1</a>oie</li>
-                <li role="presentation"><a href="#Passo2" aria-controls="Passo2" role="tab" data-toggle="tab">Passo 2</a>oiiii</li>
+                <li role="presentation" class="active"><a href="#Passo1" aria-controls="Passo1" role="tab" data-toggle="tab">Passo 1</a></li>
+                <li role="presentation"><a href="#Passo2" aria-controls="Passo2" role="tab" data-toggle="tab">Passo 2</a></li>
                 <li role="presentation"><a href="#Passo3" aria-controls="Passo3" data-toggle="tab">Passo 3</a></li>
             </ul>
-        </form>
-    </div>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active margin-top-30" id="Passo1">
+
+                    <div class="margin-top-30 form-group">
+                        <h4>
+                            Confira atentamente o evento no qual irá participar, pois as regras de submissão são diferentes para cada evento.
+                        </h4>
+                    </div>
+
+
+                    <table class="margin-top-20  margin-left-20 table table-responsive">
+                        <tr>
+                            <td>
+                                <div class="margin-left-10">
+                                    <label>Evento: </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="margin-left-50">
+                                    <input type="text" name="Evento" value="@Model.Evento" required />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="margin-left-10">
+                                    <label>Area de conhecimento: </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="margin-left-50">
+                                    <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
+                                        <option disabled selected>Selecione uma área</option>
+                                        <option> Humanas</option>
+                                        <option> Exatas</option>
+                                        <option> Biológicas</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table  class="margin-top-20 margin-left-20">
+                    </table>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="Passo2"><p>Passo2</p></div>
+                <div role="tabpanel" class="tab-pane" id="Passo3"><p>Passo3</p></div>
+            </div>
+        </div>
+    </form>
+
 </body>
 
-<script type="text/javascript">
+@*<script type="text/javascript">
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        e.target // newly activated tab
-        e.relatedTarget // previous active tab
-    })
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            e.target // newly activated tab
+            e.relatedTarget // previous active tab
+        })
 
 
-</script>
+    </script>*@
