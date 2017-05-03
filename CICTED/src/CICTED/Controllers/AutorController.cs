@@ -8,7 +8,11 @@ using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.Infrastucture.Repository;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
+<<<<<<< HEAD
 using CICTED.Domain.ViewModels.Autor;
+=======
+using CICTED.Domain.ViewModels.Trabalho;
+>>>>>>> 2d2b5f6bdcaebcc6131646e3a5594a16900c2feb
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,7 +48,10 @@ namespace CICTED.Controllers
             {
                 return BadRequest(); 
             }
-            return View();
+
+            CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel();
+
+            return View(model);
         }
 
 
