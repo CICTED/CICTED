@@ -350,6 +350,7 @@ textarea {
         .menu ul li {
             float: left;
             padding-top: 5px;
+            margin-left: 20px;
         }
 
             .menu ul li a {
@@ -361,10 +362,9 @@ textarea {
 
         .menu ul ul {
             display: none;
-            position: fixed;
-            margin-left: -40px;
+            margin-left: -30px;
             margin-top: 10px;
-            width: 155px;
+            width: 160px;
         }
 
             .menu ul ul li {
