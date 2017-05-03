@@ -5,6 +5,9 @@
 <body>
 
     <form class="form-cadTrabalho">
+        <div class="row form-group" style="text-align:center">
+            <h3><b> Cadastrar trabalho </b></h3>
+        </div>
         <div>
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="#Passo1" aria-controls="Passo1" role="tab" data-toggle="tab">Passo 1</a></li>
@@ -20,12 +23,13 @@
                             Confira atentamente o evento no qual irá participar, pois as regras de submissão são diferentes para cada evento.
                         </h4>
                     </div>
+
                     <div class="form-group row">
                         <div class="float-left margin-left-40" style="width:200px;">
                             <label>Evento: </label>
                         </div>
 
-                        <div class="float-left margin-left-50">
+                        <div class="float-left margin-left-75">
                             <input type="text" name="Evento" value="@Model.Evento" required />
                         </div>
                     </div>
@@ -35,7 +39,7 @@
                             <label>Area de conhecimento: </label>
                         </div>
 
-                        <div class="float-left margin-left-50">
+                        <div class="float-left margin-left-75">
                             <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
                                 <option disabled selected>Selecione uma área</option>
                                 <option> Humanas</option>
@@ -49,12 +53,42 @@
                             <label>Subarea: </label>
                         </div>
 
-                        <div class="float-left margin-left-50">
+                        <div class="float-left margin-left-75">
                             <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
                                 <option disabled selected>Selecione uma subarea</option>
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:200px;">
+                            <label>O trabalho é financiado? </label>
+                        </div>
+                        <div class="float-left margin-left-75">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkFinanciado" asp-for="TrabalhoFinanciado" checked="@((Model.TrabalhoFinanciado) ? true : false)" />
+
+                                <label class="onoffswitch-label" for="checkFinanciado">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                        <div id="Financiado" style="display: none" class="form-group row">
+                            <div class="float-left margin-left-40" style="width:200px">
+                                <label>Agencia Financiadora:</label>
+                            </div>
+                            <div class="float-left margin-left-75">
+                                <select class="form-control">
+                                    <option value="-1">Selecione a agência financiadora</option>
+                                </select>
+                            </div>
+                        </div>
+                    <hr />
+                    <b>Atenção: Caso seu trabalho envolva seres humanos deverão estar aprovadas por Comitê de Ética registrado junto à CONEP/CNS/MS. E o campo abaixo deve ser preenchido.</b>
 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="Passo2"><p>Passo2</p></div>
@@ -66,12 +100,11 @@
 </body>
 
 <script type="text/javascript">
-
     $("#checkFinanciado").on("change", function () {
         if ($(this).is(":checked")) {
-            $("#TrabalhoFinanciado").css("display", "block");
+            $("#Financiado").css("display", "block");
         } else {
-            $("#TrabalhoFinanciado").css("display", "none");
+            $("#Financiado").css("display", "none");
 
         }
     });
