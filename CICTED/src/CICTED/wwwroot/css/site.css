@@ -336,28 +336,46 @@ textarea {
     height: 40px;
     background: rgb(0, 38, 70);
     width: 100%;
-    position: fixed;
     padding: 5px;
     padding-left: 55px;
+    position: relative;
+    display: inline-block;
 }
 
     .menu ul {
         margin: 0;
         list-style: none;
-        width: 100%;
     }
+
+        .menu ul li {
+            float: left;
+            padding-top: 5px;
+        }
+
+            .menu ul li a {
+                color: #fff;
+                text-decoration: none;
+                padding: 5px 10px;
+                font-size: 14px;
+            }
+
+        .menu ul ul {
+            display: none;
+            position: fixed;
+            margin-left: -40px;
+            margin-top: 10px;
+            width: 155px;
+        }
+
+            .menu ul ul li {
+                background-color: rgba(0, 38, 70, 0.84);
+                padding: 5px;
+                width: 100%;
+            }
 
         .menu ul li:hover > ul {
             display: block;
             position: relative;
-        }
-
-        .menu ul li a {
-            display: inline-block;
-            color: #fff;
-            text-decoration: none;
-            padding: 5px 10px;
-            font-size: 14px;
         }
 
 
@@ -366,14 +384,6 @@ textarea {
         cursor: pointer;
         text-shadow: 0px 0px 5px #fff;
     }
-
-    .menu ul ul {
-        background-color: rgba(0, 38, 70, 0.84);
-        display: none;
-        border-radius: 5px;
-    }
-
-
 
 
 .footer {
