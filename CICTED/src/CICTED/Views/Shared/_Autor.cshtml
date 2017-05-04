@@ -37,7 +37,7 @@
 
             <li><a asp-controller="autor" asp-action="home"><span class="fa fa-home"></span> Inicio</a></li>
 
-            <li><a><span class="fa fa-file-text-o"></span> Consultar trabalho</a></li>
+            
 
             <li class="float-right margin-right-75">
                 <form asp-controller="account" asp-action="logoff" method="post">
@@ -45,7 +45,7 @@
                 </form>
             </li>
 
-            <li class="float-right">
+            @*<li class="float-right">
                 <a><span class="fa fa-refresh"></span> Trocar Papel</a>
                 @if (ViewBag.Roles != null)
                 {
@@ -71,13 +71,11 @@
                         }
                     </ul>
                 }
+            </li>*@
 
-            </li>
-
-            <li class="float-right"><a data-toggle="modal" data-target="#myModal"><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
+            <li class="float-right"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
 
 
-            <li class="float-right"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
         </ul>
 
     </div>

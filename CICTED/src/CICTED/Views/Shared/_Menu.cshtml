@@ -41,7 +41,7 @@
                 <li><a><span class="fa fa-tachometer"></span> Dashboard</a></li>
                 <li>
                     <a><span class="fa fa-file-text-o"></span> Consultar</a>
-                    <ul style="margin-left:-68px!important;">
+                    <ul style="margin-left:-60px!important; width:145px">
                         <li><a><span class="fa fa-file-text-o"></span> Trabalhos</a></li>
                         <li><a><span class="fa fa-pencil"></span> Atividades</a></li>
                         <li><a><span class="fa fa-users"></span> Usuários</a></li>
@@ -50,24 +50,28 @@
 
                 <li>
                     <a><span class="fa fa-calendar-o"></span> Apresentações</a>
-                    <ul style="margin-left:-55px!important;">
+                    <ul style="margin-left:-45px!important;">
                         <li><a><span class="fa fa-calendar"></span> Calendário</a></li>
                         <li><a>Consulta</a></li>
                         <li><a>Espaços</a></li>
                     </ul>
                 </li>
-
-                <li class="float-right"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
             }
 
-           
+            @if (User.IsInRole("Autor"))
+            {
+                <li><a><span class="fa fa-file-text-o"></span> Consultar trabalho</a></li>
 
+                <li class="float-left"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
+            }  
 
             <li class="float-right margin-right-100">
                 <form asp-controller="account" asp-action="logoff" method="post">
                     <button type="submit"><span class="fa fa-sign-out"></span> Sair</button>
                 </form>
             </li>
+            
+            <li class="float-right"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
 
             <li class="float-right">
                 <a><span class="fa fa-refresh"></span> Trocar Papel</a>
@@ -95,20 +99,17 @@
                         }
                     </ul>
                 }
-
             </li>
-
-            <li class="float-right"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
-
-            
         </ul>
     </div>
+
+
     <div class="admin-content">
         @RenderBody()
     </div>
 
-    <div class="footer">
 
+    <div class="footer">
         <span style="font-size:35px" class="fa fa-envelope margin-left-100 float-left"></span>
         <h5 class="margin-left-10 float-left ">cicted@unitau.br</h5>
         <div class="barra float-left"></div>
