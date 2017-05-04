@@ -1,114 +1,72 @@
 ﻿@model CICTED.Domain.ViewModels.Autor.HomeViewModel
 @{
-    Layout = null;
+    Layout = "_Menu";
 }
-<html>
 
-<head>
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/font-awesome.css" />
-
-    <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
+<title>Home - CICTED</title>
 
 
-    <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
-        <script src="~/js/CICTED.min.js" asp-append-version="true"></script>
-    </environment>
+<div class="autor-home-content">
+    <h3 style="font-weight: bold">Página Inicial - Autor</h3>
+    <hr />
+    <h4>Bem vindo(a) @ViewBag.Nome!</h4>
+    <h5>
+        Neste espaço você terá acesso a todas as informações do evento V CICTED: Ciência Alimentando o Brasil. Aqui
+        você poderá consultar os eventos, cadastrar e visualizar todos os seus trabalhos e atividades sem complicações a qualquer hora.
+    </h5>
 
-    <script src="~/js/jquery.maskedinput.js"></script>
-    <script src="~/js/jquery.maskedinput.min.js"></script>
-    <script src="~/js/CICTED.js"></script>
+    <h5>Para cadastrar novos trabalhos, selecione o evento desejado.</h5>
 
-    <title>Home - CICTED</title>
-</head>
+    <a class="link float-left" id="evento" data-toggle="modal" data-target="#myModal" value="1"><h3>ENIC</h3></a>
+    <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="2"><h3>ENIC JR.</h3></a>
+    <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="3"><h3>ENIC TEEN</h3></a>
+    <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="4"><h3>ENIC KIDS</h3></a>
+    <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="5"><h3>MIPG</h3></a>
+    <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="6"><h3>SEDUNI</h3></a>
+    <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="7"><h3>SEMEX</h3></a>
+    <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="8"><h3>PP&I</h3></a>
 
-<body>
-    <div class="autor-home-content">
-        <h3 style="font-weight: bold">Página Inicial - Autor</h3>
-        <hr />
-        <h4>Bem vindo(a) @ViewBag.Nome!</h4>
-        <h5>
-            Neste espaço você terá acesso a todas as informações do evento V CICTED: Ciência Alimentando o Brasil. Aqui
-            você poderá consultar os eventos, cadastrar e visualizar todos os seus trabalhos e atividades sem complicações a qualquer hora.
-        </h5>
+    <br /><br /><br />
+    <h5>As incrições e submissões dos trabalhos deverão ser realizadas até o dia ...</h5>
+    <h5> A Universidade de Taubaté (UNITAU) agradece sua participação na ... edição do Congresso Internacional de Ciência, Tecnologia e Desenvolvimento (CICTED)</h5>
+</div>
 
-        <h5>Para cadastrar novos trabalhos, selecione o evento desejado.</h5>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-        <a class="link float-left" id="evento" data-toggle="modal" data-target="#myModal" value="1"><h3>ENIC</h3></a>
-        <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="2"><h3>ENIC JR.</h3></a>
-        <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="3"><h3>ENIC TEEN</h3></a>
-        <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="4"><h3>ENIC KIDS</h3></a>
-        <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="5"><h3>MIPG</h3></a>
-        <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="6"><h3>SEDUNI</h3></a>
-        <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="7"><h3>SEMEX</h3></a>
-        <a class="link float-left margin-left-30" id="evento" data-toggle="modal" data-target="#myModal" value="8"><h3>PP&I</h3></a>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-        <br /><br /><br />
-        <h5>As incrições e submissões dos trabalhos deverão ser realizadas até o dia ...</h5>
-        <h5> A Universidade de Taubaté (UNITAU) agradece sua participação na ... edição do Congresso Internacional de Ciência, Tecnologia e Desenvolvimento (CICTED)</h5>
-    </div>
-
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">@if (Model.EventoNome != null)
-                    {
-                        @Model.EventoNome
-                    }.
-                    </h4>
-                </div>
-
-                <div class="modal-body">
-                    <p>@if (Model.Descricao != null) { 
+                <h4 class="modal-title">
+                    @Model.EventoNome
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>
                     @Model.Descricao
-                    }.
-                    </p>
+                </p>
+                <br /><br />
+                <p>
+                    <b>Objetivo: </b>
+                    @Model.Objetivo
+                </p>
+                <br /><br />
+                <p>
+                    <b>Público-Alvo: </b>
+                    @Model.PublicoAlvo
+                </p>
 
-                    <br /><br />
+            </div>
 
-                    <p><b>Objetivo: </b> @if (Model.Objetivo != null)
-                    {
-                        @Model.Objetivo
-                    }.</p>
-
-                    <br /><br />
-
-                    <p><b>Público-Alvo: </b>@if (Model.PublicoAlvo != null)
-                    {
-                        @Model.PublicoAlvo
-                    }
-                    .</p>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar Trabalho</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar Trabalho</button>
             </div>
         </div>
     </div>
-</body>
+</div>
 
-</html>
 
-@section Script{
     <script type="text/javascript">
         $(".evento").on("click", function () {
             var button = $(this);
@@ -133,5 +91,5 @@
         });
 
     </script>
-}
+
 

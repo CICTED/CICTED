@@ -35,7 +35,16 @@ namespace CICTED.Controllers
             var roles = await _accountRepository.GetRoles(user.Id);
             ViewBag.Nome = user.Nome;
             ViewBag.Roles = roles;
-            return View();
+
+            HomeViewModel model = new HomeViewModel()
+            {
+                Descricao = ".",
+                PublicoAlvo = ".",
+                Objetivo = ".",
+                EventoNome = "ENIC",
+            };
+
+            return View(model);
         }
 
         [HttpGet("~/{Idevento}/CadastroTrabalho")]
