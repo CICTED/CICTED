@@ -337,7 +337,6 @@ textarea {
     background: rgb(0, 38, 70);
     width: 100%;
     padding: 5px;
-    padding-left: 55px;
     position: relative;
     display: inline-block;
 }
@@ -350,21 +349,21 @@ textarea {
         .menu ul li {
             float: left;
             padding-top: 5px;
-            margin-left: 20px;
+            margin-left: 10px;
         }
 
             .menu ul li a {
                 color: #fff;
                 text-decoration: none;
                 padding: 5px 10px;
-                font-size: 14px;
+                font-size: 12px;
             }
 
         .menu ul ul {
             display: none;
             margin-left: -30px;
             margin-top: 10px;
-            width: 160px;
+            width: 150px;
         }
 
             .menu ul ul li {
