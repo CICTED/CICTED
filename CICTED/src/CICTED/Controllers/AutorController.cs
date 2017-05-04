@@ -58,6 +58,7 @@ namespace CICTED.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("evento/{id}")]
+        public async Task<IActionResult> Eventos(int id)
         {
             var eventos = await _trabalhoRepository.GetEvento(id);
 
