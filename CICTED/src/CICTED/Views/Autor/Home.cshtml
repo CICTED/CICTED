@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CICTED.Domain.ViewModels.Autor.HomeViewModel
+@{
     Layout = "_Autor";
 }
 
@@ -8,21 +9,44 @@
     <h3 style="font-weight: bold">Página Inicial - Autor</h3>
     <hr />
     <h4>Bem vindo(a) @ViewBag.Nome!</h4>
-    <h5>Neste espaço você terá acesso a todas as informações do evento V CICTED: Ciência Alimentando o Brasil. Aqui
-    você poderá consultar os eventos, cadastrar e visualizar todos os seus trabalhos e atividades sem complicações a qualquer hora.</h5>
+    <h5>
+        Neste espaço você terá acesso a todas as informações do evento V CICTED: Ciência Alimentando o Brasil. Aqui
+        você poderá consultar os eventos, cadastrar e visualizar todos os seus trabalhos e atividades sem complicações a qualquer hora.
+    </h5>
 
     <h5>Para cadastrar novos trabalhos, selecione o evento desejado.</h5>
-    <a class="link float-left"><h3>ENIC</h3></a>
+    <a class="link float-left" data-toggle="modal" data-target="#myModal"><h3>ENIC</h3></a>
     <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal"><h3>ENIC JR.</h3></a>
-    <a class="link float-left margin-left-30"><h3>ENIC TEEN</h3></a>
-    <a class="link float-left margin-left-30"><h3>ENIC KIDS</h3></a>
-    <a class="link float-left margin-left-30"><h3>MIPG</h3></a>
-    <a class="link float-left margin-left-30"><h3>SEDUNI</h3></a>
-    <a class="link float-left margin-left-30"><h3>SEMEX</h3></a>
-    <a class="link float-left margin-left-30"><h3>PP&I</h3></a>
+    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal"><h3>ENIC TEEN</h3></a>
+    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal"><h3>ENIC KIDS</h3></a>
+    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal"><h3>MIPG</h3></a>
+    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal"><h3>SEDUNI</h3></a>
+    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal"><h3>SEMEX</h3></a>
+    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal"><h3>PP&I</h3></a>
     <br /><br /><br />
     <h5>As incrições e submissões dos trabalhos deverão ser realizadas até o dia ...</h5>
     <h5> A Universidade de Taubaté (UNITAU) agradece sua participação na ... edição do Congresso Internacional de Ciência, Tecnologia e Desenvolvimento (CICTED)</h5>
 </div>
 
-<div></div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Model.EventoNome</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>@Model.Descricao</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar Trabalho</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
