@@ -56,12 +56,7 @@ namespace CICTED.Controllers
             return View(model);
         }
 
-        [HttpGet("dados")]
-        public async Task<PartialViewResult> DadosUsuario()
-        {
-            var model = new ApplicationUser();
-            return PartialView();
-        }
+        
 
 
 

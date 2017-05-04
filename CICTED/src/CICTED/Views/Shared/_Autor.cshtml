@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -74,7 +75,7 @@
             </li>
 
             <li class="float-right"><a data-toggle="modal" data-target="#myModal"><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
-            
+
 
             <li class="float-right"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
         </ul>
@@ -84,7 +85,7 @@
         @RenderBody()
     </div>
 
-    <div class="footer" style="position:page">
+    <div class="footer">
 
         <span style="font-size:35px" class="fa fa-envelope margin-left-100 float-left"></span>
         <h5 class="margin-left-10 float-left ">cicted@unitau.br</h5>
@@ -98,17 +99,8 @@
         <img style="height: 40px; width: 250px" class="margin-right-100 float-right" src="~/images/rodapé/apoio.png" />
         <h4 class="float-right margin-right-20">APOIO:</h4>
         <div class="barra float-right"></div>
-    </div>
-
-
-
-
-    <div id="myModal" class="modal fade" role="dialog">
-        
-                    @*@Html.Partial("~/View/Account/_DadosUsuario");*@
-                    
-    </div>
-
+    </div>   
+   
 
     @RenderSection("scripts", required: false)
 

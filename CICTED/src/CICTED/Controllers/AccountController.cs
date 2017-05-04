@@ -274,9 +274,9 @@ namespace CICTED.Controllers
                     cidadeId = model.CidadeId;
                     enderecoId = await _localizacaoRepository.InsertEndereco(endereco, cidadeId);
 
-                }                
+                }
 
-                               
+
 
 
                 var usuarioDados = new RegistrarViewModel()
@@ -293,7 +293,7 @@ namespace CICTED.Controllers
                     InstituicaoId = model.InstituicaoId,
                     Bolsista = model.Bolsista,
                     Estudante = model.Estudante,
-                    Email = user.Email, 
+                    Email = user.Email,
                     CursoId = (model.CursoId > 0) ? model.CursoId : 1,
                     FirstAccess = false
                 };
@@ -301,7 +301,7 @@ namespace CICTED.Controllers
 
                 var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, enderecoId, idUsuario);
 
-                if (result ==  true)
+                if (result == true)
                 {
                     model.ReturnMessage = "Alterações salvas com sucesso";
                     return RedirectToAction("Home", "Autor");
@@ -373,7 +373,14 @@ namespace CICTED.Controllers
             return CPF.EndsWith(Digito);
         }
         #endregion
-    }
 
+
+        [HttpGet("dados")]
+        public async Task<PartialViewResult> DadosUsuario()
+        {
+            var model = new ApplicationUser();
+            return PartialView("_DadosUsuario", model);
+        }
+    }
 }
 
