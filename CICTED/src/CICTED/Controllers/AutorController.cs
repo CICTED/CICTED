@@ -8,7 +8,7 @@ using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.Infrastucture.Repository;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
-using CICTED.Domain.ViewModels.Trabalho;
+using CICTED.Domain.ViewModels.Autor;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,6 +34,9 @@ namespace CICTED.Controllers
             ViewBag.Nome = user.Nome;
             ViewBag.Roles = roles;
             return View();
+
+
+
         }
 
         [HttpGet("~/{Idevento}/CadastroTrabalho")]

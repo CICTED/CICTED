@@ -9,6 +9,7 @@ namespace CICTED.Domain.ViewModels.Autor
     {
         public string EventoNome { get; set; }
         public string Descricao { get; set; }
+        public string Objetivo { get; set; }
         public string PublicoAlvo { get; set; }
     }
 }
