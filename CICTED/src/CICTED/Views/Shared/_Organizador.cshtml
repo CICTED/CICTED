@@ -56,12 +56,19 @@
                 </ul>
             </li>
 
+
             <li class="float-right margin-right-100">
+                <form asp-controller="account" asp-action="logoff" method="post">
+                    <button type="submit"><span class="fa fa-sign-out"></span> Sair</button>
+                </form>
+            </li>
+
+            <li class="float-right">
                 <a><span class="fa fa-refresh"></span> Trocar Papel</a>
-                @*@if (Model.Roles != null)
+                @if (ViewBag.Roles != null)
                 {
                     <ul style="margin-left:-55px!important; width:150px!important">
-                        @foreach (var role in Model.Roles)
+                        @foreach (var role in ViewBag.Roles)
                         {
                             @if (role == 1)
                             {
@@ -81,11 +88,11 @@
                             }
                         }
                     </ul>
-                }*@
+                }
 
             </li>
 
-            <li class="float-right margin-left-30"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
+            <li class="float-right"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
 
             <li class="float-right"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
         </ul>
