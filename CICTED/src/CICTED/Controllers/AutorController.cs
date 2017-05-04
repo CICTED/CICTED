@@ -8,7 +8,6 @@ using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.Infrastucture.Repository;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
-using CICTED.Domain.ViewModels.Autor;
 using CICTED.Domain.ViewModels.Trabalho;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -32,14 +31,13 @@ namespace CICTED.Controllers
         {           
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var roles = await _accountRepository.GetRoles(user.Id);
-            var model = new MenuViewModel();
-            model.Roles = roles;
             ViewBag.Nome = user.Nome;
-            return View(model);
+            ViewBag.Roles = roles;
+            return View();
         }
 
-        [HttpGet("CadastroTrabalho")]
-        public async Task<IActionResult> CadastroTrabalho()
+        [HttpGet("~/{Idevento}/CadastroTrabalho")]
+        public async Task<IActionResult> CadastroTrabalho(int Idevento)
         {
             if (!ModelState.IsValid)
             {
@@ -53,6 +51,13 @@ namespace CICTED.Controllers
             ViewBag.Nome = user.Nome;            
 
             return View(model);
+        }
+
+        [HttpGet("dados")]
+        public async Task<PartialViewResult> DadosUsuario()
+        {
+            var model = new ApplicationUser();
+            return PartialView();
         }
 
 

@@ -36,7 +36,7 @@
         <ul>
             <li><a><span class="fa fa-home"></span> Inicio</a></li>
 
-            <li><a>Dashboard</a></li>
+            <li><a><span class="fa fa-tachometer"></span> Dashboard</a></li>
 
             <li>
                 <a><span class="fa fa-file-text-o"></span> Consultar</a>
@@ -50,18 +50,25 @@
             <li>
                 <a><span class="fa fa-calendar-o"></span> Apresentações</a>
                 <ul style="margin-left:-55px!important;">
-                    <li><a>Calendário</a></li>
+                    <li><a><span class="fa fa-calendar"></span> Calendário</a></li>
                     <li><a>Consulta</a></li>
                     <li><a>Espaços</a></li>
                 </ul>
             </li>
 
+
             <li class="float-right margin-right-100">
+                <form asp-controller="account" asp-action="logoff" method="post">
+                    <button type="submit"><span class="fa fa-sign-out"></span> Sair</button>
+                </form>
+            </li>
+
+            <li class="float-right">
                 <a><span class="fa fa-refresh"></span> Trocar Papel</a>
-                @*@if (Model.Roles != null)
+                @if (ViewBag.Roles != null)
                 {
                     <ul style="margin-left:-55px!important; width:150px!important">
-                        @foreach (var role in Model.Roles)
+                        @foreach (var role in ViewBag.Roles)
                         {
                             @if (role == 1)
                             {
@@ -81,11 +88,11 @@
                             }
                         }
                     </ul>
-                }*@
+                }
 
             </li>
 
-            <li class="float-right margin-left-30"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
+            <li class="float-right"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
 
             <li class="float-right"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
         </ul>
@@ -109,8 +116,6 @@
         <h4 class="float-right margin-right-20">APOIO:</h4>
         <div class="barra float-right"></div>
     </div>
-
-
 
     @RenderSection("scripts", required: false)
 
