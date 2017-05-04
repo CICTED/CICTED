@@ -16,7 +16,7 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public int PeriodoApresentacao { get; set; }
 
-        public bool TabalhoFinanciado { get; set; }
+        public bool TrabalhoFinanciado { get; set; }
 
         public int Agencia { get; set; }
 

@@ -466,14 +466,17 @@ input[type=checkbox] {
 
 .form-cadTrabalho {
     width: 800px;
-    min-height: 500px;
+    min-height: 600px;
     height: auto;
     margin: 0 auto;
     background-color: #FFFFFF;
     border-radius: 0px;
     padding: 10px 20px 20px 30px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    font-size: 16px;
+    font-size: 14px;
+}
+.form-cadTrabalho label{
+    font-size: 16px !important;
 }
   
 .form-cadastro {
