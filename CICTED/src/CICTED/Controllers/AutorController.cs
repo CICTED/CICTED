@@ -55,9 +55,17 @@ namespace CICTED.Controllers
             return View(model);
         }
 
+<<<<<<< HEAD
         [HttpGet("evento")]
         public async Task<IActionResult> Evento(int id)        
         {   
+=======
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("evento/{id}")]
+        public async Task<IActionResult> Eventos(int id)
+        {
+>>>>>>> 2933273551b9cda7f89c3dfa970a6fa51fa19b5b
             var eventos = await _trabalhoRepository.GetEvento(id);
 
             if (eventos == null) return BadRequest("There was an error to load the event.");

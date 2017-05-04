@@ -65,6 +65,7 @@ namespace CICTED
                 myOptions.TwillioURL = Configuration["TwillioURL"];
             });
             services.AddTransient<ILocalizacaoRepository, LocalizacaoRepository>();
+            services.AddTransient<ITrabalhoRepository, TrabalhoRepository>();
             services.AddTransient<IEmailServices, EmailServices>();
             services.AddTransient<ISmsService, SmsService>();
             services.AddTransient<IAccountRepository, AccountRepository>();
