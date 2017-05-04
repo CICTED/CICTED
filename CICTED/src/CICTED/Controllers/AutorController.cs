@@ -36,8 +36,8 @@ namespace CICTED.Controllers
             return View();
         }
 
-        [HttpGet("CadastroTrabalho")]
-        public async Task<IActionResult> CadastroTrabalho()
+        [HttpGet("~/{Idevento}/CadastroTrabalho")]
+        public async Task<IActionResult> CadastroTrabalho(int Idevento)
         {
             if (!ModelState.IsValid)
             {
