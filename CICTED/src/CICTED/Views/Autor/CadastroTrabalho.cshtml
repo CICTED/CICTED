@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="float-left margin-left-40" style="width:200px;">
+                        <div class="float-left margin-left-40" style="width:250px;">
                             <label>Evento: </label>
                         </div>
 
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="float-left margin-left-40" style="width:200px;">
+                        <div class="float-left margin-left-40" style="width:250px;">
                             <label>Area de conhecimento: </label>
                         </div>
 
@@ -49,20 +49,20 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="float-left margin-left-40" style="width:200px;">
+                        <div class="float-left margin-left-40" style="width:250px;">
                             <label>Subarea: </label>
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
+                            <select class="form-control" name="AreaConhecimento" value="@Model.SubArea">
                                 <option disabled selected>Selecione uma subarea</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <div class="float-left margin-left-40" style="width:200px;">
-                            <label>O trabalho é financiado? </label>
+                        <div class="float-left margin-left-40" style="width:250px;">
+                            <label>O trabalho é financiado por alguma agência? </label>
                         </div>
                         <div class="float-left margin-left-75">
                             <div class="onoffswitch">
@@ -76,22 +76,33 @@
                         </div>
                     </div>
 
-                    
-                        <div id="Financiado" style="display: none" class="form-group row">
-                            <div class="float-left margin-left-40" style="width:200px">
-                                <label>Agencia Financiadora:</label>
-                            </div>
-                            <div class="float-left margin-left-75">
-                                <select class="form-control">
-                                    <option value="-1">Selecione a agência financiadora</option>
-                                </select>
-                            </div>
+
+                    <div id="Financiado" style="display: none" class="form-group row">
+                        <div class="float-left margin-left-40" style="width:250px">
+                            <label>Agencia Financiadora:</label>
                         </div>
+                        <div class="float-left margin-left-75">
+                            <select class="form-control">
+                                <option value="-1">Selecione a agência financiadora</option>
+                            </select>
+                        </div>
+                    </div>
                     <hr />
                     <b>Atenção: Caso seu trabalho envolva seres humanos deverão estar aprovadas por Comitê de Ética registrado junto à CONEP/CNS/MS. E o campo abaixo deve ser preenchido.</b>
 
+                    <div class="form-group row margin-top-20">
+                        <div class="float-left margin-left-40" style="width: 250px">
+                            <label>Código CEP (Comitê de Ética em Pesquisa): </label>
+                        </div>
+                        <div class="float-left margin-left-75">
+                            <input type="text" name="CEP" value="@Model.CodigoCEP" />
+                        </div>
+                    </div>
+                    
+                        <button class="btn btn-primary float-right">Avançar</button>
+                    
                 </div>
-                <div role="tabpanel" class="tab-pane" id="Passo2"><p>Passo2</p></div>
+                <div role="tabpanel" class="tab-pane" id="Passo2" ><p>Passo2</p></div>
                 <div role="tabpanel" class="tab-pane" id="Passo3"><p>Passo3</p></div>
             </div>
         </div>
