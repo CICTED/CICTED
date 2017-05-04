@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CICTED.Domain.Infrastucture.Repository.Interfaces
 {
-    interface ITrabalhoRepository
+    public interface ITrabalhoRepository
     {
         Task<Evento> GetEvento(int IdEvento);
     }

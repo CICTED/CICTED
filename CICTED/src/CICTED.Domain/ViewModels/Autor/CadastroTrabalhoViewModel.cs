@@ -28,7 +28,7 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public List<Estado> Estado { get; set; }
 
-        public List<long> Roles  { get; set; }
+        public List<long> Roles { get; set; }
 
     }
 }
