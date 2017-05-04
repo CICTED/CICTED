@@ -3,22 +3,26 @@
     Layout = "_Dados";
 }
 
+<title>Dados do Usuário - CICTED</title>
 
-    <label>DADOS USUARIO</label>
-
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>oi</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal">Close</button>
-                </div>
+<form class="form-cadastro !important" method="post">
+    <div class="form-group">
+        <h4>Dados Pessoais:</h4>
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:50%">
+                <label>Nome:</label>
+                <input type="text" required />
+            </div>
+            <div class="float-right" style="width:50%">
+                <label>Sobrenome:</label>
+                <input type="text" required />
             </div>
         </div>
     </div>
 
+    <div class="margin-top-10" align="center">
+        <button type="button" class="btn btn-primary" id="button-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+    </div>
+
+</form>
