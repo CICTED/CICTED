@@ -379,7 +379,7 @@ namespace CICTED.Controllers
         public async Task<PartialViewResult> DadosUsuario()
         {
             var model = new ApplicationUser();
-            return PartialView("_DadosUsuario", model);
+            return PartialView("DadosUsuario", model);
         }
     }
 }
