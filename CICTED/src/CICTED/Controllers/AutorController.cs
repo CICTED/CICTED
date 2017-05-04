@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using Microsoft.AspNetCore.Authorization;
-using CICTED.Domain.Infrastucture.Repository;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.ViewModels.Autor;
 
@@ -19,12 +18,15 @@ namespace CICTED.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private IAccountRepository _accountRepository;
+        private ITrabalhoRepository _trabalhoRepository;
 
-        public AutorController(UserManager<ApplicationUser> userManager, IAccountRepository accountRepository)
+        public AutorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository)
         {
+            _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
             _accountRepository = accountRepository;
         }
+
         [HttpGet("home")]
         [Authorize]
         public async Task<IActionResult> Home()
@@ -34,9 +36,6 @@ namespace CICTED.Controllers
             ViewBag.Nome = user.Nome;
             ViewBag.Roles = roles;
             return View();
-
-
-
         }
 
         [HttpGet("~/{Idevento}/CadastroTrabalho")]
@@ -56,7 +55,19 @@ namespace CICTED.Controllers
             return View(model);
         }
 
-        
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("evento/{id}")]
+        {
+            var eventos = await _trabalhoRepository.GetEvento(id);
+
+            if (eventos == null) return BadRequest("There was an error to load the cities.");
+
+            return Json(eventos);
+        }
+
+
+
 
 
 
