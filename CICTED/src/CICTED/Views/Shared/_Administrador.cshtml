@@ -68,12 +68,15 @@
                 <a><span class="fa fa-lock"></span> Alterar Senha</a>
             </li>
             
+            <li class="float-right margin-left-20">
+                <a><span class="fa fa-newspaper-o"></span> Meus Dados</a>
+            </li>
 
             <li class="float-right margin-left-30">
                 <a><span class="fa fa-refresh"></span> Trocar Papel</a>
                 @if (Model.Roles != null)
                 {
-                    <ul>
+                    <ul style="width:155px !important">
                         @foreach (var role in Model.Roles)
                         {
                             @if (role == 1)
