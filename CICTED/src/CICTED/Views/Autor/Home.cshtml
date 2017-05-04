@@ -15,14 +15,14 @@
     </h5>
 
     <h5>Para cadastrar novos trabalhos, selecione o evento desejado.</h5>
-    <a class="link float-left" data-toggle="modal" data-target="#myModal" value="1"><h3>ENIC</h3></a>
-    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal" value="2"><h3>ENIC JR.</h3></a>
-    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal" value="3"><h3>ENIC TEEN</h3></a>
-    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal" value="4"><h3>ENIC KIDS</h3></a>
-    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal" value="5"><h3>MIPG</h3></a>
-    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal" value="6"><h3>SEDUNI</h3></a>
-    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal" value="7"><h3>SEMEX</h3></a>
-    <a class="link float-left margin-left-30" data-toggle="modal" data-target="#myModal" value="8"><h3>PP&I</h3></a>
+    <a class="link float-left evento" data-toggle="modal" data-target="#myModal" data-id="1"><h3>ENIC</h3></a>
+    <a class="link float-left margin-left-30 evento" data-toggle="modal" data-target="#myModal" data-id="2"><h3>ENIC JR.</h3></a>
+    <a class="link float-left margin-left-30 evento" data-toggle="modal" data-target="#myModal" data-id="3"><h3>ENIC TEEN</h3></a>
+    <a class="link float-left margin-left-30 evento" data-toggle="modal" data-target="#myModal" data-id="4"><h3>ENIC KIDS</h3></a>
+    <a class="link float-left margin-left-30 evento" data-toggle="modal" data-target="#myModal" data-id="5"><h3>MIPG</h3></a>
+    <a class="link float-left margin-left-30 evento" data-toggle="modal" data-target="#myModal" data-id="6"><h3>SEDUNI</h3></a>
+    <a class="link float-left margin-left-30 evento" data-toggle="modal" data-target="#myModal" data-id="7"><h3>SEMEX</h3></a>
+    <a class="link float-left margin-left-30 evento" data-toggle="modal" data-target="#myModal" data-id="8"><h3>PP&I</h3></a>
     <br /><br /><br />
     <h5>As incrições e submissões dos trabalhos deverão ser realizadas até o dia ...</h5>
     <h5> A Universidade de Taubaté (UNITAU) agradece sua participação na ... edição do Congresso Internacional de Ciência, Tecnologia e Desenvolvimento (CICTED)</h5>
@@ -58,3 +58,30 @@
     </div>
 
 </div>
+
+@section Script{
+<script type="text/javascript">
+    $(".evento").on("click", function () {
+        var button = $(this);
+        var id = button.attr("data-id");
+
+        $.ajax({
+            url: '/autor/evento',
+            type: 'get',
+            data: {
+                id : id            
+            },
+            
+            sucess: function () {                
+
+            },
+            error: function (x, y, message) {
+                alert("Evento nao encontrado ")
+
+            },
+        });
+
+    });
+
+</script>
+}

@@ -55,13 +55,20 @@ namespace CICTED.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("evento/{id}")]
-        {
+        [HttpGet("evento")]
+        public async Task<IActionResult> Evento(int id)        
+        {   
             var eventos = await _trabalhoRepository.GetEvento(id);
 
-            if (eventos == null) return BadRequest("There was an error to load the cities.");
+            if (eventos == null) return BadRequest("There was an error to load the event.");
+
+            HomeViewModel model = new HomeViewModel()
+            {
+                EventoNome = eventos.EventoNome,
+                Descricao = eventos.Descricao,
+                Objetivo = eventos.Objetivo,
+                PublicoAlvo = eventos.PublicoAlvo
+            }; 
 
             return Json(eventos);
         }
