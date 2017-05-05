@@ -42,7 +42,7 @@ namespace CICTED.Controllers
                 PublicoAlvo = ".",
                 Objetivo = ".",
                 EventoNome = "ENIC",
-            };
+            }; 
 
             return View(model);
         }
