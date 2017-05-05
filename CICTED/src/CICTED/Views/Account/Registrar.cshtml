@@ -15,11 +15,11 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Nome:</label>
-                <input type="text" name="Nome" value="@Model.Nome" required />
+                <input type="text" name="Nome" value="@Model.Nome" required style="width:500px"/>
             </div>
             <div class="float-right" style="width:50%">
                 <label>Sobrenome:</label>
-                <input type="text" name="Sobrenome" value="@Model.Sobrenome" required />
+                <input type="text" name="Sobrenome" value="@Model.Sobrenome" required style="width:500px"/>
             </div>
         </div>
 
@@ -108,7 +108,7 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Estado:</label>
-                <select class="form-control" id="dropEstado" name="Estado" value="@Model.EstadoID">
+                <select class="form-control" id="dropEstado" name="Estado" value="@Model.EstadoID" style="width:500px">
                     <option value="-1">Selecione seu estado</option>
                     @foreach (var estado in Model.Estados)
                     {
@@ -126,7 +126,7 @@
 
             <div class="float-right" style="width:50%">
                 <label>Cidade: </label>
-                <select class="form-control" id="dropCidade" name="CidadeId" value="@Model.CidadeId">
+                <select class="form-control" id="dropCidade" name="CidadeId" value="@Model.CidadeId" style="width:500px">
                     <option value="-1">Selecione sua cidade</option>
                     @if (Model.CidadeId > 0)
                     {
@@ -144,7 +144,7 @@
         <h4>Educacional:</h4>
         <div class="margin-top-10 row">
             <label>Instituição:</label>
-            <select class="form-control" name="InstituicaoId" value="@Model.InstituicaoId">
+            <select class="form-control" name="InstituicaoId" value="@Model.InstituicaoId" style="width:500px">
                 <option value="-1">Selecione sua instituição</option>
                 @foreach (var instituicao in Model.Instituicoes)
                 {
@@ -167,7 +167,7 @@
                     <div class="float-right row">
                         <label>Curso:</label>
 
-                        <select name="CursoId" value="@Model.CursoId">
+                        <select name="CursoId" value="@Model.CursoId" style="width:500px">
                             <option value="-1">Selecione seu Curso</option>
                             @foreach (var cursos in Model.Cursos)
                             {
