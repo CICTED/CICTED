@@ -6,18 +6,49 @@
 <title>Dados do Usuário - CICTED</title>
 
 <form class="form-cadastro !important" method="post">
+    <div style="margin:0 auto">
+        <h1>Meus dados</h1>
+    </div>
+
     <div class="form-group">
         <h4>Dados Pessoais:</h4>
         <div class="margin-top-10 row">
-            <div class="float-left" >
+            <div class="float-left" style="width:40%">
                 <label>Nome:</label>
-                <input type="text" required />
+                <input type="text" required style="width:500px" />
             </div>
-            <div class="float-right" >
+            <div class="float-right" style="width:50%">
                 <label>Sobrenome:</label>
-                <input type="text" required />
+                <input type="text" required style="width:500px" />
             </div>
         </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>CPF:</label>
+                <input type="text" required style="width:500px" />
+            </div>
+            <div class="float-right" style="width:50%">
+                <label>Outros Documentos(RG, Passaporte, Etc):</label>
+                <input type="text" required style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Data de Nascimento:</label>
+                <input type="date" required style="width:500px" />
+            </div>
+            <div class="float-right" style="width:50%">
+                <label>Gênero:</label>
+                <select type="text" required style="width:500px" class="form-control">
+                    <option value="-1">Selecione um gênero</option>
+                    <option value="false">Masculino</option>
+                    <option value="true">Feminino</option>
+                </select>
+            </div>
+        </div>
+
     </div>
 
     <div class="margin-top-10" align="center">
