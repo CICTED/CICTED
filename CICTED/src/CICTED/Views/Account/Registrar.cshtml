@@ -28,25 +28,25 @@
             
             <div class="float-left" style="width:40%">               
                 <label>CPF:</label>
-                <input type="text" name="CPF" value="@Model.CPF" />
+                <input type="text" name="CPF" value="@Model.CPF" style="width:500px"/>
               
             </div>
            
             <div class="float-right" style="width:50%">
                 <label>Outros Documentos(RG, Passaporte, Etc):</label>
-                <input type="text" name="Documento" value="@Model.Documento" />
+                <input type="text" name="Documento" value="@Model.Documento" style="width:500px"/>
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Data de Nascimento:</label>
-                <input type="date" name="DataNascimento" value="@Model.DataNascimento" required />
+                <input type="date" name="DataNascimento" value="@Model.DataNascimento" required style="width:500px"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Gênero: </label>
-                <select class="form-control" name="Genero" value="@Model.Genero">
+                <select class="form-control" name="Genero" value="@Model.Genero" style="width:500px">
                     <option value="-1">Selecione um genero</option>
                     <option value="false">Masculino</option>
                     <option value="true">Feminino</option>
@@ -57,24 +57,24 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Telefone:</label>
-                <input type="tel" name="Telefone" id="Telefone" placeholder="(99) 9999-9999" value="@Model.Telefone" />
+                <input type="tel" name="Telefone" id="Telefone" placeholder="(99) 9999-9999" value="@Model.Telefone" style="width:500px"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Celular:</label>
-                <input type="text" name="Celular" id="Celular"  placeholder="(99) 99999-9999" value="@Model.Celular" />
+                <input type="text" name="Celular" id="Celular"  placeholder="(99) 99999-9999" value="@Model.Celular" style="width:500px"/>
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Email Principal:</label>
-                <input type="text" asp-for="Email" value="@Model.Email" disabled="disabled" />
+                <input type="text" asp-for="Email" value="@Model.Email" disabled="disabled" style="width:500px"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Email Secundario:</label>
-                <input type="text" asp-for="EmailSecundario" value="@Model.EmailSecundario" required />
+                <input type="text" asp-for="EmailSecundario" value="@Model.EmailSecundario" required style="width:500px"/>
             </div>
         </div>
     </div>
@@ -86,22 +86,22 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Logradouro:</label>
-                <input type="text" name="Logradouro" value="@Model.Logradouro" required />
+                <input type="text" name="Logradouro" value="@Model.Logradouro" required style="width:500px"/>
             </div>
             <div class="float-right" style="width:50%">
                 <label>Número:</label>
-                <input type="text" name="Numero" value="@Model.Numero" required />
+                <input type="text" name="Numero" value="@Model.Numero" required style="width:500px"/>
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Bairro:</label>
-                <input type="text" name="Bairro" value="@Model.Bairro" required />
+                <input type="text" name="Bairro" value="@Model.Bairro" required style="width:500px"/>
             </div>
             <div class="float-right" style="width:50%">
                 <label>CEP:</label>
-                <input type="text" name="CEP" id="Cep" placeholder="99999-999" value="@Model.CEP" required />
+                <input type="text" name="CEP" id="Cep" placeholder="99999-999" value="@Model.CEP" required style="width:500px"/>
             </div>
         </div>
 
@@ -167,7 +167,7 @@
                     <div class="float-right row">
                         <label>Curso:</label>
 
-                        <select name="CursoId" value="@Model.CursoId" style="width:500px">
+                        <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
                             <option value="-1">Selecione seu Curso</option>
                             @foreach (var cursos in Model.Cursos)
                             {
@@ -175,7 +175,7 @@
                             }
                         </select>
                         <label class="margin-top-20">Outro:</label>
-                        <input type="text" value="@Model.Curso" />
+                        <input type="text" value="@Model.Curso" style="width:500px"/>
                     </div>
                 </div>
             </div>
@@ -192,7 +192,7 @@
                 <div id="bolsista" style="display: none;">
                     <div class="float-left row">
                         <label>Agência financiadora:</label>
-                        <select class="form-control">
+                        <select class="form-control" style="width:500px">
                             <option value="-1">Selecione a agência financiadora</option>
                         </select>
                     </div>
