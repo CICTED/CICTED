@@ -213,7 +213,7 @@ namespace CICTED.Controllers
         {
             try
             {
-                RegistrarViewModel model = new RegistrarViewModel();
+                DadosUsuárioViewModel model = new DadosUsuárioViewModel();
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var estados = await _localizacaoRepository.GetEstado();
                 var cursos = await _accountRepository.GetCursos();
@@ -230,7 +230,7 @@ namespace CICTED.Controllers
         }
 
         [HttpPost("registrar")]
-        public async Task<IActionResult> Registrar(RegistrarViewModel model)
+        public async Task<IActionResult> Registrar(DadosUsuárioViewModel model)
         {
             try
             {
@@ -278,7 +278,7 @@ namespace CICTED.Controllers
 
 
 
-                var usuarioDados = new RegistrarViewModel()
+                var usuarioDados = new DadosUsuárioViewModel()
                 {
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,

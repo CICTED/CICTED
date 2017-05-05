@@ -26,7 +26,7 @@ namespace CICTED.Domain.Infrastucture.Repository
         }
         #endregion
 
-        public async Task<bool> UpdateDadosUsuario(RegistrarViewModel user, long enderecoId, long id)
+        public async Task<bool> UpdateDadosUsuario(DadosUsuárioViewModel user, long enderecoId, long id)
         {
             try
             {
