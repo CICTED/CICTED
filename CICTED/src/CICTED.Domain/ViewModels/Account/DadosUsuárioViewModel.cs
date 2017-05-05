@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace CICTED.Domain.ViewModels.Account
 {
-    public class RegistrarViewModel
+    public class DadosUsuárioViewModel
     {
         public string Nome { get; set; }
 
