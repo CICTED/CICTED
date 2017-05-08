@@ -1,11 +1,11 @@
 ﻿@model CICTED.Domain.ViewModels.Account.DadosUsuárioViewModel
 @{
-    Layout = "_Dados";
+    Layout = "_Menu";
 }
 
 <title>Dados do Usuário - CICTED</title>
 
-<form class="form-cadastro !important" method="post">
+<form class="form-cadastro !important" method="post" asp-controller="account" asp-action="dadosusuario">
     <div style="text-align:center">
         <h2><span class="fa fa-newspaper-o"></span><b> Meus Dados</b></h2>
     </div>

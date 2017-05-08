@@ -117,7 +117,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<List<long>> GetEndereco(long enderecoId)
+        public async Task<bool> GetEndereco(long enderecoId)
         {
             try
             {
@@ -125,12 +125,12 @@ namespace CICTED.Domain.Infrastucture.Repository
                 {
                     var endereco = await db.QueryAsync<long>("SELECT * FROM dbo.Endereco WHERE Id = @EnderecoId", new { Id = enderecoId });
 
-                    return endereco.ToList();
+                    return true;
                 }
             }
             catch (Exception ex)
             {
-                return null;
+                return false;
             }
         }
 

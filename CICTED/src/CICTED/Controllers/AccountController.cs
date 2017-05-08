@@ -35,7 +35,7 @@ namespace CICTED.Controllers
         [HttpGet("login")]
         public IActionResult Login()
         {
-            LoginViewModel model = new LoginViewModel ();
+            LoginViewModel model = new LoginViewModel();
 
             return View(model);
         }
@@ -391,6 +391,7 @@ namespace CICTED.Controllers
                 model.Celular = user.Celular;
                 model.Email = user.Email;
                 model.EmailSecundario = user.EmailSecundario;
+                //var endereco = await _accountRepository.GetEndereco(user.EnderecoId);
                 var estados = await _localizacaoRepository.GetEstado();
                 var cursos = await _accountRepository.GetCursos();
                 model.Instituicoes = await _accountRepository.GetInstituicao();
@@ -405,7 +406,7 @@ namespace CICTED.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }            
+            }
         }
 
         public IActionResult Error()
