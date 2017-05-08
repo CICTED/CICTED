@@ -41,7 +41,7 @@ namespace CICTED.Controllers
             var evento = await _eventoRepository.GetEvento(IdEvento);
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
-                Evento = evento.EventoNome    
+                Evento = evento.EventoNome
             };
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -51,22 +51,35 @@ namespace CICTED.Controllers
 
             return View(model);
         }
-        
+
         [HttpGet("consulta")]
         [Authorize]
         public async Task<IActionResult> ConsultaTrabalho()
         {
+            var user = _userManager.FindByNameAsync(User.Identity.Name);
+            List<long> trabalhosId = await _trabalhoRepository.GetTrabalhosId(user.Id);
+            List<Trabalho> trabalhos = new List<Trabalho>();           
+
+            foreach(var id in trabalhosId)
+            {
+                trabalhos.Add(await _trabalhoRepository.GetInformacaoTrabalho(id));
+            }
+        
             return View();
-        }
-
-        [HttpGet("informacao")]
-        [Authorize]
-        public async Task<IActionResult> Informacacao()
-        {
-            var model = new Trabalho();
-            model.Identificacao = "oioi";
-            return Json(model);
-        }
-
     }
+
+    [HttpGet("informacao")]
+    [Authorize]
+    public async Task<IActionResult> Informacao(long id)
+    {
+        var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
+        var orientador = await _trabalhoRepository.GetOrientador(id);
+        var model = new Trabalho();
+
+        model.Identificacao = "oioi";
+
+        return Json(model);
+    }
+
+}
 }

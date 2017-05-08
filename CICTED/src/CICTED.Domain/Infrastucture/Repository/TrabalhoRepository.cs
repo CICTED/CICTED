@@ -23,6 +23,60 @@ namespace CICTED.Domain.Infrastucture.Repository
 
 
         #endregion
-       
+
+        public async Task<Trabalho> GetInformacaoTrabalho(long id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectTrabalhoQuery = await db.QueryAsync<Trabalho>("SELECT * FROM dbo.Trabalho WHERE Id = @Id", new { Id = id });
+
+                    return selectTrabalhoQuery.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
+        public async Task<AutorTrabalho> GetOrientador(long id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT * FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId AND Orientador = @Orientador", new { TrabalhoId = id, Orientador = true });
+
+                    return selectTrabalhoQuery.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
+        public async Task<List<long>> GetTrabalhosId(long userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectTrabalhoQuery = await db.QueryAsync<long>("SELECT TrabalhoId FROM dbo.AutorTrabalho WHERE UsuarioId = @UsuarioId", new { UsuarioId = userId});
+
+                    return selectTrabalhoQuery.ToList();
+                }
+
+            }catch(Exception ex)
+            {
+                return null;
+            }
+        }
     }
+
+
 }

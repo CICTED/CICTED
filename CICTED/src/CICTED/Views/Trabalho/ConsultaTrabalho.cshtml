@@ -47,28 +47,21 @@
                     <hr />
                     <h4>Dados:</h4>
                     <table>
-                        <tr><td><b class="margin-left-30">Identificação: </b></td><td id="identificacao"></td></tr>
+                        <tr><td><b class="margin-right-30">Identificação: </b></td><td id="identificacao"></td></tr>
                         <tr><td><b>Área: </b></td><td id="area"></td></tr>
                         <tr><td><b>Subárea: </b></td><td id="subarea"></td></tr>
                         <tr><td><b>Evento: </b></td><td id="evento"></td></tr>
                         <tr><td><b>Status: </b></td><td id="status"></td></tr>
                         <tr><td><b>Data Cadastro: </b></td><td id="data-cadastro"></td></tr>
                         <tr><td><b>Data Submissão: </b></td><td id="data-submissao"></td></tr>
-                        @*<h5 id="identificacao">Identificação: </h5>
-
-                        <h5 id="area">Área: </h5>
-                        <h5 id="subarea">Subárea: </h5>
-                        <h5 id="evento">Evento: </h5>
-                        <h5 id="status">Status: </h5>
-                        <h5 id="">Data Cadastro: </h5>
-                        <h5 id="data-">Data : </h5>*@
-                        
-
                     </table>
+                    <hr />
                     <h4>Autores:</h4>
-                    <h5 id="autor-principal">Autor Principal: </h5>
-                    <h5 id="autor-outro"> </h5>
-                    <h5 id="orientador">Orientador: </h5>
+                    <table>
+                        <tr><td><b class="margin-right-30">Autor Principal: </b></td><td id="autor-principal"></td></tr>
+                        <tr id="outros-autores"></tr>
+                        <tr><td><b>Orientador: </b></td><td id="orientador"></td></tr>
+                    </table>
                     <hr />
                     <h4>Trabalho:</h4>
                     <h5 style="text-align:center" id="titulo">TITULO</h5>
@@ -103,21 +96,26 @@
         $.ajax({
             url: '/trabalho/informacao',
             type: 'get',
-            //data: {
-            //    id: id
-            //},
+            data: {
+                id: id
+            },
 
             success: function (data) {
                 $('#identificacao').text(data.identificacao);
-                $('#area').html('<b>Área: </b> ' + data.identificacao);
-                $('#subarea').html('<b>Subárea: </b> ' + data.identificacao);
-                //$('#evento-descricao').text(data.descricao);
-                //$('#evento-objetivo').html('<b>Objetivo: </b> ' + data.objetivo);
-                //$('#evento-publico-alvo').html('<b>Público-Alvo: </b>' + data.publicoAlvo);
+                $('#area').text(data.area);
+                $('#subarea').text(data.subarea);
+                $('#evento').text(data.evento);
+                $('#status').text(data.status);
+                $('#data-cadastro').text(data.subarea);
+                $('#data-submissao').text(data.subarea);
+                if (data.autores != null) {
+                    $('#"outros-autores').html('<td><b>Autores: </b></td><td>' + data.autores + '</td>');
+
+                }
             },
 
             error: function (x, y, message) {
-                alert("Evento nao encontrado ")
+                alert("Trabalho nao encontrado ")
             },
         });
     });
