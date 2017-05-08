@@ -19,24 +19,29 @@ namespace CICTED.Controllers
         private UserManager<ApplicationUser> _userManager;
         private IAccountRepository _accountRepository;
         private ITrabalhoRepository _trabalhoRepository;
+        private IEventoRepository _eventoRepository;
 
-        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository)
+        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
             _accountRepository = accountRepository;
+            _eventoRepository = eventoRepository;
         }
 
-        [HttpGet("~/{id}/cadastro")]
+        [HttpGet("cadastro")]
         [Authorize]
-        public async Task<IActionResult> CadastroTrabalho(int Idevento)
+        public async Task<IActionResult> CadastroTrabalho(int IdEvento)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-
-            CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel();
+            var evento = await _eventoRepository.GetEvento(IdEvento);
+            CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
+            {
+                Evento = evento.EventoNome    
+            };
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var roles = await _accountRepository.GetRoles(user.Id);
@@ -45,6 +50,8 @@ namespace CICTED.Controllers
 
             return View(model);
         }
+
+       
 
     }
 }

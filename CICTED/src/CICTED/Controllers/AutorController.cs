@@ -19,12 +19,14 @@ namespace CICTED.Controllers
         private UserManager<ApplicationUser> _userManager;
         private IAccountRepository _accountRepository;
         private ITrabalhoRepository _trabalhoRepository;
+        private IEventoRepository _eventoRepository;
 
-        public AutorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository)
+        public AutorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
             _accountRepository = accountRepository;
+            _eventoRepository = eventoRepository;
         }
 
         [HttpGet("home")]
@@ -34,20 +36,9 @@ namespace CICTED.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var roles = await _accountRepository.GetRoles(user.Id);
             ViewBag.Nome = user.Nome;
-            ViewBag.Roles = roles;
+            ViewBag.Roles = roles;                       
 
             return View();
         }
-
-        
-
-        
-
-
-
-
-
-
     }
-
 }

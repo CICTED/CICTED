@@ -23,25 +23,6 @@ namespace CICTED.Domain.Infrastucture.Repository
 
 
         #endregion
-        public async Task<Evento> GetEvento(int IdEvento)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var selectEventoQuery = await db.QueryAsync<Evento>("SELECT * FROM dbo.Evento WHERE Id = @Id", 
-                        new {
-                            Id = IdEvento
-                        });
-
-                    return selectEventoQuery.FirstOrDefault();
-                }
-
-            }catch(Exception ex)
-            {
-                return null;
-            }
-
-        }
+       
     }
 }

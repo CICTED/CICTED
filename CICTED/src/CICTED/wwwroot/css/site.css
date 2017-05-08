@@ -464,8 +464,8 @@ input[type=checkbox] {
 
 .form-cadTrabalho {
     width: 800px;
-    min-height: 600px;
-    height: auto;
+    min-height: 550px;
+    height: auto !important;
     margin: 0 auto;
     background-color: #FFFFFF;
     border-radius: 0px;
@@ -475,6 +475,12 @@ input[type=checkbox] {
 }
 .form-cadTrabalho label{
     font-size: 16px !important;
+}
+.form-cadTrabalho textarea{
+    width:100%;
+    min-height:10px;
+    height:auto;
+    resize:none
 }
   
 .form-cadastro {
