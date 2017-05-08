@@ -381,10 +381,37 @@ namespace CICTED.Controllers
 
 
         [HttpGet("dados")]
-        public async Task<PartialViewResult> DadosUsuario()
+        public async Task<IActionResult> DadosUsuario()
         {
-            var model = new ApplicationUser();
-            return PartialView("DadosUsuario", model);
+            try
+            {
+                DadosUsuárioViewModel model = new DadosUsuárioViewModel();
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                model.Nome = user.Nome;
+                model.Sobrenome = user.Sobrenome;
+                model.CPF = user.CPF;
+                model.Documento = user.Documento;
+                model.DataNascimento = user.DataNascimento;
+                model.Genero = user.Genero;
+                model.Telefone = user.PhoneNumber;
+                model.Celular = user.Celular;
+                model.Email = user.Email;
+                model.EmailSecundario = user.EmailSecundario;
+                var estados = await _localizacaoRepository.GetEstado();
+                var cursos = await _accountRepository.GetCursos();
+                model.Instituicoes = await _accountRepository.GetInstituicao();
+                model.Estados = estados;
+                model.Cursos = cursos;
+                model.Estudante = user.Estudante;
+                model.CursoId = user.CursosId;
+                model.Bolsista = user.Bolsista;
+                model.InstituicaoId = user.InstituicaoId;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }            
         }
 
         public IActionResult Error()
