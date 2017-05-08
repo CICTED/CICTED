@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.ViewModels.Autor;
 using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
+using CICTED.Domain.Entities.Trabalho;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -51,6 +52,15 @@ namespace CICTED.Controllers
         public async Task<IActionResult> ConsultaTrabalho()
         {
             return View();
+        }
+
+        [HttpGet("informacao")]
+        [Authorize]
+        public async Task<IActionResult> Informacacao()
+        {
+            var model = new Trabalho();
+            model.Identificacao = "oioi";
+            return Json(model);
         }
 
     }

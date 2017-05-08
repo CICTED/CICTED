@@ -352,8 +352,6 @@ textarea {
 
 
 
-.tabela-content {
-}
 
 .tabela-trabalho {
     margin: 20px;
@@ -370,6 +368,8 @@ textarea {
         padding: 5px;
         text-align: center;
     }
+
+
 
 
 .menu {
