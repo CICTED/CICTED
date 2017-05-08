@@ -86,7 +86,7 @@
 
             @if (User.IsInRole("Autor"))
             {
-                <li><a><span class="fa fa-file-text-o"></span> Consultar trabalho</a></li>
+                <li><a asp-controller="trabalho" asp-action="consulta"><span class="fa fa-file-text-o"></span> Meus trabalhos</a></li>
 
                 <li class="float-left"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
             }  
@@ -97,35 +97,8 @@
                 </form>
             </li>
             
-            <li class="float-right"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>
-
-            <li class="float-right">
-                <a><span class="fa fa-refresh"></span> Trocar Papel</a>
-                @if (ViewBag.Roles != null)
-                {
-                    <ul style="margin-left:-55px!important; width:150px!important">
-                        @foreach (var role in ViewBag.Roles)
-                        {
-                            @if (role == 1)
-                            {
-                                <li><a>Administrador</a></li>
-                            }
-                            @if (role == 2)
-                            {
-                                <li><a asp-controller="organizador" asp-action="home">Organizador</a></li>
-                            }
-                            @if (role == 3)
-                            {
-                                <li><a>Avaliador</a></li>
-                            }
-                            @if (role == 4)
-                            {
-                                <li><a asp-controller="autor" asp-action="home">Autor</a></li>
-                            }
-                        }
-                    </ul>
-                }
-            </li>
+            <li class="float-right"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>          
+           
         </ul>
     </div>
 

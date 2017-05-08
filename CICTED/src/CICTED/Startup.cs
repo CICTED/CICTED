@@ -97,6 +97,7 @@ namespace CICTED
             {
                 routes.MapRoute(
                     name: "default",
+                    template: "{controller=Account}/{action=Login}");
             });
         }
     }

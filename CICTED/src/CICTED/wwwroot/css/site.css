@@ -321,6 +321,24 @@ textarea {
 }
 /*EndFloat*/
 
+
+/*Color-Icons*/
+.color-submissao {
+    color: #007cff !important;
+}
+
+.color-avaliacao {
+    color: #f7b800 !important;
+}
+
+.color-aprovado {
+    color: green!important;
+}
+
+.color-reprovado {
+    color: red!important;
+}
+/*EndColor*/
 .navbar {
     top: 0;
     padding-top: 10px;
@@ -331,6 +349,28 @@ textarea {
     margin-bottom: 0 !important;
     border-radius: 0;
 }
+
+
+
+.tabela-content {
+}
+
+.tabela-trabalho {
+    margin: 20px;
+    width: 97%;
+    height: 100%;
+}
+
+    .tabela-trabalho th {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .tabela-trabalho td {
+        padding: 5px;
+        text-align: center;
+    }
+
 
 .menu {
     height: 40px;
@@ -377,16 +417,17 @@ textarea {
             position: relative;
         }
 
-    .menu button{
-       background: transparent;
-       color: white;
-       border: 0px;
-    }
-    .menu a:hover, .menu button:hover {
+    .menu button {
+        background: transparent;
         color: white;
-        cursor: pointer;
-        text-shadow: 0px 0px 5px #fff;
+        border: 0px;
     }
+
+        .menu a:hover, .menu button:hover {
+            color: white;
+            cursor: pointer;
+            text-shadow: 0px 0px 5px #fff;
+        }
 
 
 .footer {
@@ -473,10 +514,11 @@ input[type=checkbox] {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     font-size: 14px;
 }
-.form-cadTrabalho label{
-    font-size: 16px !important;
-}
-  
+
+    .form-cadTrabalho label {
+        font-size: 16px !important;
+    }
+
 .form-cadastro {
     width: 700px;
     min-height: 1000px;
@@ -494,12 +536,12 @@ input[type=checkbox] {
         border: 1px solid #DDD;
         height: 30px;
         width: 200px;
-        outline: none;        
+        outline: none;
     }
 
-        .form-cadastro .form-cadTrabalho input:focus {
-            border-bottom: 1px solid;
-        }
+    .form-cadastro .form-cadTrabalho input:focus {
+        border-bottom: 1px solid;
+    }
 
     .form-cadastro .form-cadTrabalho span {
         color: rgba(0, 0, 0, 0.31);
