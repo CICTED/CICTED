@@ -380,13 +380,17 @@ namespace CICTED.Controllers
         #endregion
 
 
-        [HttpGet("dados")]
+        [HttpGet("meusdados")]
         public async Task<IActionResult> DadosUsuario()
         {
             try
             {
-                DadosUsuárioViewModel model = new DadosUsuárioViewModel();
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                var endereco = await _accountRepository.GetEndereco(user.EnderecoId);
+                var estado = await _localizacaoRepository.GetEstado();
+                var cursos = await _accountRepository.GetCursos();
+
+                DadosUsuárioViewModel model = new DadosUsuárioViewModel();
                 model.Nome = user.Nome;
                 model.Sobrenome = user.Sobrenome;
                 model.CPF = user.CPF;
@@ -397,16 +401,19 @@ namespace CICTED.Controllers
                 model.Celular = user.Celular;
                 model.Email = user.Email;
                 model.EmailSecundario = user.EmailSecundario;
-                //var endereco = await _accountRepository.GetEndereco(user.EnderecoId);
-                var estados = await _localizacaoRepository.GetEstado();
-                var cursos = await _accountRepository.GetCursos();
+                model.Logradouro = endereco.Logradouro;
+                model.CidadeId = endereco.CidadeId;
+                model.Numero = endereco.Numero;
+                model.Bairro = endereco.Bairro;
+                model.CEP = endereco.CEP;
+                model.Estados = estado;
                 model.Instituicoes = await _accountRepository.GetInstituicao();
-                model.Estados = estados;
                 model.Cursos = cursos;
                 model.Estudante = user.Estudante;
                 model.CursoId = user.CursosId;
                 model.Bolsista = user.Bolsista;
                 model.InstituicaoId = user.InstituicaoId;
+
                 return View(model);
             }
             catch (Exception ex)

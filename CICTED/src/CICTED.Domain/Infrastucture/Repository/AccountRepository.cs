@@ -1,6 +1,7 @@
 ﻿
 using CICTED.Domain.Entities.Cursos;
 using CICTED.Domain.Entities.Instituicao;
+using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.Models.Settings;
 using CICTED.Domain.ViewModels.Account;
@@ -117,20 +118,20 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<bool> GetEndereco(long enderecoId)
+        public async Task<Endereco> GetEndereco(long enderecoId)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var endereco = await db.QueryAsync<long>("SELECT * FROM dbo.Endereco WHERE Id = @EnderecoId", new { Id = enderecoId });
+                    var endereco = await db.QueryAsync<Endereco>("SELECT Logradouro, Numero, CEP, Complemento, Bairro, CidadeId FROM dbo.Endereco WHERE Id = @Id", new { Id = enderecoId });
 
-                    return true;
+                    return endereco.FirstOrDefault();
                 }
             }
             catch (Exception ex)
             {
-                return false;
+                return null;
             }
         }
 
