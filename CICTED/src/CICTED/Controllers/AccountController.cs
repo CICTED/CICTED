@@ -33,10 +33,9 @@ namespace CICTED.Controllers
         }
 
         [HttpGet("login")]
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl = " ")
+        public IActionResult Login()
         {
-            LoginViewModel model = new LoginViewModel { ReturnUrl = returnUrl };
+            LoginViewModel model = new LoginViewModel ();
 
             return View(model);
         }
@@ -407,6 +406,11 @@ namespace CICTED.Controllers
             {
                 return BadRequest(ex.Message);
             }            
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }
