@@ -7,6 +7,7 @@ namespace CICTED.Domain.ViewModels.Autor
 {
     public class HomeViewModel
     {
+        public int Id { get; set; }
         public string EventoNome { get; set; }
         public string Descricao { get; set; }
         public string Objetivo { get; set; }
