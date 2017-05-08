@@ -92,7 +92,7 @@ namespace CICTED.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Home", "Autor");
+                            return RedirectToAction("Home");
                         }
                     }
                     else
@@ -303,12 +303,12 @@ namespace CICTED.Controllers
                 if (result == true)
                 {
                     model.ReturnMessage = "Alterações salvas com sucesso";
-                    return RedirectToAction("Home", "Autor");
+                    return RedirectToAction("Home");
                 }
 
                 else
                 {
-                    return View("Register", model);
+                    return View("Registrar", model);
                 }
 
                 return Ok();
@@ -318,6 +318,12 @@ namespace CICTED.Controllers
                 return BadRequest(ex.Message);
 
             }
+        }
+
+        [HttpGet("home")]
+        public async Task<IActionResult> Home()
+        {
+            return View();
         }
 
         [HttpPost("logoff")]
