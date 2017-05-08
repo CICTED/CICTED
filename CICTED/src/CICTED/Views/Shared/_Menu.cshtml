@@ -35,6 +35,33 @@
         <ul>
             <li><a><span class="fa fa-home"></span> Inicio</a></li>
 
+            @if (User.IsInRole("Administrador"))
+            {
+                <li>
+                    <a class="float-left"><span class="fa fa-folder-open"></span> Trabalhos</a>
+                </li>
+
+                <li>
+                    <a class="float-left"><span class="fa fa-paste"></span> Avaliar Painel</a>
+                </li>
+
+                <li>
+                    <a class="float-left"><span class="fa fa-gear"></span> Gerenciar</a>
+                    <ul style="margin-left:-68px!important; width:180px !important">
+                        <li>
+                            <a><span class="fa fa-pencil"></span> Organizadores</a>
+                        </li>
+                        <li>
+                            <a><span class="fa fa-pencil"></span> Avaliadores</a>
+                        </li>
+                        <li>
+                            <a><span class="fa fa-pencil"></span> Autores</a>
+                        </li>
+                    </ul>
+                </li>
+
+            }
+
             @if (User.IsInRole("Organizador"))
             {
                 <li><a><span class="fa fa-tachometer"></span> Dashboard</a></li>
@@ -70,7 +97,7 @@
                 </form>
             </li>
             
-            <li class="float-right"><a><span class="fa fa-address-card-o"></span> Meus Dados</a></li>          
+            <li class="float-right"><a asp-controller="account" asp-action="meusdados"><span class="fa fa-address-card-o"></span> Meus Dados</a></li>          
            
         </ul>
     </div>

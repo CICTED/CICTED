@@ -1,5 +1,6 @@
 ﻿using CICTED.Domain.Entities.Cursos;
 using CICTED.Domain.Entities.Instituicao;
+using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.ViewModels.Account;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<List<Instituicao>> GetInstituicao();
         Task<List<Cursos>>GetCursos();
         Task<List<long>> GetRoles(long userId);
-        Task<List<long>> GetEndereco(long enderecoId);
+        Task<Endereco> GetEndereco(long enderecoId);
     }
 }

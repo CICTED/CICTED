@@ -6,7 +6,7 @@
 
     <form class="form-cadTrabalho">
         <div class="row form-group" style="text-align:center">
-            <h3><b> Cadastrar trabalho </b></h3>
+            <h3><span class="fa fa-book"></span><b> Cadastrar trabalho </b></h3>
         </div>
         <div>
             <ul class="nav nav-tabs">
@@ -20,7 +20,7 @@
 
                     <div class="margin-top-30 form-group">
                         <h4>
-                            Confira atentamente o evento no qual irá participar, pois as regras de submissão são diferentes para cada evento.
+                            <span class="fa fa-warning"></span><b> Confira atentamente o evento no qual irá participar, pois as regras de submissão são diferentes para cada evento.</b>
                         </h4>
                     </div>
 
@@ -98,12 +98,34 @@
                             <input type="text" name="CEP" value="@Model.CodigoCEP" />
                         </div>
                     </div>
-                    
+                    <hr />
+                    <div class="form-group margin-top-10">
                         <button class="btn btn-primary float-right">Avançar</button>
-                    
+                    </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="Passo2" ><p>Passo2</p></div>
-                <div role="tabpanel" class="tab-pane" id="Passo3"><p>Passo3</p></div>
+                <div role="tabpanel" class="tab-pane" id="Passo2">
+
+                    <div class="margin-top-30 form-group">
+                        <h4>
+                            <span class="fa fa-warning"></span>
+                            <b>
+                                Você é o Autor Principal do trabalho;<br />
+                                Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
+                                O trabalho terá obrigatoriamente 1 (um) orientador.
+                            </b>
+                        </h4>
+
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="Passo3">
+                    <div class="form-group margin-top-10 row">
+                        <p><b>Trabalho: </b></p>
+                        
+                        <textarea required></textarea>
+                        
+                    </div>
+                </div>
+
             </div>
         </div>
     </form>

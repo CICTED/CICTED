@@ -13,18 +13,18 @@ namespace CICTED.Controllers
     [Route("evento")]
     public class EventoController : Controller
     {
-        private ITrabalhoRepository _trabalhoRepository;
+        private IEventoRepository _eventoRepository;
 
-        public EventoController(ITrabalhoRepository trabalhoRepository)
+        public EventoController(IEventoRepository eventoRepository)
         {
-            _trabalhoRepository = trabalhoRepository;
+            _eventoRepository = eventoRepository;
         }       
 
         [HttpGet("descricao")]
         public async Task<IActionResult> Eventos(int id)
         {
 
-            var eventos = await _trabalhoRepository.GetEvento(id);
+            var eventos = await _eventoRepository.GetEvento(id);
 
             if (eventos == null) return BadRequest("There was an error to load the event.");
 
