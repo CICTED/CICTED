@@ -1,4 +1,4 @@
-﻿
+﻿@model CICTED.Domain.ViewModels.Account.DadosUsuárioViewModel
 @{
     Layout = "_Dados";
 }
@@ -6,42 +6,46 @@
 <title>Dados do Usuário - CICTED</title>
 
 <form class="form-cadastro !important" method="post">
-    <div style="margin:0 auto">
-        <h1>Meus dados</h1>
+    <div style="text-align:center">
+        <h2><span class="fa fa-newspaper-o"></span><b> Meus Dados</b></h2>
     </div>
 
     <div class="form-group">
-        <h4>Dados Pessoais:</h4>
+        <h5>Dados Pessoais:</h5>
+
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Nome:</label>
-                <input type="text" required style="width:500px" />
+                <input type="text" style="width:500px" value="@Model.Nome" />
             </div>
+
             <div class="float-right" style="width:50%">
                 <label>Sobrenome:</label>
-                <input type="text" required style="width:500px" />
+                <input type="text" style="width:500px" value="@Model.Sobrenome" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>CPF:</label>
-                <input type="text" required style="width:500px" />
+                <input type="text" style="width:500px" value="@Model.CPF" />
             </div>
+
             <div class="float-right" style="width:50%">
                 <label>Outros Documentos(RG, Passaporte, Etc):</label>
-                <input type="text" required style="width:500px" />
+                <input type="text" style="width:500px" value="@Model.Documento" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Data de Nascimento:</label>
-                <input type="date" required style="width:500px" />
+                <input type="date" style="width:500px" value="@Model.DataNascimento" />
             </div>
+
             <div class="float-right" style="width:50%">
                 <label>Gênero:</label>
-                <select type="text" required style="width:500px" class="form-control">
+                <select type="text" style="width:500px" class="form-control" value="@Model.Genero">
                     <option value="-1">Selecione um gênero</option>
                     <option value="false">Masculino</option>
                     <option value="true">Feminino</option>
@@ -49,11 +53,186 @@
             </div>
         </div>
 
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Telefone:</label>
+                <input type="tel" value="@Model.Telefone" style="width:500px" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Celular:</label>
+                <input type="text" value="@Model.Celular" style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Email Principal:</label>
+                <input type="text" value="@Model.Email" style="width:500px" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Email Secundario:</label>
+                <input type="text" value="@Model.EmailSecundario" style="width:500px" />
+            </div>
+        </div>
+
     </div>
 
-    <div class="margin-top-10" align="center">
+    <hr />
+
+    <div class="form-group">
+        <h5>Endereço:</h5>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Logradouro:</label>
+                <input type="text" value="@Model.Logradouro" style="width:500px" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Número:</label>
+                <input type="text" value="@Model.Numero" style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:50%">
+                <label>Bairro:</label>
+                <input type="text" value="@Model.Bairro" style="width:500px" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>CEP:</label>
+                <input type="text" value="@Model.CEP" style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:50%">
+                <label>Estado:</label>
+                <select class="form-control" id="dropEstado" value="@Model.EstadoID" style="width:500px">
+                    <option value="-1">Selecione seu estado</option>
+                    @foreach (var estado in Model.Estados)
+                    {
+                        if (estado.Id == Model.Estado)
+                        {
+                            <option value="@estado.Id" selected>@estado.Sigla</option>
+                        }
+                        else
+                        {
+                            <option value="@estado.Id">@estado.Sigla</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Cidade: </label>
+                <select class="form-control" id="dropCidade" value="@Model.CidadeId" style="width:500px">
+                    <option value="-1">Selecione sua cidade</option>
+                    @if (Model.CidadeId > 0)
+                    {
+                        <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
+
+                    }
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <h5>Educacional:</h5>
+
+        <div class="margin-top-10 row">
+            <label>Instituição:</label>
+            <select class="form-control" value="@Model.InstituicaoId" style="width:500px">
+                <option value="-1">Selecione sua instituição</option>
+                @foreach (var instituicao in Model.Instituicoes)
+                {
+                    <option value="@instituicao.Id">@instituicao.InstituicaoNome</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group margin-top-10">
+            <div class="float-left" style="width:40%">
+                <label>Está cursando?</label>
+                <div class="onoffswitch margin-right-10 float-left">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkEstudante" asp-for="Estudante" checked="@((Model.Estudante) ? true : false)">
+                    <label class="onoffswitch-label" for="checkEstudante">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                
+                <div id="estudante" style="display: none;">
+                    <div class="float-right row">
+                        <label>Curso:</label>
+
+                        <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                            <option value="-1">Selecione seu Curso</option>
+                            @foreach (var cursos in Model.Cursos)
+                            {
+                                <option value="@cursos.Id">@cursos.CursoNome</option>
+                            }
+                        </select>
+                        <label class="margin-top-20">Outro:</label>
+                        <input type="text" value="@Model.Curso" style="width:500px" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Você é bolsista?</label>
+                <div class="onoffswitch margin-right-10">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkBolsista" asp-for="Bolsista" checked="@((Model.Bolsista) ? true : false)">
+                    <label class="onoffswitch-label" for="checkBolsista">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                <div id="bolsista" style="display: none;">
+                    <div class="float-left row">
+                        <label>Agência financiadora:</label>
+                        <select class="form-control" style="width:500px">
+                            <option value="-1">Selecione a agência financiadora</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="margin-top-20" align="center" style="margin-left:-40px">
         <button type="button" class="btn btn-primary" id="button-cancelar">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <button type="submit" class="btn btn-primary" style="margin-left:10px">Atualizar</button>
     </div>
 
 </form>
+
+<script type="text/javascript">
+    $('#dropEstado').states($('#dropCidade'));
+
+    $("#checkBolsista").on("change", function () {
+        if ($(this).is(":checked")) {
+            $("#bolsista").css("display", "block");
+        } else {
+            $("#bolsista").css("display", "none");
+
+        }
+    });
+
+    $("#checkEstudante").on("change", function () {
+        if ($(this).is(":checked")) {
+            $("#estudante").css("display", "block");
+        } else {
+            $("#estudante").css("display", "none");
+
+        }
+    });
+</script>
