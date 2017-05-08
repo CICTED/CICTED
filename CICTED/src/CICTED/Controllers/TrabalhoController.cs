@@ -51,7 +51,16 @@ namespace CICTED.Controllers
             return View(model);
         }
 
+<<<<<<< HEAD
        
+=======
+        [HttpGet("consulta")]
+        [Authorize]
+        public async Task<IActionResult> ConsultaTrabalho()
+        {
+            return View();
+        }
+>>>>>>> db9fa26344284dc10b9cd02c14b355f1efca26c1
 
     }
 }

@@ -33,10 +33,9 @@ namespace CICTED.Controllers
         }
 
         [HttpGet("login")]
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl = " ")
+        public IActionResult Login()
         {
-            LoginViewModel model = new LoginViewModel { ReturnUrl = returnUrl };
+            LoginViewModel model = new LoginViewModel();
 
             return View(model);
         }
@@ -93,7 +92,7 @@ namespace CICTED.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Home", "Autor");
+                            return RedirectToAction("Home");
                         }
                     }
                     else
@@ -304,12 +303,12 @@ namespace CICTED.Controllers
                 if (result == true)
                 {
                     model.ReturnMessage = "Alterações salvas com sucesso";
-                    return RedirectToAction("Home", "Autor");
+                    return RedirectToAction("Home");
                 }
 
                 else
                 {
-                    return View("Register", model);
+                    return View("Registrar", model);
                 }
 
                 return Ok();
@@ -319,6 +318,12 @@ namespace CICTED.Controllers
                 return BadRequest(ex.Message);
 
             }
+        }
+
+        [HttpGet("home")]
+        public async Task<IActionResult> Home()
+        {
+            return View();
         }
 
         [HttpPost("logoff")]
@@ -376,10 +381,43 @@ namespace CICTED.Controllers
 
 
         [HttpGet("dados")]
-        public async Task<PartialViewResult> DadosUsuario()
+        public async Task<IActionResult> DadosUsuario()
         {
-            var model = new ApplicationUser();
-            return PartialView("DadosUsuario", model);
+            try
+            {
+                DadosUsuárioViewModel model = new DadosUsuárioViewModel();
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                model.Nome = user.Nome;
+                model.Sobrenome = user.Sobrenome;
+                model.CPF = user.CPF;
+                model.Documento = user.Documento;
+                model.DataNascimento = user.DataNascimento;
+                model.Genero = user.Genero;
+                model.Telefone = user.PhoneNumber;
+                model.Celular = user.Celular;
+                model.Email = user.Email;
+                model.EmailSecundario = user.EmailSecundario;
+                //var endereco = await _accountRepository.GetEndereco(user.EnderecoId);
+                var estados = await _localizacaoRepository.GetEstado();
+                var cursos = await _accountRepository.GetCursos();
+                model.Instituicoes = await _accountRepository.GetInstituicao();
+                model.Estados = estados;
+                model.Cursos = cursos;
+                model.Estudante = user.Estudante;
+                model.CursoId = user.CursosId;
+                model.Bolsista = user.Bolsista;
+                model.InstituicaoId = user.InstituicaoId;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }

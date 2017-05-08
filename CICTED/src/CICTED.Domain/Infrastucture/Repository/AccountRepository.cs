@@ -117,5 +117,22 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+        public async Task<bool> GetEndereco(long enderecoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var endereco = await db.QueryAsync<long>("SELECT * FROM dbo.Endereco WHERE Id = @EnderecoId", new { Id = enderecoId });
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }   
 }
