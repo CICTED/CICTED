@@ -4,15 +4,15 @@
 }
 <body>
 
-    <form class="form-cadTrabalho">
+   <form class="form-cadTrabalho">
         <div class="row form-group" style="text-align:center">
             <h3><span class="fa fa-book"></span><b> Cadastrar trabalho </b></h3>
         </div>
         <div>
             <ul class="nav nav-tabs">
-                <li role="presentation" class="active"><a href="#Passo1" aria-controls="Passo1" role="tab" data-toggle="tab">Passo 1</a></li>
-                <li role="presentation"><a href="#Passo2" aria-controls="Passo2" role="tab" data-toggle="tab">Passo 2</a></li>
-                <li role="presentation"><a href="#Passo3" aria-controls="Passo3" data-toggle="tab">Passo 3</a></li>
+                <li role="presentation" class="active"><a aria-controls="Passo1" role="tab" data-toggle="tab">Passo 1</a></li>
+                <li role="presentation" class="disabled"><a aria-controls="Passo2" role="tab" data-toggle="tab">Passo 2</a></li>
+                <li role="presentation" class="disabled"><a aria-controls="Passo3" data-toggle="tab">Passo 3</a></li>
             </ul>
 
             <div class="tab-content">
@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <input type="text" name="Evento" value="@Model.Evento" required />
+                            <b>@Model.Evento</b>
                         </div>
                     </div>
 
@@ -42,9 +42,9 @@
                         <div class="float-left margin-left-75">
                             <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
                                 <option disabled selected>Selecione uma área</option>
-                                <option> Humanas</option>
-                                <option> Exatas</option>
-                                <option> Biológicas</option>
+                                <option value="1"> Humanas</option>
+                                <option value="2"> Exatas</option>
+                                <option value="3"> Biológicas</option>
                             </select>
                         </div>
                     </div>
@@ -100,9 +100,13 @@
                     </div>
                     <hr />
                     <div class="form-group margin-top-10">
-                        <button class="btn btn-primary float-right">Avançar</button>
+                        <a class="btn btn-primary float-right" href="#Passo2">Avançar</a>
                     </div>
                 </div>
+
+
+
+
                 <div role="tabpanel" class="tab-pane" id="Passo2">
 
                     <div class="margin-top-30 form-group">
@@ -120,15 +124,16 @@
                 <div role="tabpanel" class="tab-pane" id="Passo3">
                     <div class="form-group margin-top-10 row">
                         <p><b>Trabalho: </b></p>
-                        
+
                         <textarea required></textarea>
-                        
+
                     </div>
                 </div>
 
             </div>
         </div>
     </form>
+
 
 </body>
 
@@ -141,6 +146,13 @@
 
         }
     });
+
+    $('#Button1').on("click", function () {
+        $('#Passo2').tab('show');
+    });
+
+    
+    
 
 
 </script>

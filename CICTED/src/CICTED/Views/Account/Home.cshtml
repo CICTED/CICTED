@@ -64,8 +64,8 @@
 
             </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar Trabalho</button>
+            <div class="modal-footer" >
+                <div id="modal-footer"></div>
             </div>
         </div>
     </div>
@@ -90,6 +90,7 @@
                 $('#evento-descricao').text(data.descricao);
                 $('#evento-objetivo').html('<b>Objetivo: </b> ' + data.objetivo);
                 $('#evento-publico-alvo').html('<b>Público-Alvo: </b>' + data.publicoAlvo);
+                $('#modal-footer').html('<a class="btn btn-primary button" data-id="' + data.id + '" href="/trabalho/cadastro/'+ data.id+'"  >Cadastrar Trabalho</a>');
             },
 
             error: function (x, y, message) {
@@ -97,7 +98,7 @@
             },
         });
     });
-
+    
 </script>
 
 
