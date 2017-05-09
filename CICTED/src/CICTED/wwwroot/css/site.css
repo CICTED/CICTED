@@ -352,8 +352,6 @@ textarea {
 
 
 
-.tabela-content {
-}
 
 .tabela-trabalho {
     margin: 20px;
@@ -370,6 +368,8 @@ textarea {
         padding: 5px;
         text-align: center;
     }
+
+
 
 
 .menu {
@@ -514,7 +514,7 @@ input[type=checkbox] {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     font-size: 14px;
 }
-<<<<<<< HEAD
+
 .form-cadTrabalho label{
     font-size: 16px !important;
 }
@@ -524,14 +524,10 @@ input[type=checkbox] {
     height:auto;
     resize:none
 }
-  
-=======
-
     .form-cadTrabalho label {
         font-size: 16px !important;
     }
 
->>>>>>> db9fa26344284dc10b9cd02c14b355f1efca26c1
 .form-cadastro {
     width: 700px;
     min-height: 1000px;

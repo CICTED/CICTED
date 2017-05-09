@@ -33,7 +33,7 @@
     </div>
     <div class="menu">
         <ul>
-            <li><a><span class="fa fa-home"></span> Inicio</a></li>
+            <li><a asp-controller="account" asp-action="home"><span class="fa fa-home"></span> Inicio</a></li>
 
             @if (User.IsInRole("Administrador"))
             {
