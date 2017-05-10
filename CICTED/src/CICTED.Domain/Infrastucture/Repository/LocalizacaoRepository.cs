@@ -21,7 +21,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             _settings = settings.Value;
         }
 
-        public async Task<List<Estado>> GetEstado()
+        public async Task<List<Estado>> GetEstados()
         {
             try
             {
@@ -30,6 +30,24 @@ namespace CICTED.Domain.Infrastucture.Repository
                     var result = await db.QueryAsync<Estado>("SELECT * FROM dbo.Estado");
 
                     return result.ToList();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<Estado> GetEstado(long cidadeId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var result = await db.QueryAsync<Estado>("SELECT * FROM dbo.Estado WHERE Id = @Id", new { Id = cidadeId });
+
+                    return result.FirstOrDefault();
                 }
             }
 
