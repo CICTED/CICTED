@@ -8,6 +8,7 @@ using CICTED.Domain.Models.Settings;
 using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 using Dapper;
+using CICTED.Domain.ViewModels.Trabalho;
 
 namespace CICTED.Domain.Infrastucture.Repository
 {
@@ -75,6 +76,23 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 return null;
             }
+        }
+
+        public async Task<ConsultaTrabalho> ConsultaTrabalho(long idTrabalho)
+        {
+            try
+            {
+                using(var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectQuery = await db.QueryAsync<ConsultaTrabalho>("SELECT Id, Identificacao, DataCadastro, Titulo, StatusTrabalhoId FROM dbo.Trabalho WHERE Id = @Id", new { Id = idTrabalho });
+
+                    return selectQuery.FirstOrDefault();
+                }
+            }catch(Exception ex)
+            {
+                return null;
+            }
+
         }
     }
 

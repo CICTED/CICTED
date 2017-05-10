@@ -1,10 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<CICTED.Domain.ViewModels.Trabalho.ConsultaTrabalho>
+
 @{
     Layout = "_Menu";
 }
 
+<title>Meus Trabalhos - CICTED</title>
+ 
 <div class="autor-home-content">
     <h3 style="font-weight: bold">Meus Trabalhos</h3>
     <hr />
@@ -17,13 +18,35 @@
             <th style="width: 56px;"></th>
         </tr>
 
-        <tr>
-            <td><span class="fa fa-search"></span></td>
-            <td>ENIC201720307</td>
-            <td>A A A A A A A A A</td>
-            <td>24/04/2017</td>
-            <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@*modal.trabalhoId*@"></a></td>
-        </tr>
+        @foreach (var trabalho in Model)
+        {
+            <tr>
+                <td>
+                    @if (trabalho.StatusTrabalhoId == 1)
+                    {
+                        <span style="font-size:18px" class="fa fa-check-circle color-aprovado"></span>
+                    }
+                    @if (trabalho.StatusTrabalhoId == 2)
+                    {
+                        <span style="font-size:18px" class="fa fa-times-circle color-reprovado"></span>
+                    }
+                    @if (trabalho.StatusTrabalhoId == 3)
+                    {
+                        <span style="font-size:18px" class="fa fa-clock-o color-submissao"></span>
+                    }
+                    @if (trabalho.StatusTrabalhoId == 4)
+                    {
+                        <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"></span>
+                    }
+                </td>
+
+                <td>@trabalho.Identificacao</td>
+                <td>@trabalho.Titulo</td>
+                <td>@trabalho.DataCadastro.ToString("dd-MM-yyyy")</td>
+                <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalho.Id"></a></td>
+            </tr>
+        }
+
     </table>
     <hr />
 
@@ -106,7 +129,7 @@
                 $('#subarea').text(data.subarea);
                 $('#evento').text(data.evento);
                 $('#status').text(data.status);
-                $('#data-cadastro').text(data.subarea);
+                $('#data-cadastro').text(data.data);
                 $('#data-submissao').text(data.subarea);
                 if (data.autores != null) {
                     $('#"outros-autores').html('<td><b>Autores: </b></td><td>' + data.autores + '</td>');

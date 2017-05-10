@@ -9,6 +9,7 @@ using CICTED.Domain.ViewModels.Autor;
 using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Entities.Trabalho;
+using CICTED.Domain.ViewModels.Trabalho;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -56,30 +57,41 @@ namespace CICTED.Controllers
         [Authorize]
         public async Task<IActionResult> ConsultaTrabalho()
         {
-            var user = _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
             List<long> trabalhosId = await _trabalhoRepository.GetTrabalhosId(user.Id);
-            List<Trabalho> trabalhos = new List<Trabalho>();           
+            List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();            
 
-            foreach(var id in trabalhosId)
+            foreach(var trabalho in trabalhosId)
             {
-                trabalhos.Add(await _trabalhoRepository.GetInformacaoTrabalho(id));
+                model.Add(await _trabalhoRepository.ConsultaTrabalho(trabalho));
             }
-        
-            return View();
+                      
+
+            return View(model);
+        }
+
+        [HttpGet("informacao")]
+        [Authorize]
+        public async Task<IActionResult> Informacao(long id)
+        {
+            var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
+            var orientador = await _trabalhoRepository.GetOrientador(id);
+            var model = new Trabalho() {
+                Titulo = trabalho.Titulo,
+                Identificacao = trabalho.Identificacao,
+                Conclusao = trabalho.Conclusao,
+                Metodologia = trabalho.Metodologia,
+                CidadeEscola = trabalho.CidadeEscola,
+                CodigoCEP = trabalho.CodigoCEP,
+                DataCadastro = trabalho.DataCadastro,
+                Introducao = trabalho.Introducao,
+                NomeEscola = trabalho.NomeEscola,
+                DataSubmissao = trabalho.DataSubmissao,
+                Referencia = trabalho.Referencia,
+                  
+
+            return Json(model);
+        }
+
     }
-
-    [HttpGet("informacao")]
-    [Authorize]
-    public async Task<IActionResult> Informacao(long id)
-    {
-        var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
-        var orientador = await _trabalhoRepository.GetOrientador(id);
-        var model = new Trabalho();
-
-        model.Identificacao = "oioi";
-
-        return Json(model);
-    }
-
-}
 }

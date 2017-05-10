@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "677b85bfaa8a5deb713405094dfdec4d937b2541"
+    "signature": "39f34daa2619b7b8ff9e790ffd59787441ce5e00"
   },
   "compilationOptions": {
     "defines": [
@@ -36,7 +36,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
           "Microsoft.EntityFrameworkCore": "1.1.0",
           "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final",
-          "Microsoft.EntityFrameworkCore.Relational": "1.1.0"
+          "Microsoft.EntityFrameworkCore.Relational": "1.1.0",
+          "NETCore.MailKit": "1.0.1"
         },
         "runtime": {
           "CICTED.dll": {}
@@ -110,6 +111,39 @@
             "rid": "win7-x86",
             "assetType": "native"
           }
+        }
+      },
+      "MailKit/1.10.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.3.0",
+          "MimeKit": "1.10.0",
+          "Portable.BouncyCastle": "1.8.1.1",
+          "System.Collections": "4.3.0",
+          "System.Data.Common": "4.3.0",
+          "System.IO.Compression": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Net.NameResolution": "4.3.0",
+          "System.Net.NetworkInformation": "4.1.0",
+          "System.Net.Primitives": "4.3.0",
+          "System.Net.Security": "4.3.0",
+          "System.Net.Sockets": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0",
+          "System.Security.Cryptography.Primitives": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Text.Encoding.CodePages": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Threading": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/MailKit.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/MailKit.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/1.1.1": {
@@ -1478,6 +1512,48 @@
           "ref/netstandard1.3/Microsoft.Win32.Registry.dll": {}
         }
       },
+      "MimeKit/1.10.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.3.0",
+          "Portable.BouncyCastle": "1.8.1.1",
+          "System.Collections": "4.3.0",
+          "System.Data.Common": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Net.NameResolution": "4.3.0",
+          "System.Net.NetworkInformation": "4.1.0",
+          "System.Net.Primitives": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0",
+          "System.Security.Cryptography.Primitives": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Text.Encoding.CodePages": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Threading": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/MimeKit.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/MimeKit.dll": {}
+        }
+      },
+      "NETCore.MailKit/1.0.1": {
+        "dependencies": {
+          "MailKit": "1.10.0",
+          "Microsoft.AspNetCore.StaticFiles": "1.1.1",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.6/NETCore.MailKit.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.6/NETCore.MailKit.dll": {}
+        }
+      },
       "NETStandard.Library/1.6.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -1749,6 +1825,30 @@
         },
         "compile": {
           "lib/netstandard1.0/NuGet.Versioning.dll": {}
+        }
+      },
+      "Portable.BouncyCastle/1.8.1.1": {
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.IO.FileSystem.Primitives": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/crypto.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/crypto.dll": {}
         }
       },
       "Remotion.Linq/2.1.1": {
@@ -2632,6 +2732,50 @@
           "ref/netstandard1.3/System.Net.NameResolution.dll": {}
         }
       },
+      "System.Net.NetworkInformation/4.1.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.Win32.Primitives": "4.3.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Tracing": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.IO.FileSystem.Primitives": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Net.Primitives": "4.3.0",
+          "System.Net.Sockets": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Security.Principal.Windows": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Overlapped": "4.3.0",
+          "System.Threading.Tasks": "4.3.0",
+          "System.Threading.Thread": "4.3.0",
+          "System.Threading.ThreadPool": "4.3.0",
+          "runtime.native.System": "4.3.0"
+        },
+        "runtimeTargets": {
+          "runtimes/linux/lib/netstandard1.3/System.Net.NetworkInformation.dll": {
+            "rid": "linux",
+            "assetType": "runtime"
+          },
+          "runtimes/osx/lib/netstandard1.3/System.Net.NetworkInformation.dll": {
+            "rid": "osx",
+            "assetType": "runtime"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Net.NetworkInformation.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Net.NetworkInformation.dll": {}
+        }
+      },
       "System.Net.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -3297,6 +3441,9 @@
             "rid": "win",
             "assetType": "runtime"
           }
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Text.Encoding.CodePages.dll": {}
         }
       },
       "System.Text.Encoding.Extensions/4.3.0": {
@@ -3473,6 +3620,7 @@
       },
       "CICTED.Crosscutting/1.0.0": {
         "dependencies": {
+          "NETCore.MailKit": "1.0.1",
           "NETStandard.Library": "1.6.1"
         },
         "runtime": {
@@ -3487,7 +3635,8 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
           "Microsoft.EntityFrameworkCore": "1.1.0",
           "NETStandard.Library": "1.6.1",
-          "Dapper": "1.50.2"
+          "Dapper": "1.50.2",
+          "NETCore.MailKit": "1.0.1"
         },
         "runtime": {
           "CICTED.Domain.dll": {}
@@ -3911,6 +4060,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-uqX2Frwf9PW8MaY7PRNY6HM5BpW1D8oj1EdqzrmbEFD5nH63Yat3aEjN/tws6Tw6Fk7LwmLBvtUh32tTeTaHiA=="
+    },
+    "MailKit/1.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7T05zYx1EU/Jgput8Xvwcvc1yQaS12GvKquMpU7URvBqo8lveiyyEWNSErapCmd2+qKjKJvhTicMDczEd1TmyQ=="
     },
     "Microsoft.AspNetCore.Antiforgery/1.1.1": {
       "type": "package",
@@ -4382,6 +4536,16 @@
       "serviceable": true,
       "sha512": "sha512-Lw1/VwLH1yxz6SfFEjVRCN0pnflLEsWgnV4qsdJ512/HhTwnKXUG+zDQ4yTO3K/EJQemGoNaBHX5InISNKTzUQ=="
     },
+    "MimeKit/1.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aYKyFJAic0GLfXvRQYEowhv4ZmibwhwpsEK1B0mlkGsSRbnR94yFBhLbal5D6qgJEpEdDBZJOuInICEEwEfN0w=="
+    },
+    "NETCore.MailKit/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-O+KP/w0ptAqCSG0C/e5gUTS1P3LcPYb2CmGxDI3o/YqC76fKj1w/8ks3tgXpeIg0gCnFb2GiNFWsGrUjbpGM7g=="
+    },
     "NETStandard.Library/1.6.1": {
       "type": "package",
       "serviceable": true,
@@ -4461,6 +4625,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-Stok+SI5lWxOkTgZZM7jT4xuAZogm5+j85mKJeHSXb8o0OAbB+qDX9jkdM2wIEnjoR8R29J0nQYwk2Kl2lWFpA=="
+    },
+    "Portable.BouncyCastle/1.8.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bKqC2Me9ukybNYTBhlYd2sJ6j2kRV7SgB+JfiP2GueYq6QdM4Ym6PYV5eyrqb6KViOyd3zqQfJp0o6UW5ZG+GQ=="
     },
     "Remotion.Linq/2.1.1": {
       "type": "package",
@@ -4751,6 +4920,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-AFYl08R7MrsrEjqpQWTZWBadqXyTzNDaWpMqyxhb0d6sGhV6xMDKueuBXlLL30gz+DIRY6MpdgnHWlCh5wmq9w=="
+    },
+    "System.Net.NetworkInformation/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Q0rfeiW6QsiZuicGjrFA7cRr2+kXex0JIljTTxzI09GIftB8k+aNL31VsQD1sI2g31cw7UGDTgozA/FgeNSzsQ=="
     },
     "System.Net.Primitives/4.3.0": {
       "type": "package",

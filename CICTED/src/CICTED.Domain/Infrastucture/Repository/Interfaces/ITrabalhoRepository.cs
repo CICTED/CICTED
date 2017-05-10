@@ -1,4 +1,5 @@
 ﻿using CICTED.Domain.Entities.Trabalho;
+using CICTED.Domain.ViewModels.Trabalho;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
     {
         Task<Trabalho> GetInformacaoTrabalho(long id);
         Task<AutorTrabalho> GetOrientador(long id);
+        Task<List<long>> GetTrabalhosId(long userId);
+        Task<ConsultaTrabalho> ConsultaTrabalho(long idTrabalho);
     }
 }
