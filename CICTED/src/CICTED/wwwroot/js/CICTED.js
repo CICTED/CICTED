@@ -23,4 +23,33 @@
             });
         });
     };
+
+    $.fn.subArea = function (dropSubAreas) {
+        var drpDown = $(this);
+        var subAreaId = dropSubAreas.val();
+
+        dropDown.on('change', function () {
+            var areaId = $(this).val();
+            dropSubAreas.html('<option value="-1">Selecione a subarea</option>');
+
+            $.ajax({
+                url: '/trabalho/list/subarea',
+                method: 'GET',
+                sucess: function (data) {
+                    $.each(data, function (i, item) {
+                        if (item.id == subAreaId) {
+                            dropSubAreas.append('<option value="'+item.id+'" selected>'+item.subArea+'</option>');
+                        }else{
+                            dropSubAreas.append('<option value="'+item.id+'">'+item.subArea+'"</option>');
+                        }
+                    });
+                    dropSubAreas.removeAttr('disabled');
+                },
+                error: function(x,y,message){
+                    dropSubAreas.attr('disabled','disabled');
+                }
+            });
+        });
+    };
+                           
 })(jQuery);
