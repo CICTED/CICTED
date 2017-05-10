@@ -9,9 +9,10 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
 {
     public interface ILocalizacaoRepository
     {
-        Task<List<Estado>> GetEstado();
+        Task<List<Estado>> GetEstados();
+        Task<List<Estado>> GetEstado(long cidadeId);
         Task<List<Cidade>> GetCidades(int estadoId);
         Task<long> InsertEnderecoExterior(EnderecoExterior endereco);
         Task<long> InsertEndereco(Endereco endereco, long cidadeId, long enderecoExterior = 0);
-     }
+    }
 }
