@@ -332,11 +332,11 @@ textarea {
 }
 
 .color-aprovado {
-    color: green!important;
+    color: green !important;
 }
 
 .color-reprovado {
-    color: red!important;
+    color: red !important;
 }
 /*EndColor*/
 .navbar {
@@ -514,24 +514,18 @@ input[type=checkbox] {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     font-size: 14px;
 }
-<<<<<<< HEAD
-.form-cadTrabalho label{
-    font-size: 16px !important;
-}
-.form-cadTrabalho textarea{
-    width:100%;
-    min-height:10px;
-    height:auto;
-    resize:none
-}
-  
-=======
 
     .form-cadTrabalho label {
         font-size: 16px !important;
     }
 
->>>>>>> db9fa26344284dc10b9cd02c14b355f1efca26c1
+    .form-cadTrabalho textarea {
+        width: 100%;
+        min-height: 10px;
+        height: auto;
+        resize: none;
+    }
+
 .form-cadastro {
     width: 700px;
     min-height: 1000px;

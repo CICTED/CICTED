@@ -31,7 +31,7 @@ namespace CICTED.Controllers
             _eventoRepository = eventoRepository;
         }
 
-        [HttpGet("cadastro")]
+        [HttpGet("cadastro/{IdEvento}")]
         [Authorize]
         public async Task<IActionResult> CadastroTrabalho(int IdEvento)
         {

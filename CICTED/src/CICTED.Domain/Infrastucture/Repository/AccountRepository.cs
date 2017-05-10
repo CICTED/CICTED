@@ -124,7 +124,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var endereco = await db.QueryAsync<Endereco>("SELECT Logradouro, Numero, CEP, Complemento, Bairro, CidadeId FROM dbo.Endereco WHERE Id = @Id", new { Id = enderecoId });
+                    var endereco = await db.QueryAsync<Endereco>("SELECT * FROM dbo.Endereco WHERE Id = @Id", new { Id = enderecoId });
 
                     return endereco.FirstOrDefault();
                 }
