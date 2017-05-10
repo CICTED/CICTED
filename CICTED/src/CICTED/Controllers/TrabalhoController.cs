@@ -76,7 +76,8 @@ namespace CICTED.Controllers
         {
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
             var orientador = await _trabalhoRepository.GetOrientador(id);
-            var model = new Trabalho() {
+            var model = new Trabalho()
+            {
                 Titulo = trabalho.Titulo,
                 Identificacao = trabalho.Identificacao,
                 Conclusao = trabalho.Conclusao,
@@ -87,7 +88,8 @@ namespace CICTED.Controllers
                 Introducao = trabalho.Introducao,
                 NomeEscola = trabalho.NomeEscola,
                 DataSubmissao = trabalho.DataSubmissao,
-                Referencia = trabalho.Referencia,
+                Referencia = trabalho.Referencia
+            };
                   
 
             return Json(model);
