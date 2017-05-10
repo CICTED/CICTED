@@ -9,6 +9,7 @@ using CICTED.Domain.ViewModels.Autor;
 using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Entities.Trabalho;
+using CICTED.Domain.ViewModels.Trabalho;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,7 +42,7 @@ namespace CICTED.Controllers
             var evento = await _eventoRepository.GetEvento(IdEvento);
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
-                Evento = evento.EventoNome    
+                Evento = evento.EventoNome
             };
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -51,20 +52,50 @@ namespace CICTED.Controllers
 
             return View(model);
         }
-        
+
         [HttpGet("consulta")]
         [Authorize]
         public async Task<IActionResult> ConsultaTrabalho()
         {
-            return View();
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            List<long> trabalhosId = await _trabalhoRepository.GetTrabalhosId(user.Id);
+            List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();            
+
+            foreach(var trabalho in trabalhosId)
+            {
+                model.Add(await _trabalhoRepository.ConsultaTrabalho(trabalho));
+            }
+                      
+
+            return View(model);
         }
 
         [HttpGet("informacao")]
         [Authorize]
-        public async Task<IActionResult> Informacacao()
+        public async Task<IActionResult> Informacao(long id)
         {
-            var model = new Trabalho();
-            model.Identificacao = "oioi";
+            var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
+            var orientador = await _trabalhoRepository.GetOrientador(id);
+            var model = new Trabalho()
+            {
+                Titulo = trabalho.Titulo,
+                Identificacao = trabalho.Identificacao,
+                Conclusao = trabalho.Conclusao,
+                Metodologia = trabalho.Metodologia,
+                CidadeEscola = trabalho.CidadeEscola,
+                CodigoCEP = trabalho.CodigoCEP,
+                DataCadastro = trabalho.DataCadastro,
+                Introducao = trabalho.Introducao,
+                NomeEscola = trabalho.NomeEscola,
+                DataSubmissao = trabalho.DataSubmissao,
+                Referencia = trabalho.Referencia,
+                Resultado = trabalho.Resultado,
+                TelefoneEscola = trabalho.TelefoneEscola,
+                Resumo = trabalho.Resumo,
+                TextoFinanciadora = trabalho.TextoFinanciadora                
+            };
+                  
+
             return Json(model);
         }
 

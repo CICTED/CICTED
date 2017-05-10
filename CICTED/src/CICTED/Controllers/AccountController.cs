@@ -215,7 +215,7 @@ namespace CICTED.Controllers
             {
                 DadosUsuárioViewModel model = new DadosUsuárioViewModel();
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
-                var estados = await _localizacaoRepository.GetEstado();
+                var estados = await _localizacaoRepository.GetEstados();
                 var cursos = await _accountRepository.GetCursos();
                 model.Instituicoes = await _accountRepository.GetInstituicao();
                 model.Estados = estados;
@@ -387,7 +387,8 @@ namespace CICTED.Controllers
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var endereco = await _accountRepository.GetEndereco(user.EnderecoId);
-                var estado = await _localizacaoRepository.GetEstado();
+                var estados = await _localizacaoRepository.GetEstados();
+                var estado = await _localizacaoRepository.GetEstado(endereco.CidadeId);
                 var cursos = await _accountRepository.GetCursos();
 
                 DadosUsuárioViewModel model = new DadosUsuárioViewModel();
@@ -403,10 +404,11 @@ namespace CICTED.Controllers
                 model.EmailSecundario = user.EmailSecundario;
                 model.Logradouro = endereco.Logradouro;
                 model.CidadeId = endereco.CidadeId;
+                model.EstadoID = estado;                
                 model.Numero = endereco.Numero;
                 model.Bairro = endereco.Bairro;
                 model.CEP = endereco.CEP;
-                model.Estados = estado;
+                model.Estados = estados;
                 model.Instituicoes = await _accountRepository.GetInstituicao();
                 model.Cursos = cursos;
                 model.Estudante = user.Estudante;
