@@ -88,7 +88,11 @@ namespace CICTED.Controllers
                 Introducao = trabalho.Introducao,
                 NomeEscola = trabalho.NomeEscola,
                 DataSubmissao = trabalho.DataSubmissao,
-                Referencia = trabalho.Referencia
+                Referencia = trabalho.Referencia,
+                Resultado = trabalho.Resultado,
+                TelefoneEscola = trabalho.TelefoneEscola,
+                Resumo = trabalho.Resumo,
+                TextoFinanciadora = trabalho.TextoFinanciadora                
             };
                   
 
