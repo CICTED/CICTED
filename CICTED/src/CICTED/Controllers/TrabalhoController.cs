@@ -22,13 +22,15 @@ namespace CICTED.Controllers
         private IAccountRepository _accountRepository;
         private ITrabalhoRepository _trabalhoRepository;
         private IEventoRepository _eventoRepository;
+        private IAreaRepository _areaRepository;
 
-        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository)
+        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
             _accountRepository = accountRepository;
             _eventoRepository = eventoRepository;
+            _areaRepository = areaRepository;
         }
 
         [HttpGet("cadastro/{IdEvento}")]
@@ -40,15 +42,18 @@ namespace CICTED.Controllers
                 return BadRequest();
             }
             var evento = await _eventoRepository.GetEvento(IdEvento);
+            var areas = await _areaRepository.GetAreas();
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
-                Evento = evento.EventoNome
+                Evento = evento.EventoNome,
+                AreasConhecimento = areas,
             };
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
             ViewBag.Nome = user.Nome;
+            
 
             return View(model);
         }
@@ -77,8 +82,27 @@ namespace CICTED.Controllers
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
             var orientador = await _trabalhoRepository.GetOrientador(id);
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
+            var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
+            var area = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
+
+
+            //AutorTrabalho autores = await _trabalhoRepository.GetAutores(id);
             
-            var model = new InformacoesTrabalho()
+            List<AutorTrabalho> outrosAutores = new List<AutorTrabalho>() { };
+            AutorTrabalho autorPrincipal = null;
+
+            //foreach(var autor in autores)
+            //{
+            //    if(autor.StatusUsuarioId != 5)
+            //    {
+            //        outrosAutores.Add(autor);
+            //    }else
+            //    {
+            //        autorPrincipal = autor;
+            //    }
+            //}
+
+            var model = new InformacoesTrabalhoViewModel()
             {
                 Titulo = trabalho.Titulo,
                 Identificacao = trabalho.Identificacao,
@@ -95,18 +119,31 @@ namespace CICTED.Controllers
                 TelefoneEscola = trabalho.TelefoneEscola,
                 Resumo = trabalho.Resumo,
                 TextoFinanciadora = trabalho.TextoFinanciadora,
-                EventoNome = evento.EventoNome,                               
+                EventoNome = evento.EventoNome,
+                palavrasChave = palavrasChave,
+                //outrosAutores = outrosAutores,
+                //orientador = orientador,
+                //autorPrincipal = autorPrincipal, 
+
             };
                   
 
             return Json(model);
         }
 
-        //[HttpGet("list/subarea")]
-        //public async Task<IAccountRepository> Subarea(int AreaId)
-        //{
+        
+        [HttpGet("list/subarea/{areaId}")]
+        public async Task<IActionResult> Subarea(int areaId)
+        {
+            var subAreas = await _areaRepository.GetSubAreas(areaId);
 
-        //}
+            if(subAreas == null)
+            {
+                return BadRequest("There was an error to load the subAreas.");
+            }
+
+            return Json(subAreas);
+        }       
 
     }
 }

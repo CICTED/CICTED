@@ -1,4 +1,5 @@
 ﻿using CICTED.Domain.Entities.Localizacao;
+using CICTED.Domain.Entities.Trabalho;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace CICTED.Domain.ViewModels.Autor
     public class CadastroTrabalhoViewModel
     {
         public string Evento { get; set; }
+
+        public List<AreaConhecimento> AreasConhecimento { get; set; }
 
         public int AreaConhecimento { get; set; }
 

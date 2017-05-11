@@ -80,7 +80,7 @@
                     </table>
                     <hr />
                     <h4>Autores:</h4>
-                    <table>
+                    <table>  
                         <tr><td><b class="margin-right-30">Autor Principal: </b></td><td id="autor-principal"></td></tr>
                         <tr id="outros-autores"></tr>
                         <tr><td><b>Orientador: </b></td><td id="orientador"></td></tr>
@@ -97,7 +97,8 @@
                     <h5><b>Conclusão:</b></h5>
                     <h5 id="metodologia"></h5>
                     <h5 id="introducao"><b>Referências Bibliográficas: </b></h5>
-                    <h5 id="metodologia"><b>Palavras-chaves: </b></h5>
+                    <h5><b>Palavras-chaves: </b></h5>
+                    <h5 id="palavras-chave"> </h5>
                 </div>
 
                 <div class="modal-footer">
@@ -129,16 +130,17 @@
                 $('#subarea').text(data.subarea);
                 $('#evento').text(data.evento);
                 $('#status').text(data.status);
-                $('#data-cadastro').text(data.dataCadastro);
+                $('#data-cadastro').text(data.dataCadastro.toString('dd/MM/yyyy'));
                 $('#data-submissao').text(data.subarea);
-                $('#titulo').text(data.titulo);
+                $('#titulo').html("<b>"+data.titulo+"</b>");
                 $('#introducao').text(data.introducao);
                 $('#metodologia').text(data.metodologia);
                 $('#resultado').text(data.resultado);
                 $('#referencia').text(data.referencia);
+                $('#palavras-chave').text(data.palavrasChave);
+                $('autor-principal').text(data.autorPrincipal);
                 if (data.autores != null) {
                     $('#"outros-autores').html('<td><b>Autores: </b></td><td>' + data.autores + '</td>');
-
                 }
             },
 

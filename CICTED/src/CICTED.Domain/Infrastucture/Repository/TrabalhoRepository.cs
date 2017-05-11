@@ -94,6 +94,50 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
 
         }
+
+        public async Task<List<string>> GetPalavrasChave(long idTrabalho)
+        {
+            try
+            {
+                using(var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var queryPalavraId = await db.QueryAsync<long>("SELECT PalavraChaveId from dbo.PalavraChaveTrabalho where TrabalhoId = @TrabalhoId", new { TrabalhoId = idTrabalho });
+
+                    var palavraId = queryPalavraId.ToList();
+
+                    List<string> palavras = new List<string>() { };
+
+                    foreach(var palavra in palavraId)
+                    {
+                        var queryPalavra = await db.QueryAsync<string>("SELECT Palavra from dbo.PalavraChave where Id = @Id", new {Id = palavra});
+
+                        palavras.Add(queryPalavra.FirstOrDefault());
+                    }
+                    return palavras;
+                }
+            }catch(Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<AutorTrabalho>> GetAutores(long id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT * FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId AND Orientador = @Orientador", new { TrabalhoId = id, Orientador = false });
+
+                    return selectTrabalhoQuery.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
     }
 
 
