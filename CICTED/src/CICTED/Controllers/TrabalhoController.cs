@@ -76,7 +76,9 @@ namespace CICTED.Controllers
         {
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
             var orientador = await _trabalhoRepository.GetOrientador(id);
-            var model = new Trabalho()
+            var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
+            
+            var model = new InformacoesTrabalho()
             {
                 Titulo = trabalho.Titulo,
                 Identificacao = trabalho.Identificacao,
@@ -92,7 +94,8 @@ namespace CICTED.Controllers
                 Resultado = trabalho.Resultado,
                 TelefoneEscola = trabalho.TelefoneEscola,
                 Resumo = trabalho.Resumo,
-                TextoFinanciadora = trabalho.TextoFinanciadora                
+                TextoFinanciadora = trabalho.TextoFinanciadora,
+                EventoNome = evento.EventoNome,                               
             };
                   
 
