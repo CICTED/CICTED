@@ -80,7 +80,7 @@
                     </table>
                     <hr />
                     <h4>Autores:</h4>
-                    <table>
+                    <table>  
                         <tr><td><b class="margin-right-30">Autor Principal: </b></td><td id="autor-principal"></td></tr>
                         <tr id="outros-autores"></tr>
                         <tr><td><b>Orientador: </b></td><td id="orientador"></td></tr>
@@ -130,7 +130,7 @@
                 $('#subarea').text(data.subarea);
                 $('#evento').text(data.evento);
                 $('#status').text(data.status);
-                $('#data-cadastro').text(data.dataCadastro);
+                $('#data-cadastro').text(data.dataCadastro.toString('dd/MM/yyyy'));
                 $('#data-submissao').text(data.subarea);
                 $('#titulo').html("<b>"+data.titulo+"</b>");
                 $('#introducao').text(data.introducao);
@@ -141,7 +141,6 @@
                 $('autor-principal').text(data.autorPrincipal);
                 if (data.autores != null) {
                     $('#"outros-autores').html('<td><b>Autores: </b></td><td>' + data.autores + '</td>');
-
                 }
             },
 
