@@ -111,17 +111,24 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Estado:</label>
-                <select class="form-control" id="dropEstado" value="@Model.EstadoID" style="width:500px">
+                <select class="form-control" value="@Model.EstadoID" style="width:500px">
                     <option value="-1">Selecione seu estado</option>
                     @foreach (var estado in Model.Estados)
                     {
-                        if (estado.Id == Model.Estado)
+                        if (estado.Id == Model.EstadoID)
                         {
-                            <option value="@estado.Id" selected>@estado.Sigla</option>
+                            <option value="@Model.EstadoID" selected>@Model.EstadoNome</option>
                         }
                         else
                         {
-                            <option value="@estado.Id">@estado.Sigla</option>
+                            if (estado.Id == Model.Estado)
+                            {
+                                <option value="@estado.Id" selected>@estado.Sigla</option>
+                            }
+                            else
+                            {
+                                <option value="@estado.Id">@estado.Sigla</option>
+                            }
                         }
                     }
                 </select>
@@ -129,13 +136,13 @@
 
             <div class="float-right" style="width:50%">
                 <label>Cidade: </label>
-                <select class="form-control" id="dropCidade" value="@Model.CidadeId" style="width:500px">
+                <select class="form-control" value="@Model.CidadeId" style="width:500px">
                     <option value="-1">Selecione sua cidade</option>
-                    @if (Model.CidadeId > 0)
-                    {
-                        <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
+                   @if (Model.CidadeId > 0)
+                        {
+                            <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
 
-                    }
+                        }
                 </select>
             </div>
 
@@ -169,7 +176,7 @@
                         <span class="onoffswitch-switch"></span>
                     </label>
                 </div>
-                
+
                 <div id="estudante" style="display: none;">
                     <div class="float-right row">
                         <label>Curso:</label>

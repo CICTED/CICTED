@@ -35,6 +35,8 @@ namespace CICTED.Domain.ViewModels.Account
 
         public int Estado { get; set; }
 
+        public string EstadoNome { get; set; }
+
         public bool FirstAccess { get; set; }
 
         public bool EnderecoExterior { get; set; }
