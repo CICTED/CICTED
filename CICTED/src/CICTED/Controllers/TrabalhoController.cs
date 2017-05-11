@@ -83,7 +83,7 @@ namespace CICTED.Controllers
             var orientador = await _trabalhoRepository.GetOrientador(id);
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
             
-            var model = new InformacoesTrabalho()
+            var model = new InformacoesTrabalhoViewModel()
             {
                 Titulo = trabalho.Titulo,
                 Identificacao = trabalho.Identificacao,
