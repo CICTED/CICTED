@@ -40,11 +40,13 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento" id="area">
+                            <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento" id="dropArea">
                                 <option disabled selected>Selecione uma área</option>
-                                <option value="1"> Humanas</option>
-                                <option value="2"> Exatas</option>
-                                <option value="3"> Biológicas</option>
+                               @foreach (var areas in Model.AreasConhecimento)
+                               {
+                                   <option value="@areas.Id"> @areas.Area</option>
+
+                               }
                             </select>
                         </div>
                     </div>
@@ -54,7 +56,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="AreaConhecimento" value="@Model.SubArea" id="subArea">
+                            <select class="form-control" name="SubAreaConhecimento" value="@Model.SubArea" id="dropSubArea">
                                 <option disabled selected>Selecione uma subarea</option>
                             </select>
                         </div>
@@ -181,7 +183,7 @@
     });
 
     
-    $('#area').subArea($('#subArea'));
+    $('#dropArea').subArea($('#dropSubArea'));
 
 
 </script>

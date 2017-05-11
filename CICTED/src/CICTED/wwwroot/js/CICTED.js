@@ -25,7 +25,7 @@
     };
 
     $.fn.subArea = function (dropSubAreas) {
-        var drpDown = $(this);
+        var dropDown = $(this);
         var subAreaId = dropSubAreas.val();
 
         dropDown.on('change', function () {
@@ -33,14 +33,14 @@
             dropSubAreas.html('<option value="-1">Selecione a subarea</option>');
 
             $.ajax({
-                url: '/trabalho/list/subarea',
+                url: '/trabalho/list/subarea/' + areaId,
                 method: 'GET',
                 sucess: function (data) {
                     $.each(data, function (i, item) {
                         if (item.id == subAreaId) {
-                            dropSubAreas.append('<option value="'+item.id+'" selected>'+item.subArea+'</option>');
+                            dropSubAreas.append('<option value="'+item.subAreaId+'" selected>'+item.subArea+'</option>');
                         }else{
-                            dropSubAreas.append('<option value="'+item.id+'">'+item.subArea+'"</option>');
+                            dropSubAreas.append('<option value="'+item.subAreaId+'">'+item.subArea+'"</option>');
                         }
                     });
                     dropSubAreas.removeAttr('disabled');

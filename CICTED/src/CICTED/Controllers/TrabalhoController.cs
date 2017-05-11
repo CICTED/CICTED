@@ -42,15 +42,18 @@ namespace CICTED.Controllers
                 return BadRequest();
             }
             var evento = await _eventoRepository.GetEvento(IdEvento);
+            var areas = await _areaRepository.GetAreas();
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
-                Evento = evento.EventoNome
+                Evento = evento.EventoNome,
+                AreasConhecimento = areas,
             };
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
             ViewBag.Nome = user.Nome;
+            
 
             return View(model);
         }
@@ -103,11 +106,12 @@ namespace CICTED.Controllers
 
             return Json(model);
         }
+
         
-        [HttpGet("list/subarea")]
-        public async Task<IActionResult> Subarea(int AreaId)
+        [HttpGet("list/subarea/{areaId}")]
+        public async Task<IActionResult> Subarea(int areaId)
         {
-            var subAreas = await _areaRepository.GetSubArea(AreaId);
+            var subAreas = await _areaRepository.GetSubAreas(areaId);
 
             if(subAreas == null)
             {
@@ -115,7 +119,7 @@ namespace CICTED.Controllers
             }
 
             return Json(subAreas);
-        }
+        }       
 
     }
 }
