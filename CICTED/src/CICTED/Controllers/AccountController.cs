@@ -407,6 +407,7 @@ namespace CICTED.Controllers
                 model.Numero = endereco.Numero;
                 model.Bairro = endereco.Bairro;
                 model.CEP = endereco.CEP;
+                model.EstadoID = estado;
                 model.Estados = estados;
                 model.Instituicoes = await _accountRepository.GetInstituicao();
                 model.Cursos = cursos;

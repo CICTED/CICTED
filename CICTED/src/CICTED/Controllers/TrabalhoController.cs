@@ -102,11 +102,11 @@ namespace CICTED.Controllers
             return Json(model);
         }
 
-        [HttpGet("list/subarea")]
-        public async Task<IAccountRepository> Subarea(int AreaId)
-        {
+        //[HttpGet("list/subarea")]
+        //public async Task<IAccountRepository> Subarea(int AreaId)
+        //{
 
-        }
+        //}
 
     }
 }
