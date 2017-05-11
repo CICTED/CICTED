@@ -403,11 +403,11 @@ namespace CICTED.Controllers
                 model.Email = user.Email;
                 model.EmailSecundario = user.EmailSecundario;
                 model.Logradouro = endereco.Logradouro;
-                model.CidadeId = endereco.CidadeId;
-                model.EstadoID = estado;                
+                model.CidadeId = endereco.CidadeId;               
                 model.Numero = endereco.Numero;
                 model.Bairro = endereco.Bairro;
                 model.CEP = endereco.CEP;
+                model.EstadoID = estado;
                 model.Estados = estados;
                 model.Instituicoes = await _accountRepository.GetInstituicao();
                 model.Cursos = cursos;

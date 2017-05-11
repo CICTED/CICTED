@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CICTED.Domain.ViewModels.Trabalho
 {
-    public class InformacoesTrabalho
+    public class InformacoesTrabalhoViewModel
     {
 
         public long Id { get; set; }

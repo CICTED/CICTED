@@ -79,7 +79,7 @@ namespace CICTED.Controllers
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
             var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
 
-            var model = new InformacoesTrabalho()
+            var model = new InformacoesTrabalhoViewModel()
             {
                 Titulo = trabalho.Titulo,
                 Identificacao = trabalho.Identificacao,
@@ -105,7 +105,11 @@ namespace CICTED.Controllers
         }
 
         //[HttpGet("list/subarea")]
+
         //public async Task<IAccountRepository> Subareas(int AreaId)
+
+        //public async Task<IAccountRepository> Subarea(int AreaId)
+
         //{
 
         //}
