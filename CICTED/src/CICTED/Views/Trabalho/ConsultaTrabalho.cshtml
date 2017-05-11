@@ -87,17 +87,17 @@
                     </table>
                     <hr />
                     <h4>Trabalho:</h4>
-                    <h5 style="text-align:center" id="titulo">TITULO</h5>
-                    <h5>Introdução:</h5>
+                    <h5 style="text-align:center" id="titulo"></h5>
+                    <h5><b>Introdução:</b></h5>
                     <h5 id="introducao"></h5>
-                    <h5>Metodologia:</h5>
+                    <h5><b>Metodologia:</b></h5>
                     <h5 id="metodologia"></h5>
-                    <h5>Resultados:</h5>
+                    <h5><b>Resultados:</b></h5>
                     <h5 id="introducao"></h5>
-                    <h5>Conclusão:</h5>
+                    <h5><b>Conclusão:</b></h5>
                     <h5 id="metodologia"></h5>
-                    <h5 id="introducao">Referências Bibliográficas: </h5>
-                    <h5 id="metodologia">Palavras-chaves: </h5>
+                    <h5 id="introducao"><b>Referências Bibliográficas: </b></h5>
+                    <h5 id="metodologia"><b>Palavras-chaves: </b></h5>
                 </div>
 
                 <div class="modal-footer">
@@ -129,8 +129,13 @@
                 $('#subarea').text(data.subarea);
                 $('#evento').text(data.evento);
                 $('#status').text(data.status);
-                $('#data-cadastro').text(data.data);
+                $('#data-cadastro').text(data.dataCadastro);
                 $('#data-submissao').text(data.subarea);
+                $('#titulo').text(data.titulo);
+                $('#introducao').text(data.introducao);
+                $('#metodologia').text(data.metodologia);
+                $('#resultado').text(data.resultado);
+                $('#referencia').text(data.referencia);
                 if (data.autores != null) {
                     $('#"outros-autores').html('<td><b>Autores: </b></td><td>' + data.autores + '</td>');
 
