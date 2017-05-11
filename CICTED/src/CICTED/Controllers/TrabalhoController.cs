@@ -77,7 +77,8 @@ namespace CICTED.Controllers
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
             var orientador = await _trabalhoRepository.GetOrientador(id);
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
-            
+            var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
+
             var model = new InformacoesTrabalho()
             {
                 Titulo = trabalho.Titulo,
@@ -95,18 +96,19 @@ namespace CICTED.Controllers
                 TelefoneEscola = trabalho.TelefoneEscola,
                 Resumo = trabalho.Resumo,
                 TextoFinanciadora = trabalho.TextoFinanciadora,
-                EventoNome = evento.EventoNome,                               
+                EventoNome = evento.EventoNome,
+                palavrasChave = palavrasChave                                              
             };
                   
 
             return Json(model);
         }
 
-        [HttpGet("list/subarea")]
-        public async Task<IAccountRepository> Subarea(int AreaId)
-        {
+        //[HttpGet("list/subarea")]
+        //public async Task<IAccountRepository> Subareas(int AreaId)
+        //{
 
-        }
+        //}
 
     }
 }

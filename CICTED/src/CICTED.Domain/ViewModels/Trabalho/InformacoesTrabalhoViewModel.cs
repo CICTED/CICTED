@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CICTED.Domain.Entities.Trabalho;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,6 +43,12 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public string EventoNome { get; set; }
 
+        public List<string> palavrasChave { get; set; }
 
+        public AutorTrabalho orientador { get; set; }
+
+        public List<AutorTrabalho> autores { get; set; }
+
+        public AutorTrabalho autorPrincipal { get; set; }
     }
 }
