@@ -70,6 +70,7 @@ namespace CICTED
             services.AddTransient<ISmsService, SmsService>();
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IEventoRepository, EventoRepository>();
+            services.AddTransient<IAreaRepository, AreaRepository>();
 
             services.AddMvc();
         }
