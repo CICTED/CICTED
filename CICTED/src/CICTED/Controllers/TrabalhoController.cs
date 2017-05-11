@@ -22,13 +22,15 @@ namespace CICTED.Controllers
         private IAccountRepository _accountRepository;
         private ITrabalhoRepository _trabalhoRepository;
         private IEventoRepository _eventoRepository;
+        private IAreaRepository _areaRepository;
 
-        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository)
+        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
             _accountRepository = accountRepository;
             _eventoRepository = eventoRepository;
+            _areaRepository = areaRepository;
         }
 
         [HttpGet("cadastro/{IdEvento}")]
@@ -101,11 +103,18 @@ namespace CICTED.Controllers
 
             return Json(model);
         }
-
+        
         [HttpGet("list/subarea")]
-        public async Task<IAccountRepository> Subarea(int AreaId)
+        public async Task<IActionResult> Subarea(int AreaId)
         {
+            var subAreas = await _areaRepository.GetSubArea(AreaId);
 
+            if(subAreas == null)
+            {
+                return BadRequest("There was an error to load the subAreas.");
+            }
+
+            return Json(subAreas);
         }
 
     }

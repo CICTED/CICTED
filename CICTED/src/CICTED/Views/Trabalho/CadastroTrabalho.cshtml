@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento">
+                            <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento" id="area">
                                 <option disabled selected>Selecione uma área</option>
                                 <option value="1"> Humanas</option>
                                 <option value="2"> Exatas</option>
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="AreaConhecimento" value="@Model.SubArea">
+                            <select class="form-control" name="AreaConhecimento" value="@Model.SubArea" id="subArea">
                                 <option disabled selected>Selecione uma subarea</option>
                             </select>
                         </div>
@@ -181,7 +181,7 @@
     });
 
     
-    
+    $('#area').subArea($('#subArea'));
 
 
 </script>
