@@ -78,6 +78,20 @@ namespace CICTED.Controllers
             var orientador = await _trabalhoRepository.GetOrientador(id);
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
             var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
+            var autores = await _trabalhoRepository.GetAutores(id);
+            List<AutorTrabalho> outrosAutores = new List<AutorTrabalho>() { };
+            AutorTrabalho autorPrincipal = null;
+
+            foreach(var autor in autores)
+            {
+                if(autor.StatusUsuarioId != 5)
+                {
+                    outrosAutores.Add(autor);
+                }else
+                {
+                    autorPrincipal = autor;
+                }
+            }
 
             var model = new InformacoesTrabalhoViewModel()
             {
@@ -97,7 +111,10 @@ namespace CICTED.Controllers
                 Resumo = trabalho.Resumo,
                 TextoFinanciadora = trabalho.TextoFinanciadora,
                 EventoNome = evento.EventoNome,
-                palavrasChave = palavrasChave                                              
+                palavrasChave = palavrasChave,
+                outrosAutores = outrosAutores,
+                orientador = orientador,
+                autorPrincipal = autorPrincipal,                                             
             };
                   
 

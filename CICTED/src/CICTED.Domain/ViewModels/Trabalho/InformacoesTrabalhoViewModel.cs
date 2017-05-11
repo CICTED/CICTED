@@ -45,10 +45,10 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public List<string> palavrasChave { get; set; }
 
-        public AutorTrabalho orientador { get; set; }
+        public AutorTrabalhoViewModel orientador { get; set; }
 
-        public List<AutorTrabalho> autores { get; set; }
+        public List<AutorTrabalhoViewModel> outrosAutores { get; set; }
 
-        public AutorTrabalho autorPrincipal { get; set; }
+        public AutorTrabalhoViewModel autorPrincipal { get; set; }
     }
 }
