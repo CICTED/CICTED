@@ -35,17 +35,16 @@
             $.ajax({
                 url: '/trabalho/list/subarea/' + areaId,
                 method: 'GET',
-                sucess: function (data) {
-                    $.each(data, function (i, item) {
-                        if (item.id == subAreaId) {
-                            dropSubAreas.append('<option value="'+item.subAreaId+'" selected>'+item.subArea+'</option>');
-                        }else{
-                            dropSubAreas.append('<option value="'+item.subAreaId+'">'+item.subArea+'"</option>');
-                        }
+                success: function (data) {
+                    console.log(data);
+                    $.each(data, function (i, item) {                        
+                            dropSubAreas.append('<option value="'+item.id+'">'+item.nome+'</option>');
+                      
                     });
                     dropSubAreas.removeAttr('disabled');
                 },
-                error: function(x,y,message){
+                error: function (x, y, message) {
+                    console.log(data);
                     dropSubAreas.attr('disabled','disabled');
                 }
             });
