@@ -190,7 +190,9 @@
                     </label>
                 </div>
 
-                <div id="estudante" style="display: normal;">
+                @if (Model.Estudante == false)
+                {
+                <div id="estudante" style="display: none;">
                     <div class="float-right row">
                         <label>Curso:</label>
                         <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
@@ -211,6 +213,31 @@
                         <input type="text" value="@Model.Curso" style="width:500px" />
                     </div>
                 </div>
+                }
+                else
+                {
+                    <div id="estudante" style="display: normal;">
+                    <div class="float-right row">
+                        <label>Curso:</label>
+                        <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                            <option value="-1">Selecione seu Curso</option>
+                            @foreach (var cursos in Model.Cursos)
+                            {
+                                if (cursos.Id == Model.CursoId)
+                                {
+                                    <option value="@cursos.Id" selected>@cursos.CursoNome</option>
+                                }
+                                else
+                                {
+                                    <option value="@cursos.Id">@cursos.CursoNome</option>
+                                }
+                            }
+                        </select>
+                        <label class="margin-top-20">Outro:</label>
+                        <input type="text" value="@Model.Curso" style="width:500px" />
+                    </div>
+                </div> 
+                }
             </div>
 
             <div class="float-right" style="width:50%">
@@ -222,6 +249,9 @@
                         <span class="onoffswitch-switch"></span>
                     </label>
                 </div>
+
+                @if (Model.Bolsista == false)
+                {
                 <div id="bolsista" style="display: none;">
                     <div class="float-left row">
                         <label>Agência financiadora:</label>
@@ -230,6 +260,18 @@
                         </select>
                     </div>
                 </div>
+                }
+                else
+                {
+                    <div id="bolsista" style="display: normal;">
+                        <div class="float-left row">
+                            <label>Agência financiadora:</label>
+                            <select class="form-control" style="width:500px">
+                                <option value="-1">Selecione a agência financiadora</option>
+                            </select>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
