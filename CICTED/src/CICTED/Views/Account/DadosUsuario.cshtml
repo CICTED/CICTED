@@ -46,9 +46,27 @@
             <div class="float-right" style="width:50%">
                 <label>Gênero:</label>
                 <select type="text" style="width:500px" class="form-control" value="@Model.Genero">
-                    <option value="-1">Selecione um gênero</option>
-                    <option value="false">Masculino</option>
-                    <option value="true">Feminino</option>
+                    @if (Model.Genero == true)
+                    {
+                        <option value="-1">Selecione um gênero</option>
+                        <option value="false">Masculino</option>
+                        <option value="true" selected>Feminino</option>
+                    }
+                    else
+                    {
+                        @if (Model.Genero == false)
+                        {
+                            <option value="-1">Selecione um gênero</option>
+                            <option value="false" selected>Masculino</option>
+                            <option value="true">Feminino</option>
+                        }
+                        else
+                        {
+                            <option value="-1">Selecione um gênero</option>
+                            <option value="false">Masculino</option>
+                            <option value="true">Feminino</option>
+                        }
+                    }
                 </select>
             </div>
         </div>
@@ -192,51 +210,51 @@
 
                 @if (Model.Estudante == false)
                 {
-                <div id="estudante" style="display: none;">
-                    <div class="float-right row">
-                        <label>Curso:</label>
-                        <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
-                            <option value="-1">Selecione seu Curso</option>
-                            @foreach (var cursos in Model.Cursos)
-                            {
-                                if (cursos.Id == Model.CursoId)
+                    <div id="estudante" style="display: none;">
+                        <div class="float-right row">
+                            <label>Curso:</label>
+                            <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                                <option value="-1">Selecione seu Curso</option>
+                                @foreach (var cursos in Model.Cursos)
                                 {
-                                    <option value="@cursos.Id" selected>@cursos.CursoNome</option>
+                                    if (cursos.Id == Model.CursoId)
+                                    {
+                                        <option value="@cursos.Id" selected>@cursos.CursoNome</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@cursos.Id">@cursos.CursoNome</option>
+                                    }
                                 }
-                                else
-                                {
-                                    <option value="@cursos.Id">@cursos.CursoNome</option>
-                                }
-                            }
-                        </select>
-                        <label class="margin-top-20">Outro:</label>
-                        <input type="text" value="@Model.Curso" style="width:500px" />
+                            </select>
+                            <label class="margin-top-20">Outro:</label>
+                            <input type="text" value="@Model.Curso" style="width:500px" />
+                        </div>
                     </div>
-                </div>
                 }
                 else
                 {
                     <div id="estudante" style="display: normal;">
-                    <div class="float-right row">
-                        <label>Curso:</label>
-                        <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
-                            <option value="-1">Selecione seu Curso</option>
-                            @foreach (var cursos in Model.Cursos)
-                            {
-                                if (cursos.Id == Model.CursoId)
+                        <div class="float-right row">
+                            <label>Curso:</label>
+                            <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                                <option value="-1">Selecione seu Curso</option>
+                                @foreach (var cursos in Model.Cursos)
                                 {
-                                    <option value="@cursos.Id" selected>@cursos.CursoNome</option>
+                                    if (cursos.Id == Model.CursoId)
+                                    {
+                                        <option value="@cursos.Id" selected>@cursos.CursoNome</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@cursos.Id">@cursos.CursoNome</option>
+                                    }
                                 }
-                                else
-                                {
-                                    <option value="@cursos.Id">@cursos.CursoNome</option>
-                                }
-                            }
-                        </select>
-                        <label class="margin-top-20">Outro:</label>
-                        <input type="text" value="@Model.Curso" style="width:500px" />
+                            </select>
+                            <label class="margin-top-20">Outro:</label>
+                            <input type="text" value="@Model.Curso" style="width:500px" />
+                        </div>
                     </div>
-                </div> 
                 }
             </div>
 
@@ -252,14 +270,14 @@
 
                 @if (Model.Bolsista == false)
                 {
-                <div id="bolsista" style="display: none;">
-                    <div class="float-left row">
-                        <label>Agência financiadora:</label>
-                        <select class="form-control" style="width:500px">
-                            <option value="-1">Selecione a agência financiadora</option>
-                        </select>
+                    <div id="bolsista" style="display: none;">
+                        <div class="float-left row">
+                            <label>Agência financiadora:</label>
+                            <select class="form-control" style="width:500px">
+                                <option value="-1">Selecione a agência financiadora</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
                 }
                 else
                 {
