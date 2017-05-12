@@ -3620,6 +3620,7 @@
       },
       "CICTED.Crosscutting/1.0.0": {
         "dependencies": {
+          "NETCore.MailKit": "1.0.1",
           "NETStandard.Library": "1.6.1"
         },
         "runtime": {

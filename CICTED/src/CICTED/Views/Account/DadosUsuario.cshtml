@@ -111,17 +111,24 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Estado:</label>
-                <select class="form-control" id="dropEstado" value="@Model.EstadoID" style="width:500px">
+                <select class="form-control" value="@Model.EstadoID" style="width:500px">
                     <option value="-1">Selecione seu estado</option>
                     @foreach (var estado in Model.Estados)
                     {
-                        if (estado.Id == Model.Estado)
+                        if (estado.Id == Model.EstadoID)
                         {
-                            <option value="@estado.Id" selected>@estado.Sigla</option>
+                            <option value="@Model.EstadoID" selected>@Model.EstadoNome</option>
                         }
                         else
                         {
-                            <option value="@estado.Id">@estado.Sigla</option>
+                            if (estado.Id == Model.Estado)
+                            {
+                                <option value="@estado.Id" selected>@estado.Sigla</option>
+                            }
+                            else
+                            {
+                                <option value="@estado.Id">@estado.Sigla</option>
+                            }
                         }
                     }
                 </select>
@@ -131,10 +138,16 @@
                 <label>Cidade: </label>
                 <select class="form-control" id="dropCidade" value="@Model.CidadeId" style="width:500px">
                     <option value="-1">Selecione sua cidade</option>
-                    @if (Model.CidadeId > 0)
+                    @if (Model.CidadeId == Model.CidadeId)
                     {
                         <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
-
+                    }
+                    else
+                    {
+                        @if (Model.CidadeId > 0)
+                        {
+                            <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
+                        }
                     }
                 </select>
             </div>
@@ -154,7 +167,14 @@
                 <option value="-1">Selecione sua instituição</option>
                 @foreach (var instituicao in Model.Instituicoes)
                 {
-                    <option value="@instituicao.Id">@instituicao.InstituicaoNome</option>
+                    if (instituicao.Id == Model.InstituicaoId)
+                    {
+                        <option value="@instituicao.Id" selected>@instituicao.InstituicaoNome</option>
+                    }
+                    else
+                    {
+                        <option value="@instituicao.Id">@instituicao.InstituicaoNome</option>
+                    }
                 }
             </select>
         </div>
@@ -169,22 +189,55 @@
                         <span class="onoffswitch-switch"></span>
                     </label>
                 </div>
-                
+
+                @if (Model.Estudante == false)
+                {
                 <div id="estudante" style="display: none;">
                     <div class="float-right row">
                         <label>Curso:</label>
-
                         <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
                             <option value="-1">Selecione seu Curso</option>
                             @foreach (var cursos in Model.Cursos)
                             {
-                                <option value="@cursos.Id">@cursos.CursoNome</option>
+                                if (cursos.Id == Model.CursoId)
+                                {
+                                    <option value="@cursos.Id" selected>@cursos.CursoNome</option>
+                                }
+                                else
+                                {
+                                    <option value="@cursos.Id">@cursos.CursoNome</option>
+                                }
                             }
                         </select>
                         <label class="margin-top-20">Outro:</label>
                         <input type="text" value="@Model.Curso" style="width:500px" />
                     </div>
                 </div>
+                }
+                else
+                {
+                    <div id="estudante" style="display: normal;">
+                    <div class="float-right row">
+                        <label>Curso:</label>
+                        <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                            <option value="-1">Selecione seu Curso</option>
+                            @foreach (var cursos in Model.Cursos)
+                            {
+                                if (cursos.Id == Model.CursoId)
+                                {
+                                    <option value="@cursos.Id" selected>@cursos.CursoNome</option>
+                                }
+                                else
+                                {
+                                    <option value="@cursos.Id">@cursos.CursoNome</option>
+                                }
+                            }
+                        </select>
+                        <label class="margin-top-20">Outro:</label>
+                        <input type="text" value="@Model.Curso" style="width:500px" />
+                    </div>
+                </div> 
+                }
             </div>
 
             <div class="float-right" style="width:50%">
@@ -196,6 +249,9 @@
                         <span class="onoffswitch-switch"></span>
                     </label>
                 </div>
+
+                @if (Model.Bolsista == false)
+                {
                 <div id="bolsista" style="display: none;">
                     <div class="float-left row">
                         <label>Agência financiadora:</label>
@@ -204,6 +260,18 @@
                         </select>
                     </div>
                 </div>
+                }
+                else
+                {
+                    <div id="bolsista" style="display: normal;">
+                        <div class="float-left row">
+                            <label>Agência financiadora:</label>
+                            <select class="form-control" style="width:500px">
+                                <option value="-1">Selecione a agência financiadora</option>
+                            </select>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -212,7 +280,6 @@
         <button type="button" class="btn btn-primary" id="button-cancelar">Cancelar</button>
         <button type="submit" class="btn btn-primary" style="margin-left:10px">Atualizar</button>
     </div>
-
 </form>
 
 <script type="text/javascript">
