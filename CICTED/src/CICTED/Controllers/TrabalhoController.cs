@@ -117,7 +117,7 @@ namespace CICTED.Controllers
             {
                 return BadRequest("There was an error to load the subAreas.");
             }
-
+            
             return Json(subAreas);
         }       
 
