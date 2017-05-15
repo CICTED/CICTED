@@ -129,7 +129,7 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Estado:</label>
-                <select class="form-control" value="@Model.EstadoID" style="width:500px">
+                <select class="form-control" id="dropStates" value="@Model.EstadoID" style="width:500px">
                     <option value="-1">Selecione seu estado</option>
                     @foreach (var estado in Model.Estados)
                     {
@@ -139,14 +139,8 @@
                         }
                         else
                         {
-                            if (estado.Id == Model.Estado)
-                            {
-                                <option value="@estado.Id" selected>@estado.Sigla</option>
-                            }
-                            else
-                            {
-                                <option value="@estado.Id">@estado.Sigla</option>
-                            }
+                            <option value="@estado.Id">@estado.Sigla</option>
+
                         }
                     }
                 </select>
@@ -156,16 +150,9 @@
                 <label>Cidade: </label>
                 <select class="form-control" id="dropCidade" value="@Model.CidadeId" style="width:500px">
                     <option value="-1">Selecione sua cidade</option>
-                    @if (Model.CidadeId == Model.CidadeId)
+                    @if (Model.CidadeId > 0)
                     {
                         <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
-                    }
-                    else
-                    {
-                        @if (Model.CidadeId > 0)
-                        {
-                            <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
-                        }
                     }
                 </select>
             </div>
