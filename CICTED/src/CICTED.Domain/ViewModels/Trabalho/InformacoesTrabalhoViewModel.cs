@@ -48,10 +48,6 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public CoautorViewModel orientador { get; set; }
 
-        public List<AutorTrabalhoViewModel> outrosAutores { get; set; }
-
-        public AutorTrabalhoViewModel autorPrincipal { get; set; }
-
         public string AreaConhecimento { get; set; }
 
         public string SubArea { get; set; }
