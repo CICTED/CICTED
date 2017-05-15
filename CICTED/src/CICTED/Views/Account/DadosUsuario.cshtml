@@ -40,7 +40,7 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Data de Nascimento:</label>
-                <input type="date" style="width:500px" value="@Model.DataNascimento" />
+                <input type="date" style="width:500px" value="@Model.DataNascimento.ToString("yyyy-MM-dd")" />
             </div>
 
             <div class="float-right" style="width:50%">
@@ -217,14 +217,7 @@
                                 <option value="-1">Selecione seu Curso</option>
                                 @foreach (var cursos in Model.Cursos)
                                 {
-                                    if (cursos.Id == Model.CursoId)
-                                    {
-                                        <option value="@cursos.Id" selected>@cursos.CursoNome</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@cursos.Id">@cursos.CursoNome</option>
-                                    }
+                                    <option value="@cursos.Id">@cursos.CursoNome</option>
                                 }
                             </select>
                             <label class="margin-top-20">Outro:</label>
