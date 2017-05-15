@@ -1,4 +1,5 @@
 ﻿using CICTED.Domain.Entities.Trabalho;
+using CICTED.Domain.ViewModels.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,10 +46,22 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public List<string> palavrasChave { get; set; }
 
-        public AutorTrabalhoViewModel orientador { get; set; }
+        public CoautorViewModel orientador { get; set; }
 
         public List<AutorTrabalhoViewModel> outrosAutores { get; set; }
 
         public AutorTrabalhoViewModel autorPrincipal { get; set; }
+
+        public string AreaConhecimento { get; set; }
+
+        public string SubArea { get; set; }
+
+        public string Status { get; set; }
+
+        public int StatusTrabalhoId { get; set; }
+
+        public List<CoautorViewModel> autores { get; set; }
     }
+
+
 }

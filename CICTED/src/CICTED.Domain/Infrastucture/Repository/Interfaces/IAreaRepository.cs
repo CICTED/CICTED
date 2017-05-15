@@ -11,5 +11,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<List<SubAreaConhecimento>> GetSubAreas(int areaId);
         Task<List<AreaConhecimento>> GetAreas();
         Task<string> GetArea(int subAreaId);
+        Task<string> GetSubArea(int subAreaId);
     }
 }
