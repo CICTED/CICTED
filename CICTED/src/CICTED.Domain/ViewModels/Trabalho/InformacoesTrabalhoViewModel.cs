@@ -46,7 +46,7 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public List<string> palavrasChave { get; set; }
 
-        public CoautorViewModel orientador { get; set; }
+        public AutorViewModel orientador { get; set; }
 
         public string AreaConhecimento { get; set; }
 
@@ -56,7 +56,7 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public int StatusTrabalhoId { get; set; }
 
-        public List<CoautorViewModel> autores { get; set; }
+        public List<AutorViewModel> autores { get; set; }
     }
 
 

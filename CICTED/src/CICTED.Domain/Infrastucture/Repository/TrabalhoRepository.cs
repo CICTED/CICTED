@@ -161,13 +161,13 @@ namespace CICTED.Domain.Infrastucture.Repository
         }
 
 
-        public async Task<CoautorViewModel> GetAutor(long userId)
+        public async Task<AutorViewModel> GetAutor(long userId)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var coautor = await db.QueryAsync<CoautorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers Where Id = @Id", new { Id = userId });
+                    var coautor = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers Where Id = @Id", new { Id = userId });
 
                     return coautor.FirstOrDefault();
                 }

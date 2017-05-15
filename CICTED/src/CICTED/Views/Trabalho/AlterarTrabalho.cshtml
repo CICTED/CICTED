@@ -1,0 +1,54 @@
+﻿@*
+
+*@
+@{
+    Layout = "_Menu";
+}
+
+<div class="autor-home-content">
+    <div class="margin-top-30 form-group">
+        <h4>
+            <span class="fa fa-warning"></span>
+            <b>
+                Você é o Autor Principal do trabalho;<br />
+                Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
+                O trabalho terá obrigatoriamente 1 (um) orientador.
+            </b>
+        </h4>
+        <h5>Para cadastrar um participante use uma das opções a baixo</h5>
+    </div>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
+        <li role="presentation"><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="porEmail">
+            <div class="form-group margin-top-10 row">
+                <input style="width:350px !important" placeholder="Digite o email desejado" /> <button class="btn btn-primary">Cadastrar</button>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="porNome">
+            <div class="form-group margin-top-10 row">
+                <input style="width:350px !important" placeholder="Digite o nome desejado" /> <button class="btn btn-primary">Cadastrar</button>
+            </div>
+        </div>
+        <div class="form-group row margin-top-10">
+            <b>Autor Principal: </b>
+        </div>
+        <div class="form-group row margin-top-10">
+            <b>Orientador: </b>
+        </div>
+        <div class="form-group row margin-top-10">
+            <b>CoAutores: </b>
+        </div>
+    </div>
+
+
+    <hr />
+    <div class="form-group margin-top-10">
+        <button class="btn btn-primary float-left prev">Voltar</button>
+        <button class="btn btn-primary float-right next">Avançar</button>
+    </div>
+</div>

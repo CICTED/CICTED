@@ -89,17 +89,17 @@ namespace CICTED.Controllers
 
             var autoresId = await _trabalhoRepository.GetAutoresId(id);
 
-            List<CoautorViewModel> autoresInfo = new List<CoautorViewModel>() { };
+            List<AutorViewModel> autoresInfo = new List<AutorViewModel>() { };
 
             foreach (var autor in autoresId)
             {
                 var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
-                var autorInfo = new CoautorViewModel()
+                var autorInfo = new AutorViewModel()
                 {
                     Email = info.Email,
-                    Nome = info.Nome,
+                    Nome = info.Nome.ToUpper(),
                     Orientador = autor.Orientador,
-                    Sobrenome = info.Sobrenome,
+                    Sobrenome = info.Sobrenome.ToUpper(),
                     Status = autor.StatusUsuarioId
                 };
 
@@ -111,6 +111,7 @@ namespace CICTED.Controllers
 
             var model = new InformacoesTrabalhoViewModel()
             {
+                Id = id,
                 Titulo = trabalho.Titulo,
                 Identificacao = trabalho.Identificacao,
                 Conclusao = trabalho.Conclusao,
@@ -151,6 +152,12 @@ namespace CICTED.Controllers
             }
             
             return Json(subAreas);
+        }
+
+        [HttpGet("{id}/alterar")]
+        public async Task<IActionResult> Alterar(long id)
+        {
+            return View("AlterarTrabalho");
         }
 
     }

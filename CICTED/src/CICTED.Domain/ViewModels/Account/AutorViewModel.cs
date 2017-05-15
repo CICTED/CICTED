@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CICTED.Domain.ViewModels.Account
 {
-    public class CoautorViewModel
+    public class AutorViewModel
     {
         public string Nome { get; set; }
 

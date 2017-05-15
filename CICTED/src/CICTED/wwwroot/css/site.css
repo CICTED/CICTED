@@ -567,6 +567,19 @@ input[type=checkbox] {
     margin-left: 0px;
 }
 
+.btn-alterar{
+    color: #4e93ea;    
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none!important;
+}
+
+.btn-alterar:hover{
+    color: white;
+    background: #4e93ea;
+    cursor: pointer;
+}
+
 .btn {
     padding-top: 7px;
     padding-bottom: 7px;
