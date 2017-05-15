@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Entities.Trabalho;
 using CICTED.Domain.ViewModels.Trabalho;
+using CICTED.Domain.ViewModels.Account;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -53,7 +54,7 @@ namespace CICTED.Controllers
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
             ViewBag.Nome = user.Nome;
-            
+
 
             return View(model);
         }
@@ -64,13 +65,13 @@ namespace CICTED.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             List<long> trabalhosId = await _trabalhoRepository.GetTrabalhosId(user.Id);
-            List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();            
+            List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();
 
-            foreach(var trabalho in trabalhosId)
+            foreach (var trabalho in trabalhosId)
             {
                 model.Add(await _trabalhoRepository.ConsultaTrabalho(trabalho));
             }
-                      
+
 
             return View(model);
         }
@@ -80,27 +81,33 @@ namespace CICTED.Controllers
         public async Task<IActionResult> Informacao(long id)
         {
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
-            var orientador = await _trabalhoRepository.GetOrientador(id);
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
             var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
             var area = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
+            var subArea = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
+            var statusTrabalho = await _trabalhoRepository.GetStatusTrabalho(trabalho.StatusTrabalhoId);
 
+            var autoresId = await _trabalhoRepository.GetAutoresId(id);
 
-            //AutorTrabalho autores = await _trabalhoRepository.GetAutores(id);
+            List<CoautorViewModel> autoresInfo = new List<CoautorViewModel>() { };
+
+            foreach (var autor in autoresId)
+            {
+                var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
+                var autorInfo = new CoautorViewModel()
+                {
+                    Email = info.Email,
+                    Nome = info.Nome,
+                    Orientador = autor.Orientador,
+                    Sobrenome = info.Sobrenome,
+                    Status = autor.StatusUsuarioId
+                };
+
+                autoresInfo.Add(autorInfo);
+            }
+
             
-            List<AutorTrabalho> outrosAutores = new List<AutorTrabalho>() { };
-            AutorTrabalho autorPrincipal = null;
 
-            //foreach(var autor in autores)
-            //{
-            //    if(autor.StatusUsuarioId != 5)
-            //    {
-            //        outrosAutores.Add(autor);
-            //    }else
-            //    {
-            //        autorPrincipal = autor;
-            //    }
-            //}
 
             var model = new InformacoesTrabalhoViewModel()
             {
@@ -121,29 +128,30 @@ namespace CICTED.Controllers
                 TextoFinanciadora = trabalho.TextoFinanciadora,
                 EventoNome = evento.EventoNome,
                 palavrasChave = palavrasChave,
-                //outrosAutores = outrosAutores,
-                //orientador = orientador,
-                //autorPrincipal = autorPrincipal, 
-
+                AreaConhecimento = area,
+                SubArea = subArea,
+                Status = statusTrabalho,
+                StatusTrabalhoId = trabalho.StatusTrabalhoId,
+                autores = autoresInfo,
             };
-                  
+
 
             return Json(model);
         }
 
-        
+
         [HttpGet("list/subarea/{areaId}")]
         public async Task<IActionResult> Subarea(int areaId)
         {
             var subAreas = await _areaRepository.GetSubAreas(areaId);
 
-            if(subAreas == null)
+            if (subAreas == null)
             {
                 return BadRequest("There was an error to load the subAreas.");
             }
             
             return Json(subAreas);
-        }       
+        }
 
     }
 }
