@@ -9,6 +9,7 @@ using CICTED.Domain.Infrastucture.Helpers;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CICTED.Controllers
 {
@@ -390,7 +391,9 @@ namespace CICTED.Controllers
                 var estados = await _localizacaoRepository.GetEstados();
                 var estado = await _localizacaoRepository.GetEstado(endereco.CidadeId);
                 var cursos = await _accountRepository.GetCursos();
-
+                var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
+                var cidades = await _localizacaoRepository.GetCidades(estado.Id);
+                
                 DadosUsuárioViewModel model = new DadosUsuárioViewModel();
                 model.Nome = user.Nome;
                 model.Sobrenome = user.Sobrenome;
@@ -403,7 +406,9 @@ namespace CICTED.Controllers
                 model.Email = user.Email;
                 model.EmailSecundario = user.EmailSecundario;
                 model.Logradouro = endereco.Logradouro;
-                model.CidadeId = endereco.CidadeId;            
+                model.CidadeId = endereco.CidadeId;
+                model.CidadeNome = cidade.CidadeNome;
+                model.Cidades = cidades;        
                 model.Numero = endereco.Numero;
                 model.Bairro = endereco.Bairro;
                 model.CEP = endereco.CEP;

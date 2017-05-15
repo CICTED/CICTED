@@ -2,17 +2,18 @@
 @{
     Layout = "_Menu";
 }
+<title>Cadastro de Trabalho - CICTED</title>
 <body>
 
-   <form class="form-cadTrabalho">
+    <form class="form-cadTrabalho">
         <div class="row form-group" style="text-align:center">
             <h3><span class="fa fa-book"></span><b> Cadastrar trabalho </b></h3>
         </div>
         <div>
             <ul class="nav nav-pills nav-justified">
                 <li role="presentation" class="active"><a aria-controls="Passo1" href="#Passo1" role="tab" data-toggle="tab">Passo 1</a></li>
-                <li role="presentation" ><a aria-controls="Passo2" href="#Passo2"  role="tab" data-toggle="tab">Passo 2</a></li>
-                <li role="presentation" ><a aria-controls="Passo3"  href="#Passo3" role="tab" data-toggle="tab">Passo 3</a></li>
+                <li role="presentation"><a aria-controls="Passo2" href="#Passo2" role="tab" data-toggle="tab">Passo 2</a></li>
+                <li role="presentation"><a aria-controls="Passo3" href="#Passo3" role="tab" data-toggle="tab">Passo 3</a></li>
             </ul>
 
             <div class="tab-content">
@@ -42,11 +43,11 @@
                         <div class="float-left margin-left-75">
                             <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento" id="dropArea">
                                 <option disabled selected>Selecione uma área</option>
-                               @foreach (var areas in Model.AreasConhecimento)
-                               {
-                                   <option value="@areas.Id"> @areas.Area</option>
+                                @foreach (var areas in Model.AreasConhecimento)
+                                {
+                                    <option value="@areas.Id"> @areas.Area</option>
 
-                               }
+                                }
                             </select>
                         </div>
                     </div>
@@ -97,7 +98,7 @@
                             <label>Código CEP (Comitê de Ética em Pesquisa): </label>
                         </div>
                         <div class="float-left margin-left-75">
-                            <input type="text" name="CEP" value="@Model.CodigoCEP"/>
+                            <input type="text" name="CEP" value="@Model.CodigoCEP" />
                         </div>
                     </div>
                     <hr />
@@ -120,12 +121,41 @@
                                 O trabalho terá obrigatoriamente 1 (um) orientador.
                             </b>
                         </h4>
-
+                        <h5>Para cadastrar um participante use uma das opções a baixo</h5>
                     </div>
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
+                        <li role="presentation"><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
+                    </ul>
+
+                    <div class="tab-content">                        
+                        <div role="tabpanel" class="tab-pane active" id="porEmail">
+                            <div class="form-group margin-top-10 row">
+                                <input style="width:350px !important" placeholder="Digite o email desejado" /> <button class="btn btn-primary">Cadastrar</button>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="porNome">
+                            <div class="form-group margin-top-10 row">
+                            <input style="width:350px !important" placeholder="Digite o nome desejado" /> <button class="btn btn-primary">Cadastrar</button>
+                        </div>
+                        </div>
+                        <div class="form-group row margin-top-10">
+                            <b>Autor Principal: </b>
+                        </div>
+                        <div class="form-group row margin-top-10">
+                            <b>Orientador: </b>
+                        </div>
+                        <div class="form-group row margin-top-10">
+                            <b>CoAutores: </b>
+                        </div>
+                    </div>
+
+
                     <hr />
                     <div class="form-group margin-top-10">
                         <button class="btn btn-primary float-left prev">Voltar</button>
-                        <button class="btn btn-primary float-right next" >Avançar</button>
+                        <button class="btn btn-primary float-right next">Avançar</button>
                     </div>
                 </div>
 
@@ -133,13 +163,40 @@
 
                 <div role="tabpanel" class="tab-pane" id="Passo3">
                     <div class="form-group margin-top-10 row">
-                        <p><b>Trabalho: </b></p>
-
-                        <textarea required></textarea>
-
+                        <p><b>Titulo: </b></p>
+                        <textarea style="height:40px!important" required></textarea>
                     </div>
+                    <div class="form-group margin-top-10 row">
+                        <p><b>Introdução: </b></p>
+                        <textarea required></textarea>
+                    </div>
+                    <div class="form-group margin-top-10 row">
+                        <p><b>Metodologia: </b></p>
+                        <textarea required></textarea>
+                    </div>
+                    <div class="form-group margin-top-10 row">
+                        <p><b>Resultados: </b></p>
+                        <textarea required></textarea>
+                    </div>
+                    <div class="form-group margin-top-10 row">
+                        <div class="float-left">
+                            <p><b>Figuras: </b></p>
+                        </div>
+                        <div class="float-left margin-left-10">
+                            <button class="btn btn-primary"><span class="fa fa-file-image-o" aria-hidden="true"></span> Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="form-group margin-top-10 row">
+                        <p><b>Conclusão: </b></p>
+                        <textarea required></textarea>
+                    </div>
+                    <div class="form-group margin-top-10 row">
+                        <p><b>Palavras chave: </b></p>
+                        <textarea style="height:40px!important" required></textarea>
+                    </div>
+
                     <div class="form-group margin-top-10">
-                        <button class="btn btn-primary float-left prev" >Voltar</button>
+                        <button class="btn btn-primary float-left prev">Voltar</button>
                         <button class="btn btn-primary float-right">Cadastrar</button>
                     </div>
                 </div>
@@ -162,27 +219,27 @@
     });
 
     $(document).ready(function () {
-        
-        $('.nav li').not('.active').addClass('disabled');
-        $('.nav li').not('.active').find('a').removeAttr("data-toggle");
+
+        $('.nav-pills li').not('.active').addClass('disabled');
+        $('.nav-pills li').not('.active').find('a').removeAttr("data-toggle");
 
         $('button.next').click(function () {
-           
-            $('.nav li.active').next('li').removeClass('disabled');
-            $('.nav li.active').next('li').find('a').attr("data-toggle", "tab").trigger("click");
-            $('.nav li').prev('li').find('a').removeAttr("data-toggle");
-            $('.nav li').prev('li').addClass('disabled');
+
+            $('.nav-pills li.active').next('li').removeClass('disabled');
+            $('.nav-pills li.active').next('li').find('a').attr("data-toggle", "tab").trigger("click");
+            $('.nav-pills li').prev('li').find('a').removeAttr("data-toggle");
+            $('.nav-pills li').prev('li').addClass('disabled');
         });
 
         $('button.prev').click(function () {
-            $('.nav li.active').prev('li').find('a').attr("data-toggle", "tab").trigger("click");
-            $('.nav li.active').prev('li').find('a').trigger("click");
-            $('.nav li').next('li').find('a').removeAttr("data-toggle");
-            $('.nav li').next('li').addClass('disabled');
+            $('.nav-pills li.active').prev('li').find('a').attr("data-toggle", "tab").trigger("click");
+            $('.nav-pills li.active').prev('li').find('a').trigger("click");
+            $('.nav-pills li').next('li').find('a').removeAttr("data-toggle");
+            $('.nav-pills li').next('li').addClass('disabled');
         });
     });
 
-    
+
     $('#dropArea').subArea($('#dropSubArea'));
 
 

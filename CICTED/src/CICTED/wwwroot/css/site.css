@@ -32,8 +32,7 @@ h1, h2, h3, h4, h5, h6, label {
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
-select,
-textarea {
+select {
     max-width: 280px;
 }
 
@@ -520,10 +519,11 @@ input[type=checkbox] {
     }
 
     .form-cadTrabalho textarea {
-        width: 100%;
-        min-height: 10px;
-        height: auto;
+        max-width: 100%!important;
+        width:100% !important;        
+        height: 60px;
         resize: none;
+        border-radius:5px;
     }
 
 .form-cadastro {
