@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 namespace CICTED.Domain.ViewModels.Autor
 {
     public class CadastroTrabalhoViewModel
-    {
-        public string Evento { get; set; }
+    {        
+
+        public Evento Evento { get; set; }
+
+        public int EventoId { get; set; }
+
+        public string NomeEscola { get; set; }
+
+        public string CidadeEscola { get; set; }
+
+        public string TelefoneEscola { get; set; }
 
         public List<AreaConhecimento> AreasConhecimento { get; set; }
 
@@ -17,9 +26,13 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public int SubArea { get; set; }
 
+        public List<PeriodoApresentacao> Periodos { get; set; }
+
         public int PeriodoApresentacao { get; set; }
 
         public bool TrabalhoFinanciado { get; set; }
+
+        public List<AgenciaFinanciadora> Agencias { get; set; }
 
         public int Agencia { get; set; }
 
@@ -27,11 +40,42 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public string CodigoCEP { get; set; }
 
+        public List<AutorTrabalho> Autores { get; set; }
+
+        public string Autor { get; set; }
+
+        public List<AlunoTrabalho> Alunos { get; set; }
+
+        public string Aluno { get; set; }
+
+        public string Titulo { get; set; }
+
+        public string Resumo { get; set; }
+
+        public string Introducao { get; set; }
+
+        public string Objetivo { get; set; }
+
+        public string Metodologia { get; set; }
+
+        public string Resultados { get; set; }
+
+        public string Conclusao { get; set; }
+
+        public string Referencias { get; set; }
+
+        public List<string> PalevrasChave { get; set; }
+
+        public long ArtigoId { get; set; }
+
+        public DateTime DataCadastro { get; set; }
+
         public List<Cidade> Cidades { get; set; }
 
         public List<Estado> Estado { get; set; }
 
         public List<long> Roles { get; set; }
 
+        public string ReturnMenssagem { get; set; }
     }
 }
