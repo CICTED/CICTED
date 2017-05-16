@@ -43,20 +43,41 @@ namespace CICTED.Controllers
             }
             var evento = await _eventoRepository.GetEvento(IdEvento);
             var areas = await _areaRepository.GetAreas();
+            var periodos = await _trabalhoRepository.GetPeriodos();
+            var agencias = await _trabalhoRepository.GetAgencias();
+
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
-                Evento = evento.EventoNome,
-                AreasConhecimento = areas,
+                Evento = evento,
+                AreasConhecimento = areas,               
+                Periodos = periodos,
+                Agencias = agencias,
             };
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
             ViewBag.Nome = user.Nome;
-            
+
 
             return View(model);
         }
+
+        //[HttpPost("cadastro")]
+        //public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model)
+        //{
+        //    var rand = new Random();
+
+        //    var next = rand.Next(10000, 99999);
+
+        //    model.DataCadastro = DateTime.Now;          
+
+        //    var identificacao = model.Evento.Sigla + "2017" + next;
+        //    if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.Agencia, model.EventoId, model.ArtigoId, model.SubArea))
+        //    {
+        //       model.ReturnMenssagem = "Alterações salvas";
+        //    }
+        //}
 
         [HttpGet("consulta")]
         [Authorize]
@@ -64,13 +85,13 @@ namespace CICTED.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             List<long> trabalhosId = await _trabalhoRepository.GetTrabalhosId(user.Id);
-            List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();            
+            List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();
 
-            foreach(var trabalho in trabalhosId)
+            foreach (var trabalho in trabalhosId)
             {
                 model.Add(await _trabalhoRepository.ConsultaTrabalho(trabalho));
             }
-                      
+
 
             return View(model);
         }
@@ -87,7 +108,7 @@ namespace CICTED.Controllers
 
 
             //AutorTrabalho autores = await _trabalhoRepository.GetAutores(id);
-            
+
             List<AutorTrabalho> outrosAutores = new List<AutorTrabalho>() { };
             AutorTrabalho autorPrincipal = null;
 
@@ -126,24 +147,24 @@ namespace CICTED.Controllers
                 //autorPrincipal = autorPrincipal, 
 
             };
-                  
+
 
             return Json(model);
         }
 
-        
+
         [HttpGet("list/subarea/{areaId}")]
         public async Task<IActionResult> Subarea(int areaId)
         {
             var subAreas = await _areaRepository.GetSubAreas(areaId);
 
-            if(subAreas == null)
+            if (subAreas == null)
             {
                 return BadRequest("There was an error to load the subAreas.");
             }
-            
+
             return Json(subAreas);
-        }       
+        }
 
     }
 }
