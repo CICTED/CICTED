@@ -170,7 +170,79 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        
+        public async Task<long> UpdateEnderecoExterior(EnderecoExterior endereco)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var enderecoQueryUpdate = "UPDATE dbo.EnderecoExterior SET Cidade = @CIDADE, Estado = @ESTADO, Pais = @PAIS";
+
+                    var enderecoUpdate = await db.QueryAsync<long>(enderecoQueryUpdate,
+                        new
+                        {
+                            Cidade = endereco.Cidade,
+                            Estado = endereco.Estado,
+                            Pais = endereco.Pais
+                        });
+
+                    var resultEndereco = enderecoUpdate.FirstOrDefault();
+                    return resultEndereco;
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<long> UpdateEndereco(Endereco endereco, long cidadeId, long enderecoId, long enderecoExterior = 0)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    if (enderecoExterior > 0)
+                    {
+                        var enderecoQuery = "UPDATE dbo.Endereco SET Logradouro = @LOGRADOURO, CEP = @CEP, Numero = @NUMERO, Complemento = @COMPLEMENTO, Bairro = @BAIRRO, EnderecoExteriorId = @ENDERECOEXTERIORID WHERE Id = @enderecoId";
+
+                        var enderecoUpdate = await db.QueryAsync<long>(enderecoQuery,
+                            new
+                            {
+                                Logradouro = endereco.Logradouro,
+                                CEP = endereco.CEP,
+                                Numero = endereco.Numero,
+                                Complemento = endereco.Complemento,
+                                Bairro = endereco.Bairro,
+                                enderecoExteriorId = endereco.EnderecoExteriorId
+                            });
+                        return enderecoUpdate.FirstOrDefault();
+                    }
+                    else
+                    {
+                        var enderecoQuery = "UPDATE dbo.Endereco SET Logradouro = @LOGRADOURO, CEP = @CEP, Numero = @NUMERO, Complemento = @COMPLEMENTO, Bairro = @BAIRRO, CidadeId = @CIDADEID WHERE Id = @enderecoId";
+
+                        var enderecoUpdate = await db.QueryAsync<long>(enderecoQuery,
+                            new
+                            {
+                                Logradouro = endereco.Logradouro,
+                                CEP = endereco.CEP,
+                                Numero = endereco.Numero,
+                                Complemento = endereco.Complemento,
+                                Bairro = endereco.Bairro,
+                                CidadeId = cidadeId
+                            });
+                        return enderecoUpdate.FirstOrDefault();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+
     }
 }
 

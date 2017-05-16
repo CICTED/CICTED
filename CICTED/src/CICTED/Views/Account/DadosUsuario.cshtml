@@ -28,7 +28,7 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>CPF:</label>
-                <input type="text" style="width:500px" value="@Model.CPF" />
+                <input type="text" style="width:500px" value="@Model.CPF" disabled="disabled"/>
             </div>
 
             <div class="float-right" style="width:50%">
@@ -40,7 +40,7 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Data de Nascimento:</label>
-                <input type="date" style="width:500px" value="@Model.DataNascimento.ToString("yyyy-MM-dd")" />
+                <input type="date" style="width:500px" value="@Model.DataNascimento.ToString("yyyy-MM-dd")" disabled="disabled"/>
             </div>
 
             <div class="float-right" style="width:50%">
@@ -129,7 +129,7 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Estado:</label>
-                <select class="form-control" id="dropStates" value="@Model.EstadoID" style="width:500px">
+                <select class="form-control" id="dropEstado" value="@Model.EstadoID" style="width:500px">
                     <option value="-1">Selecione seu estado</option>
                     @foreach (var estado in Model.Estados)
                     {
