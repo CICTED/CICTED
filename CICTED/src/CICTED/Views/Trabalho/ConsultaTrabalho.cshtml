@@ -5,7 +5,7 @@
 }
 
 <title>Meus Trabalhos - CICTED</title>
- 
+
 <div class="autor-home-content">
     <h3 style="font-weight: bold">Meus Trabalhos</h3>
     <hr />
@@ -61,43 +61,73 @@
 
 
     <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <div class="modal-content">
+        <div style="width:70%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 style="font-weight:bold">Informações sobre o trabalho</h4>
+                    <h3 style="font-weight:bold">Informações sobre o trabalho</h3>
                     <hr />
-                    <h4>Dados:</h4>
-                    <table>
-                        <tr><td><b class="margin-right-30">Identificação: </b></td><td id="identificacao"></td></tr>
+
+                    <h4><b style="color:#4e93ea">Dados</b></h4>
+                    <table class="table-trabalho">
+                        <tr><td><b class="margin-right-40">Identificação: </b></td><td id="identificacao"></td></tr>
                         <tr><td><b>Área: </b></td><td id="area"></td></tr>
                         <tr><td><b>Subárea: </b></td><td id="subarea"></td></tr>
                         <tr><td><b>Evento: </b></td><td id="evento"></td></tr>
                         <tr><td><b>Status: </b></td><td id="status"></td></tr>
                         <tr><td><b>Data Cadastro: </b></td><td id="data-cadastro"></td></tr>
-                        <tr><td><b>Data Submissão: </b></td><td id="data-submissao"></td></tr>
+                        <tr><td><b>Data Submissão: </b></td><td id="data-submissao">Trabalho não submetido</td></tr>
                     </table>
                     <hr />
-                    <h4>Autores:</h4>
-                    <table>  
-                        <tr><td><b class="margin-right-30">Autor Principal: </b></td><td id="autor-principal"></td></tr>
-                        <tr id="outros-autores"></tr>
-                        <tr><td><b>Orientador: </b></td><td id="orientador"></td></tr>
+
+                    <div style="width:100%; height:50px">
+                        <h4 class="float-left"><b style="color:#4e93ea">Autores</b></h4>
+                        <a id="alterar-autores" class="float-right btn-alterar">Alterar autores</a>
+                    </div>
+
+
+
+                    <table class="table-trabalho">
+                        <tr><td><b class="margin-right-40">Autor Principal: </b></td><td id="autor-principal"></td></tr>
+
+
+                        <tr>
+                            <td>
+                                <b id="tipo-autor">Coautor: </b>
+                            </td>
+                            <td id="outros-autores"></td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Orientador: </b></td>
+                            <td id="orientador"></td>
+                        </tr>
                     </table>
                     <hr />
-                    <h4>Trabalho:</h4>
-                    <h5 style="text-align:center" id="titulo"></h5>
-                    <h5><b>Introdução:</b></h5>
+
+                    <div style="width:100%; height:50px">
+                        <h4 class="float-left"><b style="color:#4e93ea">Trabalho</b></h4>
+                        <a class="float-right btn-alterar">Alterar trabalho</a>
+                    </div>
+
+                    <h4 style="text-align:center" id="titulo"></h4>
+
+                    <b>Introdução:</b>
                     <h5 id="introducao"></h5>
-                    <h5><b>Metodologia:</b></h5>
+
+                    <b>Metodologia:</b>
                     <h5 id="metodologia"></h5>
-                    <h5><b>Resultados:</b></h5>
-                    <h5 id="introducao"></h5>
-                    <h5><b>Conclusão:</b></h5>
-                    <h5 id="metodologia"></h5>
-                    <h5 id="introducao"><b>Referências Bibliográficas: </b></h5>
-                    <h5><b>Palavras-chaves: </b></h5>
+
+                    <b>Resultados:</b>
+                    <h5 id="resultados"></h5>
+
+                    <b>Conclusão:</b>
+                    <h5 id="conclusao"></h5>
+
+                    <b>Referências Bibliográficas: </b>
+                    <h5 id="referencia"></h5>
+
+                    <b>Palavras-chaves: </b>
                     <h5 id="palavras-chave"> </h5>
                 </div>
 
@@ -125,23 +155,59 @@
             },
 
             success: function (data) {
+                $("#alterar-autores").attr("href", "/trabalho/" + data.id + "/alterar");
+                //$('#alterar-autores').attr('value', data.id);  
                 $('#identificacao').text(data.identificacao);
-                $('#area').text(data.area);
-                $('#subarea').text(data.subarea);
-                $('#evento').text(data.evento);
+                $('#area').text(data.areaConhecimento);
+                $('#subarea').text(data.subArea);
+                $('#evento').text(data.eventoNome);
                 $('#status').text(data.status);
                 $('#data-cadastro').text(data.dataCadastro.toString('dd/MM/yyyy'));
+
+                if (data.statusTrabalhoId != 3) {
+                    $('#data-submissao').text(data.dataSubmissao);
+                }
+
                 $('#data-submissao').text(data.subarea);
-                $('#titulo').html("<b>"+data.titulo+"</b>");
+
+                $('#outros-autores').html('');
+
+                $.each(data.autores, function (i, item) {
+                    var status;
+
+
+                    if (item.status == 1 || item.status == 5) {
+                        status = '<span class="fa fa-check-circle color-aprovado"></span>';
+                    }
+                    else if (item.status == 2) {
+                        status = '<span class="fa fa-clock-o color-submissao"></span>';
+                    }
+                    else if (item.status == 3) {
+                        status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+                    }
+                    else if (item.status == 4) {
+                        status = '<span class="fa fa-times-circle color-reprovado"></span>';
+                    }
+
+                    if (item.orientador == true) {
+                        $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
+                    } else if (item.status == 5) {
+                        $('#autor-principal').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
+                    } else {
+                        $('#tipo-autor').text('Coautor: ');
+                        $('#outros-autores').append('<div style="width:100%">' + status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ' + '</div>');
+                    }
+
+                });
+
+
+                $('#titulo').html("<b>" + data.titulo + "</b>");
                 $('#introducao').text(data.introducao);
                 $('#metodologia').text(data.metodologia);
                 $('#resultado').text(data.resultado);
                 $('#referencia').text(data.referencia);
                 $('#palavras-chave').text(data.palavrasChave);
-                $('autor-principal').text(data.autorPrincipal);
-                if (data.autores != null) {
-                    $('#"outros-autores').html('<td><b>Autores: </b></td><td>' + data.autores + '</td>');
-                }
+
             },
 
             error: function (x, y, message) {

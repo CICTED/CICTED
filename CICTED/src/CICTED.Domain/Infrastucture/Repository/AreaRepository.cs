@@ -69,9 +69,26 @@ namespace CICTED.Domain.Infrastucture.Repository
 
                     var areaId = getAreaIdQuery.FirstOrDefault();
 
-                    var getAreaId = await db.QueryAsync<string>("SELECT Area from dbo.AreaConhecimento where Id = @Id", new { Id = subAreaId });
+                    var getAreaId = await db.QueryAsync<string>("SELECT Area from dbo.AreaConhecimento where Id = @Id", new { Id = areaId });
 
                     return getAreaId.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> GetSubArea(int subAreaId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var getSubAreaQuery = await db.QueryAsync<string>("SELECT Nome FROM dbo.SubAreaConhecimento where Id = @Id", new { Id = subAreaId });
+
+                    return getSubAreaQuery.FirstOrDefault();                    
                 }
             }
             catch (Exception ex)

@@ -392,6 +392,7 @@ namespace CICTED.Controllers
                 var estado = await _localizacaoRepository.GetEstado(endereco.CidadeId);
                 var cursos = await _accountRepository.GetCursos();
                 var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
+                var cidades = await _localizacaoRepository.GetCidades(estado.Id);
                 
                 DadosUsuárioViewModel model = new DadosUsuárioViewModel();
                 model.Nome = user.Nome;
@@ -406,7 +407,8 @@ namespace CICTED.Controllers
                 model.EmailSecundario = user.EmailSecundario;
                 model.Logradouro = endereco.Logradouro;
                 model.CidadeId = endereco.CidadeId;
-                model.CidadeNome = cidade.CidadeNome;          
+                model.CidadeNome = cidade.CidadeNome;
+                model.Cidades = cidades;        
                 model.Numero = endereco.Numero;
                 model.Bairro = endereco.Bairro;
                 model.CEP = endereco.CEP;
