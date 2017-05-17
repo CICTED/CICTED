@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Entities.Trabalho;
 using CICTED.Domain.ViewModels.Trabalho;
+using CICTED.Domain.ViewModels.Account;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -101,27 +102,19 @@ namespace CICTED.Controllers
         public async Task<IActionResult> Informacao(long id)
         {
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
-            var orientador = await _trabalhoRepository.GetOrientador(id);
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
             var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
             var area = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
 
-
-            //AutorTrabalho autores = await _trabalhoRepository.GetAutores(id);
+            List<AutorTrabalho> autores = await _trabalhoRepository.GetAutoresId(id);
 
             List<AutorTrabalho> outrosAutores = new List<AutorTrabalho>() { };
-            AutorTrabalho autorPrincipal = null;
 
-            //foreach(var autor in autores)
-            //{
-            //    if(autor.StatusUsuarioId != 5)
-            //    {
-            //        outrosAutores.Add(autor);
-            //    }else
-            //    {
-            //        autorPrincipal = autor;
-            //    }
-            //}
+            foreach (var autor in autores)
+            {
+                var autorInfo = await _trabalhoRepository.GetAutor(autor.UsuarioId);
+                outrosAutores.Add(autorInfo);
+            }
 
             var model = new InformacoesTrabalhoViewModel()
             {
@@ -142,9 +135,7 @@ namespace CICTED.Controllers
                 TextoFinanciadora = trabalho.TextoFinanciadora,
                 EventoNome = evento.EventoNome,
                 palavrasChave = palavrasChave,
-                //outrosAutores = outrosAutores,
-                //orientador = orientador,
-                //autorPrincipal = autorPrincipal, 
+                 
 
             };
 
@@ -162,8 +153,9 @@ namespace CICTED.Controllers
             {
                 return BadRequest("There was an error to load the subAreas.");
             }
+            return Json(subAreas);
+        }
 
-<<<<<<< HEAD
         [HttpGet("{id}/alterar")]
         public async Task<IActionResult> Alterar(long id)
         {
@@ -176,7 +168,7 @@ namespace CICTED.Controllers
             foreach (var autor in autoresId)
             {
                 var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
-
+                
                 var autorInfo = new AutorViewModel()
                 {
                     Id = autor.UsuarioId,
@@ -205,9 +197,6 @@ namespace CICTED.Controllers
             model.Coautores = coautores;
 
             return View("AlterarTrabalho", model);
-=======
-            return Json(subAreas);
->>>>>>> 026cb2589314bb74753554f1524591d47084e52e
         }
 
     }

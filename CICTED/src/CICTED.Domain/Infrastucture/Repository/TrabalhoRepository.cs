@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 using Dapper;
 using CICTED.Domain.ViewModels.Trabalho;
+using CICTED.Domain.ViewModels.Account;
 
 namespace CICTED.Domain.Infrastucture.Repository
 {
@@ -32,24 +33,6 @@ namespace CICTED.Domain.Infrastucture.Repository
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
                     var selectTrabalhoQuery = await db.QueryAsync<Trabalho>("SELECT * FROM dbo.Trabalho WHERE Id = @Id", new { Id = id });
-
-                    return selectTrabalhoQuery.FirstOrDefault();
-                }
-            }
-            catch (Exception ex)
-            {
-
-                return null;
-            }
-        }
-
-        public async Task<AutorTrabalho> GetOrientador(long id)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT * FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId AND Orientador = @Orientador", new { TrabalhoId = id, Orientador = true });
 
                     return selectTrabalhoQuery.FirstOrDefault();
                 }
@@ -130,7 +113,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT * FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId AND Orientador = @Orientador", new { TrabalhoId = id, Orientador = false });
+                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT StatusUsuarioId, UsuarioId, Orientador FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId", new { TrabalhoId = id });
 
                     return selectTrabalhoQuery.ToList();
                 }
@@ -152,7 +135,7 @@ namespace CICTED.Domain.Infrastucture.Repository
 
                     var trabalhoInsert = await db.QueryAsync<bool>(trabalhoInsertQuery,
                         new
-                        {                            
+                        {
                             Titulo = titulo,
                             Introducao = introducao,
                             Metodologia = metodologia,
@@ -219,7 +202,76 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return null;
             }
         }
+
+
+        public async Task<string> GetStatusTrabalho(int statusId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var status = await db.QueryAsync<string>("SELECT StatusTrabalhoNome FROM dbo.StatusTrabalho where Id = @Id", new { Id = statusId });
+
+                    return status.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        public async Task<AutorViewModel> GetAutor(long userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var coautor = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers Where Id = @Id", new { Id = userId });
+
+                    return coautor.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<int> GetStatusAutor(long userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var coautor = await db.QueryAsync<int>("SELECT StatusUsuarioId FROM dbo.AutorTrabalho Where UsuarioId = @UsuarioId", new { UsuarioId = userId });
+
+                    return coautor.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<List<AutorTrabalho>> GetAutoresId(long id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT StatusUsuarioId, UsuarioId, Orientador FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId", new { TrabalhoId = id });
+
+                    return selectTrabalhoQuery.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
-
-
 }

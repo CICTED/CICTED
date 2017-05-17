@@ -46,8 +46,6 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public List<string> palavrasChave { get; set; }
 
-        public AutorViewModel orientador { get; set; }
-
         public string AreaConhecimento { get; set; }
 
         public string SubArea { get; set; }
