@@ -43,7 +43,6 @@
                         @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
                         <b>@Model.AutorPrincipal.Email</b>
 
-                        <a class="autor-delete" data-id="@Model.AutorPrincipal.Id" value="@Model.AutorPrincipal.Id"><span class="fa fa-times margin-left-20 link"></span></a>
                     </div>
                 </td>
             </tr>
@@ -56,11 +55,16 @@
                     </td>
                 }
                 <td id="outros-autores">
-                    @foreach (var coautor in Model.Coautores)
-                    {
-                        @coautor.Nome<b> </b> @coautor.Sobrenome
-                        <b> @coautor.Email</b>
-                    }
+                    <div class="float-left" id="autor-@Model.AutorPrincipal.Id">                        
+                        @foreach (var coautor in Model.Coautores)
+                        {
+                            @coautor.Nome<b> </b> @coautor.Sobrenome
+                            <b> @coautor.Email</b>
+                        }
+
+                        <a class="autor-delete" data-id="@Model.AutorPrincipal.Id" value="@Model.AutorPrincipal.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+
+                    </div>
                 </td>
             </tr>
 

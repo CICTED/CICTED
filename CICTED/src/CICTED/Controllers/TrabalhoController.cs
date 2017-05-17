@@ -111,15 +111,25 @@ namespace CICTED.Controllers
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
             var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
             var area = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
+            var subArea = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
+            var status = await _trabalhoRepository.GetStatusTrabalho(trabalho.StatusTrabalhoId);
 
-            List<AutorTrabalho> autores = await _trabalhoRepository.GetAutoresId(id);
+            List<AutorTrabalho> autoresId = await _trabalhoRepository.GetAutoresId(id);
+            List<AutorViewModel> autores = new List<AutorViewModel>() { };
 
-            List<AutorTrabalho> outrosAutores = new List<AutorTrabalho>() { };
-
-            foreach (var autor in autores)
+            foreach (var autor in autoresId)
             {
-                var autorInfo = await _trabalhoRepository.GetAutor(autor.UsuarioId);
-                outrosAutores.Add(autorInfo);
+                var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
+                var autorInfo = new AutorViewModel()
+                {
+                    Email = info.Email,
+                    Id = autor.UsuarioId,
+                    Nome = info.Nome,
+                    Orientador = autor.Orientador,
+                    Sobrenome = info.Sobrenome,
+                    Status = autor.StatusUsuarioId
+                };
+                autores.Add(autorInfo);
             }
 
             var model = new InformacoesTrabalhoViewModel()
@@ -141,8 +151,11 @@ namespace CICTED.Controllers
                 TextoFinanciadora = trabalho.TextoFinanciadora,
                 EventoNome = evento.EventoNome,
                 palavrasChave = palavrasChave,
-                 
-
+                autores = autores,               
+                AreaConhecimento = area,
+                SubArea = subArea,
+                Status = status,
+                Id = trabalho.Id,
             };
 
 
