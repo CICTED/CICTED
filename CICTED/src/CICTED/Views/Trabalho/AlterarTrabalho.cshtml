@@ -1,6 +1,5 @@
-﻿@*
+﻿@model CICTED.Domain.ViewModels.Trabalho.AutoresViewModel
 
-*@
 @{
     Layout = "_Menu";
 }
@@ -18,9 +17,9 @@
         <h5>Para cadastrar um participante use uma das opções a baixo</h5>
     </div>
 
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
-        <li role="presentation"><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
+        <li><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
     </ul>
 
     <div class="tab-content">
@@ -31,18 +30,48 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="porNome">
             <div class="form-group margin-top-10 row">
-                <input style="width:350px !important" placeholder="Digite o nome desejado" /> <button class="btn btn-primary">Cadastrar</button>
+                <input style="width:350px !important" placeholder="Digite o nome desejado" /> <button class="btn btn-primary">Adicionar</button>
             </div>
         </div>
-        <div class="form-group row margin-top-10">
-            <b>Autor Principal: </b>
-        </div>
-        <div class="form-group row margin-top-10">
-            <b>Orientador: </b>
-        </div>
-        <div class="form-group row margin-top-10">
-            <b>CoAutores: </b>
-        </div>
+        <table class="table-trabalho">
+            <tr>
+                <td>
+                    <b class="margin-right-40">Autor Principal: </b>
+                </td>
+                <td id="autor-principal">
+                    <div class="float-left" id="autor-@Model.AutorPrincipal.Id">
+                        @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
+                        <b>@Model.AutorPrincipal.Email</b>
+
+                        <a class="autor-delete" data-id="@Model.AutorPrincipal.Id" value="@Model.AutorPrincipal.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                @if (Model.Coautores != null)
+                {
+                    <td>
+                        <b class="margin-right-40">Coautes: </b>
+                    </td>
+                }
+                <td id="outros-autores">
+                    @foreach (var coautor in Model.Coautores)
+                    {
+                        @coautor.Nome<b> </b> @coautor.Sobrenome
+                        <b> @coautor.Email</b>
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td><b>Orientador: </b></td>
+                <td id="orientador">
+                    @Model.Orientador.Nome @Model.Orientador.Sobrenome
+                    <b>@Model.Orientador.Email</b>
+                </td>
+            </tr>
+        </table>
     </div>
 
 
@@ -52,3 +81,31 @@
         <button class="btn btn-primary float-right next">Avançar</button>
     </div>
 </div>
+
+
+<script type="text/javascript">
+
+    $(".autor-delete").on("click", function () {
+        var button = $(this);
+        var id = button.attr("data-id");
+
+        $.ajax({
+            //url: '/product/delete/picture',
+            //type: 'post',
+            //data: {
+            //    id: id
+            //},
+
+            success: function () {
+                $("#autor-" + id).remove();
+                alert("DEU  ");
+            },
+            error: function (x, y, message) {
+                alert("ERROOOU  " + message);
+            },
+        });
+    });
+
+
+
+</script>

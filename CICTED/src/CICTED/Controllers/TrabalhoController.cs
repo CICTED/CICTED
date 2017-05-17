@@ -157,7 +157,44 @@ namespace CICTED.Controllers
         [HttpGet("{id}/alterar")]
         public async Task<IActionResult> Alterar(long id)
         {
-            return View("AlterarTrabalho");
+            var autoresId = await _trabalhoRepository.GetAutoresId(id);
+
+            AutoresViewModel model = new AutoresViewModel();
+
+            List<AutorViewModel> coautores = new List<AutorViewModel>() { };
+
+            foreach (var autor in autoresId)
+            {
+                var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
+
+                var autorInfo = new AutorViewModel()
+                {
+                    Id = autor.UsuarioId,
+                    Email = info.Email,
+                    Nome = info.Nome.ToUpper(),
+                    Orientador = autor.Orientador,
+                    Sobrenome = info.Sobrenome.ToUpper(),
+                    Status = autor.StatusUsuarioId
+                };
+
+                if (autorInfo.Status == 5)
+                {
+                    model.AutorPrincipal = autorInfo;
+                }
+
+                else if(autorInfo.Orientador == true)
+                {
+                    model.Orientador = autorInfo;
+                }
+                else
+                {
+                    coautores.Add(autorInfo);
+                }
+            }
+
+            model.Coautores = coautores;
+
+            return View("AlterarTrabalho", model);
         }
 
     }
