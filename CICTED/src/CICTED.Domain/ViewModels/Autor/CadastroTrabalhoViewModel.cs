@@ -24,7 +24,7 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public int AreaConhecimento { get; set; }
 
-        public int SubArea { get; set; }
+        public int SubAreaId { get; set; }
 
         public List<PeriodoApresentacao> Periodos { get; set; }
 
@@ -34,7 +34,7 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public List<AgenciaFinanciadora> Agencias { get; set; }
 
-        public int Agencia { get; set; }
+        public int AgenciaId { get; set; }
 
         public string TextoCitacao { get; set; }
 
@@ -64,7 +64,7 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public string Referencias { get; set; }
 
-        public List<string> PalevrasChave { get; set; }
+        public List<string> PalavrasChave { get; set; }
 
         public long ArtigoId { get; set; }
 
