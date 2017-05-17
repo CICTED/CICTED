@@ -9,7 +9,6 @@ using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 using Dapper;
 using CICTED.Domain.ViewModels.Trabalho;
-using CICTED.Domain.ViewModels.Account;
 
 namespace CICTED.Domain.Infrastucture.Repository
 {
@@ -44,7 +43,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<AutorTrabalho> GetOrientadorId(long id)
+        public async Task<AutorTrabalho> GetOrientador(long id)
         {
             try
             {
@@ -125,13 +124,13 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<List<AutorTrabalho>> GetAutoresId(long id)
+        public async Task<List<AutorTrabalho>> GetAutores(long id)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT StatusUsuarioId, UsuarioId, Orientador FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId", new { TrabalhoId = id });
+                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT * FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId AND Orientador = @Orientador", new { TrabalhoId = id, Orientador = false });
 
                     return selectTrabalhoQuery.ToList();
                 }
@@ -143,15 +142,54 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<string> GetStatusTrabalho(int statusId)
+        public async Task<bool> InsertTrabalho(string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, string dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFInanciadoraId, int eventoId, long artigoId, int subAreaId)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var status = await db.QueryAsync<string>("SELECT StatusTrabalhoNome FROM dbo.StatusTrabalho where Id = @Id", new { Id = statusId });
+                    var trabalhoInsertQuery = "INSERT INTO dbo.Trabalho(Titulo, Introducao, Metodologia, Resultado, Resumo, Conclusao, Referencia, NomeEscola, TelefoneEscola, Identiicacao, DataCadastro, TextoFinanciadora, CodigoCEP, AgenciaFinanciadoraId, EventoId, ArtigoId, SubAreaConhecimentoId) VALUES(@Titulo, @Introducao, @Metodologia, @Resultado, @Resumo, @Conclusao, @Referencia, @NomeEscola, @TelefoneEscola, @Identiicacao,  @DataCadastro, @TextoFinanciadora, @CodigoCEP, @AgenciaFinanciadoraId, @EventoId, @ArtigoId, @SubAreaConhecimentoId)";
 
-                    return status.FirstOrDefault();
+                    var trabalhoInsert = await db.QueryAsync<bool>(trabalhoInsertQuery,
+                        new
+                        {                            
+                            Titulo = titulo,
+                            Introducao = introducao,
+                            Metodologia = metodologia,
+                            Resultado = resultado,
+                            Resumo = resumo,
+                            Conclusao = conclusao,
+                            Referencia = referencias,
+                            NomeEscola = nomeEscola,
+                            TelefoneEscola = telefoneEscola,
+                            Identiicacao = identificacao,
+                            DataCadastro = dataCadastro,
+                            TextoFinanciadora = textoFinanciadora,
+                            CodigoCEP = codigoCep,
+                            AgenciaFinanciadoraId = agenciaFInanciadoraId,
+                            EventoId = eventoId,
+                            ArtigoId = artigoId,
+                            SubAreaConhecimentoId = subAreaId,
+
+                        });
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<PeriodoApresentacao>> GetPeriodos()
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var getPeriodosQuery = await db.QueryAsync<PeriodoApresentacao>("SELECT * FROM dbo.PeriodoApresentacao");
+
+                    return getPeriodosQuery.ToList();
                 }
             }
             catch (Exception ex)
@@ -160,16 +198,20 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+        public Task<bool> InsertTrabalho(int id, string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, string dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFInanciadoraId, int eventoId, long artioId, int subAreaId)
+        {
+            throw new NotImplementedException();
+        }
 
-        public async Task<AutorViewModel> GetAutor(long userId)
+        public async Task<List<AgenciaFinanciadora>> GetAgencias()
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var coautor = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers Where Id = @Id", new { Id = userId });
+                    var selectAgencias = await db.QueryAsync<AgenciaFinanciadora>("SELECT * FROM dbo.AgenciaFinanciadora");
 
-                    return coautor.FirstOrDefault();
+                    return selectAgencias.ToList();
                 }
             }
             catch (Exception ex)
@@ -177,24 +219,6 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return null;
             }
         }
-
-        public async Task<int> GetStatusAutor(long userId)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var coautor = await db.QueryAsync<int>("SELECT StatusUsuarioId FROM dbo.AutorTrabalho Where UsuarioId = @UsuarioId", new { UsuarioId = userId });
-
-                    return coautor.FirstOrDefault();
-                }
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
-        }
-
     }
 
 

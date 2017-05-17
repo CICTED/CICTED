@@ -31,9 +31,42 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <b>@Model.Evento</b>
+                            <b>@Model.Evento.EventoNome</b>
                         </div>
                     </div>
+                    @if (Model.Evento.Id == 2 || Model.Evento.Id == 3 || Model.Evento.Id == 4)
+                    {
+                        <div class="form-group row">
+                            <div class="float-left margin-left-40" style="width:250px;">
+                                <label>Nome da escola: </label>
+                            </div>
+
+                            <div class="float-left margin-left-75">
+                                <input type="text" name="NomeEscola" value="@Model.NomeEscola" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="float-left margin-left-40" style="width:250px;">
+                                <label>Cidade da escola: </label>
+                            </div>
+
+                            <div class="float-left margin-left-75">
+                                <input type="text" name="CidadeEscola" value="@Model.CidadeEscola" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="float-left margin-left-40" style="width:250px;">
+                                <label>Telefone da escola: </label>
+                            </div>
+
+                            <div class="float-left margin-left-75">
+                                <input type="text" id="Telefone" name="TelefoneEscola" value="@Model.TelefoneEscola" required />
+                            </div>
+                        </div>
+
+                    }
 
                     <div class="form-group row">
                         <div class="float-left margin-left-40" style="width:250px;">
@@ -62,7 +95,22 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:250px;">
+                            <label>Periodo apresentação: </label>
+                        </div>
 
+                        <div class="float-left margin-left-75">
+                            <select class="form-control" name="AreaConhecimento" value="@Model.PeriodoApresentacao" id="dropArea">
+                                <option disabled selected>Selecione um periodo</option>
+                                @foreach (var periodos in Model.Periodos)
+                                {
+                                    <option value="@periodos.Id"> @periodos.PeriodoNome</option>
+
+                                }
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <div class="float-left margin-left-40" style="width:250px;">
                             <label>O trabalho é financiado por alguma agência? </label>
@@ -85,8 +133,13 @@
                             <label>Agencia Financiadora:</label>
                         </div>
                         <div class="float-left margin-left-75">
-                            <select class="form-control">
+                            <select class="form-control" name="AgenciaFinanciadora" value="@Model.Agencia">
                                 <option value="-1">Selecione a agência financiadora</option>
+                                @foreach(var agencia in Model.Agencias)
+                                {
+                                    <option value="@agencia.Id">@agencia.AgenciaNome</option>
+
+                                }
                             </select>
                         </div>
                     </div>
@@ -112,45 +165,65 @@
 
                 <div role="tabpanel" class="tab-pane" id="Passo2">
 
-                    <div class="margin-top-30 form-group">
-                        <h4>
-                            <span class="fa fa-warning"></span>
-                            <b>
-                                Você é o Autor Principal do trabalho;<br />
-                                Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
-                                O trabalho terá obrigatoriamente 1 (um) orientador.
-                            </b>
-                        </h4>
-                        <h5>Para cadastrar um participante use uma das opções a baixo</h5>
-                    </div>
-
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
-                        <li role="presentation"><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
-                    </ul>
-
-                    <div class="tab-content">                        
-                        <div role="tabpanel" class="tab-pane active" id="porEmail">
-                            <div class="form-group margin-top-10 row">
-                                <input style="width:350px !important" placeholder="Digite o email desejado" /> <button class="btn btn-primary">Cadastrar</button>
-                            </div>
+                    @if (Model.Evento.Id == 2 || Model.Evento.Id == 3 || Model.Evento.Id == 4)
+                    {
+                        <div class="margin-top-30 form-group">
+                            <h4>
+                                <span class="fa fa-warning"></span>
+                                <b>
+                                    Você é o Professor orientador do trabalho;<br />
+                                    O trabalho deve ter entre 1 e 7 alunos.
+                                </b>
+                            </h4>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="porNome">
                             <div class="form-group margin-top-10 row">
-                            <input style="width:350px !important" placeholder="Digite o nome desejado" /> <button class="btn btn-primary">Cadastrar</button>
+                                <input style="width:350px !important" placeholder="Digite o nome desejado" name="Aluno" value="@Model.Aluno" /> <button class="btn btn-primary">Cadastrar</button>
+                            </div>
                         </div>
+                    }
+                    else
+                    {
+                        <div class="margin-top-30 form-group">
+                            <h4>
+                                <span class="fa fa-warning"></span>
+                                <b>
+                                    Você é o Autor Principal do trabalho;<br />
+                                    Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
+                                    O trabalho terá obrigatoriamente 1 (um) orientador.
+                                </b>
+                            </h4>
+                            <h5>Para cadastrar um participante use uma das opções a baixo</h5>
                         </div>
-                        <div class="form-group row margin-top-10">
-                            <b>Autor Principal: </b>
-                        </div>
-                        <div class="form-group row margin-top-10">
-                            <b>Orientador: </b>
-                        </div>
-                        <div class="form-group row margin-top-10">
-                            <b>CoAutores: </b>
-                        </div>
-                    </div>
 
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
+                            <li role="presentation"><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="porEmail">
+                                <div class="form-group margin-top-10 row">
+                                    <input style="width:350px !important" placeholder="Digite o email desejado" /> <button class="btn btn-primary">Cadastrar</button>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="porNome">
+                                <div class="form-group margin-top-10 row">
+                                    <input style="width:350px !important" placeholder="Digite o nome desejado" name="Autor" value="@Model.Autor" /> <button class="btn btn-primary">Cadastrar</button>
+                                </div>
+                            </div>
+                            <div class="form-group row margin-top-10">
+                                <b>Autor Principal: </b>
+                            </div>
+                            <div class="form-group row margin-top-10">
+                                <b>Orientador: </b>
+                            </div>
+                            <div class="form-group row margin-top-10">
+                                <b>CoAutores: </b>
+                            </div>
+                        </div>
+
+                    }
 
                     <hr />
                     <div class="form-group margin-top-10">
@@ -164,19 +237,35 @@
                 <div role="tabpanel" class="tab-pane" id="Passo3">
                     <div class="form-group margin-top-10 row">
                         <p><b>Titulo: </b></p>
-                        <textarea style="height:40px!important" required></textarea>
+                        <textarea style="height:40px!important" value="@Model.Titulo" required></textarea>
                     </div>
+                    @if (Model.Evento.Id == 7)
+                    {
+                        <div class="form-group margin-top-10 row">
+                            <p><b>Resumo: </b></p>
+                            <textarea value="@Model.Resumo" required></textarea>
+                        </div>
+
+                    }
                     <div class="form-group margin-top-10 row">
                         <p><b>Introdução: </b></p>
-                        <textarea required></textarea>
+                        <textarea value="@Model.Introducao" required></textarea>
                     </div>
+                    @if (Model.Evento.Id == 8)
+                    {
+                        <div class="form-group margin-top-10 row">
+                            <p><b>Objetivos do projeto: </b></p>
+                            <textarea value="@Model.Objetivo" required></textarea>
+                        </div>
+
+                    }
                     <div class="form-group margin-top-10 row">
                         <p><b>Metodologia: </b></p>
-                        <textarea required></textarea>
+                        <textarea value="@Model.Metodologia" required></textarea>
                     </div>
                     <div class="form-group margin-top-10 row">
                         <p><b>Resultados: </b></p>
-                        <textarea required></textarea>
+                        <textarea value="@Model.Resultados" required></textarea>
                     </div>
                     <div class="form-group margin-top-10 row">
                         <div class="float-left">
@@ -186,15 +275,23 @@
                             <button class="btn btn-primary"><span class="fa fa-file-image-o" aria-hidden="true"></span> Adicionar</button>
                         </div>
                     </div>
-                    <div class="form-group margin-top-10 row">
-                        <p><b>Conclusão: </b></p>
-                        <textarea required></textarea>
-                    </div>
-                    <div class="form-group margin-top-10 row">
-                        <p><b>Palavras chave: </b></p>
-                        <textarea style="height:40px!important" required></textarea>
-                    </div>
+                    @if (Model.Evento.Id != 8)
+                    {
+                        <div class="form-group margin-top-10 row">
+                            <p><b>Conclusão: </b></p>
+                            <textarea value="@Model.Conclusao" required></textarea>
+                        </div>
 
+                        <div class="form-group margin-top-10 row">
+                            <p><b>Referências bibliográficas: </b></p>
+                            <textarea value="@Model.Referencias" required></textarea>
+                        </div>
+
+                        <div class="form-group margin-top-10 row">
+                            <p><b>Palavras chave: </b></p>
+                            <textarea style="height:40px!important" value="@Model.PalevrasChave" required></textarea>
+                        </div>
+                    }
                     <div class="form-group margin-top-10">
                         <button class="btn btn-primary float-left prev">Voltar</button>
                         <button class="btn btn-primary float-right">Cadastrar</button>
@@ -242,5 +339,5 @@
 
     $('#dropArea').subArea($('#dropSubArea'));
 
-
+    $("#Telefone").mask("(99) 9999-9999");
 </script>

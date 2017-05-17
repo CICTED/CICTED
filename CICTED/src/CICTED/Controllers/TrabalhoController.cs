@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Entities.Trabalho;
 using CICTED.Domain.ViewModels.Trabalho;
-using CICTED.Domain.ViewModels.Account;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,10 +43,15 @@ namespace CICTED.Controllers
             }
             var evento = await _eventoRepository.GetEvento(IdEvento);
             var areas = await _areaRepository.GetAreas();
+            var periodos = await _trabalhoRepository.GetPeriodos();
+            var agencias = await _trabalhoRepository.GetAgencias();
+
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
-                Evento = evento.EventoNome,
-                AreasConhecimento = areas,
+                Evento = evento,
+                AreasConhecimento = areas,               
+                Periodos = periodos,
+                Agencias = agencias,
             };
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -58,6 +62,22 @@ namespace CICTED.Controllers
 
             return View(model);
         }
+
+        //[HttpPost("cadastro")]
+        //public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model)
+        //{
+        //    var rand = new Random();
+
+        //    var next = rand.Next(10000, 99999);
+
+        //    model.DataCadastro = DateTime.Now;          
+
+        //    var identificacao = model.Evento.Sigla + "2017" + next;
+        //    if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.Agencia, model.EventoId, model.ArtigoId, model.SubArea))
+        //    {
+        //       model.ReturnMenssagem = "Alterações salvas";
+        //    }
+        //}
 
         [HttpGet("consulta")]
         [Authorize]
@@ -81,37 +101,30 @@ namespace CICTED.Controllers
         public async Task<IActionResult> Informacao(long id)
         {
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
+            var orientador = await _trabalhoRepository.GetOrientador(id);
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
             var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
             var area = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
-            var subArea = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
-            var statusTrabalho = await _trabalhoRepository.GetStatusTrabalho(trabalho.StatusTrabalhoId);
 
-            var autoresId = await _trabalhoRepository.GetAutoresId(id);
 
-            List<AutorViewModel> autoresInfo = new List<AutorViewModel>() { };
+            //AutorTrabalho autores = await _trabalhoRepository.GetAutores(id);
 
-            foreach (var autor in autoresId)
-            {
-                var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
-                var autorInfo = new AutorViewModel()
-                {
-                    Email = info.Email,
-                    Nome = info.Nome.ToUpper(),
-                    Orientador = autor.Orientador,
-                    Sobrenome = info.Sobrenome.ToUpper(),
-                    Status = autor.StatusUsuarioId
-                };
+            List<AutorTrabalho> outrosAutores = new List<AutorTrabalho>() { };
+            AutorTrabalho autorPrincipal = null;
 
-                autoresInfo.Add(autorInfo);
-            }
-
-            
-
+            //foreach(var autor in autores)
+            //{
+            //    if(autor.StatusUsuarioId != 5)
+            //    {
+            //        outrosAutores.Add(autor);
+            //    }else
+            //    {
+            //        autorPrincipal = autor;
+            //    }
+            //}
 
             var model = new InformacoesTrabalhoViewModel()
             {
-                Id = id,
                 Titulo = trabalho.Titulo,
                 Identificacao = trabalho.Identificacao,
                 Conclusao = trabalho.Conclusao,
@@ -129,11 +142,10 @@ namespace CICTED.Controllers
                 TextoFinanciadora = trabalho.TextoFinanciadora,
                 EventoNome = evento.EventoNome,
                 palavrasChave = palavrasChave,
-                AreaConhecimento = area,
-                SubArea = subArea,
-                Status = statusTrabalho,
-                StatusTrabalhoId = trabalho.StatusTrabalhoId,
-                autores = autoresInfo,
+                //outrosAutores = outrosAutores,
+                //orientador = orientador,
+                //autorPrincipal = autorPrincipal, 
+
             };
 
 
@@ -150,10 +162,8 @@ namespace CICTED.Controllers
             {
                 return BadRequest("There was an error to load the subAreas.");
             }
-            
-            return Json(subAreas);
-        }
 
+<<<<<<< HEAD
         [HttpGet("{id}/alterar")]
         public async Task<IActionResult> Alterar(long id)
         {
@@ -195,6 +205,9 @@ namespace CICTED.Controllers
             model.Coautores = coautores;
 
             return View("AlterarTrabalho", model);
+=======
+            return Json(subAreas);
+>>>>>>> 026cb2589314bb74753554f1524591d47084e52e
         }
 
     }
