@@ -26,7 +26,7 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public int SubAreaId { get; set; }
 
-        public List<PeriodoApresentacao> Periodos { get; set; }
+        public List<PeriodoApresentacao> Periodos { get; set; }        
 
         public int PeriodoApresentacao { get; set; }
 
