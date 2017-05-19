@@ -230,7 +230,8 @@ namespace CICTED.Domain.Infrastucture.Repository
                                 Numero = endereco.Numero,
                                 Complemento = endereco.Complemento,
                                 Bairro = endereco.Bairro,
-                                CidadeId = cidadeId
+                                CidadeId = cidadeId,
+                                enderecoId = enderecoId
                             });
                         return enderecoUpdate.FirstOrDefault();
                     }
