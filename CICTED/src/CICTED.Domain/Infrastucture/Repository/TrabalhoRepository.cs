@@ -273,5 +273,20 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+        public async Task<List<AutorViewModel>> BuscaAutor(string busca)
+        {
+            try
+            {
+                using(var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE Nome LIKE %"+busca+"%");
+                    return queryBusca.ToList();
+                }
+            }catch(Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
 }

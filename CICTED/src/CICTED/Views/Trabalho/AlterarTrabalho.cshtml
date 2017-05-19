@@ -26,12 +26,12 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="porEmail">
                 <div class="form-group margin-top-10 row">
-                    <input id="input-email" style="width:350px !important" placeholder="Email do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Cadastrar</button>
+                    <input value="" id="input-email" style="width:350px !important" placeholder="Email do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Cadastrar</button>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="porNome">
                 <div class="form-group margin-top-10 row">
-                    <input id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Adicionar</button>
+                    <input value="" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Adicionar</button>
                 </div>
             </div>
             <table class="table-trabalho">
@@ -95,6 +95,19 @@
 </form>
 
 <script type="text/javascript">
+
+    $("#input-nome").change(function(){
+        var valor = $(this).val();
+    
+        $.ajax({
+            url: '/trabalho/busca/autor',
+            type: 'get',
+            data:{
+                busca: valor            
+            }
+
+        })
+    });
 
     $(".button-cadastrar").on("click", function () {
 

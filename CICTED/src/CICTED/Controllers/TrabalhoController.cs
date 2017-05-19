@@ -103,6 +103,8 @@ namespace CICTED.Controllers
             return View(model);
         }
 
+        
+
         [HttpGet("informacao")]
         [Authorize]
         public async Task<IActionResult> Informacao(long id)
@@ -217,6 +219,16 @@ namespace CICTED.Controllers
 
             return View("AlterarTrabalho", model);
         }
+
+        [HttpGet("busca/autor")]
+        public async Task<IActionResult> BuscaAutor(string busca)
+        {
+            var autores = _trabalhoRepository.BuscaAutor(busca);
+
+            return Json(autores);
+        }
+
+
 
     }
 }
