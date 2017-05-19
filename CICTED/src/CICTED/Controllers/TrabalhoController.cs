@@ -68,17 +68,16 @@ namespace CICTED.Controllers
         public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model, int IdEvento)
         {
             model.Evento= await _eventoRepository.GetEvento(IdEvento);
-            var rand = new Random();
-            var next = rand.Next(10000, 99999);            
 
-            var identificacao = model.Evento.Sigla + "2017" + next;
+
+            string identificacao = geraIdentificacao(model.Evento);            
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             model.DataCadastro = DateTime.Now;
 
           
-            if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId))
+            if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId,model.PeriodoApresentacao))
             {
                 model.ReturnMenssagem = "Alterações salvas";
                 return View("Account","Home");
@@ -220,6 +219,7 @@ namespace CICTED.Controllers
             return View("AlterarTrabalho", model);
         }
 
+<<<<<<< HEAD
         [HttpGet("busca/autor")]
         public async Task<IActionResult> BuscaAutor(string busca)
         {
@@ -230,5 +230,25 @@ namespace CICTED.Controllers
 
 
 
+=======
+
+        public async Task<string> geraIdentificacao(Evento evento)
+        {
+            var rand = new Random();
+            var next = rand.Next(10000, 99999);
+
+            var identificacao = evento.Sigla + "2017" + next;
+
+            if (await _trabalhoRepository.getIdentificacaoTrabalho(identificacao))
+            {
+                return identificacao;
+            }
+            else
+            {
+                return await geraIdentificacao(evento);
+            }
+            
+        }
+>>>>>>> dedfa606d93e21f10fb27b70179562b1b65980a0
     }
 }

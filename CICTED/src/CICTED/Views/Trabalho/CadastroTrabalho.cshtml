@@ -134,7 +134,7 @@
                         </div>
                         <div class="float-left margin-left-75">
                             <select class="form-control" name="AgenciaId" value="@Model.AgenciaId">
-                                <option value="-1">Selecione a agência financiadora</option>
+                                <option value="0">Selecione a agência financiadora</option>
                                 @foreach(var agencia in Model.Agencias)
                                 {
                                     <option value="@agencia.Id">@agencia.AgenciaNome</option>
