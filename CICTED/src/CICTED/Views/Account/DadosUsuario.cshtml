@@ -16,36 +16,36 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Nome:</label>
-                <input type="text" style="width:500px" value="@Model.Nome" />
+                <input type="text" style="width:500px" value="@Model.Nome" asp-for="Nome"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Sobrenome:</label>
-                <input type="text" style="width:500px" value="@Model.Sobrenome" />
+                <input type="text" style="width:500px" value="@Model.Sobrenome" asp-for="Sobrenome"/>
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>CPF:</label>
-                <input type="text" style="width:500px" value="@Model.CPF" disabled="disabled"/>
+                <input type="text" style="width:500px" value="@Model.CPF" asp-for="CPF"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Outros Documentos(RG, Passaporte, Etc):</label>
-                <input type="text" style="width:500px" value="@Model.Documento" />
+                <input type="text" style="width:500px" value="@Model.Documento" asp-for="Documento"/>
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Data de Nascimento:</label>
-                <input type="date" style="width:500px" value="@Model.DataNascimento.ToString("yyyy-MM-dd")" disabled="disabled"/>
+                <input type="date" style="width:500px" value="@Model.DataNascimento.ToString("yyyy-MM-dd")" asp-for="DataNascimento"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Gênero:</label>
-                <select type="text" style="width:500px" class="form-control" value="@Model.Genero">
+                <select type="text" style="width:500px" class="form-control" value="@Model.Genero" asp-for="Genero">
                     @if (Model.Genero == true)
                     {
                         <option value="-1">Selecione um gênero</option>
@@ -74,24 +74,24 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Telefone:</label>
-                <input type="tel" value="@Model.Telefone" style="width:500px" />
+                <input type="tel" value="@Model.Telefone" style="width:500px" asp-for="Telefone"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Celular:</label>
-                <input type="text" value="@Model.Celular" style="width:500px" />
+                <input type="text" value="@Model.Celular" style="width:500px" asp-for="Celular"/>
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Email Principal:</label>
-                <input type="text" value="@Model.Email" style="width:500px" />
+                <input type="text" value="@Model.Email" style="width:500px" asp-for="Email"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Email Secundario:</label>
-                <input type="text" value="@Model.EmailSecundario" style="width:500px" />
+                <input type="text" value="@Model.EmailSecundario" style="width:500px" asp-for="EmailSecundario"/>
             </div>
         </div>
 
@@ -105,31 +105,31 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Logradouro:</label>
-                <input type="text" value="@Model.Logradouro" style="width:500px" />
+                <input type="text" value="@Model.Logradouro" style="width:500px" asp-for="Logradouro"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Número:</label>
-                <input type="text" value="@Model.Numero" style="width:500px" />
+                <input type="text" value="@Model.Numero" style="width:500px" asp-for="Numero"/>
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Bairro:</label>
-                <input type="text" value="@Model.Bairro" style="width:500px" />
+                <input type="text" value="@Model.Bairro" style="width:500px" asp-for="Bairro"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>CEP:</label>
-                <input type="text" value="@Model.CEP" style="width:500px" />
+                <input type="text" value="@Model.CEP" style="width:500px" asp-for="CEP"/>
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Estado:</label>
-                <select class="form-control" id="dropEstado" value="@Model.EstadoID" style="width:500px">
+                <select class="form-control" id="dropEstado" value="@Model.EstadoID" style="width:500px" asp-for="EstadoID">
                     <option value="-1">Selecione seu estado</option>
                     @foreach (var estado in Model.Estados)
                     {
@@ -148,7 +148,7 @@
 
             <div class="float-right" style="width:50%">
                 <label>Cidade: </label>
-                <select class="form-control" id="dropCidade" value="@Model.CidadeId" style="width:500px">
+                <select class="form-control" id="dropCidade" value="@Model.CidadeId" style="width:500px" asp-for="CidadeId">
                     <option value="-1">Selecione sua cidade</option>
                     @if (Model.CidadeId > 0)
                     {
@@ -168,7 +168,7 @@
 
         <div class="margin-top-10 row">
             <label>Instituição:</label>
-            <select class="form-control" value="@Model.InstituicaoId" style="width:500px">
+            <select class="form-control" value="@Model.InstituicaoId" style="width:500px" asp-for="InstituicaoId">
                 <option value="-1">Selecione sua instituição</option>
                 @foreach (var instituicao in Model.Instituicoes)
                 {
@@ -200,7 +200,7 @@
                     <div id="estudante" style="display: none;">
                         <div class="float-right row">
                             <label>Curso:</label>
-                            <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                            <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control" asp-for="CursoId">
                                 <option value="-1">Selecione seu Curso</option>
                                 @foreach (var cursos in Model.Cursos)
                                 {
@@ -208,7 +208,7 @@
                                 }
                             </select>
                             <label class="margin-top-20">Outro:</label>
-                            <input type="text" value="@Model.Curso" style="width:500px" />
+                            <input type="text" value="@Model.Curso" style="width:500px" asp-for="Curso"/>
                         </div>
                     </div>
                 }
@@ -217,7 +217,7 @@
                     <div id="estudante" style="display: normal;">
                         <div class="float-right row">
                             <label>Curso:</label>
-                            <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                            <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control" asp-for="CursoId">
                                 <option value="-1">Selecione seu Curso</option>
                                 @foreach (var cursos in Model.Cursos)
                                 {
@@ -232,7 +232,7 @@
                                 }
                             </select>
                             <label class="margin-top-20">Outro:</label>
-                            <input type="text" value="@Model.Curso" style="width:500px" />
+                            <input type="text" value="@Model.Curso" style="width:500px" asp-for="Curso"/>
                         </div>
                     </div>
                 }

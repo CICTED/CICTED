@@ -444,6 +444,25 @@ namespace CICTED.Controllers
                     return RedirectToAction("DadosUsuario");
                 }
 
+                var usuarioDados = new DadosUsuárioViewModel()
+                {
+                    Nome = model.Nome,
+                    Sobrenome = model.Sobrenome,
+                    CPF = model.CPF,
+                    DataNascimento = model.DataNascimento,
+                    Documento = model.Documento,
+                    Genero = model.Genero,
+                    Telefone = model.Telefone,
+                    Celular = model.Celular,
+                    EmailSecundario = model.EmailSecundario,
+                    InstituicaoId = model.InstituicaoId,
+                    Bolsista = model.Bolsista,
+                    Estudante = model.Estudante,
+                    Email = user.Email,
+                    CursoId = (model.CursoId > 0) ? model.CursoId : 1,
+                    FirstAccess = false
+                };
+
                 long cidadeId = 0;
                 long enderecoId = user.EnderecoId;
                 var endereco = new Endereco
@@ -475,31 +494,8 @@ namespace CICTED.Controllers
                     enderecoId = await _localizacaoRepository.UpdateEndereco(endereco, cidadeId, enderecoId, 0);
 
                 }
-
-
-
-
-                var usuarioDados = new DadosUsuárioViewModel()
-                {
-                    Nome = model.Nome,
-                    Sobrenome = model.Sobrenome,
-                    CPF = model.CPF,
-                    DataNascimento = model.DataNascimento,
-                    Documento = model.Documento,
-                    Genero = model.Genero,
-                    Telefone = model.Telefone,
-                    Celular = model.Celular,
-                    EmailSecundario = model.EmailSecundario,
-                    InstituicaoId = model.InstituicaoId,
-                    Bolsista = model.Bolsista,
-                    Estudante = model.Estudante,
-                    Email = user.Email,
-                    CursoId = (model.CursoId > 0) ? model.CursoId : 1,
-                    FirstAccess = false
-                };
-
-
-                var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, enderecoId, idUsuario);
+                
+                var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, user.EnderecoId, idUsuario);
 
                 if (result == true)
                 {
