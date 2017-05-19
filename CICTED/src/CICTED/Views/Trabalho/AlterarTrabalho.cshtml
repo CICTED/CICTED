@@ -4,94 +4,106 @@
     Layout = "_Menu";
 }
 
-<div class="autor-home-content">
-    <div class="margin-top-30 form-group">
-        <h4>
-            <span class="fa fa-warning"></span>
-            <b>
-                Você é o Autor Principal do trabalho;<br />
-                Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
-                O trabalho terá obrigatoriamente 1 (um) orientador.
-            </b>
-        </h4>
-        <h5>Para cadastrar um participante use uma das opções a baixo</h5>
-    </div>
-
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
-        <li><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="porEmail">
-            <div class="form-group margin-top-10 row">
-                <input style="width:350px !important" placeholder="Digite o email desejado" /> <button class="btn btn-primary">Cadastrar</button>
-            </div>
+<form>
+    <div class="autor-home-content">
+        <div class="margin-top-30 form-group">
+            <h4>
+                <span class="fa fa-warning"></span>
+                <b>
+                    Você é o Autor Principal do trabalho;<br />
+                    Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
+                    O trabalho terá obrigatoriamente 1 (um) orientador.
+                </b>
+            </h4>
+            <h5>Para cadastrar um participante use uma das opções a baixo</h5>
         </div>
-        <div role="tabpanel" class="tab-pane" id="porNome">
-            <div class="form-group margin-top-10 row">
-                <input style="width:350px !important" placeholder="Digite o nome desejado" /> <button class="btn btn-primary">Adicionar</button>
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
+            <li><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="porEmail">
+                <div class="form-group margin-top-10 row">
+                    <input id="input-email" style="width:350px !important" placeholder="Email do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Cadastrar</button>
+                </div>
             </div>
-        </div>
-        <table class="table-trabalho">
-            <tr>
-                <td>
-                    <b class="margin-right-40">Autor Principal: </b>
-                </td>
-                <td id="autor-principal">
-                    <div class="float-left" id="autor-@Model.AutorPrincipal.Id">
-                        @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
-                        <b>@Model.AutorPrincipal.Email</b>
+            <div role="tabpanel" class="tab-pane" id="porNome">
+                <div class="form-group margin-top-10 row">
+                    <input id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Adicionar</button>
+                </div>
+            </div>
+            <table class="table-trabalho">
+                <tr>
 
-                    </div>
-                </td>
-            </tr>
 
-            <tr>
-                @if (Model.Coautores != null)
-                {
                     <td>
-                        <b class="margin-right-40">Coautes: </b>
+                        <b class="margin-right-40">Autor Principal: </b>
                     </td>
-                }
-                <td id="outros-autores">
-                    <div class="float-left" id="autor-@Model.AutorPrincipal.Id">                        
+                    <td id="autor-principal">
+                        <div class="float-left">
+                            @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
+                            <b>@Model.AutorPrincipal.Email</b>
+
+                        </div>
+                    </td>
+
+
+                </tr>
+
+                <tr>
+                    @if (Model.Coautores != null)
+                    {
+                        <td>
+                            <b class="margin-right-40">Coautes: </b>
+                        </td>
+                    }
+                    <td id="outros-autores">
+
                         @foreach (var coautor in Model.Coautores)
                         {
-                            @coautor.Nome<b> </b> @coautor.Sobrenome
-                            <b> @coautor.Email</b>
+                            <div id="autor-@coautor.Id">
+                                @coautor.Nome<b> </b> @coautor.Sobrenome
+                                <b> @coautor.Email</b>
+                                <a class="autor-delete" data-id="@coautor.Id" value="@coautor.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                            </div>
                         }
 
-                        <a class="autor-delete" data-id="@Model.AutorPrincipal.Id" value="@Model.AutorPrincipal.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                    </td>
+                </tr>
 
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td><b>Orientador: </b></td>
+                    <td class="orientador" id="autor-@Model.Orientador.Id">
+                        @Model.Orientador.Nome @Model.Orientador.Sobrenome
+                        <b>@Model.Orientador.Email</b>
+                        <a class="autor-delete" data-id="@Model.Orientador.Id" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
 
-            <tr>
-                <td><b>Orientador: </b></td>
-                <td id="orientador">
-                    @Model.Orientador.Nome @Model.Orientador.Sobrenome
-                    <b>@Model.Orientador.Email</b>
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <hr />
+        <div class="form-group margin-top-10">
+            <button type="button" class="btn btn-primary float-left prev">Voltar</button>
+            <button type="submit" class="btn btn-primary float-right next">Avançar</button>
+        </div>
     </div>
-
-
-    <hr />
-    <div class="form-group margin-top-10">
-        <button class="btn btn-primary float-left prev">Voltar</button>
-        <button class="btn btn-primary float-right next">Avançar</button>
-    </div>
-</div>
-
+</form>
 
 <script type="text/javascript">
 
+    $(".button-cadastrar").on("click", function () {
+
+
+    });
+
+
     $(".autor-delete").on("click", function () {
-        var button = $(this);
-        var id = button.attr("data-id");
+        var id = $(this).attr("data-id");
 
         $.ajax({
             //url: '/product/delete/picture',
@@ -102,6 +114,16 @@
 
             success: function () {
                 $("#autor-" + id).remove();
+                var orientador = ($(".orientador"));
+
+                if (orientador.length == 0) {
+                    $(("#input-email")).attr("placeholder", "Email do orientador");
+                    $(("#input-nome")).attr("placeholder", "Nome do orientador");
+                } else {
+                    $(("#input-nome")).attr("placeholder", "Nome do coautor");
+                    $(("#input-email")).attr("placeholder", "Email do coautor");
+                }
+
                 alert("DEU  ");
             },
             error: function (x, y, message) {
