@@ -274,14 +274,27 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-<<<<<<< HEAD
         public async Task<List<AutorViewModel>> BuscaAutor(string busca)
         {
             try
             {
                 using(var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE Nome LIKE %"+busca+"%");
+                    
+                    var separa = busca.Split(' ');
+                    var nome = separa[0];
+                    var sobrenome = nome;
+                    var conta = 0;
+                    foreach(var palavra in separa)
+                    {
+                        conta += 1;
+                    }
+                    if (conta > 1)
+                    {
+                        sobrenome = separa[1];
+                    }
+                    var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE dbo.AspNetUsers.Nome LIKE '%' + @nome + '%' OR Sobrenome LIKE '%' + @sobrenome + '%'", new { nome = nome, sobrenome = sobrenome });
+                  
                     return queryBusca.ToList();
                 }
             }catch(Exception ex)
@@ -290,7 +303,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-=======
+
         public async Task<bool> getIdentificacaoTrabalho(string identificacao)
         {
             try
@@ -315,6 +328,5 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return false;
             }
         }
->>>>>>> dedfa606d93e21f10fb27b70179562b1b65980a0
     }
 }
