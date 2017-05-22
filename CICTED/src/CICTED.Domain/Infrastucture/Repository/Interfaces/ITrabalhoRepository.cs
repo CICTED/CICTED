@@ -21,11 +21,9 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<List<AutorTrabalho>> GetAutoresId(long id);
         Task<string> GetStatusTrabalho(int statusId);
         Task<AutorViewModel> GetAutor(long userId);
-<<<<<<< HEAD
         Task<List<AutorViewModel>> BuscaAutor(string busca);
-=======
         Task<bool> getIdentificacaoTrabalho(string identificacao);
         //Task<int> GetStatusAutor(long userId);
->>>>>>> dedfa606d93e21f10fb27b70179562b1b65980a0
+
     }
 }

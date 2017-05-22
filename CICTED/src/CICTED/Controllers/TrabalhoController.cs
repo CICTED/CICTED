@@ -70,7 +70,7 @@ namespace CICTED.Controllers
             model.Evento= await _eventoRepository.GetEvento(IdEvento);
 
 
-            string identificacao = geraIdentificacao(model.Evento);            
+            string identificacao = await geraIdentificacao(model.Evento);            
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
@@ -219,7 +219,7 @@ namespace CICTED.Controllers
             return View("AlterarTrabalho", model);
         }
 
-<<<<<<< HEAD
+
         [HttpGet("busca/autor")]
         public async Task<IActionResult> BuscaAutor(string busca)
         {
@@ -228,9 +228,6 @@ namespace CICTED.Controllers
             return Json(autores);
         }
 
-
-
-=======
 
         public async Task<string> geraIdentificacao(Evento evento)
         {
@@ -249,6 +246,5 @@ namespace CICTED.Controllers
             }
             
         }
->>>>>>> dedfa606d93e21f10fb27b70179562b1b65980a0
     }
 }

@@ -274,7 +274,6 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-<<<<<<< HEAD
         public async Task<List<AutorViewModel>> BuscaAutor(string busca)
         {
             try
@@ -289,8 +288,6 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return null;
             }
         }
-
-=======
         public async Task<bool> getIdentificacaoTrabalho(string identificacao)
         {
             try
@@ -315,6 +312,5 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return false;
             }
         }
->>>>>>> dedfa606d93e21f10fb27b70179562b1b65980a0
     }
 }
