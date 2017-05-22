@@ -26,12 +26,20 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="porEmail">
                 <div class="form-group margin-top-10 row">
-                    <input value="" id="input-email" style="width:350px !important" placeholder="Email do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Cadastrar</button>
+                    
+                   <input type="text" list="nomes" value="" id="input-email" style="width:350px !important" placeholder="Email do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Cadastrar</button>
+                    <datalist id="nomes">
+                       
+                    </datalist>
+                    
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="porNome">
                 <div class="form-group margin-top-10 row">
-                    <input value="" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Adicionar</button>
+                    <input type="text" list="nomes" value="" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Adicionar</button>
+                    <datalist id="nomes">
+
+                    </datalist>
                 </div>
             </div>
             <table class="table-trabalho">
@@ -104,7 +112,15 @@
             type: 'get',
             data:{
                 busca: valor            
-            }
+            },
+            success: function (data) {
+
+                $.each(data, function (i, item) {
+                    $("#tabela-nomes").html(' <tr ><td>' + item.nome + '</td></tr>');
+
+                }),
+                alert("DEU  ");
+            },
 
         })
     });
