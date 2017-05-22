@@ -302,11 +302,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return null;
             }
         }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> e824a6778182d53ce9ec9446a644db2a068a5823
         public async Task<bool> getIdentificacaoTrabalho(string identificacao)
         {
             try
