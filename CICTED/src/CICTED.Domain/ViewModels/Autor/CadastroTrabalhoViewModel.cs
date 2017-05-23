@@ -1,5 +1,6 @@
 ﻿using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Entities.Trabalho;
+using CICTED.Domain.ViewModels.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,13 +41,17 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public string CodigoCEP { get; set; }
 
-        public List<AutorTrabalho> Autores { get; set; }
+        public AutorViewModel AutorPrincipal { get; set; }
+
+        public List<AutorViewModel> Coautores { get; set; }
+
+        public AutorViewModel Orientador { get; set; }   
 
         public string Autor { get; set; }
 
         public List<AlunoTrabalho> Alunos { get; set; }
 
-        public string Aluno { get; set; }
+        public string AlunoNome { get; set; }
 
         public string Titulo { get; set; }
 

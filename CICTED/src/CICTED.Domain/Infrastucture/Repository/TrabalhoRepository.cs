@@ -278,12 +278,13 @@ namespace CICTED.Domain.Infrastucture.Repository
         {
             try
             {
-                using(var db = new SqlConnection(_settings.ConnectionString))
+                using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE Nome LIKE %"+busca+"%");
+                    var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE Nome LIKE %" + busca + "%");
                     return queryBusca.ToList();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return null;
             }
@@ -299,13 +300,89 @@ namespace CICTED.Domain.Infrastucture.Repository
                         {
                             Identificacao = identificacao
                         });
-                    if(selectIdentifiTrabalho == null)
+                    if (selectIdentifiTrabalho == null)
                     {
                         return true;
                     }
                     return false;
                 }
 
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<AutorTrabalho> selectOrientador(long idTrabalho)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectOrientador = await db.QueryAsync<AutorTrabalho>("SELECT * FORM dbo.AutorTrabalho WHERE IdTrabalho = @IdTrabalho AND Orientador = @Orientador",
+                        new
+                        {
+                            IdTrabalho = idTrabalho,
+                            Orientador = 1,
+                        });
+                    return selectOrientador.FirstOrDefault();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<AutorTrabalho> selectAutores(long idTrabalho)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectOrientador = await db.QueryAsync<AutorTrabalho>("SELECT * FORM dbo.AutorTrabalho WHERE IdTrabalho = @IdTrabalho",
+                        new
+                        {
+                            IdTrabalho = idTrabalho,                        
+                        });
+                    return selectOrientador.FirstOrDefault();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Task<AutorTrabalho> SelectOrientador(long idTrabalho)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<AutorTrabalho> SelectAutores(long idTrabalho)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> InsertAutorTrabalho(long idTrabalho, long idUsuario, int statusAutor, bool orientador)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var inserAutorTrabalho = await db.ExecuteAsync("INSERT INTO dbo.AutorTrabaho(StatusUsuarioId, UsuarioId, TrabalhoId, Orientador) VALUES (@StatusUsuarioId, @UsuarioId, @TrabalhoId, @Orientador)",
+                        new {
+                            StatusUsuarioId = statusAutor,
+                            UsuarioId = idUsuario,
+                            TrabalhoId = idTrabalho,
+                            Orientador = orientador
+                        });
+
+                    return true;
+                }
             }
             catch (Exception ex)
             {
