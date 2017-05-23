@@ -204,7 +204,7 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="porEmail">
                                 <div class="form-group margin-top-10 row">
-                                    <input style="width:350px !important" placeholder="Digite o email desejado" value="@Model.Autor" asp-for="Autor" id="input-email"/> <button class="btn btn-primary" id="cadastroEmail">Cadastrar</button>
+                                    <input style="width:350px !important" placeholder="Digite o email desejado"/> <button class="btn btn-primary" id="cadastroEmail">Cadastrar</button>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="porNome">
@@ -213,23 +213,14 @@
                                 </div>
                             </div>
                             <div class="form-group row margin-top-10">
-                                <b>Autor Principal: </b>@Model.AutorPrincipal
+                                <b>Autor Principal: </b>@Model.AutorPrincipalNome
                             </div>
                             <div class="form-group row margin-top-10">
-                                <b>Orientador: </b><p>@Model.Orientador</p>
+                                <b>Orientador: </b>
+                                <a class="autor-delete" data-id="@Model.Orientador.Id" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
                             </div>
                             <div class="form-group row margin-top-10">
-                                <b>CoAutores: </b>
-                                
-                                    @if (Model.Coautores != null)
-                                    {
-                                        foreach (var coAutor in Model.Coautores)
-                                        {
-                                            <p>coAutor</p>
-
-                                }
-                                    }
-                               
+                                <b>CoAutores: </b>                                                      
                             </div>
                         </div>
 
@@ -345,22 +336,35 @@
         });
     });
 
-    //$('#cadastroEmail').click(function () {
-    //    var castroEmail = $(this);
+    $(".autor-delete").on("click", function () {
+        var id = $(this).attr("data-id");
 
-    //    $.ajax({
-    //        url: '/trabalho/adiciona/autor',
-    //        type: "post",
+        $.ajax({
+            //url: '/product/delete/picture',
+            //type: 'post',
+            //data: {
+            //    id: id
+            //},
 
-    //        success:function(){
-    //            alert("Cadastro realizado com sucesso");
+            success: function () {
+                $("#autor-" + id).remove();
+                var orientador = ($(".orientador"));
 
-    //        },
-    //    error:function(x, y, message){
-    //        alert("Falha no cadastro")
-    //    },
-    //    });
-    //});
+                if (orientador.length == 0) {
+                    $(("#input-email")).attr("placeholder", "Email do orientador");
+                    $(("#input-nome")).attr("placeholder", "Nome do orientador");
+                } else {
+                    $(("#input-nome")).attr("placeholder", "Nome do coautor");
+                    $(("#input-email")).attr("placeholder", "Email do coautor");
+                }
+
+                alert("DEU  ");
+            },
+            error: function (x, y, message) {
+                alert("ERROOOU  " + message);
+            },
+        });
+    });
 
     $('#dropArea').subArea($('#dropSubArea'));
     $("#Telefone").mask("(99) 9999-9999");

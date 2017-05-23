@@ -54,14 +54,13 @@ namespace CICTED.Controllers
                 AreasConhecimento = areas,
                 Periodos = periodos,
                 Agencias = agencias,
-                AutorPrincipal = user.Nome,
-
+                AutorPrincipalNome = user.Nome,
             };
 
 
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
-           
+
 
 
             return View(model);
@@ -83,7 +82,7 @@ namespace CICTED.Controllers
             if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao))
             {
                 model.ReturnMenssagem = "Alterações salvas";
-                return View("Account", "Home");
+                return RedirectToAction("Home", "Account");
             }
             return View();
         }
@@ -225,18 +224,26 @@ namespace CICTED.Controllers
 
         [HttpGet("busca/autor")]
         public async Task<IActionResult> BuscaAutor(string busca)
-        {   
+        {
             var autores = await _trabalhoRepository.BuscaAutor(busca);
 
             return Json(autores);
         }
 
 
-        [HttpPost("adiciona/autor")]
-        public async Task<IActionResult> AdicionaAutor(CadastroTrabalhoViewModel model)
-        {
-            return View();
-        }
+        //[HttpPost("adiciona/autor")]
+        //public async Task<IActionResult> AdicionaAutor(CadastroTrabalhoViewModel model)
+        //{
+        //    if (model.Orientador == null)
+        //    {
+        //        model.Orientador = model.Autor;
+        //    }
+        //    else
+        //    {
+        //        model.Coautores.Add(model.Autor);
+        //    }
+        //    return Json(model);
+        //}
 
         public async Task<string> geraIdentificacao(Evento evento)
         {

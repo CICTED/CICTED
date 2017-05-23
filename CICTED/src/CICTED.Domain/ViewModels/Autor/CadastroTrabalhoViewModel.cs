@@ -41,11 +41,11 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public string CodigoCEP { get; set; }
 
-        public string AutorPrincipal { get; set; }
+        public AutorViewModel AutorPrincipal { get; set; }
+        public string AutorPrincipalNome { get; set; }
+        public List<AutorViewModel> Coautores { get; set; }
 
-        public List<string> Coautores { get; set; }
-
-        public string Orientador { get; set; }   
+        public AutorViewModel Orientador { get; set; }   
 
         public string Autor { get; set; }
 
