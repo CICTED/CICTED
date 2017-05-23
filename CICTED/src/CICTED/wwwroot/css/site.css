@@ -369,8 +369,6 @@ select {
     }
 
 
-
-
 .menu {
     height: 40px;
     background: rgb(0, 38, 70);
@@ -519,11 +517,11 @@ input[type=checkbox] {
     }
 
     .form-cadTrabalho textarea {
-        max-width: 100%!important;
-        width:100% !important;        
+        max-width: 100% !important;
+        width: 100% !important;
         height: 60px;
         resize: none;
-        border-radius:5px;
+        border-radius: 5px;
     }
 
 .form-cadastro {
@@ -567,18 +565,18 @@ input[type=checkbox] {
     margin-left: 0px;
 }
 
-.btn-alterar{
-    color: #4e93ea;    
+.btn-alterar {
+    color: #4e93ea;
     border-radius: 10px;
     padding: 5px;
-    text-decoration: none!important;
+    text-decoration: none !important;
 }
 
-.btn-alterar:hover{
-    color: white;
-    background: #4e93ea;
-    cursor: pointer;
-}
+    .btn-alterar:hover {
+        color: white;
+        background: #4e93ea;
+        cursor: pointer;
+    }
 
 .btn {
     padding-top: 7px;
