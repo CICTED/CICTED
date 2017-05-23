@@ -173,7 +173,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                 {
                     var getPeriodosQuery = await db.QueryAsync<PeriodoApresentacao>("SELECT * FROM dbo.PeriodoApresentacao");
 
-                    return getPeriodosQuery.ToList();
+                     return getPeriodosQuery.ToList();
                 }
             }
             catch (Exception ex)
@@ -317,7 +317,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                         {
                             Identificacao = identificacao
                         });
-                    if (selectIdentifiTrabalho == null)
+                    if (selectIdentifiTrabalho.FirstOrDefault() == null)
                     {
                         return true;
                     }
