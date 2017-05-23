@@ -204,22 +204,32 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="porEmail">
                                 <div class="form-group margin-top-10 row">
-                                    <input style="width:350px !important" placeholder="Digite o email desejado" value="@Model.Autor" asp-for="Autor" /> <button class="btn btn-primary" id="cadastroEmail">Cadastrar</button>
+                                    <input style="width:350px !important" placeholder="Digite o email desejado" value="@Model.Autor" asp-for="Autor" id="input-email"/> <button class="btn btn-primary" id="cadastroEmail">Cadastrar</button>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="porNome">
                                 <div class="form-group margin-top-10 row">
-                                    <input style="width:350px !important" placeholder="Digite o nome desejado" name="Autor" value="@Model.Autor" asp-for="Autor" /> <button class="btn btn-primary" id="adicionaAutor">Cadastrar</button>
+                                    <input style="width:350px !important" placeholder="Digite o nome desejado" name="Autor" value="@Model.Autor" asp-for="Autor" id="input-nome"/> <button class="btn btn-primary" id="adicionaAutor">Cadastrar</button>
                                 </div>
                             </div>
                             <div class="form-group row margin-top-10">
-                                <b>Autor Principal: @ViewBag.AutorNome</b>
+                                <b>Autor Principal: </b>@Model.AutorPrincipal
                             </div>
                             <div class="form-group row margin-top-10">
-                                <b>Orientador: </b>
+                                <b>Orientador: </b><p>@Model.Orientador</p>
                             </div>
                             <div class="form-group row margin-top-10">
                                 <b>CoAutores: </b>
+                                
+                                    @if (Model.Coautores != null)
+                                    {
+                                        foreach (var coAutor in Model.Coautores)
+                                        {
+                                            <p>coAutor</p>
+
+                                }
+                                    }
+                               
                             </div>
                         </div>
 
@@ -335,22 +345,22 @@
         });
     });
 
-    $('#cadastroEmail').click(function () {
-        var castroEmail = $(this);
+    //$('#cadastroEmail').click(function () {
+    //    var castroEmail = $(this);
 
-        $.ajax({
-            url: '/trabalho/adiciona/autor',
-            type: "post",
+    //    $.ajax({
+    //        url: '/trabalho/adiciona/autor',
+    //        type: "post",
 
-            success:function(){
-                alert("Cadastro realizado com sucesso");
+    //        success:function(){
+    //            alert("Cadastro realizado com sucesso");
 
-            },
-        error:function(x, y, message){
-            alert("Falha no cadastro")
-        },
-        });
-    });
+    //        },
+    //    error:function(x, y, message){
+    //        alert("Falha no cadastro")
+    //    },
+    //    });
+    //});
 
     $('#dropArea').subArea($('#dropSubArea'));
     $("#Telefone").mask("(99) 9999-9999");

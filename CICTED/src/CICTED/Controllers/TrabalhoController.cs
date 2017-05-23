@@ -54,13 +54,14 @@ namespace CICTED.Controllers
                 AreasConhecimento = areas,
                 Periodos = periodos,
                 Agencias = agencias,
+                AutorPrincipal = user.Nome,
 
             };
 
 
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
-            ViewBag.AutorNome = user.Nome;
+           
 
 
             return View(model);
