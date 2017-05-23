@@ -104,7 +104,13 @@ namespace CICTED.Controllers
             return View(model);
         }
 
-
+        [HttpGet("consultar")]
+        [Authorize]
+        public async Task<IActionResult> ConsultaTrabalhoAdm()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            return View();
+        }
 
         [HttpGet("informacao")]
         [Authorize]

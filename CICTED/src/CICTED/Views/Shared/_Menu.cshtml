@@ -42,7 +42,7 @@
             @if (User.IsInRole("Administrador"))
             {
                 <li>
-                    <a class="float-left"><span class="fa fa-folder-open"></span> Trabalhos</a>
+                    <a class="float-left" asp-controller="trabalho" asp-action="consultar"><span class="fa fa-folder-open"></span> Trabalhos</a>
                 </li>
 
                 <li>
