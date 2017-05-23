@@ -280,9 +280,9 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-<<<<<<< HEAD
+
                     var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE Nome LIKE %" + busca + "%");
-=======
+
                     
                     var separa = busca.Split(' ');
                     var nome = separa[0];
@@ -296,9 +296,10 @@ namespace CICTED.Domain.Infrastucture.Repository
                     {
                         sobrenome = separa[1];
                     }
+
                     var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE dbo.AspNetUsers.Nome LIKE '%' + @nome + '%' OR Sobrenome LIKE '%' + @sobrenome + '%'", new { nome = nome, sobrenome = sobrenome });
                   
->>>>>>> 959df7fbda5cd8b07706bbe274222f982a05938e
+
                     return queryBusca.ToList();
                 }
             }
