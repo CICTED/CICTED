@@ -24,15 +24,24 @@
         </ul>
 
         <div class="tab-content">
+
+
+            @*EMAIL*@
             <div role="tabpanel" class="tab-pane active" id="porEmail">
                 <div class="form-group margin-top-10 row">
 
-                    <input type="text" list="email" value="" id="input-email" style="width:350px !important" placeholder="Email do orientador" />
-                    <button id="button-cadastrar" class="btn btn-primary">Cadastrar</button>  
-
-
+                    <input class="float-left" type="text" list="email" value="" id="input-email" style="width:350px !important" placeholder="Email do orientador" />
+                                     
+                    <ul class="results">
+                       
+                    </ul>
+                   
+                    <button id="button-cadastrar" class="btn btn-primary float-left">Cadastrar</button>  
                 </div>
             </div>
+
+
+            @*NOME*@
             <div role="tabpanel" class="tab-pane" id="porNome">
                 <div class="form-group margin-top-10 row">
                     <input type="text" list="nomes" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Adicionar</button>
@@ -121,6 +130,24 @@
         })
     });
 
+    $("#input-email").on("input change", function () {
+        var valor = $(this).val();
+        $(".results").html(' ');
+        $.ajax({
+            url: '/trabalho/busca/autor',
+            type: 'get',
+            data: {
+                busca: valor
+            },
+
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    $(".results").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '<br /> <span>' + item.email + '</span></a></li>');
+                })
+            },
+        })
+    });
+        
 
     $(".button-cadastrar").on("click", function () {
 
