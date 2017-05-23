@@ -18,5 +18,9 @@ namespace CICTED.Domain.ViewModels.Account
         public int Status { get; set; }
 
         public bool Orientador { get; set; }
+
+        public int InstituicaoId { get; set; }
+
+        public string Instituicao { get; set; }
     }
 }

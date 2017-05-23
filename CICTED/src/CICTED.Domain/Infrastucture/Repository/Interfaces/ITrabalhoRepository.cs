@@ -26,6 +26,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<AutorTrabalho> SelectOrientador(long idTrabalho);
         Task<AutorTrabalho> SelectAutores(long idTrabalho);
         Task<bool> InsertAutorTrabalho(long idTrabalho, long idUsuario, int statusAutor, bool orioentador);
+        Task<string> GetInstituicao(long id);
         //Task<int> GetStatusAutor(long userId);
     }
 }

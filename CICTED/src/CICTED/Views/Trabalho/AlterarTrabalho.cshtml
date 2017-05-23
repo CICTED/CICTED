@@ -4,7 +4,7 @@
     Layout = "_Menu";
 }
 
-<form class="search" method="post">
+<form class="alterar-autor" method="post">
     <div class="autor-home-content">
         <div class="margin-top-30 form-group">
             <h4>
@@ -30,13 +30,11 @@
             <div role="tabpanel" class="tab-pane active" id="porEmail">
                 <div class="form-group margin-top-10 row">
 
-                    <input class="float-left" type="text" list="email" value="" id="input-email" style="width:350px !important" placeholder="Email do orientador" />
-                                     
-                    <ul class="results">
-                       
-                    </ul>
+                    <input type="text" value="" id="input-email" placeholder="Email do orientador" />                   
+                    
+
                    
-                    <button id="button-cadastrar" class="btn btn-primary float-left">Cadastrar</button>  
+                    <button id="button-cadastrar" class="btn btn-primary">Cadastrar</button>  
                 </div>
             </div>
 
@@ -44,12 +42,19 @@
             @*NOME*@
             <div role="tabpanel" class="tab-pane" id="porNome">
                 <div class="form-group margin-top-10 row">
-                    <input type="text" list="nomes" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> <button id="button-cadastrar" class="btn btn-primary">Adicionar</button>
-                    <datalist id="nomes">
-                       
-                    </datalist>
+                    <input type="text" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> 
+                    
+                    <div style="height:0px;" class="busca float-left">
+                        <ul id="lista-nomes">
+
+                        </ul>
+                    </div>
+                
+                    <button id="button-cadastrar" class="btn btn-primary">Adicionar</button>
                 </div>
             </div>
+
+
             <table class="table-trabalho">
                 <tr>
 
@@ -95,7 +100,7 @@
                         @Model.Orientador.Nome @Model.Orientador.Sobrenome
                         <b>@Model.Orientador.Email</b>
                         <a class="autor-delete" data-id="@Model.Orientador.Id" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
-
+                        
                     </td>
                 </tr>
             </table>
@@ -112,9 +117,10 @@
 
 <script type="text/javascript">
 
+   
     $("#input-nome").on("input change", function () {
         var valor = $(this).val();
-        $("#nomes").html(' ');
+        $("#lista-nomes").html(' ');
         $.ajax({
             url: '/trabalho/busca/autor',
             type: 'get',
@@ -124,25 +130,9 @@
 
             success: function (data) {
                 $.each(data, function (i, item) {
-                    $("#nomes").append(' <option>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</option>');
-                })
-            },
-        })
-    });
-
-    $("#input-email").on("input change", function () {
-        var valor = $(this).val();
-        $(".results").html(' ');
-        $.ajax({
-            url: '/trabalho/busca/autor',
-            type: 'get',
-            data: {
-                busca: valor
-            },
-
-            success: function (data) {
-                $.each(data, function (i, item) {
-                    $(".results").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '<br /> <span>' + item.email + '</span></a></li>');
+                    $("#lista-nomes").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>'+
+                        '<ul><li>Email: ' + item.email + '<br />Instituição:' +item.instituicao +'</li></ul></li>');
+                    
                 })
             },
         })
