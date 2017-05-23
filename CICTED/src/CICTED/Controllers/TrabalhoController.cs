@@ -46,19 +46,21 @@ namespace CICTED.Controllers
             var areas = await _areaRepository.GetAreas();
             var periodos = await _trabalhoRepository.GetPeriodos();
             var agencias = await _trabalhoRepository.GetAgencias();
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
                 Evento = evento,
-                AreasConhecimento = areas,               
+                AreasConhecimento = areas,
                 Periodos = periodos,
                 Agencias = agencias,
+
             };
 
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
-            ViewBag.Nome = user.Nome;
+            ViewBag.AutorNome = user.Nome;
 
 
             return View(model);
@@ -67,20 +69,20 @@ namespace CICTED.Controllers
         [HttpPost("cadastro/{IdEvento}")]
         public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model, int IdEvento)
         {
-            model.Evento= await _eventoRepository.GetEvento(IdEvento);
+            model.Evento = await _eventoRepository.GetEvento(IdEvento);
 
 
-            string identificacao = await geraIdentificacao(model.Evento);            
+            string identificacao = await geraIdentificacao(model.Evento);
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             model.DataCadastro = DateTime.Now;
 
-          
-            if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId,model.PeriodoApresentacao))
+
+            if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao))
             {
                 model.ReturnMenssagem = "Alterações salvas";
-                return View("Account","Home");
+                return View("Account", "Home");
             }
             return View();
         }
@@ -102,7 +104,7 @@ namespace CICTED.Controllers
             return View(model);
         }
 
-        
+
 
         [HttpGet("informacao")]
         [Authorize]
@@ -152,7 +154,7 @@ namespace CICTED.Controllers
                 TextoFinanciadora = trabalho.TextoFinanciadora,
                 EventoNome = evento.EventoNome,
                 palavrasChave = palavrasChave,
-                autores = autores,               
+                autores = autores,
                 AreaConhecimento = area,
                 SubArea = subArea,
                 Status = status,
@@ -188,7 +190,7 @@ namespace CICTED.Controllers
             foreach (var autor in autoresId)
             {
                 var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
-                
+
                 var autorInfo = new AutorViewModel()
                 {
                     Id = autor.UsuarioId,
@@ -204,7 +206,7 @@ namespace CICTED.Controllers
                     model.AutorPrincipal = autorInfo;
                 }
 
-                else if(autorInfo.Orientador == true)
+                else if (autorInfo.Orientador == true)
                 {
                     model.Orientador = autorInfo;
                 }
@@ -229,6 +231,12 @@ namespace CICTED.Controllers
         }
 
 
+        [HttpPost("adiciona/autor")]
+        public async Task<IActionResult> AdicionaAutor(CadastroTrabalhoViewModel model)
+        {
+            return View();
+        }
+
         public async Task<string> geraIdentificacao(Evento evento)
         {
             var rand = new Random();
@@ -244,7 +252,7 @@ namespace CICTED.Controllers
             {
                 return await geraIdentificacao(evento);
             }
-            
+
         }
     }
 }
