@@ -294,7 +294,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                         sobrenome = separa[1];
                     }
 
-                    var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE dbo.AspNetUsers.Nome LIKE '%' + @nome + '%' OR Sobrenome LIKE '%' + @sobrenome + '%'", new { nome = nome, sobrenome = sobrenome });
+                    var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Id, Nome, Sobrenome, Email, InstituicaoId FROM dbo.AspNetUsers WHERE dbo.AspNetUsers.Nome LIKE '%' + @nome + '%' OR Sobrenome LIKE '%' + @sobrenome + '%'", new { nome = nome, sobrenome = sobrenome });
                   
 
                     return queryBusca.ToList();
@@ -404,6 +404,22 @@ namespace CICTED.Domain.Infrastucture.Repository
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public async Task<string> GetInstituicao(long instituicaoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {                    
+                    var instituicao = await db.QueryAsync<string>("SELECT InstituicaoNome FROM dbo.Instituicao WHERE Id = @Id", new { Id = instituicaoId });
+                    return instituicao.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

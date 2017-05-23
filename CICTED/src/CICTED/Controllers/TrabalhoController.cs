@@ -224,10 +224,23 @@ namespace CICTED.Controllers
 
         [HttpGet("busca/autor")]
         public async Task<IActionResult> BuscaAutor(string busca)
-        {   
+       {   
             var autores = await _trabalhoRepository.BuscaAutor(busca);
-
-            return Json(autores);
+            List<AutorViewModel> autoresList = new List<AutorViewModel>();
+            foreach(var autor in autores)
+            {
+                var instituicao = await _trabalhoRepository.GetInstituicao(autor.InstituicaoId);
+                var autorInfo = new AutorViewModel()
+                {
+                    Email = autor.Email,
+                    Id = autor.Id,
+                    Nome = autor.Nome,
+                    Sobrenome = autor.Sobrenome,
+                    Instituicao = instituicao
+                };
+                autoresList.Add(autorInfo);
+            }
+            return Json(autoresList);
         }
 
 
