@@ -54,13 +54,13 @@ namespace CICTED.Controllers
                 AreasConhecimento = areas,
                 Periodos = periodos,
                 Agencias = agencias,
-                AutorPrincipalNome = user.Nome,
+
             };
 
 
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
-
+            ViewBag.AutorNome = user.Nome;
 
 
             return View(model);
@@ -82,7 +82,7 @@ namespace CICTED.Controllers
             if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao))
             {
                 model.ReturnMenssagem = "Alterações salvas";
-                return RedirectToAction("Home", "Account");
+                return View("Account", "Home");
             }
             return View();
         }
@@ -224,26 +224,31 @@ namespace CICTED.Controllers
 
         [HttpGet("busca/autor")]
         public async Task<IActionResult> BuscaAutor(string busca)
-        {
+       {   
             var autores = await _trabalhoRepository.BuscaAutor(busca);
-
-            return Json(autores);
+            List<AutorViewModel> autoresList = new List<AutorViewModel>();
+            foreach(var autor in autores)
+            {
+                var instituicao = await _trabalhoRepository.GetInstituicao(autor.InstituicaoId);
+                var autorInfo = new AutorViewModel()
+                {
+                    Email = autor.Email,
+                    Id = autor.Id,
+                    Nome = autor.Nome,
+                    Sobrenome = autor.Sobrenome,
+                    Instituicao = instituicao
+                };
+                autoresList.Add(autorInfo);
+            }
+            return Json(autoresList);
         }
 
 
-        //[HttpPost("adiciona/autor")]
-        //public async Task<IActionResult> AdicionaAutor(CadastroTrabalhoViewModel model)
-        //{
-        //    if (model.Orientador == null)
-        //    {
-        //        model.Orientador = model.Autor;
-        //    }
-        //    else
-        //    {
-        //        model.Coautores.Add(model.Autor);
-        //    }
-        //    return Json(model);
-        //}
+        [HttpPost("adiciona/autor")]
+        public async Task<IActionResult> AdicionaAutor(CadastroTrabalhoViewModel model)
+        {
+            return View();
+        }
 
         public async Task<string> geraIdentificacao(Evento evento)
         {
