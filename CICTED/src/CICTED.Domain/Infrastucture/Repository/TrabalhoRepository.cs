@@ -279,10 +279,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-
-                    var queryBusca = await db.QueryAsync<AutorViewModel>("SELECT Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE Nome LIKE %" + busca + "%");
-
+                {                   
                     
                     var separa = busca.Split(' ');
                     var nome = separa[0];
