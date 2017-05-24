@@ -48,13 +48,20 @@ namespace CICTED.Controllers
             var agencias = await _trabalhoRepository.GetAgencias();
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
+            AutorViewModel autorPrincipal = new AutorViewModel()
+            {
+                Email = user.Email,
+                Nome = user.Nome.ToUpper(),
+                Sobrenome = user.Sobrenome.ToUpper(),
+            };
+
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
                 Evento = evento,
                 AreasConhecimento = areas,
                 Periodos = periodos,
                 Agencias = agencias,
-
+                AutorPrincipal = autorPrincipal,
             };
 
 

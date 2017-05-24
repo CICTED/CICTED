@@ -201,27 +201,67 @@
                             <li role="presentation"><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
                         </ul>
 
+
                         <div class="tab-content">
+                            @*EMAIL*@
                             <div role="tabpanel" class="tab-pane active" id="porEmail">
                                 <div class="form-group margin-top-10 row">
-                                    <input style="width:350px !important" placeholder="Digite o email desejado"/> <button class="btn btn-primary" id="cadastroEmail">Cadastrar</button>
+                                    <input class="input-add-autor" id="input-email" style="width:350px !important" placeholder="Digite o email do orientador" />
+
+                                    <button class="btn btn-primary" id="cadastro-email">Cadastrar</button>
                                 </div>
                             </div>
+
+                            @*NOME*@
                             <div role="tabpanel" class="tab-pane" id="porNome">
-                                <div class="form-group margin-top-10 row">
-                                    <input style="width:350px !important" placeholder="Digite o nome desejado" name="Autor" value="@Model.Autor" asp-for="Autor" id="input-nome"/> <button class="btn btn-primary" id="adicionaAutor">Cadastrar</button>
+                                <div class="form-group margin-top-10 row add-autor">
+                                    <input id="input-nome" class="input-add-autor" style="width:350px !important" placeholder="Digite o nome do orientador" autocomplete="off" />
+
+                                    <div style="height:0px;" class="busca float-left">
+                                        <ul id="lista-nomes">
+                                            <li id="autor-1">
+                                                <a id="oi">oi</a>
+
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                    <button class="btn btn-primary" id="adicionaAutor">Cadastrar</button>
                                 </div>
                             </div>
-                            <div class="form-group row margin-top-10">
-                                <b>Autor Principal: </b>@Model.AutorPrincipalNome
-                            </div>
-                            <div class="form-group row margin-top-10">
-                                <b>Orientador: </b>
-                                <a class="autor-delete" data-id="@Model.Orientador.Id" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
-                            </div>
-                            <div class="form-group row margin-top-10">
-                                <b>CoAutores: </b>                                                      
-                            </div>
+                            <table class="table-trabalho">
+
+                                @*AUTOR PRINCIPAL*@
+                                <tr>
+                                    <td>
+                                        <b class="margin-right-40">Autor Principal: </b>
+                                    </td>
+                                    <td id="autor-principal">
+                                        <span class="fa fa-check-circle color-aprovado"></span>
+                                        @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
+                                        <b>@Model.AutorPrincipal.Email</b>
+                                    </td>
+                                </tr>
+
+                                @*ORIENTADOR*@
+                                <tr>
+                                    <td>
+                                        <b class="margin-right-40">Orientador: </b>
+                                    </td>
+                                    <td id="orientador"></td>
+                                </tr>
+
+                                @*COAUTOR*@
+                                <tr>
+                                    <td>
+                                        <b class="margin-right-40">Coautores: </b>
+                                    </td>
+                                    <td id="coautores"></td>
+                                </tr>
+
+                            </table>
+
                         </div>
 
                     }
@@ -306,6 +346,31 @@
 </body>
 
 <script type="text/javascript">
+
+
+    $("#input-nome").on("input change", function () {
+        var valor = $(this).val();
+        $("#lista-nomes").html(' ');
+        $.ajax({
+            url: '/trabalho/busca/autor',
+            type: 'get',
+            data: {
+                busca: valor
+            },
+
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    $("#lista-nomes").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                        '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+
+                })
+            },
+        })
+    });
+
+
+
+
     $("#checkFinanciado").on("change", function () {
         if ($(this).is(":checked")) {
             $("#Financiado").css("display", "block");

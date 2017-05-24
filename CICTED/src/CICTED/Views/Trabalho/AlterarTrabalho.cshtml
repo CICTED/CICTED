@@ -4,7 +4,7 @@
     Layout = "_Menu";
 }
 
-<form class="alterar-autor" method="post">
+<form  method="post">
     <div class="autor-home-content">
         <div class="margin-top-30 form-group">
             <h4>
@@ -27,10 +27,10 @@
 
 
             @*EMAIL*@
-            <div role="tabpanel" class="tab-pane active" id="porEmail">
+            <div role="tabpanel" class="tab-pane active " id="porEmail">
                 <div class="form-group margin-top-10 row">
 
-                    <input type="text" value="" id="input-email" placeholder="Email do orientador" />                   
+                    <input class="input-add-autor" type="text" value="" id="input-email" placeholder="Email do orientador" />                   
                     
 
                    
@@ -41,12 +41,12 @@
 
             @*NOME*@
             <div role="tabpanel" class="tab-pane" id="porNome">
-                <div class="form-group margin-top-10 row">
-                    <input type="text" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> 
+                <div class="form-group margin-top-10 row add-autor">
+                    <input class="input-add-autor" type="text" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> 
                     
                     <div style="height:0px;" class="busca float-left">
                         <ul id="lista-nomes">
-
+                          
                         </ul>
                     </div>
                 
@@ -56,9 +56,9 @@
 
 
             <table class="table-trabalho">
+
+                @*AUTOR PRINCIPAL*@
                 <tr>
-
-
                     <td>
                         <b class="margin-right-40">Autor Principal: </b>
                     </td>
@@ -66,13 +66,12 @@
                         <div class="float-left">
                             @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
                             <b>@Model.AutorPrincipal.Email</b>
-
                         </div>
                     </td>
-
-
                 </tr>
 
+
+                @*COAUTORES*@
                 <tr>
                     @if (Model.Coautores != null)
                     {
@@ -94,6 +93,8 @@
                     </td>
                 </tr>
 
+
+                @*ORIENTADOR*@
                 <tr>
                     <td><b>Orientador: </b></td>
                     <td class="orientador" id="autor-@Model.Orientador.Id">

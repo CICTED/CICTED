@@ -428,7 +428,7 @@ select {
 
 
 
-.alterar-autor input {
+.input-add-autor {
     outline: none;
     max-width: 350px;
     height: 33px;
@@ -442,7 +442,7 @@ select {
     box-sizing: border-box;
 }
 
-    .alterar-autor input:focus + .busca {
+    .add-autor input:focus + .busca {
         display: block;
     }
 
@@ -510,7 +510,7 @@ select {
             text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
         }
 
-.alterar-autor ul li:hover > ul {
+.add-autor ul li:hover > ul {
     display: block;
 }
 
