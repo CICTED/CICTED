@@ -116,7 +116,10 @@ namespace CICTED.Controllers
         public async Task<IActionResult> ConsultaTrabalhoAdm()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            return View();
+            var trabalhos = await _trabalhoRepository.GetTrabalho();            
+                      
+
+            return View(trabalhos);
         }
 
         [HttpGet("informacao")]
@@ -237,10 +240,10 @@ namespace CICTED.Controllers
 
         [HttpGet("busca/autor")]
         public async Task<IActionResult> BuscaAutor(string busca)
-       {   
+        {
             var autores = await _trabalhoRepository.BuscaAutor(busca);
             List<AutorViewModel> autoresList = new List<AutorViewModel>();
-            foreach(var autor in autores)
+            foreach (var autor in autores)
             {
                 var instituicao = await _trabalhoRepository.GetInstituicao(autor.InstituicaoId);
                 var autorInfo = new AutorViewModel()
