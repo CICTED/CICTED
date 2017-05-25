@@ -422,5 +422,24 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return null;
             }
         }
+
+        public async Task<List<ConsultaTrabalho>> GetTrabalho()
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectTrabalhoQuery = await db.QueryAsync<ConsultaTrabalho>("SELECT * FROM dbo.Trabalho");
+                    
+                    return selectTrabalhoQuery.ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        
     }
 }

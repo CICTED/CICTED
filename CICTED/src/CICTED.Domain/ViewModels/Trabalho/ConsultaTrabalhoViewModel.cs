@@ -16,5 +16,8 @@ namespace CICTED.Domain.ViewModels.Trabalho
         public string Titulo { get; set; }
 
         public int StatusTrabalhoId { get; set; }
+        public int EventoId { get; set; }
+        public int SubAreaConhecimentoId { get; set; }
+        public int AreaConhecimentoId { get; set; }
     }
 }
