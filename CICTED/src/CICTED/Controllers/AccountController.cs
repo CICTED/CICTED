@@ -22,8 +22,9 @@ namespace CICTED.Controllers
         private ILocalizacaoRepository _localizacaoRepository;
         private ISmsService _smsService;
         private IAccountRepository _accountRepository;
+        private ITrabalhoRepository _trabalhoRepository;
 
-        public AccountController(IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoRepository localizacaoRepository, ISmsService smsService)
+        public AccountController(ITrabalhoRepository trabalhoRepository, IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoRepository localizacaoRepository, ISmsService smsService)
         {
             _localizacaoRepository = localizacaoRepository;
             _emailServices = emailServices;
@@ -31,6 +32,7 @@ namespace CICTED.Controllers
             _userManager = userManager;
             _smsService = smsService;
             _accountRepository = accountRepository;
+            _trabalhoRepository = trabalhoRepository;
         }
 
         [HttpGet("login")]
@@ -520,6 +522,37 @@ namespace CICTED.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+
+        [HttpGet("verifica/usuario")]
+        public async Task<IActionResult> VerificaUsuario(string email)
+        {
+            try
+            {
+                var usuario = await _accountRepository.BuscaUsuario(email);
+                if(usuario != null)
+                {
+                    var status = await _trabalhoRepository.GetStatusAutor(usuario.Id);
+                    var autor = new AutorViewModel()
+                    {
+                        Email = usuario.Email,
+                        Id = usuario.Id,
+                        Nome = usuario.Nome,
+                        Sobrenome = usuario.Sobrenome,
+                        Status = status,
+                    };
+                    return Json(autor);
+                }else
+                {
+                    return Ok();
+                }
+                
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

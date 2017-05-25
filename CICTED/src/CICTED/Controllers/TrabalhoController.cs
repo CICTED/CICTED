@@ -231,7 +231,7 @@ namespace CICTED.Controllers
 
             model.Coautores = coautores;
 
-            return View("AlterarTrabalho", model);
+            return View("AlterarAutores", model);
         }
 
 
@@ -280,5 +280,7 @@ namespace CICTED.Controllers
             }
 
         }
+
+        
     }
 }
