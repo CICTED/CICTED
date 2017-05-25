@@ -6,24 +6,87 @@
 
 <title>Trabalhos - CICTED</title>
 
-<div class="autor-home-content">
+<div class="form-consultTrabAdm">
     <h3 style="font-weight: bold"><span class="fa fa-book"></span> Consultar Trabalhos</h3>
-    <table class="tabela-trabalho" border="1">
+
+    <div class="form-group"> Pesquisar Autor: <input class="input-add-autor"></div>
+
+    <table class="tabela-trabalho" style="margin:0 0 auto" border="1">
         <tr>
-            <th style="width: 50px;"></th>
-            <th style="width: 80px;">Identificação</th>
-            <th style="width: 70px">Evento</th>
-            <th style="width: 120px;">Area</th>
-            <th style="width: 180px;">Subarea</th>
-            <th style="width: 110px;">Status</th>
+            <th style="width: 80px !important" class="form-group"></th>
+            <th style="width: 80px;" class="form-group">
+                Identificação <br />
+                <input style="width:130px !important" class="input-add-autor"></input>
+            </th>
+            <th style="width: 70px">
+                Evento <br />
+                <input style="width:90px !important" class="input-add-autor"></input>
+            </th>
+            <th style="width: 120px;">
+                Área <br />
+                <input style="width:150px !important" class="input-add-autor"></input>
+            </th>
+            <th style="width: 180px;">
+                Subarea <br />
+                <input style="width:210px !important" class="input-add-autor"></input>
+            </th>
+            <th style="width: 110px;">
+                Status <br />
+                <input style="width:150px !important" class="input-add-autor"></input>
+            </th>
         </tr>
 
-        <tr>
-        
-        </tr>
+        @foreach (var trabalhos in Model)
+        {
+            <td>
+                @if (trabalhos.StatusTrabalhoId == 1)
+                {
+                    <span style="font-size:18px" class="fa fa-check-circle color-aprovado"></span>
+                }
+                @if (trabalhos.StatusTrabalhoId == 2)
+                {
+                    <span style="font-size:18px" class="fa fa-times-circle color-reprovado"></span>
+                }
+                @if (trabalhos.StatusTrabalhoId == 3)
+                {
+                    <span style="font-size:18px" class="fa fa-clock-o color-submissao"></span>
+                }
+                @if (trabalhos.StatusTrabalhoId == 4)
+                {
+                    <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"></span>
+                }
+            </td>
+
+            <td>@trabalhos.Identificacao</td>
+
+            <td>@trabalhos.EventoId</td>
+
+            <td>@trabalhos.AreaConhecimentoId</td>
+
+            <td>@trabalhos.SubAreaConhecimentoId</td>
+
+            <td>
+                @if (trabalhos.StatusTrabalhoId == 1)
+                {
+                    <label>Aprovado</label>
+                }
+                @if (trabalhos.StatusTrabalhoId == 2)
+                {
+                    <label>Reprovado</label>
+                }
+                @if (trabalhos.StatusTrabalhoId == 3)
+                {
+                    <label>Aguardando Submissão</label>
+                }
+                @if (trabalhos.StatusTrabalhoId == 4)
+                {
+                    <label>Aguardando Avaliação</label>
+                }
+            </td>
+        }
     </table>
     <h5>
-        Legenda:
+        <b>Legenda:</b>
         <span class="fa fa-clock-o margin-left-10 color-submissao"></span> Aguardando Submissão
         <span class="fa fa-exclamation-circle margin-left-10 color-avaliacao"></span> Aguardando Avaliação
         <span class="fa fa-check-circle margin-left-10 color-aprovado"></span> Aprovado

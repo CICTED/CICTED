@@ -11,6 +11,7 @@ using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Entities.Trabalho;
 using CICTED.Domain.ViewModels.Trabalho;
 using CICTED.Domain.ViewModels.Account;
+using NuGet.Packaging;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -116,8 +117,14 @@ namespace CICTED.Controllers
         public async Task<IActionResult> ConsultaTrabalhoAdm()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var trabalhos = await _trabalhoRepository.GetTrabalho();            
-                      
+            var trabalhos = await _trabalhoRepository.GetTrabalho();
+            List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();
+            foreach (var trabalho in trabalhos)
+            {
+                var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
+                var areaConhecimento = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
+                var subAreaConhecimento = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
+            }
 
             return View(trabalhos);
         }
@@ -284,6 +291,6 @@ namespace CICTED.Controllers
 
         }
 
-        
+
     }
 }
