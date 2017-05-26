@@ -4,7 +4,7 @@
     Layout = "_Menu";
 }
 
-<form  method="post">
+<form method="post" asp-contoller="trabalho" asp-action="alterarautor">
     <div class="autor-home-content">
         <div class="margin-top-30 form-group">
             <h4>
@@ -30,11 +30,11 @@
             <div role="tabpanel" class="tab-pane active " id="porEmail">
                 <div class="form-group margin-top-10 row">
 
-                    <input class="input-add-autor" type="text" value="" id="input-email" placeholder="Email do orientador" />                   
-                    
+                    <input class="input-add-autor" type="text" value="" id="input-email" placeholder="Email do orientador" />
 
-                   
-                    <a id="button-cadastrar-email" class="btn btn-primary">Cadastrar</a>  
+
+
+                    <a id="button-cadastrar-email" class="btn btn-primary">Cadastrar</a>
                 </div>
             </div>
 
@@ -42,18 +42,15 @@
             @*NOME*@
             <div role="tabpanel" class="tab-pane" id="porNome">
                 <div class="form-group margin-top-10 row add-autor">
-                    <input class="input-add-autor" type="text" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" /> 
-                    
+                    <input class="input-add-autor" type="text" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" />
+
                     <div style="height:0px;" class="busca float-left">
-                        <ul id="lista-nomes">
-                          
-                        </ul>
+                        <ul id="lista-nomes"></ul>
                     </div>
-                
+
                     <a id="button-add-nome" class="btn btn-primary">Adicionar</a>
                 </div>
             </div>
-
 
             <table class="table-trabalho">
 
@@ -79,14 +76,15 @@
                             <b class="margin-right-40">Coautes: </b>
                         </td>
                     }
-                    <td id="coautores">
+                    <td id="coautores" name="coautores">
 
                         @foreach (var coautor in Model.Coautores)
                         {
-                            <div id="autor-@coautor.Id">
+                            <div id="autor-@coautor.Id" data-id="coautor">
                                 @coautor.Nome<b> </b> @coautor.Sobrenome
                                 <b> @coautor.Email</b>
                                 <a class="autor-delete" data-id="@coautor.Id" value="@coautor.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                                <input style="visibility:hidden" name="Ids" value="@coautor.Id" />
                             </div>
                         }
 
@@ -97,14 +95,20 @@
                 @*ORIENTADOR*@
                 <tr>
                     <td><b>Orientador: </b></td>
-                    
-                        <td id="orientador" data-id="autor-@Model.Orientador.Id">
-                            @Model.Orientador.Nome @Model.Orientador.Sobrenome
+
+                    <td id="orientador">
+
+
+                        <div id="autor-@Model.Orientador.Id" data-id="orientador">
+                            @Model.Orientador.Nome<b> </b> @Model.Orientador.Sobrenome
                             <b>@Model.Orientador.Email</b>
                             <a class="autor-delete" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                            <input style="visibility:hidden; float: right" name="Ids" value="@Model.Orientador.Id" />
+                        </div>
 
-                        </td>
-                   
+
+                    </td>
+
                 </tr>
             </table>
         </div>
@@ -122,16 +126,23 @@
 
     $("#button-cadastrar-email").on("click", function () {
         var email = $("#input-email").val();
+        var id = $("#coautores");
+
+        if ($.trim($("#orientador").html()) == '') {
+            id = ($("#orientador"));
+        }
+
+        var qtdCoautores = $("div[id *= autor]").length - 1;
 
         $.ajax({
             url: '/account/verifica/usuario',
             type: 'get',
             data: {
-                email:email,
+                email: email,
             },
             success: function (data) {
                 var status;
-                $("#orientador").attr("data-id", "autor-" + data.id);
+                id.attr("data-id", "autor-" + data.id);
                 if (data.status == 1 || data.status == 5) {
                     status = '<span class="fa fa-check-circle color-aprovado"></span>';
                 }
@@ -144,8 +155,13 @@
                 else if (data.status == 4) {
                     status = '<span class="fa fa-times-circle color-reprovado"></span>';
                 }
-                $('#orientador').html(status + ' ' + data.nome + ' ' + data.sobrenome + '<b> ' + data.email + '</b><a class="autor-delete" value="' + data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>');
-                  
+
+                id.append('<div id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
+                    data.sobrenome + '<b> ' + data.email + '</b><a class="autor-delete" value="' +
+                    data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                    '<input style="visibility:hidden; float: right" name="Ids" value="' + data.id + '" /></div>');
+                id.find('a');
+
 
             },
             error: function (x, y, message) {
@@ -167,8 +183,8 @@
 
             success: function (data) {
                 $.each(data, function (i, item) {
-                    $("#lista-nomes").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>'+
-                        '<ul><li>Email: ' + item.email + '<br />Instituição:' +item.instituicao +'</li></ul></li>');
+                    $("#lista-nomes").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                        '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
 
                 })
             },
@@ -178,8 +194,10 @@
 
     $(".button-cadastrar").on("click", function () {
 
-
     });
+
+
+
 
 
     $(".autor-delete").on("click", function () {
@@ -193,22 +211,21 @@
             //},
 
             success: function () {
-                $("#orientador").data("autor-" + id);
                 $("#autor-" + id).remove();
-                var orientador = ($("#orientador"));
+                var orientador = $("#orientador");
 
-                if (orientador.length == 0) {
+
+                if ($.trim($("#orientador").html()) == '') {
                     $(("#input-email")).attr("placeholder", "Email do orientador");
                     $(("#input-nome")).attr("placeholder", "Nome do orientador");
-                } else {
+                }
+                else {
                     $(("#input-nome")).attr("placeholder", "Nome do coautor");
                     $(("#input-email")).attr("placeholder", "Email do coautor");
-                }
-
-                alert("DEU  ");
+                }                
             },
             error: function (x, y, message) {
-                alert("ERROOOU  " + message);
+                alert(message);
             },
         });
     });

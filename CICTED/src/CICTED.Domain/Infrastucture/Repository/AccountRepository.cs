@@ -135,7 +135,23 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        
+        public async Task<AutorViewModel> BuscaUsuario(string email)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var queryVerifica = await db.QueryAsync<AutorViewModel>("SELECT Id, Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE Email = @Email OR EmailSecundario = @Email", new { Email = email });
+
+                    return queryVerifica.FirstOrDefault();
+                }
+            }catch(Exception ex)
+            {
+                return null;
+            }
+        }
+
+
 
     }   
 }

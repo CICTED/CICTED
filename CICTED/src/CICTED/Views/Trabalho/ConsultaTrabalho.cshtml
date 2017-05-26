@@ -155,7 +155,7 @@
             },
 
             success: function (data) {
-                $("#alterar-autores").attr("href", "/trabalho/" + data.id + "/alterar");
+                $("#alterar-autores").attr("href", "/trabalho/" + data.id + "/alterar/autor");
                 $('#identificacao').text(data.identificacao);
                 $('#area').text(data.areaConhecimento);
                 $('#subarea').text(data.subArea);

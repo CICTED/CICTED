@@ -13,5 +13,7 @@ namespace CICTED.Domain.ViewModels.Trabalho
         public List<AutorViewModel> Coautores { get; set; }
 
         public AutorViewModel Orientador { get; set; }
+
+        public List<long> Ids { get; set; }
     }
 }

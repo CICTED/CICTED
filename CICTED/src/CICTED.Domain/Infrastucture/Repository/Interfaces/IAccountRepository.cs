@@ -16,5 +16,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<List<Cursos>>GetCursos();
         Task<List<long>> GetRoles(long userId);
         Task<Endereco> GetEndereco(long enderecoId);
+        Task<AutorViewModel> BuscaUsuario(string email);
     }
 }

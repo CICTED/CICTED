@@ -194,8 +194,8 @@ namespace CICTED.Controllers
             return Json(subAreas);
         }
 
-        [HttpGet("{id}/alterar")]
-        public async Task<IActionResult> Alterar(long id)
+        [HttpGet("{id}/alterar/autor")]
+        public async Task<IActionResult> AlterarAutor(long id)
         {
             var autoresId = await _trabalhoRepository.GetAutoresId(id);
 
@@ -237,6 +237,11 @@ namespace CICTED.Controllers
             return View("AlterarAutores", model);
         }
 
+        [HttpPost("salva/autor")]
+        public async Task<IActionResult> AlterarAutor(AutoresViewModel model) 
+        {
+            return Ok();
+        }
 
         [HttpGet("busca/autor")]
         public async Task<IActionResult> BuscaAutor(string busca)
