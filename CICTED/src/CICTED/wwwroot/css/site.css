@@ -644,7 +644,16 @@ input[type=checkbox] {
         font-weight: 300;
     }
 
-
+.form-consultTrabAdm {
+    width: 900px;
+    height: auto !important;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
 
 .row {
     width: 100% !important;
