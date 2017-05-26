@@ -28,10 +28,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<bool> InsertAutorTrabalho(long idTrabalho, long idUsuario, int statusAutor, bool orioentador);
         Task<string> GetInstituicao(long id);
         Task<List<ConsultaTrabalho>> GetTrabalho();
-<<<<<<< HEAD
         //Task<List<ConsultaTrabalho>> GetAreaConhecimento(int SubAreaConhecimentoId);
-=======
->>>>>>> d8f53efbb996c7728de4ccc3b8c3cf173aba7486
         //Task<int> GetStatusAutor(long userId);
     }
 }
