@@ -83,7 +83,7 @@
                             <div id="autor-@coautor.Id" data-id="coautor">
                                 @coautor.Nome<b> </b> @coautor.Sobrenome
                                 <b> @coautor.Email</b>
-                                <a class="autor-delete" onclick="deletar-()" data-id="@coautor.Id" value="@coautor.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                                <a class="autor-delete" onclick="deletarAutor()" data-id="@coautor.Id" value="@coautor.Id"><span class="fa fa-times margin-left-20 link"></span></a>
                                 <input style="visibility:hidden" name="Ids" value="@coautor.Id" />
                             </div>
                         }
@@ -157,7 +157,7 @@
                 }
 
                 id.append('<div id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
-                    data.sobrenome + '<b> ' + data.email + '</b><a class="autor-delete" value="' +
+                    data.sobrenome + '<b> ' + data.email + '</b><a class="deletarAutor()" onclick="deletar-autor()" value="' +
                     data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
                     '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
                 id.find('a');
@@ -172,7 +172,7 @@
     });
 
 
-    function functionName() {
+    function deletarAutor() {
         $(document).ready(function () {
             alert('oi');
         });
