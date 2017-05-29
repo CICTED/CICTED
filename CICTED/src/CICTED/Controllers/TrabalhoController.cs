@@ -127,6 +127,7 @@ namespace CICTED.Controllers
 
                 var trabalhoConsulta = new ConsultaTrabalho()
                 {
+                    Id = trabalho.Id,
                     EventoNome = evento.Sigla,
                     StatusTrabalhoId = trabalho.StatusTrabalhoId,
                     Identificacao = trabalho.Identificacao,

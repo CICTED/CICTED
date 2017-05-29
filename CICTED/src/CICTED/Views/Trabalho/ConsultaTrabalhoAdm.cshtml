@@ -84,10 +84,10 @@
             <div style="padding:10px" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 style="font-weight:bold">Informações sobre o trabalho</h3>
+                    <h3 style="font-weight:bold"><span class="fa fa-book"></span> Dados do trabalho</h3>
                     <hr />
 
-                    <h4><b>Dados</b></h4>
+                    <h4><b><span class="fa fa-id-card-o"></span> Dados</b></h4>
                     <table class="table-trabalho">
                         <tr><td><b class="margin-right-40">Identificação: </b></td><td id="identificacao"></td></tr>
                         <tr><td><b>Área: </b></td><td id="area"></td></tr>
@@ -100,7 +100,7 @@
                     <hr />
 
                     <div style="width:100%; height:50px">
-                        <h4 class="float-left"><b>Autor</b></h4>
+                        <h4 class="float-left"><b><span class="fa fa-child"></span> Autor</b></h4>
                     </div>
                     <table class="table-trabalho">
                         <tr><td><b class="margin-right-40">Autor Principal: </b></td><td id="autor-principal"></td></tr>
@@ -118,7 +118,7 @@
                     <hr />
 
                     <div style="width:100%; height:50px">
-                        <h4 class="float-left"><b>Trabalho</b></h4>
+                        <h4 class="float-left"><b><span class="fa fa-file-text-o"></span> Trabalho</b></h4>
                     </div>
                     <h4 style="text-align:center" id="titulo"></h4>
 
@@ -181,7 +181,7 @@
                     var status;
 
 
-                    if (item.status == 1 || item.status == 5) {
+                    if (item.status == 1 ) {
                         status = '<span class="fa fa-check-circle color-aprovado"></span>';
                     }
                     else if (item.status == 2) {
@@ -196,7 +196,7 @@
 
                     if (item.orientador == true) {
                         $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
-                    } else if (item.status == 5) {
+                    } else if (item.status == 1) {
                         $('#autor-principal').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
                     } else {
                         $('#tipo-autor').text('Coautor: ');
