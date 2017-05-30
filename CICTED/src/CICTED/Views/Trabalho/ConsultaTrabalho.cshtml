@@ -175,22 +175,22 @@
                     var status;
 
 
-                    if (item.status == 1 || item.status == 5) {
+                    if (item.statusId == 1 || item.statusId == 5) {
                         status = '<span class="fa fa-check-circle color-aprovado"></span>';
                     }
-                    else if (item.status == 2) {
+                    else if (item.statusId == 2) {
                         status = '<span class="fa fa-clock-o color-submissao"></span>';
                     }
-                    else if (item.status == 3) {
+                    else if (item.statusId == 3) {
                         status = '<span class="fa fa-clock-o color-avaliacao"></span>';
                     }
-                    else if (item.status == 4) {
+                    else if (item.statusId == 4) {
                         status = '<span class="fa fa-times-circle color-reprovado"></span>';
                     }
 
                     if (item.orientador == true) {
                         $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
-                    } else if (item.status == 5) {
+                    } else if (item.statusId == 5) {
                         $('#autor-principal').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
                     } else {
                         $('#tipo-autor').text('Coautor: ');

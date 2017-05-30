@@ -30,6 +30,24 @@ h1, h2, h3, h4, h5, h6, label {
 }
 
 
+/*Modal*/
+.modal {
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select {
@@ -442,12 +460,10 @@ select {
     box-sizing: border-box;
 }
 
-    .add-autor input:focus + .busca {
-        display: block;
-    }
+    
 
 .busca {
-    display: none;
+    display: block;
     position: absolute;
     width: 350px;
     padding: 0;

@@ -30,9 +30,7 @@
             <div role="tabpanel" class="tab-pane active " id="porEmail">
                 <div class="form-group margin-top-10 row">
 
-                    <input class="input-add-autor" type="text" value="" id="input-email" placeholder="Email do orientador" />
-
-
+                    <input autocomplete="off" class="input-add-autor" type="text" value="" id="input-email" placeholder="Email do coautor" />
 
                     <a id="button-cadastrar-email" class="btn btn-primary">Cadastrar</a>
                 </div>
@@ -42,13 +40,13 @@
             @*NOME*@
             <div role="tabpanel" class="tab-pane" id="porNome">
                 <div class="form-group margin-top-10 row add-autor">
-                    <input class="input-add-autor" type="text" id="input-nome" style="width:350px !important" placeholder="Nome do orientador" />
+                    <input autocomplete="off" class="input-nome input-add-autor" type="text"  style="width:350px !important" placeholder="Nome do coautor" />
 
                     <div style="height:0px;" class="busca float-left">
                         <ul id="lista-nomes"></ul>
                     </div>
 
-                    <a id="button-add-nome" class="btn btn-primary">Adicionar</a>
+                    <a id="adicionar-nome" class="btn btn-primary">Adicionar</a>
                 </div>
             </div>
 
@@ -61,6 +59,7 @@
                     </td>
                     <td id="autor-principal">
                         <div class="float-left">
+                            <span class="fa fa-check-circle color-aprovado"></span>
                             @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
                             <b>@Model.AutorPrincipal.Email</b>
                         </div>
@@ -80,11 +79,27 @@
 
                         @foreach (var coautor in Model.Coautores)
                         {
-                            <div id="autor-@coautor.Id" data-id="coautor">
+                            <div style="width:500px" id="autor-@coautor.Id" data-id="coautor">
+                                @if (coautor.StatusId == 1)
+                                {
+                                    <span class="fa fa-check-circle color-aprovado"></span>
+                                }
+                                else if (coautor.StatusId == 2)
+                                {
+                                    <span class="fa fa-clock-o color-submissao"></span>
+                                }
+                                else if (coautor.StatusId == 3)
+                                {
+                                    <span class="fa fa-clock-o color-avaliacao"></span>
+                                }
+                                else if (coautor.StatusId == 4)
+                                {
+                                    <span class="fa fa-times-circle color-reprovado"></span>
+                                }
                                 @coautor.Nome<b> </b> @coautor.Sobrenome
                                 <b> @coautor.Email</b>
-                                <a class="autor-delete" onclick="deletarAutor()" data-id="@coautor.Id" value="@coautor.Id"><span class="fa fa-times margin-left-20 link"></span></a>
-                                <input style="visibility:hidden" name="Ids" value="@coautor.Id" />
+                                <a class="deleta-autor" onclick="deletarAutor(@coautor.Id)" data-id="@coautor.Id" value="@coautor.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                                <input style="visibility:hidden; width: 1px;" name="Ids" value="@coautor.Id" />
                             </div>
                         }
 
@@ -97,18 +112,31 @@
                     <td><b>Orientador: </b></td>
 
                     <td id="orientador">
+                        <div style="width:500px" id="autor-@Model.Orientador.Id" data-id="orientador">
 
+                            @if (Model.Orientador.StatusId == 1)
+                            {
+                                <span class="fa fa-check-circle color-aprovado"></span>
+                            }
+                            else if (Model.Orientador.StatusId == 2)
+                            {
+                                <span class="fa fa-clock-o color-submissao"></span>
+                            }
+                            else if (Model.Orientador.StatusId == 3)
+                            {
+                                <span class="fa fa-clock-o color-avaliacao"></span>
+                            }
+                            else if (Model.Orientador.StatusId == 4)
+                            {
+                                <span class="fa fa-times-circle color-reprovado"></span>
+                            }
 
-                        <div id="autor-@Model.Orientador.Id" data-id="orientador">
                             @Model.Orientador.Nome<b> </b> @Model.Orientador.Sobrenome
                             <b>@Model.Orientador.Email</b>
-                            <a class="autor-delete" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
-                            <input style="visibility:hidden; float: right" name="Ids" value="@Model.Orientador.Id" />
+                            <a class="deleta-autor" onclick="deletarAutor(@Model.Orientador.Id)" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                            <input style="visibility:hidden;width: 1px;" name="Ids" value="@Model.Orientador.Id" />
                         </div>
-
-
                     </td>
-
                 </tr>
             </table>
         </div>
@@ -122,121 +150,144 @@
     </div>
 </form>
 
+
+<div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" style="width: 200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> <span class="fa fa-exclamation-triangle"></span> AVISO </h4>
+            </div>
+            <div class="modal-body" id="getCode">
+                Máximo de coautores: 5
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
     $("#button-cadastrar-email").on("click", function () {
-        var email = $("#input-email").val();
+        var email = $("#input-email").val().trim();
         var id = $("#coautores");
 
-        if ($.trim($("#orientador").html()) == '') {
-            id = ($("#orientador"));
+        if (email.length > 0) {
+            if ($.trim($("#orientador").html()) == '') {
+                id = ($("#orientador"));
+            }
+
+            var qtdCoautores = $("div[id *= autor]").length - 1;
+            if (qtdCoautores >= 5) {
+                $("#getCodeModal").modal('show');
+            } else {
+                $.ajax({
+                    url: '/account/verifica/usuario',
+                    type: 'get',
+                    data: {
+                        email: email,
+                    },
+                    success: function (data) {
+                        var status;
+                        id.attr("data-id", "autor-" + data.id);
+                        if (data.statusId == 1 || data.statusId == 5) {
+                            status = '<span class="fa fa-check-circle color-aprovado"></span>';
+                        }
+                        else if (data.statusId == 2) {
+                            status = '<span class="fa fa-clock-o color-submissao"></span>';
+                        }
+                        else if (data.statusId == 3) {
+                            status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+                        }
+                        else if (data.statusId == 4) {
+                            status = '<span class="fa fa-times-circle color-reprovado"></span>';
+                        }
+
+                        id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
+                            data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor()" value="' +
+                            data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                            '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
+                        
+                    },
+                    error: function (x, y, message) {
+                        alert("ERROOOU  " + message);
+                    },
+
+                })
+            }
         }
-
-        var qtdCoautores = $("div[id *= autor]").length - 1;
-
-        $.ajax({
-            url: '/account/verifica/usuario',
-            type: 'get',
-            data: {
-                email: email,
-            },
-            success: function (data) {
-                var status;
-                id.attr("data-id", "autor-" + data.id);
-                if (data.status == 1 || data.status == 5) {
-                    status = '<span class="fa fa-check-circle color-aprovado"></span>';
-                }
-                else if (data.status == 2) {
-                    status = '<span class="fa fa-clock-o color-submissao"></span>';
-                }
-                else if (data.status == 3) {
-                    status = '<span class="fa fa-clock-o color-avaliacao"></span>';
-                }
-                else if (data.status == 4) {
-                    status = '<span class="fa fa-times-circle color-reprovado"></span>';
-                }
-
-                id.append('<div id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
-                    data.sobrenome + '<b> ' + data.email + '</b><a class="deletarAutor()" onclick="deletar-autor()" value="' +
-                    data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
-                    '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
-                id.find('a');
-
-                
-            },
-            error: function (x, y, message) {
-                alert("ERROOOU  " + message);
-            },
-
-        })
     });
 
 
-    function deletarAutor() {
-        $(document).ready(function () {
-            alert('oi');
-        });
-    }
 
 
-    $("#input-nome").on("input change", function () {
+
+    $(".input-nome").keyup(function () {
         var valor = $(this).val();
-        $("#lista-nomes").html(' ');
+        if (valor.length > 2) {
+            $("#lista-nomes").html(' ');
+            $.ajax({
+                url: '/trabalho/pesquisa/autor',
+                type: 'get',
+                data: {
+                    busca: valor
+                },
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        $("#lista-nomes").append('<li><a class="selectautor" data-status="'+item.statusId+'" data-email="'+item.email+'" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                            '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+                    })
+                },
+            })
+        }
+    });
+
+
+    var id = 0;
+    $('body').on("click", ".selectautor", function () {
+        id = $(this).data("id");
+        email = $(this).data("email");
+        status = $(this).data("status")
+        var texto = $(this).text();
+        $(".input-nome").val(texto);
+        $(".input-nome").attr('id', id);
+        $(".input-nome").attr('data-email', )
+    });
+ 
+
+    $("#adicionar-nome").on("click", function () {
+        var id = $(".input-nome").attr("id");
         $.ajax({
-            url: '/trabalho/busca/autor',
+            url: '/trabalho/adiciona/autor',
             type: 'get',
             data: {
-                busca: valor
+                id: id
             },
-
             success: function (data) {
                 $.each(data, function (i, item) {
-                    $("#lista-nomes").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                    $("#lista-nomes").append('<li><a class="selectautor" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
                         '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
-
                 })
             },
         })
     });
+    
+
+    function deletarAutor(id) {
+        $(document).ready(function () {
+            $("#autor-" + id).remove();
+            var orientador = $("#orientador");
 
 
-    $(".button-cadastrar").on("click", function () {
-
-    });
-
-
-
-
-
-    $(".autor-delete").on("click", function () {
-        var id = $(this).attr("value");
-
-        $.ajax({
-            //url: '/product/delete/picture',
-            //type: 'post',
-            //data: {
-            //    id: id
-            //},
-
-            success: function () {
-                $("#autor-" + id).remove();
-                var orientador = $("#orientador");
-
-
-                if ($.trim($("#orientador").html()) == '') {
-                    $(("#input-email")).attr("placeholder", "Email do orientador");
-                    $(("#input-nome")).attr("placeholder", "Nome do orientador");
-                }
-                else {
-                    $(("#input-nome")).attr("placeholder", "Nome do coautor");
-                    $(("#input-email")).attr("placeholder", "Email do coautor");
-                }                
-            },
-            error: function (x, y, message) {
-                alert(message);
-            },
+            if ($.trim($("#orientador").html()) == '') {
+                $(("#input-email")).attr("placeholder", "Email do orientador");
+                $((".input-nome")).attr("placeholder", "Nome do orientador");
+            }
+            else {
+                $((".input-nome")).attr("placeholder", "Nome do coautor");
+                $(("#input-email")).attr("placeholder", "Email do coautor");
+            }
         });
-    });
+    }
 
 
 

@@ -246,9 +246,9 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var coautor = await db.QueryAsync<int>("SELECT StatusUsuarioId FROM dbo.AutorTrabalho Where UsuarioId = @UsuarioId", new { UsuarioId = userId });
+                    var status = await db.QueryAsync<int>("SELECT StatusUsuarioId FROM dbo.AutorTrabalho Where UsuarioId = @UsuarioId", new { UsuarioId = userId });
 
-                    return coautor.FirstOrDefault();
+                    return status.FirstOrDefault();
                 }
             }
             catch (Exception ex)
@@ -274,7 +274,8 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<List<AutorViewModel>> BuscaAutor(string busca)
+       
+        public async Task<List<AutorViewModel>> PesquisaAutor(string busca)
         {
             try
             {
@@ -374,15 +375,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public Task<AutorTrabalho> SelectOrientador(long idTrabalho)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<AutorTrabalho> SelectAutores(long idTrabalho)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public async Task<bool> InsertAutorTrabalho(long idTrabalho, long idUsuario, int statusAutor, bool orientador)
         {

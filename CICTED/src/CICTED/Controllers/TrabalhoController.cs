@@ -165,7 +165,7 @@ namespace CICTED.Controllers
                     Nome = info.Nome,
                     Orientador = autor.Orientador,
                     Sobrenome = info.Sobrenome,
-                    Status = autor.StatusUsuarioId
+                    StatusId = autor.StatusUsuarioId
                 };
                 autores.Add(autorInfo);
             }
@@ -233,10 +233,10 @@ namespace CICTED.Controllers
                     Nome = info.Nome.ToUpper(),
                     Orientador = autor.Orientador,
                     Sobrenome = info.Sobrenome.ToUpper(),
-                    Status = autor.StatusUsuarioId
+                    StatusId = autor.StatusUsuarioId
                 };
 
-                if (autorInfo.Status == 5)
+                if (autorInfo.StatusId == 5)
                 {
                     model.AutorPrincipal = autorInfo;
                 }
@@ -262,21 +262,23 @@ namespace CICTED.Controllers
             return Ok();
         }
 
-        [HttpGet("busca/autor")]
-        public async Task<IActionResult> BuscaAutor(string busca)
+        [HttpGet("pesquisa/autor")]
+        public async Task<IActionResult> PesquisaAutor(string busca)
         {
-            var autores = await _trabalhoRepository.BuscaAutor(busca);
+            var autores = await _trabalhoRepository.PesquisaAutor(busca);
             List<AutorViewModel> autoresList = new List<AutorViewModel>();
             foreach (var autor in autores)
             {
                 var instituicao = await _trabalhoRepository.GetInstituicao(autor.InstituicaoId);
+                var status = await _trabalhoRepository.GetStatusAutor(autor.Id);
                 var autorInfo = new AutorViewModel()
                 {
                     Email = autor.Email,
                     Id = autor.Id,
                     Nome = autor.Nome,
                     Sobrenome = autor.Sobrenome,
-                    Instituicao = instituicao
+                    Instituicao = instituicao,
+                    StatusId = status,
                 };
                 autoresList.Add(autorInfo);
             }
@@ -284,7 +286,7 @@ namespace CICTED.Controllers
         }
 
 
-        [HttpPost("adiciona/autor")]
+        [HttpPost("busca/autor")]
         public async Task<IActionResult> AdicionaAutor(CadastroTrabalhoViewModel model)
         {
             return View();
