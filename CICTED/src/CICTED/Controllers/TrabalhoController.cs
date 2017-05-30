@@ -121,10 +121,11 @@ namespace CICTED.Controllers
             List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();
             foreach (var trabalho in trabalhos)
             {
+
                 var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
                 var areaConhecimento = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
                 var subAreaConhecimento = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
-
+               
                 var trabalhoConsulta = new ConsultaTrabalho()
                 {
                     Id = trabalho.Id,
@@ -139,7 +140,7 @@ namespace CICTED.Controllers
 
             return View(model);
         }
-
+        
         [HttpGet("informacao")]
         [Authorize]
         public async Task<IActionResult> Informacao(long id)
