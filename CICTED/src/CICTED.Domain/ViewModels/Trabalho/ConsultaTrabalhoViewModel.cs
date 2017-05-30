@@ -22,5 +22,6 @@ namespace CICTED.Domain.ViewModels.Trabalho
         public string SubAreaConhecimentoNome { get; set; }
         public int AreaConhecimentoId { get; set; }
         public string AreaConhecimentoNome { get; set; }
+        public string AutorNome { get; set; }
     }
 }

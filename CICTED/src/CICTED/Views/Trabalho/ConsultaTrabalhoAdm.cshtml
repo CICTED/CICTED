@@ -10,7 +10,7 @@
     <h3 style="font-weight: bold"><span class="fa fa-book"></span> Consultar Trabalhos</h3>
 
     <div class="form-group">
-        Pesquisar Autor: <input class="input-add-autor">
+        Pesquisar Autor: <input class="input-add-autor" name="AutorNome"/>
         <button class="btn btn-primary margin-left-10">Pesquisar</button>
     </div>
 
@@ -19,30 +19,30 @@
             <th style="width: 80px !important" class="form-group"></th>
             <th>
                 Identificação <br />
-                <input style="width:130px !important" class="input-add-autor"></input>
+                <input style="width:130px !important" class="input-add-autor"/>
             </th>
             <th>
                 Evento <br />
-                <input style="width:90px !important" class="input-add-autor"></input>
+                <input style="width:90px !important" class="input-add-autor"/>
             </th>
             <th>
                 Área <br />
-                <input style="width:150px !important" class="input-add-autor"></input>
+                <input style="width:150px !important" class="input-add-autor"/>
             </th>
             <th>
                 Subarea <br />
-                <input style="width:210px !important" class="input-add-autor"></input>
+                <input style="width:210px !important" class="input-add-autor"/>
             </th>
             <th>
                 Status <br />
-                <input style="width:130px !important" class="input-add-autor"></input>
+                <input style="width:130px !important" class="input-add-autor"/>
             </th>
         </tr>
 
         @foreach (var trabalhos in Model)
         {
             <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalhos.Id"></a></td>
-
+       
             <td>@trabalhos.Identificacao</td>
 
             <td>@trabalhos.EventoNome</td>
@@ -71,6 +71,7 @@
             </td>
         }
     </table>
+
     <h5>
         <b>Legenda:</b>
         <span class="fa fa-clock-o margin-left-10 color-submissao"></span> Aguardando Submissão
