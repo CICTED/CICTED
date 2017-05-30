@@ -540,7 +540,7 @@ namespace CICTED.Controllers
                         Id = usuario.Id,
                         Nome = usuario.Nome,
                         Sobrenome = usuario.Sobrenome,
-                        Status = status,
+                        StatusId = status,
                     };
                     return Json(autor);
                 }else

@@ -15,7 +15,7 @@ namespace CICTED.Domain.ViewModels.Account
 
         public string Email { get; set; }
 
-        public int Status { get; set; }
+        public int StatusId { get; set; }
 
         public bool Orientador { get; set; }
 
