@@ -124,9 +124,20 @@ namespace CICTED.Controllers
                 var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
                 var areaConhecimento = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
                 var subAreaConhecimento = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
+
+                var trabalhoConsulta = new ConsultaTrabalho()
+                {
+                    Id = trabalho.Id,
+                    EventoNome = evento.Sigla,
+                    StatusTrabalhoId = trabalho.StatusTrabalhoId,
+                    Identificacao = trabalho.Identificacao,
+                    SubAreaConhecimentoNome = subAreaConhecimento,
+                    AreaConhecimentoNome = areaConhecimento
+                };
+                model.Add(trabalhoConsulta);
             }
 
-            return View(trabalhos);
+            return View(model);
         }
 
         [HttpGet("informacao")]

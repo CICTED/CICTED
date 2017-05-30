@@ -9,78 +9,64 @@
 <div class="form-consultTrabAdm">
     <h3 style="font-weight: bold"><span class="fa fa-book"></span> Consultar Trabalhos</h3>
 
-    <div class="form-group"> Pesquisar Autor: <input class="input-add-autor"></div>
+    <div class="form-group">
+        Pesquisar Autor: <input class="input-add-autor">
+        <button class="btn btn-primary margin-left-10">Pesquisar</button>
+    </div>
 
     <table class="tabela-trabalho" style="margin:0 0 auto" border="1">
         <tr>
             <th style="width: 80px !important" class="form-group"></th>
-            <th style="width: 80px;" class="form-group">
+            <th>
                 Identificação <br />
                 <input style="width:130px !important" class="input-add-autor"></input>
             </th>
-            <th style="width: 70px">
+            <th>
                 Evento <br />
                 <input style="width:90px !important" class="input-add-autor"></input>
             </th>
-            <th style="width: 120px;">
+            <th>
                 Área <br />
                 <input style="width:150px !important" class="input-add-autor"></input>
             </th>
-            <th style="width: 180px;">
+            <th>
                 Subarea <br />
                 <input style="width:210px !important" class="input-add-autor"></input>
             </th>
-            <th style="width: 110px;">
+            <th>
                 Status <br />
-                <input style="width:150px !important" class="input-add-autor"></input>
+                <input style="width:130px !important" class="input-add-autor"></input>
             </th>
         </tr>
 
         @foreach (var trabalhos in Model)
         {
-            <td>
-                @if (trabalhos.StatusTrabalhoId == 1)
-                {
-                    <span style="font-size:18px" class="fa fa-check-circle color-aprovado"></span>
-                }
-                @if (trabalhos.StatusTrabalhoId == 2)
-                {
-                    <span style="font-size:18px" class="fa fa-times-circle color-reprovado"></span>
-                }
-                @if (trabalhos.StatusTrabalhoId == 3)
-                {
-                    <span style="font-size:18px" class="fa fa-clock-o color-submissao"></span>
-                }
-                @if (trabalhos.StatusTrabalhoId == 4)
-                {
-                    <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"></span>
-                }
-            </td>
+            <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalhos.Id"></a></td>
 
             <td>@trabalhos.Identificacao</td>
 
-            <td>@trabalhos.EventoId</td>
+            <td>@trabalhos.EventoNome</td>
 
-            <td>@trabalhos.AreaConhecimentoId</td>
+            <td>@trabalhos.AreaConhecimentoNome</td>
 
-            <td>@trabalhos.SubAreaConhecimentoId</td>
+            <td>@trabalhos.SubAreaConhecimentoNome</td>
 
             <td>
                 @if (trabalhos.StatusTrabalhoId == 1)
                 {
-                    <label>Aprovado</label>
+                    <span style="font-size:18px" class="fa fa-check-circle color-aprovado"> Aprovado</span>
                 }
                 @if (trabalhos.StatusTrabalhoId == 2)
                 {
-                    <label>Reprovado</label>
+                    <span style="font-size:18px" class="fa fa-times-circle color-reprovado"> Reprovado</span>
                 }
                 @if (trabalhos.StatusTrabalhoId == 3)
                 {
-                    <label>Aguardando Submissão</label>
+                    <span style="font-size:18px" class="fa fa-clock-o color-submissao"> Aguardando Submissão</span>
                 }
                 @if (trabalhos.StatusTrabalhoId == 4)
                 {
-                    <label>Aguardando Avaliação</label>
+                    <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"> Aguardando Avaliação</span>
                 }
             </td>
         }
@@ -92,4 +78,144 @@
         <span class="fa fa-check-circle margin-left-10 color-aprovado"></span> Aprovado
         <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Reprovado
     </h5>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div style="width:70%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="font-weight:bold"><span class="fa fa-book"></span> Dados do trabalho</h3>
+                    <hr />
+
+                    <h4><b><span class="fa fa-id-card-o"></span> Dados</b></h4>
+                    <table class="table-trabalho">
+                        <tr><td><b class="margin-right-40">Identificação: </b></td><td id="identificacao"></td></tr>
+                        <tr><td><b>Área: </b></td><td id="area"></td></tr>
+                        <tr><td><b>Subárea: </b></td><td id="subarea"></td></tr>
+                        <tr><td><b>Evento: </b></td><td id="evento"></td></tr>
+                        <tr><td><b>Status: </b></td><td id="status"></td></tr>
+                        <tr><td><b>Data Cadastro: </b></td><td id="data-cadastro"></td></tr>
+                        <tr><td><b>Data Submissão: </b></td><td id="data-submissao"></td></tr>
+                    </table>
+                    <hr />
+
+                    <div style="width:100%; height:50px">
+                        <h4 class="float-left"><b><span class="fa fa-child"></span> Autor</b></h4>
+                    </div>
+                    <table class="table-trabalho">
+                        <tr><td><b class="margin-right-40">Autor Principal: </b></td><td id="autor-principal"></td></tr>
+                        <tr>
+                            <td>
+                                <b id="tipo-autor">Coautor: </b>
+                            </td>
+                            <td id="outros-autores"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Orientador: </b></td>
+                            <td id="orientador"></td>
+                        </tr>
+                    </table>
+                    <hr />
+
+                    <div style="width:100%; height:50px">
+                        <h4 class="float-left"><b><span class="fa fa-file-text-o"></span> Trabalho</b></h4>
+                    </div>
+                    <h4 style="text-align:center" id="titulo"></h4>
+
+                    <b>Introdução:</b>
+                    <h5 id="introducao"></h5>
+
+                    <b>Metodologia:</b>
+                    <h5 id="metodologia"></h5>
+
+                    <b>Resultados:</b>
+                    <h5 id="resultados"></h5>
+
+                    <b>Conclusão:</b>
+                    <h5 id="conclusao"></h5>
+
+                    <b>Referências Bibliográficas: </b>
+                    <h5 id="referencia"></h5>
+
+                    <b>Palavras-chaves: </b>
+                    <h5 id="palavras-chave"> </h5>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script type="text/javascript">
+
+    $(".trabalho").on("click", function () {
+        var trabalho = $(this);
+        var id = trabalho.attr("data-id");
+
+        $.ajax({
+            url: '/trabalho/informacao',
+            type: 'get',
+            data: {
+                id: id
+            },
+
+            success: function (data) {
+                $("#alterar-autores").attr("href", "/trabalho/" + data.id + "/alterar");
+                $('#identificacao').text(data.identificacao);
+                $('#area').text(data.areaConhecimento);
+                $('#subarea').text(data.subArea);
+                $('#evento').text(data.eventoNome);
+                $('#status').text(data.status);
+                $('#data-cadastro').text(data.dataCadastro.toString('dd/MM/yyyy'));
+
+                if (data.statusTrabalhoId != 3) {
+                    $('#data-submissao').text(data.dataSubmissao);
+                }
+
+                $('#data-submissao').text(data.subarea);
+
+                $('#outros-autores').html('');
+
+                $.each(data.autores, function (i, item) {
+                    var status;
+
+
+                    if (item.status == 1 ) {
+                        status = '<span class="fa fa-check-circle color-aprovado"></span>';
+                    }
+                    else if (item.status == 2) {
+                        status = '<span class="fa fa-clock-o color-submissao"></span>';
+                    }
+                    else if (item.status == 3) {
+                        status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+                    }
+                    else if (item.status == 4) {
+                        status = '<span class="fa fa-times-circle color-reprovado"></span>';
+                    }
+
+                    if (item.orientador == true) {
+                        $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
+                    } else if (item.status == 1) {
+                        $('#autor-principal').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
+                    } else {
+                        $('#tipo-autor').text('Coautor: ');
+                        $('#outros-autores').append('<div style="width:100%">' + status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ' + '</div>');
+                    }
+
+                });
+
+
+                $('#titulo').html("<b>" + data.titulo + "</b>");
+                $('#introducao').text(data.introducao);
+                $('#metodologia').text(data.metodologia);
+                $('#resultado').text(data.resultado);
+                $('#referencia').text(data.referencia);
+                $('#palavras-chave').text(data.palavrasChave);
+
+            },
+
+        });
+    });
+
+</script>
