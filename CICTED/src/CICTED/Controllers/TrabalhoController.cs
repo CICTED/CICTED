@@ -26,8 +26,9 @@ namespace CICTED.Controllers
         private IEventoRepository _eventoRepository;
         private IAreaRepository _areaRepository;
         private IAutorRepository _autorRepository;
+        private IAgenciaRepository _agenciaRepository;
 
-        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository)
+        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
@@ -35,6 +36,7 @@ namespace CICTED.Controllers
             _eventoRepository = eventoRepository;
             _areaRepository = areaRepository;
             _autorRepository = autorRepository;
+            _agenciaRepository = agenciaRepository;
         }
 
         [HttpGet("cadastro/{IdEvento}")]
@@ -48,7 +50,7 @@ namespace CICTED.Controllers
             var evento = await _eventoRepository.GetEvento(IdEvento);
             var areas = await _areaRepository.GetAreas();
             var periodos = await _trabalhoRepository.GetPeriodos();
-            var agencias = await _trabalhoRepository.GetAgencias();
+            var agencias = await _agenciaRepository.GetAgencias();
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             AutorViewModel autorPrincipal = new AutorViewModel()

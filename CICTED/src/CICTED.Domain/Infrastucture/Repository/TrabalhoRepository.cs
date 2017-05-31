@@ -171,23 +171,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<List<AgenciaFinanciadora>> GetAgencias()
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var selectAgencias = await db.QueryAsync<AgenciaFinanciadora>("SELECT * FROM dbo.AgenciaFinanciadora");
-
-                    return selectAgencias.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
+       
 
         public async Task<string> GetStatusTrabalho(int statusId)
         {
