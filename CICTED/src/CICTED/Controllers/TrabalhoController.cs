@@ -12,6 +12,7 @@ using CICTED.Domain.Entities.Trabalho;
 using CICTED.Domain.ViewModels.Trabalho;
 using CICTED.Domain.ViewModels.Account;
 using NuGet.Packaging;
+using CICTED.Domain.Infrastucture.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,15 +21,18 @@ namespace CICTED.Controllers
     [Route("trabalho")]
     public class TrabalhoController : Controller
     {
+        private static string urlRoot = "http://localhost:54134";
         private UserManager<ApplicationUser> _userManager;
         private IAccountRepository _accountRepository;
         private ITrabalhoRepository _trabalhoRepository;
         private IEventoRepository _eventoRepository;
         private IAreaRepository _areaRepository;
         private IAutorRepository _autorRepository;
+        private IEmailServices _emailServices;
 
-        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository)
+        public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository)
         {
+            _emailServices = emailServices;
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
             _accountRepository = accountRepository;
@@ -288,10 +292,91 @@ namespace CICTED.Controllers
         }
 
 
-        [HttpPost("busca/autor")]
-        public async Task<IActionResult> AdicionaAutor(CadastroTrabalhoViewModel model)
+        [HttpPost("adicionar/autor")]
+        public async Task<IActionResult> AdicionarAutor(string email)
         {
-            return View();
+            try
+            {
+                var usuario = await _accountRepository.BuscaUsuario(email);
+                if (usuario != null)
+                {
+                    var status = await _autorRepository.GetStatusAutor(usuario.Id);
+                    var autor = new AutorViewModel()
+                    {
+                        Email = usuario.Email,
+                        Id = usuario.Id,
+                        Nome = usuario.Nome,
+                        Sobrenome = usuario.Sobrenome,
+                        StatusId = status,
+                    };
+                    return Json(autor);
+                }
+                else
+                {
+                    string caracteresPermitidos = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789!@$?_-";
+                    char[] chars = new char[6];
+                    Random rd = new Random();
+                    for (int i = 0; i < 6; i++)
+                    {
+                        chars[i] = caracteresPermitidos[rd.Next(0, caracteresPermitidos.Length)];
+                    }
+                    var senha = new string(chars);
+
+                    var user = new ApplicationUser()
+                    {
+                        Email = email,
+                        UserName = email,
+                        NormalizedEmail = email,
+                        NormalizedUserName = email,
+                        FirstAccess = true,
+                        DataCadastro = DateTime.Now,
+                        CursosId = 1,
+                        InstituicaoId = 1,
+                        EnderecoId = 1,
+                    };
+
+                    var result = await _userManager.CreateAsync(user, senha);
+
+                    if (result.Succeeded)
+                    {
+                        try
+                        {
+                            await _userManager.AddToRoleAsync(user, "AUTOR");
+
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            var callbackUrl = Url.Action(
+                               "ConfirmEmail", "Account",
+                               new { user = user.UserName, code = code });
+
+                            var url = $"{urlRoot}{callbackUrl}";
+
+                            //email
+                            var emailConfirmation = await _emailServices.EnviarEmail(user.Email, url, senha);
+
+                            var autor = new AutorViewModel()
+                            {
+                                Email = email,
+                                Id = user.Id,
+                                StatusId = 3,
+                            };
+                            return Json(autor);
+                        }
+                        catch (Exception ex)
+                        {
+                            await _userManager.DeleteAsync(user);
+
+                            return BadRequest("Houve um erro ao cadastrar o usuário.");
+                        }
+                    }
+                    return Ok();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         public async Task<string> geraIdentificacao(Evento evento)

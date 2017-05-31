@@ -16,6 +16,7 @@ namespace CICTED.Controllers
     [Route("account")]
     public class AccountController : Controller
     {
+        private static string urlRoot = "http://localhost:54134";
         private IEmailServices _emailServices;
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
@@ -160,7 +161,7 @@ namespace CICTED.Controllers
                        "ConfirmEmail", "Account",
                        new { user = user.UserName, code = code });
 
-                    var url = $"http://localhost:54134{callbackUrl}";
+                    var url = $"{urlRoot}{callbackUrl}";
 
                     //email
                     var email = await _emailServices.EnviarEmail(user.Email, url);
@@ -170,6 +171,7 @@ namespace CICTED.Controllers
                 }
                 else
                 {
+                    await _userManager.DeleteAsync(user);
                     ViewBag.Errors = result.ConvertToHTML();
                     return View("Login", model);
                 }
@@ -527,35 +529,7 @@ namespace CICTED.Controllers
         }
 
 
-        [HttpGet("verifica/usuario")]
-        public async Task<IActionResult> VerificaUsuario(string email)
-        {
-            try
-            {
-                var usuario = await _accountRepository.BuscaUsuario(email);
-                if(usuario != null)
-                {
-                    var status = await _autorRepository.GetStatusAutor(usuario.Id);
-                    var autor = new AutorViewModel()
-                    {
-                        Email = usuario.Email,
-                        Id = usuario.Id,
-                        Nome = usuario.Nome,
-                        Sobrenome = usuario.Sobrenome,
-                        StatusId = status,
-                    };
-                    return Json(autor);
-                }else
-                {
-                    return Ok();
-                }
-                
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
+        
     }
 }
 

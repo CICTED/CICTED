@@ -13,7 +13,7 @@ namespace CICTED.Domain.Infrastucture.Services
 {
     public class EmailServices : IEmailServices
     {
-        public async Task<bool> EnviarEmail(string email, string link)
+        public async Task<bool> EnviarEmail(string email, string link, string password = null)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace CICTED.Domain.Infrastucture.Services
                 message.Subject = "Confirm Email - CICTED";
 
                 var builder = new BodyBuilder();
-                builder.HtmlBody = GetHTMLBody(link);
+                builder.HtmlBody = GetHTMLBody(link, password);
 
                 message.Body = builder.ToMessageBody();
                 using (var client = new SmtpClient())
@@ -51,7 +51,7 @@ namespace CICTED.Domain.Infrastucture.Services
 
 
 
-        public static string GetHTMLBody(string url)
+        public static string GetHTMLBody(string url, string password = null)
         {
             var html = "<div>"
                         + "<div>"
@@ -63,6 +63,7 @@ namespace CICTED.Domain.Infrastucture.Services
                                 + "<div style =\"font-size:15px; padding-top:25px; text-align:justify; width:500px; margin:0 auto\">"
                         + "Para confirmar sua conta do <span class=\"highlight\" id=\"0.7043774154285753\" name=\"searchHitInReadingPane\">CICTED</span> <a href=\"{0}\" target=\"_blank\">clique aqui</a>. <br>"
                         + "<br>"
+                        + $"{(password == "" ? "" : "<b>SUA SENHA: " + password + "</b><br>")}"
                         + "<div align =\"right\">Atenciosamente,<br>"
                         + "Sistema <span class=\"highlight\" id=\"0.8189381140174152\" name=\"searchHitInReadingPane\">CICTED</span>.<br>"
                         + "<br>"

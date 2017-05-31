@@ -20,7 +20,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<string> GetStatusTrabalho(int statusId);
         Task<bool> getIdentificacaoTrabalho(string identificacao);
         Task<string> GetInstituicao(long id);
-        Task<List<ConsultaTrabalho>> GetTrabalho();  
-        
+        Task<List<ConsultaTrabalho>> GetTrabalho();          
     }
 }

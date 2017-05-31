@@ -16,6 +16,8 @@
                 </b>
             </h4>
             <h5>Para cadastrar um participante use uma das opções a baixo</h5>
+
+            <div id="errors"></div>
         </div>
 
         <ul class="nav nav-tabs">
@@ -40,7 +42,7 @@
             @*NOME*@
             <div role="tabpanel" class="tab-pane" id="porNome">
                 <div class="form-group margin-top-10 row add-autor">
-                    <input autocomplete="off" class="input-nome input-add-autor" type="text" style="width:350px !important" placeholder="Nome do coautor" />
+                    <input value="" autocomplete="off" class="input-nome input-add-autor" type="text" style="width:350px !important" placeholder="Nome do coautor" />
 
                     <div style="height:0px;" class="busca float-left">
                         <ul id="lista-nomes"></ul>
@@ -181,8 +183,8 @@
                 $("#getCodeModal").modal('show');
             } else {
                 $.ajax({
-                    url: '/account/verifica/usuario',
-                    type: 'get',
+                    url: '/trabalho/adicionar/autor',
+                    type: 'POST',
                     data: {
                         email: email,
                     },
@@ -201,15 +203,21 @@
                         else if (data.statusId == 4) {
                             status = '<span class="fa fa-times-circle color-reprovado"></span>';
                         }
-
-                        id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
-                            data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor()" value="' +
-                            data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
-                            '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
-
+                        if(data.nome != null){
+                            id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
+                                data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor('+data.id+')" value="' +
+                                data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
+                        }
+                        else{
+                            id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor('+data.id+')" value="' +
+                                data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
+                        }
                     },
                     error: function (x, y, message) {
-                        alert("ERROOOU  " + message);
+                        $('#errors').empty();
+                        $('#errors').append('<div class="alert alert-danger" role="alert">' + message + x + y + '</div>');
                     },
 
                 })
@@ -223,6 +231,10 @@
 
     $(".input-nome").keyup(function () {
         var valor = $(this).val();
+        if(valor.trim() == ""){
+            $("#lista-nomes").empty();
+        }
+
         if (valor.length > 2) {
             $("#lista-nomes").html(' ');
             $.ajax({
@@ -240,8 +252,6 @@
             })
         }
     });
-
-
     var id = 0;
     $('body').on("click", ".selectautor", function () {
         id = $(this).data("id");
@@ -252,35 +262,45 @@
         $(".input-nome").attr('id', id);
         $(".input-nome").attr('data-email', email);
         $(".input-nome").attr('data-status', status);
+        $("#lista-nomes").empty();
     });
 
 
     $("#adicionar-nome").on("click", function () {
         var id = $("#coautores");
-        var userId = $(".input-nome").attr("id");
-        var status = $(".input-nome").attr("data-status");
-        var email = $(".input-nome").attr("data-email");
-        var nome = $(".input-nome").text();
+        if ($.trim($("#orientador").html()) == '') {
+            id = ($("#orientador"));
+        }
+        var qtdCoautores = $("div[id *= autor]").length - 1;
+        if (qtdCoautores >= 5) {
+            $("#getCodeModal").modal('show');
+        }
+        else {
+            var userId = $(".input-nome").attr("id");
+            var status = $(".input-nome").attr("data-status");
+            var email = $(".input-nome").attr("data-email");
+            var nome = $(".input-nome").val();
+            id.attr("data-id", "autor-" + userId);
+            if (status == 1 || status == 5) {
+                status = '<span class="fa fa-check-circle color-aprovado"></span>';
+            }
+            else if (status == 2) {
+                status = '<span class="fa fa-clock-o color-submissao"></span>';
+            }
+            else if (status == 3) {
+                status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+            }
+            else if (status == 4) {
+                status = '<span class="fa fa-times-circle color-reprovado"></span>';
+            }
 
-        if (status == 1 || status == 5) {
-            status = '<span class="fa fa-check-circle color-aprovado"></span>';
+            id.append('<div style="width:500px" id="autor-' + userId + '">' + status + ' ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor('+userId+')" value="' +
+                                userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + userId + '" /></div>');
         }
-        else if (status == 2) {
-            status = '<span class="fa fa-clock-o color-submissao"></span>';
-        }
-        else if (status == 3) {
-            status = '<span class="fa fa-clock-o color-avaliacao"></span>';
-        }
-        else if (status == 4) {
-            status = '<span class="fa fa-times-circle color-reprovado"></span>';
-        }
-
-        id.append('<div style="width:500px" id="autor-' + userId + '">' + status + ' ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor()" value="' +
-            userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
-            '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + id + '" /></div>');
-
 
     });
+
 
 
     function deletarAutor(id) {
