@@ -40,7 +40,7 @@
             @*NOME*@
             <div role="tabpanel" class="tab-pane" id="porNome">
                 <div class="form-group margin-top-10 row add-autor">
-                    <input autocomplete="off" class="input-nome input-add-autor" type="text"  style="width:350px !important" placeholder="Nome do coautor" />
+                    <input autocomplete="off" class="input-nome input-add-autor" type="text" style="width:350px !important" placeholder="Nome do coautor" />
 
                     <div style="height:0px;" class="busca float-left">
                         <ul id="lista-nomes"></ul>
@@ -206,7 +206,7 @@
                             data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor()" value="' +
                             data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
                             '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
-                        
+
                     },
                     error: function (x, y, message) {
                         alert("ERROOOU  " + message);
@@ -247,30 +247,41 @@
         id = $(this).data("id");
         email = $(this).data("email");
         status = $(this).data("status")
-        var texto = $(this).text();
-        $(".input-nome").val(texto);
+        var nome = $(this).text();
+        $(".input-nome").val(nome);
         $(".input-nome").attr('id', id);
-        $(".input-nome").attr('data-email', )
+        $(".input-nome").attr('data-email', email);
+        $(".input-nome").attr('data-status', status);
     });
- 
+
 
     $("#adicionar-nome").on("click", function () {
-        var id = $(".input-nome").attr("id");
-        $.ajax({
-            url: '/trabalho/adiciona/autor',
-            type: 'get',
-            data: {
-                id: id
-            },
-            success: function (data) {
-                $.each(data, function (i, item) {
-                    $("#lista-nomes").append('<li><a class="selectautor" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
-                        '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
-                })
-            },
-        })
+        var id = $("#coautores");
+        var userId = $(".input-nome").attr("id");
+        var status = $(".input-nome").attr("data-status");
+        var email = $(".input-nome").attr("data-email");
+        var nome = $(".input-nome").text();
+
+        if (status == 1 || status == 5) {
+            status = '<span class="fa fa-check-circle color-aprovado"></span>';
+        }
+        else if (status == 2) {
+            status = '<span class="fa fa-clock-o color-submissao"></span>';
+        }
+        else if (status == 3) {
+            status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+        }
+        else if (status == 4) {
+            status = '<span class="fa fa-times-circle color-reprovado"></span>';
+        }
+
+        id.append('<div style="width:500px" id="autor-' + userId + '">' + status + ' ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor()" value="' +
+            userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+            '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + id + '" /></div>');
+
+
     });
-    
+
 
     function deletarAutor(id) {
         $(document).ready(function () {

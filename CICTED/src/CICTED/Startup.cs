@@ -71,6 +71,8 @@ namespace CICTED
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IEventoRepository, EventoRepository>();
             services.AddTransient<IAreaRepository, AreaRepository>();
+            services.AddTransient<IAutorRepository, AutorRepository>();
+            services.AddTransient<IAgenciaRepository, AgenciaRepository>();
 
             services.AddMvc();
         }

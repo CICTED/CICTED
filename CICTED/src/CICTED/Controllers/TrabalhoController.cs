@@ -25,14 +25,18 @@ namespace CICTED.Controllers
         private ITrabalhoRepository _trabalhoRepository;
         private IEventoRepository _eventoRepository;
         private IAreaRepository _areaRepository;
+        private IAutorRepository _autorRepository;
+        private IAgenciaRepository _agenciaRepository;
 
-        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository)
+        public TrabalhoController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
             _accountRepository = accountRepository;
             _eventoRepository = eventoRepository;
             _areaRepository = areaRepository;
+            _autorRepository = autorRepository;
+            _agenciaRepository = agenciaRepository;
         }
 
         [HttpGet("cadastro/{IdEvento}")]
@@ -46,7 +50,7 @@ namespace CICTED.Controllers
             var evento = await _eventoRepository.GetEvento(IdEvento);
             var areas = await _areaRepository.GetAreas();
             var periodos = await _trabalhoRepository.GetPeriodos();
-            var agencias = await _trabalhoRepository.GetAgencias();
+            var agencias = await _agenciaRepository.GetAgencias();
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             AutorViewModel autorPrincipal = new AutorViewModel()
@@ -152,12 +156,12 @@ namespace CICTED.Controllers
             var subArea = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
             var status = await _trabalhoRepository.GetStatusTrabalho(trabalho.StatusTrabalhoId);
 
-            List<AutorTrabalho> autoresId = await _trabalhoRepository.GetAutoresId(id);
+            List<AutorTrabalho> autoresId = await _autorRepository.GetAutoresId(id);
             List<AutorViewModel> autores = new List<AutorViewModel>() { };
 
             foreach (var autor in autoresId)
             {
-                var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
+                var info = await _autorRepository.GetAutor(autor.UsuarioId);
                 var autorInfo = new AutorViewModel()
                 {
                     Email = info.Email,
@@ -216,7 +220,7 @@ namespace CICTED.Controllers
         [HttpGet("{id}/alterar/autor")]
         public async Task<IActionResult> AlterarAutor(long id)
         {
-            var autoresId = await _trabalhoRepository.GetAutoresId(id);
+            var autoresId = await _autorRepository.GetAutoresId(id);
 
             AutoresViewModel model = new AutoresViewModel();
 
@@ -224,7 +228,7 @@ namespace CICTED.Controllers
 
             foreach (var autor in autoresId)
             {
-                var info = await _trabalhoRepository.GetAutor(autor.UsuarioId);
+                var info = await _autorRepository.GetAutor(autor.UsuarioId);
 
                 var autorInfo = new AutorViewModel()
                 {
@@ -265,12 +269,12 @@ namespace CICTED.Controllers
         [HttpGet("pesquisa/autor")]
         public async Task<IActionResult> PesquisaAutor(string busca)
         {
-            var autores = await _trabalhoRepository.PesquisaAutor(busca);
+            var autores = await _autorRepository.PesquisaAutor(busca);
             List<AutorViewModel> autoresList = new List<AutorViewModel>();
             foreach (var autor in autores)
             {
                 var instituicao = await _trabalhoRepository.GetInstituicao(autor.InstituicaoId);
-                var status = await _trabalhoRepository.GetStatusAutor(autor.Id);
+                var status = await _autorRepository.GetStatusAutor(autor.Id);
                 var autorInfo = new AutorViewModel()
                 {
                     Email = autor.Email,

@@ -23,8 +23,9 @@ namespace CICTED.Controllers
         private ISmsService _smsService;
         private IAccountRepository _accountRepository;
         private ITrabalhoRepository _trabalhoRepository;
+        private IAutorRepository _autorRepository;
 
-        public AccountController(ITrabalhoRepository trabalhoRepository, IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoRepository localizacaoRepository, ISmsService smsService)
+        public AccountController(ITrabalhoRepository trabalhoRepository, IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoRepository localizacaoRepository, ISmsService smsService, IAutorRepository autorRepository)
         {
             _localizacaoRepository = localizacaoRepository;
             _emailServices = emailServices;
@@ -33,6 +34,7 @@ namespace CICTED.Controllers
             _smsService = smsService;
             _accountRepository = accountRepository;
             _trabalhoRepository = trabalhoRepository;
+            _autorRepository = autorRepository;
         }
 
         [HttpGet("login")]
@@ -533,7 +535,7 @@ namespace CICTED.Controllers
                 var usuario = await _accountRepository.BuscaUsuario(email);
                 if(usuario != null)
                 {
-                    var status = await _trabalhoRepository.GetStatusAutor(usuario.Id);
+                    var status = await _autorRepository.GetStatusAutor(usuario.Id);
                     var autor = new AutorViewModel()
                     {
                         Email = usuario.Email,
