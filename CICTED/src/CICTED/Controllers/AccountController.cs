@@ -529,7 +529,45 @@ namespace CICTED.Controllers
         }
 
 
+<<<<<<< HEAD
         
+=======
+        [HttpGet("verifica/usuario")]
+        public async Task<IActionResult> VerificaUsuario(string email)
+        {
+            try
+            {
+                var usuario = await _accountRepository.BuscaUsuario(email);
+                if(usuario != null)
+                {
+                    var status = await _autorRepository.GetStatusAutor(usuario.Id);
+                    var autor = new AutorViewModel()
+                    {
+                        Email = usuario.Email,
+                        Id = usuario.Id,
+                        Nome = usuario.Nome,
+                        Sobrenome = usuario.Sobrenome,
+                        StatusId = status,
+                    };
+                    return Json(autor);
+                }else
+                {
+                    return Ok();
+                }
+                
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpGet("alterarSenha")]
+        public async Task<IActionResult> AlterarSenha()
+        {
+            return View();
+        }
+>>>>>>> origin/1.0
     }
 }
 

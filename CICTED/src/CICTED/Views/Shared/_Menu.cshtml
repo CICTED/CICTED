@@ -93,16 +93,32 @@
                 <li><a asp-controller="trabalho" asp-action="consulta"><span class="fa fa-file-text-o"></span> Meus trabalhos</a></li>
 
                 <li class="float-left"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
-            }  
+            }
 
             <li class="float-right margin-right-100">
                 <form asp-controller="account" asp-action="logoff" method="post">
                     <button type="submit"><span class="fa fa-sign-out"></span> Sair</button>
                 </form>
             </li>
-            
-            <li class="float-right"><a asp-controller="account" asp-action="meusdados"><span class="fa fa-address-card-o"></span> Meus Dados</a></li>          
-           
+
+            <li class="float-right">
+                <a class="float-right"><span class="fa fa-address-card-o"></span> Meus Dados</a>
+                <ul style="margin-left:-68px!important; width:180px !important">
+                    <li class="float-right">
+                        <a asp-controller="account" asp-action="meusdados">
+                            <span class="fa fa-address-book-o"></span> Alterar Dados
+                        </a>
+                    </li>
+
+                    <li class="float-right">
+                        <a asp-controller="account" asp-action="alterarsenha">
+                            <span class="fa fa-lock"></span> Alterar Senha
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
         </ul>
     </div>
 

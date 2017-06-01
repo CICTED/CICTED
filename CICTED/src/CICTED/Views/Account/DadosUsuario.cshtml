@@ -3,11 +3,11 @@
     Layout = "_Menu";
 }
 
-<title>Dados do Usuário - CICTED</title>
+<title>Alterar Dados do Usuário - CICTED</title>
 
 <form class="form-cadastro !important" method="post" asp-controller="account" asp-action="dadosusuario">
     <div style="text-align:center">
-        <h2><span class="fa fa-newspaper-o"></span><b> Meus Dados</b></h2>
+        <h2><span class="fa fa-address-book-o"></span><b> Alterar Dados</b></h2>
     </div>
 
     <div class="form-group">
@@ -16,31 +16,31 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Nome:</label>
-                <input type="text" style="width:500px" value="@Model.Nome" asp-for="Nome"/>
+                <input type="text" style="width:500px" value="@Model.Nome" asp-for="Nome" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Sobrenome:</label>
-                <input type="text" style="width:500px" value="@Model.Sobrenome" asp-for="Sobrenome"/>
+                <input type="text" style="width:500px" value="@Model.Sobrenome" asp-for="Sobrenome" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>CPF:</label>
-                <input type="text" style="width:500px" value="@Model.CPF" asp-for="CPF"/>
+                <input type="text" style="width:500px" value="@Model.CPF" asp-for="CPF" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Outros Documentos(RG, Passaporte, Etc):</label>
-                <input type="text" style="width:500px" value="@Model.Documento" asp-for="Documento"/>
+                <input type="text" style="width:500px" value="@Model.Documento" asp-for="Documento" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Data de Nascimento:</label>
-                <input type="date" style="width:500px" value="@Model.DataNascimento.ToString("yyyy-MM-dd")" asp-for="DataNascimento"/>
+                <input type="date" style="width:500px" value="@Model.DataNascimento.ToString("yyyy-MM-dd")" asp-for="DataNascimento" />
             </div>
 
             <div class="float-right" style="width:50%">
@@ -74,24 +74,24 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Telefone:</label>
-                <input type="tel" value="@Model.Telefone" style="width:500px" asp-for="Telefone"/>
+                <input type="tel" value="@Model.Telefone" style="width:500px" asp-for="Telefone" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Celular:</label>
-                <input type="text" value="@Model.Celular" style="width:500px" asp-for="Celular"/>
+                <input type="text" value="@Model.Celular" style="width:500px" asp-for="Celular" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Email Principal:</label>
-                <input type="text" value="@Model.Email" style="width:500px" asp-for="Email"/>
+                <input type="text" value="@Model.Email" style="width:500px" asp-for="Email" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Email Secundario:</label>
-                <input type="text" value="@Model.EmailSecundario" style="width:500px" asp-for="EmailSecundario"/>
+                <input type="text" value="@Model.EmailSecundario" style="width:500px" asp-for="EmailSecundario" />
             </div>
         </div>
 
@@ -105,24 +105,24 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Logradouro:</label>
-                <input type="text" value="@Model.Logradouro" style="width:500px" asp-for="Logradouro"/>
+                <input type="text" value="@Model.Logradouro" style="width:500px" asp-for="Logradouro" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Número:</label>
-                <input type="text" value="@Model.Numero" style="width:500px" asp-for="Numero"/>
+                <input type="text" value="@Model.Numero" style="width:500px" asp-for="Numero" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Bairro:</label>
-                <input type="text" value="@Model.Bairro" style="width:500px" asp-for="Bairro"/>
+                <input type="text" value="@Model.Bairro" style="width:500px" asp-for="Bairro" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>CEP:</label>
-                <input type="text" value="@Model.CEP" style="width:500px" asp-for="CEP"/>
+                <input type="text" value="@Model.CEP" style="width:500px" asp-for="CEP" />
             </div>
         </div>
 
@@ -208,7 +208,7 @@
                                 }
                             </select>
                             <label class="margin-top-20">Outro:</label>
-                            <input type="text" value="@Model.Curso" style="width:500px" asp-for="Curso"/>
+                            <input type="text" value="@Model.Curso" style="width:500px" asp-for="Curso" />
                         </div>
                     </div>
                 }
@@ -232,7 +232,7 @@
                                 }
                             </select>
                             <label class="margin-top-20">Outro:</label>
-                            <input type="text" value="@Model.Curso" style="width:500px" asp-for="Curso"/>
+                            <input type="text" value="@Model.Curso" style="width:500px" asp-for="Curso" />
                         </div>
                     </div>
                 }
