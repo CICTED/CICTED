@@ -107,7 +107,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        
+
 
         public async Task<bool> InsertTrabalho(string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, DateTime dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFinanciadoraId, int eventoId, long artigo, int subAreaId, int periodoApresentacaoId)
         {
@@ -157,7 +157,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                 {
                     var getPeriodosQuery = await db.QueryAsync<PeriodoApresentacao>("SELECT * FROM dbo.PeriodoApresentacao");
 
-                     return getPeriodosQuery.ToList();
+                    return getPeriodosQuery.ToList();
                 }
             }
             catch (Exception ex)
@@ -171,22 +171,6 @@ namespace CICTED.Domain.Infrastucture.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<List<AgenciaFinanciadora>> GetAgencias()
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var selectAgencias = await db.QueryAsync<AgenciaFinanciadora>("SELECT * FROM dbo.AgenciaFinanciadora");
-
-                    return selectAgencias.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
 
 
         public async Task<string> GetStatusTrabalho(int statusId)
@@ -204,7 +188,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 return null;
             }
-        }                                    
+        }
 
         public async Task<bool> getIdentificacaoTrabalho(string identificacao)
         {
@@ -229,14 +213,14 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 return false;
             }
-        }                              
+        }
 
         public async Task<string> GetInstituicao(long instituicaoId)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
-                {                    
+                {
                     var instituicao = await db.QueryAsync<string>("SELECT InstituicaoNome FROM dbo.Instituicao WHERE Id = @Id", new { Id = instituicaoId });
                     return instituicao.FirstOrDefault();
                 }
@@ -254,7 +238,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
                     var selectTrabalhoQuery = await db.QueryAsync<ConsultaTrabalho>("SELECT * FROM dbo.Trabalho");
-                    
+
                     return selectTrabalhoQuery.ToList();
                 }
 
@@ -264,6 +248,54 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return null;
             }
         }
-        
+
+        public async Task<bool> VerificaCadastroTrabalho(long userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var verificaQuery = await db.QueryAsync<int>("SELECT StatusId FROM dbo.AutorTrabalho WHERE UsuarioId = @UsuarioId", new { UsuarioId = userId });
+                    var verifica = verificaQuery.FirstOrDefault();
+
+                    if (verifica != 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> CadastraAutorTrabalho(AutorTrabalho autor)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var cadastroQuery = await db.QueryAsync<bool>("INSERT INTO dbo.AutorTrabalho(StatusUsuarioId, UsuarioId, Orientador, TrabalhoId) VALUES (@StatusUsuarioId, @UsuarioId, @Orientador, @TrabalhoId",
+                        new
+                        {
+                            UsuarioId = autor.UsuarioId,
+                            StatusUsuarioId = autor.StatusUsuarioId,
+                            Orientador = autor.Orientador,
+                            TrabalhoId = autor.TrabalhoId,
+                        });
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }

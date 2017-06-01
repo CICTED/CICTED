@@ -8,6 +8,8 @@ namespace CICTED.Domain.ViewModels.Trabalho
 {
     public class AutoresViewModel
     {
+        public long Id { get; set; }
+
         public AutorViewModel AutorPrincipal { get; set; }
 
         public List<AutorViewModel> Coautores { get; set; }

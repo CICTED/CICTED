@@ -16,7 +16,8 @@ namespace CICTED.Domain.Entities.Trabalho
         public long UsuarioId { get; set; }
         [Required]
         public bool Orientador { get; set; }
-
+        [Required]
+        public long TrabalhoId { get; set; }
 
     }
 }

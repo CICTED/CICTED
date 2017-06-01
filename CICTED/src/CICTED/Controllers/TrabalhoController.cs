@@ -29,8 +29,10 @@ namespace CICTED.Controllers
         private IAreaRepository _areaRepository;
         private IAutorRepository _autorRepository;
         private IEmailServices _emailServices;
-
-        public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository)
+        private IAgenciaRepository _agenciaRepository;
+       
+         
+        public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository)
         {
             _emailServices = emailServices;
             _trabalhoRepository = trabalhoRepository;
@@ -39,6 +41,7 @@ namespace CICTED.Controllers
             _eventoRepository = eventoRepository;
             _areaRepository = areaRepository;
             _autorRepository = autorRepository;
+            _agenciaRepository = agenciaRepository;
         }
 
         [HttpGet("cadastro/{IdEvento}")]
@@ -52,7 +55,7 @@ namespace CICTED.Controllers
             var evento = await _eventoRepository.GetEvento(IdEvento);
             var areas = await _areaRepository.GetAreas();
             var periodos = await _trabalhoRepository.GetPeriodos();
-            var agencias = await _trabalhoRepository.GetAgencias();
+            var agencias = await _agenciaRepository.GetAgencias();
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             AutorViewModel autorPrincipal = new AutorViewModel()
@@ -225,7 +228,7 @@ namespace CICTED.Controllers
             var autoresId = await _autorRepository.GetAutoresId(id);
 
             AutoresViewModel model = new AutoresViewModel();
-
+            model.Id = id;
             List<AutorViewModel> coautores = new List<AutorViewModel>() { };
 
             foreach (var autor in autoresId)
@@ -293,13 +296,26 @@ namespace CICTED.Controllers
 
 
         [HttpPost("adicionar/autor")]
-        public async Task<IActionResult> AdicionarAutor(string email)
+        public async Task<IActionResult> AdicionarAutor(string email, long id, bool orientador)
         {
             try
             {
+                //verifica se esse email já esta cadastrado, devolve id do usuario
                 var usuario = await _accountRepository.BuscaUsuario(email);
                 if (usuario != null)
                 {
+                    //verificar se esse usuario ja esta cadastrado no trabalho
+                    var existeCadastro = await _trabalhoRepository.VerificaCadastroTrabalho(id);
+
+                    if(existeCadastro == true)
+                    {
+                        return BadRequest("Usuario já cadastrado no trabalho");
+                    }
+                    else
+                    {
+
+                    }
+
                     var status = await _autorRepository.GetStatusAutor(usuario.Id);
                     var autor = new AutorViewModel()
                     {

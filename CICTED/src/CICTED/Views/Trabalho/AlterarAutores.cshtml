@@ -64,6 +64,8 @@
                             <span class="fa fa-check-circle color-aprovado"></span>
                             @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
                             <b>@Model.AutorPrincipal.Email</b>
+                            <input style="visibility:hidden; width: 1px;" value="@Model.AutorPrincipal.Id" />
+
                         </div>
                     </td>
                 </tr>
@@ -169,13 +171,17 @@
 
 <script type="text/javascript">
 
+    var id-trabalho = '@Model.Id';
+
     $("#button-cadastrar-email").on("click", function () {
         var email = $("#input-email").val().trim();
         var id = $("#coautores");
+        var orientador = false;
 
         if (email.length > 0) {
             if ($.trim($("#orientador").html()) == '') {
                 id = ($("#orientador"));
+                orientador = true;
             }
 
             var qtdCoautores = $("div[id *= autor]").length - 1;
@@ -187,9 +193,12 @@
                     type: 'POST',
                     data: {
                         email: email,
+                        id: id-trabalho,
+                        orientador: orientador,
                     },
                     success: function (data) {
                         var status;
+
                         id.attr("data-id", "autor-" + data.id);
                         if (data.statusId == 1 || data.statusId == 5) {
                             status = '<span class="fa fa-check-circle color-aprovado"></span>';
