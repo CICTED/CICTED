@@ -554,6 +554,12 @@ namespace CICTED.Controllers
             }
 
         }
+
+        [HttpGet("alterarSenha")]
+        public async Task<IActionResult> AlterarSenha()
+        {
+            return View();
+        }
     }
 }
 

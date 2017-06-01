@@ -32,20 +32,22 @@ h1, h2, h3, h4, h5, h6, label {
 
 /*Modal*/
 .modal {
-  text-align: center;
+    text-align: center;
 }
+
 @media screen and (min-width: 768px) {
-  .modal:before {
-    display: inline-block;
-    vertical-align: middle;
-    content: " ";
-    height: 100%;
-  }
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
 }
+
 .modal-dialog {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -460,7 +462,7 @@ select {
     box-sizing: border-box;
 }
 
-    
+
 
 .busca {
     display: block;
@@ -670,6 +672,34 @@ input[type=checkbox] {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     font-size: 14px;
 }
+
+.form-alterarSenha {
+    width: 400px;
+    min-height: 350px;
+    height: auto;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    color: #868585;
+    font-size: 12px;
+}
+
+    .form-alterarSenha input {
+        border: 1px solid #DDD;
+        height: 30px;
+        width: 200px;
+        outline: none;
+    }
+    
+    .form-alterarSenha span {
+        color: rgba(0, 0, 0, 0.31);
+    }
+
+    .form-alterarSenha h1 {
+        font-weight: 300;
+    }
 
 .row {
     width: 100% !important;

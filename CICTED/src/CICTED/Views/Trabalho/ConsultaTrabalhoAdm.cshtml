@@ -10,65 +10,68 @@
     <h3 style="font-weight: bold"><span class="fa fa-book"></span> Consultar Trabalhos</h3>
 
     <div class="form-group">
-        Pesquisar Autor: <input class="input-add-autor" name="AutorNome"/>
+        Pesquisar Autor: <input class="input-add-autor" id="autor-nome" style="width:350px !important" placeholder="Digite o nome do autor" autocomplete="off"/>
+        <div style="height:0px; display:none" class="busca float-left">
+            <ul id="lista-nomes"></ul>
+        </div>
         <button class="btn btn-primary margin-left-10">Pesquisar</button>
     </div>
-
+    <hr />
     <table class="tabela-trabalho" style="margin:0 0 auto" border="1">
         <tr>
             <th style="width: 80px !important" class="form-group"></th>
             <th>
                 Identificação <br />
-                <input style="width:130px !important" class="input-add-autor"/>
+                <input style="width:130px !important" class="input-add-autor" />
             </th>
             <th>
                 Evento <br />
-                <input style="width:90px !important" class="input-add-autor"/>
+                <input style="width:90px !important" class="input-add-autor" />
             </th>
             <th>
                 Área <br />
-                <input style="width:150px !important" class="input-add-autor"/>
+                <input style="width:150px !important" class="input-add-autor" />
             </th>
             <th>
                 Subarea <br />
-                <input style="width:210px !important" class="input-add-autor"/>
+                <input style="width:210px !important" class="input-add-autor" />
             </th>
             <th>
                 Status <br />
-                <input style="width:130px !important" class="input-add-autor"/>
+                <input style="width:130px !important" class="input-add-autor" />
             </th>
         </tr>
 
         @foreach (var trabalhos in Model)
-        {
+            {
             <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalhos.Id"></a></td>
-       
+
             <td>@trabalhos.Identificacao</td>
 
-            <td>@trabalhos.EventoNome</td>
+                <td>@trabalhos.EventoNome</td>
 
-            <td>@trabalhos.AreaConhecimentoNome</td>
+                <td>@trabalhos.AreaConhecimentoNome</td>
 
-            <td>@trabalhos.SubAreaConhecimentoNome</td>
+                <td>@trabalhos.SubAreaConhecimentoNome</td>
 
-            <td>
-                @if (trabalhos.StatusTrabalhoId == 1)
+                <td>
+                    @if (trabalhos.StatusTrabalhoId == 1)
                 {
-                    <span style="font-size:18px" class="fa fa-check-circle color-aprovado"> Aprovado</span>
-                }
-                @if (trabalhos.StatusTrabalhoId == 2)
+                        <span style="font-size:18px" class="fa fa-check-circle color-aprovado"> Aprovado</span>
+                    }
+                    @if (trabalhos.StatusTrabalhoId == 2)
                 {
-                    <span style="font-size:18px" class="fa fa-times-circle color-reprovado"> Reprovado</span>
-                }
-                @if (trabalhos.StatusTrabalhoId == 3)
+                        <span style="font-size:18px" class="fa fa-times-circle color-reprovado"> Reprovado</span>
+                    }
+                    @if (trabalhos.StatusTrabalhoId == 3)
                 {
-                    <span style="font-size:18px" class="fa fa-clock-o color-submissao"> Aguardando Submissão</span>
-                }
-                @if (trabalhos.StatusTrabalhoId == 4)
+                        <span style="font-size:18px" class="fa fa-clock-o color-submissao"> Aguardando Submissão</span>
+                    }
+                    @if (trabalhos.StatusTrabalhoId == 4)
                 {
-                    <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"> Aguardando Avaliação</span>
-                }
-            </td>
+                        <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"> Aguardando Avaliação</span>
+                    }
+                </td>
         }
     </table>
 
@@ -182,7 +185,7 @@
                     var status;
 
 
-                    if (item.status == 1 ) {
+                    if (item.status == 1) {
                         status = '<span class="fa fa-check-circle color-aprovado"></span>';
                     }
                     else if (item.status == 2) {
@@ -216,6 +219,56 @@
 
             },
 
+        });
+    });
+
+    $("#autor-nome").on("input change", function () {
+        var valor = $(this).val();
+        $("#lista-nomes").html(' ');
+        $.ajax({
+            url: '/trabalho/busca/autor',
+            type: 'get',
+            data: {
+                busca: valor
+            },
+
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    $("#lista-nomes").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                        '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+
+                })
+            },
+        })
+    });
+
+    $(".autor-select").on("click", function () {
+        var id = $(this).attr("data-id");
+
+        $.ajax({
+            //url: '/product/delete/picture',
+            //type: 'post',
+            //data: {
+            //    id: id
+            //},
+
+            success: function () {
+                $("#autor-" + id).select();
+                var orientador = ($(".orientador"));
+
+                if (orientador.length == 0) {
+                    $(("#input-email")).attr("placeholder", "Email do orientador");
+                    $(("#input-nome")).attr("placeholder", "Nome do orientador");
+                } else {
+                    $(("#input-nome")).attr("placeholder", "Nome do coautor");
+                    $(("#input-email")).attr("placeholder", "Email do coautor");
+                }
+
+                alert("DEU  ");
+            },
+            error: function (x, y, message) {
+                alert("ERROOOU  " + message);
+            },
         });
     });
 
