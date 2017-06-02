@@ -529,9 +529,7 @@ namespace CICTED.Controllers
         }
 
 
-<<<<<<< HEAD
-        
-=======
+
         [HttpGet("verifica/usuario")]
         public async Task<IActionResult> VerificaUsuario(string email)
         {
@@ -567,7 +565,6 @@ namespace CICTED.Controllers
         {
             return View();
         }
->>>>>>> origin/1.0
     }
 }
 

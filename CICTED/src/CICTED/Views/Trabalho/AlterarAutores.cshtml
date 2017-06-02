@@ -171,9 +171,10 @@
 
 <script type="text/javascript">
 
-    var id-trabalho = '@Model.Id';
+
 
     $("#button-cadastrar-email").on("click", function () {
+        var idTrabalho = '@Model.Id';
         var email = $("#input-email").val().trim();
         var id = $("#coautores");
         var orientador = false;
@@ -193,7 +194,7 @@
                     type: 'POST',
                     data: {
                         email: email,
-                        id: id-trabalho,
+                        id: idTrabalho,
                         orientador: orientador,
                     },
                     success: function (data) {
@@ -212,21 +213,16 @@
                         else if (data.statusId == 4) {
                             status = '<span class="fa fa-times-circle color-reprovado"></span>';
                         }
-                        if(data.nome != null){
+                        
                             id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
                                 data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor('+data.id+')" value="' +
                                 data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
                                 '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
-                        }
-                        else{
-                            id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor('+data.id+')" value="' +
-                                data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
-                                '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
-                        }
+                      
                     },
                     error: function (x, y, message) {
                         $('#errors').empty();
-                        $('#errors').append('<div class="alert alert-danger" role="alert">' + message + x + y + '</div>');
+                        $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
                     },
 
                 })
@@ -316,7 +312,21 @@
         $(document).ready(function () {
             $("#autor-" + id).remove();
             var orientador = $("#orientador");
+            var idTrabalho = '@Model.Id';
+            $.ajax({
+                url: '/trabalho/deletar/autor',
+                type: 'POST',
+                data: {
+                    userId: id,
+                    idTrabalho: idTrabalho,
+                },
+                
+                error: function (x, y, message) {
+                    $('#errors').empty();
+                    $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
+                },
 
+            })
 
             if ($.trim($("#orientador").html()) == '') {
                 $(("#input-email")).attr("placeholder", "Email do orientador");

@@ -249,13 +249,13 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<bool> VerificaCadastroTrabalho(long userId)
+        public async Task<bool> VerificaCadastroTrabalho(long idTrabalho, long userId)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var verificaQuery = await db.QueryAsync<int>("SELECT StatusId FROM dbo.AutorTrabalho WHERE UsuarioId = @UsuarioId", new { UsuarioId = userId });
+                    var verificaQuery = await db.QueryAsync<int>("SELECT StatusUsuarioId FROM dbo.AutorTrabalho WHERE UsuarioId = @UsuarioId AND TrabalhoId = @TrabalhoId", new { UsuarioId = userId, TrabalhoId = idTrabalho });
                     var verifica = verificaQuery.FirstOrDefault();
 
                     if (verifica != 0)
@@ -280,7 +280,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var cadastroQuery = await db.QueryAsync<bool>("INSERT INTO dbo.AutorTrabalho(StatusUsuarioId, UsuarioId, Orientador, TrabalhoId) VALUES (@StatusUsuarioId, @UsuarioId, @Orientador, @TrabalhoId",
+                    var cadastroQuery = await db.QueryAsync<bool>("INSERT INTO dbo.AutorTrabalho(StatusUsuarioId, UsuarioId, Orientador, TrabalhoId) VALUES (@StatusUsuarioId, @UsuarioId, @Orientador, @TrabalhoId)",
                         new
                         {
                             UsuarioId = autor.UsuarioId,
@@ -288,10 +288,28 @@ namespace CICTED.Domain.Infrastucture.Repository
                             Orientador = autor.Orientador,
                             TrabalhoId = autor.TrabalhoId,
                         });
+
+
                 }
                 return true;
             }
             catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeletarAutorTrabalho(long userId, long idTrabalho)
+        {
+            try
+            {
+                using(var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var result = await db.ExecuteAsync("DELETE FROM dbo.AutorTrabalho WHERE UsuarioId = @UsuarioId AND TrabalhoId = @TrabalhoId", new { UsuarioId = userId, TrabalhoId = idTrabalho });
+                }
+                return true;
+
+            }catch(Exception ex)
             {
                 return false;
             }

@@ -30,8 +30,8 @@ namespace CICTED.Controllers
         private IAutorRepository _autorRepository;
         private IEmailServices _emailServices;
         private IAgenciaRepository _agenciaRepository;
-       
-         
+
+
         public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository)
         {
             _emailServices = emailServices;
@@ -134,7 +134,7 @@ namespace CICTED.Controllers
                 var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
                 var areaConhecimento = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
                 var subAreaConhecimento = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
-               
+
                 var trabalhoConsulta = new ConsultaTrabalho()
                 {
                     Id = trabalho.Id,
@@ -149,7 +149,7 @@ namespace CICTED.Controllers
 
             return View(model);
         }
-        
+
         [HttpGet("informacao")]
         [Authorize]
         public async Task<IActionResult> Informacao(long id)
@@ -222,6 +222,18 @@ namespace CICTED.Controllers
             return Json(subAreas);
         }
 
+        [HttpPost("deletar/autor")]
+        public async Task<IActionResult> DeletarAutorTrabalho(long userId, long idTrabalho)
+        {
+            var deletar = await _trabalhoRepository.DeletarAutorTrabalho(userId, idTrabalho);
+
+            if (deletar == true)
+            {
+                return Ok();
+            }
+            return BadRequest("Não foi possível excluir");
+        }
+
         [HttpGet("{id}/alterar/autor")]
         public async Task<IActionResult> AlterarAutor(long id)
         {
@@ -239,11 +251,14 @@ namespace CICTED.Controllers
                 {
                     Id = autor.UsuarioId,
                     Email = info.Email,
-                    Nome = info.Nome.ToUpper(),
                     Orientador = autor.Orientador,
-                    Sobrenome = info.Sobrenome.ToUpper(),
                     StatusId = autor.StatusUsuarioId
                 };
+                if(info.Nome != null)
+                {
+                    autorInfo.Nome = info.Nome.ToUpper();
+                    autorInfo.Sobrenome = info.Sobrenome.ToUpper();
+                }
 
                 if (autorInfo.StatusId == 5)
                 {
@@ -266,7 +281,7 @@ namespace CICTED.Controllers
         }
 
         [HttpPost("salva/autor")]
-        public async Task<IActionResult> AlterarAutor(AutoresViewModel model) 
+        public async Task<IActionResult> AlterarAutor(AutoresViewModel model)
         {
             return Ok();
         }
@@ -305,27 +320,43 @@ namespace CICTED.Controllers
                 if (usuario != null)
                 {
                     //verificar se esse usuario ja esta cadastrado no trabalho
-                    var existeCadastro = await _trabalhoRepository.VerificaCadastroTrabalho(id);
+                    var existeCadastro = await _trabalhoRepository.VerificaCadastroTrabalho(id, usuario.Id);
 
-                    if(existeCadastro == true)
+                    if (existeCadastro == true)
                     {
                         return BadRequest("Usuario já cadastrado no trabalho");
+                        
                     }
                     else
                     {
+                        var autor = new AutorTrabalho()
+                        {
 
+                            StatusUsuarioId = (usuario.Nome == null) ? 3:2,
+                            Orientador = orientador,
+                            TrabalhoId = id,
+                            UsuarioId = usuario.Id
+                        };
+
+                        var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor);
+
+                        if (cadastrar == true)
+                        {
+                            var autorCadastrado = new AutorViewModel
+                            {
+                                Id = usuario.Id,
+                                Email = email,
+                                Nome = (usuario.Nome == null) ? "" : usuario.Nome.ToUpper(),
+                                Sobrenome = (usuario.Sobrenome == null) ? "" : usuario.Sobrenome.ToUpper(),
+                                StatusId = (usuario.Nome == null) ? 3 : 2,
+                            };
+                            return Json(autorCadastrado);
+                        }
+                        else
+                        {
+                            return BadRequest("Não foi possível cadastrar usuario");
+                        }
                     }
-
-                    var status = await _autorRepository.GetStatusAutor(usuario.Id);
-                    var autor = new AutorViewModel()
-                    {
-                        Email = usuario.Email,
-                        Id = usuario.Id,
-                        Nome = usuario.Nome,
-                        Sobrenome = usuario.Sobrenome,
-                        StatusId = status,
-                    };
-                    return Json(autor);
                 }
                 else
                 {
@@ -369,13 +400,30 @@ namespace CICTED.Controllers
                             //email
                             var emailConfirmation = await _emailServices.EnviarEmail(user.Email, url, senha);
 
-                            var autor = new AutorViewModel()
+                            var autor = new AutorTrabalho()
                             {
-                                Email = email,
-                                Id = user.Id,
-                                StatusId = 3,
+                                StatusUsuarioId = 3,
+                                Orientador = orientador,
+                                TrabalhoId = id,
+                                UsuarioId = user.Id
                             };
-                            return Json(autor);
+                            //cadastra autor no trabalho
+                            var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor);
+
+                            if (cadastrar == true)
+                            {
+                                var autorCadastrado = new AutorViewModel
+                                {
+                                    Id = user.Id,
+                                    Email = email,
+                                    StatusId = 3
+                                };
+                                return Json(autorCadastrado);
+                            }
+                            else
+                            {
+                                return BadRequest("Não foi possível cadastrar usuario");
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -392,8 +440,8 @@ namespace CICTED.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
+
 
         public async Task<string> geraIdentificacao(Evento evento)
         {

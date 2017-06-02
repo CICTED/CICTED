@@ -190,11 +190,17 @@
 
                     if (item.orientador == true) {
                         $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
-                    } else if (item.statusId == 5) {
+                    }
+                    else if (item.statusId == 5) {
                         $('#autor-principal').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
-                    } else {
+                    }
+                    else {
                         $('#tipo-autor').text('Coautor: ');
-                        $('#outros-autores').append('<div style="width:100%">' + status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ' + '</div>');
+                        if (item.nome == null) {
+                            $('#outros-autores').append('<div style="width:100%">' + status + '<b> ' + item.email + '</b> ' + '</div>');
+                        } else {
+                            $('#outros-autores').append('<div style="width:100%">' + status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ' + '</div>');
+                        }
                     }
 
                 });
