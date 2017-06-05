@@ -204,32 +204,29 @@
 
                         <div class="tab-content">
                             @*EMAIL*@
-                            <div role="tabpanel" class="tab-pane active" id="porEmail">
+                            <div role="tabpanel" class="tab-pane active " id="porEmail">
                                 <div class="form-group margin-top-10 row">
-                                    <input class="input-add-autor" id="input-email" style="width:350px !important" placeholder="Digite o email do orientador" />
 
-                                    <button class="btn btn-primary" id="cadastro-email">Cadastrar</button>
+                                    <input autocomplete="off" class="input-add-autor" type="text" value="" id="input-email" placeholder="Email do coautor" />
+
+                                    <a id="button-cadastrar-email" class="btn btn-primary">Cadastrar</a>
                                 </div>
                             </div>
+
 
                             @*NOME*@
                             <div role="tabpanel" class="tab-pane" id="porNome">
                                 <div class="form-group margin-top-10 row add-autor">
-                                    <input id="input-nome" class="input-add-autor" style="width:350px !important" placeholder="Digite o nome do orientador" autocomplete="off" />
+                                    <input value="" autocomplete="off" class="input-nome input-add-autor" type="text" style="width:350px !important" placeholder="Nome do coautor" />
 
                                     <div style="height:0px;" class="busca float-left">
-                                        <ul id="lista-nomes">
-                                            <li id="autor-1">
-                                                <a id="oi">oi</a>
-
-                                            </li>
-
-                                        </ul>
+                                        <ul id="lista-nomes"></ul>
                                     </div>
 
-                                    <button class="btn btn-primary" id="adicionaAutor">Cadastrar</button>
+                                    <a id="adicionar-nome" class="btn btn-primary">Adicionar</a>
                                 </div>
                             </div>
+
                             <table class="table-trabalho">
 
                                 @*AUTOR PRINCIPAL*@
@@ -237,33 +234,35 @@
                                     <td>
                                         <b class="margin-right-40">Autor Principal: </b>
                                     </td>
-                                    <td id="autor-principal">
-                                        <span class="fa fa-check-circle color-aprovado"></span>
-                                        @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
-                                        <b>@Model.AutorPrincipal.Email</b>
+                                    <td>
+                                        <div class="float-left">
+                                            <span class="fa fa-check-circle color-aprovado"></span>
+                                            @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
+                                            <b>@Model.AutorPrincipal.Email</b>
+                                            <input id="autor-principal" style="visibility:hidden; width: 1px;" value="@Model.AutorPrincipal.Id" />
+
+                                        </div>
                                     </td>
                                 </tr>
+
+                                @*COAUTORES*@
+                                <tr>
+                                    <td>
+                                        <b class="margin-right-40">Coautes: </b>
+                                    </td>
+
+                                    <td id="coautores" name="coautores"></td>
+                                </tr>
+
 
                                 @*ORIENTADOR*@
                                 <tr>
-                                    <td>
-                                        <b class="margin-right-40">Orientador: </b>
-                                    </td>
+                                    <td><b>Orientador: </b></td>
+
                                     <td id="orientador"></td>
                                 </tr>
-
-                                @*COAUTOR*@
-                                <tr>
-                                    <td>
-                                        <b class="margin-right-40">Coautores: </b>
-                                    </td>
-                                    <td id="coautores"></td>
-                                </tr>
-
                             </table>
-
                         </div>
-
                     }
 
                     <hr />
@@ -347,26 +346,134 @@
 
 <script type="text/javascript">
 
+    var idAutorPrincipal = $("#autor-principal").val();
 
-    $("#input-nome").on("input change", function () {
-        var valor = $(this).val();
-        $("#lista-nomes").html(' ');
-        $.ajax({
-            url: '/trabalho/busca/autor',
-            type: 'get',
-            data: {
-                busca: valor
-            },
 
-            success: function (data) {
-                $.each(data, function (i, item) {
-                    $("#lista-nomes").append('<li><a>' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
-                        '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+    var autores = new Array();
 
-                })
-            },
-        })
+
+    //autores.push(idAutorPrincipal);
+    autores.push({
+        id: idAutorPrincipal,
+        status: 5,
+        orientador: false,
     });
+
+
+    //ids.push(idAutorPrincipal);
+    //ids.push(8);
+
+
+    //pesquisa os autores para mostrar os nomes de opção
+    $(".input-nome").keyup(function () {
+        var valor = $(this).val();
+        if (valor.trim() == "") {
+            $("#lista-nomes").empty();
+        }
+
+        if (valor.length > 2) {
+            $("#lista-nomes").html(' ');
+            $.ajax({
+                url: '/trabalho/pesquisa/autor',
+                type: 'get',
+                data: {
+                    busca: valor
+                },
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        $("#lista-nomes").append('<li><a class="selectautor" data-status="' + item.statusId + '" data-email="' + item.email + '" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                            '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+                    })
+                },
+            })
+        }
+    });
+
+    var id = 0;
+
+    //seleciona o nome, preenche input
+    $('body').on("click", ".selectautor", function () {
+        id = $(this).data("id");
+        email = $(this).data("email");
+        status = $(this).data("status")
+        var nome = $(this).text();
+        $(".input-nome").val(nome);
+        $(".input-nome").attr('id', id);
+        $(".input-nome").attr('data-email', email);
+        $(".input-nome").attr('data-status', status);
+        $("#lista-nomes").empty();
+    });
+
+
+    //verifica se o autor ja esta no trabalho, se nao, adiciona
+    $("#adicionar-nome").on("click", function () {
+        var userId = $(".input-nome").attr("id");
+        var id = $("#coautores");
+        var name = "coautoresId";
+
+        if ($.trim($("#orientador").html()) == '') {
+            id = ($("#orientador"));
+            name = "orientadorId";
+        }
+
+        var qtdCoautores = $("div[id *= autor]").length - 1;
+
+        if (qtdCoautores >= 5) {
+            $("#getCodeModal").modal('show');
+        }
+        else {
+            for (var i in autores) {
+                if (autores[i].id == userId) {                    
+                    return alert("encontrei");
+                    //modal falando que o autor ja esta incrito no trabalho
+                }
+            }
+
+            var email = $(".input-nome").attr("data-email");
+            var nome = $(".input-nome").val();
+
+            autores.push({
+                id: userId,
+                status: 2,
+                orientador: orientador
+            });
+
+            id.attr("data-id", "autor-" + userId);
+
+
+            id.append('<div style="width:500px" id="autor-' + userId + '"><span class="fa fa-clock-o color-submissao"></span> ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor(' + userId + ')" value="' +
+                                userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input style = "visibility:hidden;float: right;width: 1px;" value="' + userId + '" /></div>');
+
+        }
+        $(".input-nome").val("");
+    });
+    //
+
+    function deletarAutor(id) {
+        $(document).ready(function () {
+            $("#autor-" + id).remove();
+            var orientador = $("#orientador");
+
+            for (var i in autores) {
+                if (autores[i].id == id) {
+                    delete autores[i];
+                    break;
+                    //modal falando que o autor ja esta incrito no trabalho
+                }
+            }
+
+            if ($.trim($("#orientador").html()) == '') {
+                $(("#input-email")).attr("placeholder", "Email do orientador");
+                $((".input-nome")).attr("placeholder", "Nome do orientador");
+            }
+            else {
+                $((".input-nome")).attr("placeholder", "Nome do coautor");
+                $(("#input-email")).attr("placeholder", "Email do coautor");
+            }
+            
+        });
+    }
 
 
 
@@ -400,6 +507,7 @@
             $('.nav-pills li').next('li').addClass('disabled');
         });
     });
+
 
     $(".autor-delete").on("click", function () {
         var id = $(this).attr("data-id");

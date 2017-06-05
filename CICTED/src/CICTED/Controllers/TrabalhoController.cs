@@ -63,6 +63,7 @@ namespace CICTED.Controllers
                 Email = user.Email,
                 Nome = user.Nome.ToUpper(),
                 Sobrenome = user.Sobrenome.ToUpper(),
+                Id = user.Id
             };
 
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
