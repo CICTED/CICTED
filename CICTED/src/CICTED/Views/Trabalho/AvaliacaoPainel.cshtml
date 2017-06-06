@@ -1,0 +1,25 @@
+﻿@model CICTED.Domain.ViewModels.Trabalho.AvaliacaoTrabalhoViewModel
+
+@{
+    Layout = "_Menu";
+}
+<title>Avaliação Trabalhos - CICTED</title>
+
+
+    <form class="form-cadTrabalho">
+        <div class="form-group">
+            <b>Evento:</b>
+            <select class="form-control" name="Evento" value="@Model.Eventos">
+                <option disabled selected>Selecione um evento</option>
+                @foreach (var evento in Model.Eventos)
+            {
+                    <option value="@evento.Id"> @evento.EventoNome</option>
+
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <b>Identificador Trabalho:</b>
+            <input class="form-control" type ="text" name="IdentificadorTrabalho" value="@Model.IdentificadorTrabalho"/>
+        </div>
+    </form>

@@ -399,7 +399,7 @@ namespace CICTED.Controllers
                 var cursos = await _accountRepository.GetCursos();
                 var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
                 var cidades = await _localizacaoRepository.GetCidades(estado.Id);
-                
+
                 DadosUsuárioViewModel model = new DadosUsuárioViewModel();
                 model.Nome = user.Nome;
                 model.Sobrenome = user.Sobrenome;
@@ -414,7 +414,7 @@ namespace CICTED.Controllers
                 model.Logradouro = endereco.Logradouro;
                 model.CidadeId = endereco.CidadeId;
                 model.CidadeNome = cidade.CidadeNome;
-                model.Cidades = cidades;        
+                model.Cidades = cidades;
                 model.Numero = endereco.Numero;
                 model.Bairro = endereco.Bairro;
                 model.CEP = endereco.CEP;
@@ -500,7 +500,7 @@ namespace CICTED.Controllers
                     enderecoId = await _localizacaoRepository.UpdateEndereco(endereco, cidadeId, enderecoId, 0);
 
                 }
-                
+
                 var result = await _accountRepository.UpdateDadosUsuario(usuarioDados, user.EnderecoId, idUsuario);
 
                 if (result == true)
@@ -536,7 +536,7 @@ namespace CICTED.Controllers
             try
             {
                 var usuario = await _accountRepository.BuscaUsuario(email);
-                if(usuario != null)
+                if (usuario != null)
                 {
                     var status = await _autorRepository.GetStatusAutor(usuario.Id);
                     var autor = new AutorViewModel()
@@ -548,12 +548,14 @@ namespace CICTED.Controllers
                         StatusId = status,
                     };
                     return Json(autor);
-                }else
+                }
+                else
                 {
                     return Ok();
                 }
-                
-            }catch(Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -564,6 +566,33 @@ namespace CICTED.Controllers
         public async Task<IActionResult> AlterarSenha()
         {
             return View();
+        }
+
+        [HttpPost("alterarsenha")]
+        public async Task<IActionResult> AlterarSenha(AlterarSenhaViewModel model)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                var senhaAtual = user.PasswordHash;
+                
+
+                if (senhaAtual == model.SenhaAtual)
+                {
+
+                }
+                else
+                {
+                    ViewData["Message"] = "A senha é diferente da senha atual.";
+                    return View("alterarsenha", model);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
