@@ -171,20 +171,16 @@
 
 <script type="text/javascript">
 
-    var ids = Array();
+    var idAutorPrincipal = $("#autor-principal").val();
 
-    //pessoas.push({
-    //    id:10,
-    //    status:1,
-    //});
+    var autores = new Array();
 
-    //var objeto = ({
-
-    //});
-
-
-    //ajax = post;
-
+    //autores.push(idAutorPrincipal);
+    autores.push({
+        id: idAutorPrincipal,
+        status: 5,
+        orientador: false,
+    });
 
     $("#button-cadastrar-email").on("click", function () {
         var idTrabalho = '@Model.Id';
@@ -241,9 +237,6 @@
             }
         }
     });
-
-
-
 
 
     $(".input-nome").keyup(function () {
@@ -327,44 +320,46 @@
                 error: function (x, y, message) {
                     $('#errors').empty();
                     $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
-                },            
+                },
             });
         }
+    });
+    
 
 
 
-        function deletarAutor(id) {
-            $(document).ready(function () {
-                $("#autor-" + id).remove();
-                var orientador = $("#orientador");
-                var idTrabalho = '@Model.Id';
+    function deletarAutor(id) {
+        $(document).ready(function () {
+            $("#autor-" + id).remove();
+            var orientador = $("#orientador");
+            var idTrabalho = '@Model.Id';
 
-                $.ajax({
-                    url: '/trabalho/deletar/autor',
-                    type: 'POST',
-                    data: {
-                        userId: id,
-                        idTrabalho: idTrabalho,
-                    },
+            $.ajax({
+                url: '/trabalho/deletar/autor',
+                type: 'POST',
+                data: {
+                    userId: id,
+                    idTrabalho: idTrabalho,
+                },
 
-                    error: function (x, y, message) {
-                        $('#errors').empty();
-                        $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
-                    },
+                error: function (x, y, message) {
+                    $('#errors').empty();
+                    $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
+                },
 
-                })
+            })
 
-                if ($.trim($("#orientador").html()) == '') {
-                    $(("#input-email")).attr("placeholder", "Email do orientador");
-                    $((".input-nome")).attr("placeholder", "Nome do orientador");
-                }
-                else {
-                    $((".input-nome")).attr("placeholder", "Nome do coautor");
-                    $(("#input-email")).attr("placeholder", "Email do coautor");
-                }
+            if ($.trim($("#orientador").html()) == '') {
+                $(("#input-email")).attr("placeholder", "Email do orientador");
+                $((".input-nome")).attr("placeholder", "Nome do orientador");
+            }
+            else {
+                $((".input-nome")).attr("placeholder", "Nome do coautor");
+                $(("#input-email")).attr("placeholder", "Email do coautor");
+            }
 
-            });
-        }
+        });
+    }
 
 
 

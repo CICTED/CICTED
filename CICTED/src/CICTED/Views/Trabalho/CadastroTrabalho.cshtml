@@ -194,6 +194,8 @@
                                 </b>
                             </h4>
                             <h5>Para cadastrar um participante use uma das opções a baixo</h5>
+
+                            <div id="errors"></div>
                         </div>
 
                         <ul class="nav nav-tabs" role="tablist">
@@ -348,9 +350,7 @@
 
     var idAutorPrincipal = $("#autor-principal").val();
 
-
     var autores = new Array();
-
 
     //autores.push(idAutorPrincipal);
     autores.push({
@@ -358,11 +358,6 @@
         status: 5,
         orientador: false,
     });
-
-
-    //ids.push(idAutorPrincipal);
-    //ids.push(8);
-
 
     //pesquisa os autores para mostrar os nomes de opção
     $(".input-nome").keyup(function () {
@@ -404,7 +399,6 @@
         $("#lista-nomes").empty();
     });
 
-
     //verifica se o autor ja esta no trabalho, se nao, adiciona
     $("#adicionar-nome").on("click", function () {
         var userId = $(".input-nome").attr("id");
@@ -424,8 +418,9 @@
         else {
             for (var i in autores) {
                 if (autores[i].id == userId) {                    
-                    return alert("encontrei");
-                    //modal falando que o autor ja esta incrito no trabalho
+                    $('#errors').empty();
+                    $('#errors').append('<div class="alert alert-danger" role="alert">Usuario já cadastrado no trabalho</div>');
+                    return false;
                 }
             }
 
@@ -448,7 +443,69 @@
         }
         $(".input-nome").val("");
     });
-    //
+    
+    $("#button-cadastrar-email").on("click", function () {
+        var email = $("#input-email").val().trim();
+        var id = $("#coautores");
+        var orientador = false;
+
+        if (email.length > 0) {
+            if ($.trim($("#orientador").html()) == '') {
+                id = ($("#orientador"));
+                orientador = true;
+            }
+
+            var qtdCoautores = $("div[id *= autor]").length - 1;
+            if (qtdCoautores >= 5) {
+                $("#getCodeModal").modal('show');
+            }
+            else {
+                $.ajax({
+                    url: '/trabalho/adicionar/email',
+                    type: 'POST',
+                    data: {
+                        email: email,
+                    },
+                    success: function (data) {
+                        var status;
+                       
+                        for (var i in autores) {
+                            if (autores[i].id == data.id) {
+                                $('#errors').empty();
+                                $('#errors').append('<div class="alert alert-danger" role="alert">Usuario já cadastrado no trabalho</div>');
+                                return false;
+                            }
+                        }
+
+                        autores.push({
+                            id: data.id,
+                            status: data.status,
+                            orientador: orientador
+                        });
+
+                        id.attr("data-id", "autor-" + data.id);
+                        if (data.statusId == 2) {
+                            status = '<span class="fa fa-clock-o color-submissao"></span>';
+                        }
+                        else if (data.statusId == 3) {
+                            status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+                        }
+
+                        id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
+                            data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor(' + data.id + ')" value="' +
+                            data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                            '<input style = "visibility:hidden;float: right;width: 1px;" name="Ids" value="' + data.id + '" /></div>');
+                    },
+                    error: function (x, y, message) {
+                        $('#errors').empty();
+                        $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
+                    },
+
+                })
+            }
+        }
+    });
+
 
     function deletarAutor(id) {
         $(document).ready(function () {
@@ -459,7 +516,6 @@
                 if (autores[i].id == id) {
                     delete autores[i];
                     break;
-                    //modal falando que o autor ja esta incrito no trabalho
                 }
             }
 
@@ -470,13 +526,9 @@
             else {
                 $((".input-nome")).attr("placeholder", "Nome do coautor");
                 $(("#input-email")).attr("placeholder", "Email do coautor");
-            }
-            
+            }            
         });
     }
-
-
-
 
     $("#checkFinanciado").on("change", function () {
         if ($(this).is(":checked")) {
@@ -505,37 +557,6 @@
             $('.nav-pills li.active').prev('li').find('a').trigger("click");
             $('.nav-pills li').next('li').find('a').removeAttr("data-toggle");
             $('.nav-pills li').next('li').addClass('disabled');
-        });
-    });
-
-
-    $(".autor-delete").on("click", function () {
-        var id = $(this).attr("data-id");
-
-        $.ajax({
-            //url: '/product/delete/picture',
-            //type: 'post',
-            //data: {
-            //    id: id
-            //},
-
-            success: function () {
-                $("#autor-" + id).remove();
-                var orientador = ($(".orientador"));
-
-                if (orientador.length == 0) {
-                    $(("#input-email")).attr("placeholder", "Email do orientador");
-                    $(("#input-nome")).attr("placeholder", "Nome do orientador");
-                } else {
-                    $(("#input-nome")).attr("placeholder", "Nome do coautor");
-                    $(("#input-email")).attr("placeholder", "Email do coautor");
-                }
-
-                alert("DEU  ");
-            },
-            error: function (x, y, message) {
-                alert("ERROOOU  " + message);
-            },
         });
     });
 
