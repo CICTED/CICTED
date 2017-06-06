@@ -442,8 +442,6 @@ namespace CICTED.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-<<<<<<< HEAD
         [HttpPost("adicionar/email")]
         public async Task<IActionResult> AdicionarEmail(string email)
         {
@@ -532,14 +530,12 @@ namespace CICTED.Controllers
                 return BadRequest(ex.Message);
             }
         }
-=======
         [HttpGet("avaliacao/painel")]
         public async Task<IActionResult> AvaliacaoPainel()
         {
             AvaliacaoTrabalhoViewModel model = new AvaliacaoTrabalhoViewModel();
 
             model.Eventos = await _eventoRepository.getEventos();
->>>>>>> d375371cf406152873707992e9b9d36ee98f2820
 
             return View(model);
         }
