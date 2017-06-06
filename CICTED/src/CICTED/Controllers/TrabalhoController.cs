@@ -443,7 +443,15 @@ namespace CICTED.Controllers
             }
         }
 
+        [HttpGet("avaliacao/painel")]
+        public async Task<IActionResult> AvaliacaoPainel()
+        {
+            AvaliacaoTrabalhoViewModel model = new AvaliacaoTrabalhoViewModel();
 
+            model.Eventos = await _eventoRepository.getEventos();
+
+            return View(model);
+        }
         public async Task<string> geraIdentificacao(Evento evento)
         {
             var rand = new Random();
