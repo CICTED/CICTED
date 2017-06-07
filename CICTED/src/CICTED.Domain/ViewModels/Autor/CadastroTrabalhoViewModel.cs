@@ -50,7 +50,7 @@ namespace CICTED.Domain.ViewModels.Autor
         public List<AlunoTrabalho> Alunos { get; set; }
 
         public string AlunoNome { get; set; }
-
+        
         public string Titulo { get; set; }
 
         public string Resumo { get; set; }
@@ -80,5 +80,7 @@ namespace CICTED.Domain.ViewModels.Autor
         public List<long> Roles { get; set; }
 
         public string ReturnMenssagem { get; set; }
+
+        public List<AutorTrabalho> autores { get; set; }
     }
 }

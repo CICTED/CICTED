@@ -44,15 +44,15 @@ namespace CICTED.Controllers
             _agenciaRepository = agenciaRepository;
         }
 
-        [HttpGet("cadastro/{IdEvento}")]
+        [HttpGet("cadastro/{idEvento}")]
         [Authorize]
-        public async Task<IActionResult> CadastroTrabalho(int IdEvento)
+        public async Task<IActionResult> CadastroTrabalho(int idEvento)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var evento = await _eventoRepository.GetEvento(IdEvento);
+            var evento = await _eventoRepository.GetEvento(idEvento);
             var areas = await _areaRepository.GetAreas();
             var periodos = await _trabalhoRepository.GetPeriodos();
             var agencias = await _agenciaRepository.GetAgencias();
@@ -75,6 +75,7 @@ namespace CICTED.Controllers
                 AutorPrincipal = autorPrincipal,
             };
 
+            model.Evento.Id = idEvento;
 
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
@@ -84,12 +85,11 @@ namespace CICTED.Controllers
             return View(model);
         }
 
-        [HttpPost("cadastro/{IdEvento}")]
-        public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model, int IdEvento)
+        [HttpPost("cadastro")]
+        public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model)
         {
-            model.Evento = await _eventoRepository.GetEvento(IdEvento);
-
-
+            //gera identificação
+            model.Evento = await _eventoRepository.GetEvento(model.EventoId);
             string identificacao = await geraIdentificacao(model.Evento);
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -210,7 +210,6 @@ namespace CICTED.Controllers
             return Json(model);
         }
 
-
         [HttpGet("list/subarea/{areaId}")]
         public async Task<IActionResult> Subarea(int areaId)
         {
@@ -280,13 +279,7 @@ namespace CICTED.Controllers
 
             return View("AlterarAutores", model);
         }
-
-        [HttpPost("salva/autor")]
-        public async Task<IActionResult> AlterarAutor(AutoresViewModel model)
-        {
-            return Ok();
-        }
-
+       
         [HttpGet("pesquisa/autor")]
         public async Task<IActionResult> PesquisaAutor(string busca)
         {
@@ -309,7 +302,6 @@ namespace CICTED.Controllers
             }
             return Json(autoresList);
         }
-
 
         [HttpPost("adicionar/autor")]
         public async Task<IActionResult> AdicionarAutor(string email, long id, bool orientador)
@@ -442,6 +434,7 @@ namespace CICTED.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("adicionar/email")]
         public async Task<IActionResult> AdicionarEmail(string email)
         {
@@ -530,6 +523,7 @@ namespace CICTED.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet("avaliacao/painel")]
         public async Task<IActionResult> AvaliacaoPainel()
         {
@@ -539,6 +533,7 @@ namespace CICTED.Controllers
 
             return View(model);
         }
+
         public async Task<string> geraIdentificacao(Evento evento)
         {
             var rand = new Random();

@@ -42,7 +42,7 @@
                             </div>
 
                             <div class="float-left margin-left-75">
-                                <input type="text" asp-for="NomeEscola" value="@Model.NomeEscola" required />
+                                <input id="nome-escola" type="text" asp-for="NomeEscola" value="@Model.NomeEscola" required />
                             </div>
                         </div>
 
@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="float-left margin-left-75">
-                                <input type="text" asp-for="CidadeEscola" value="@Model.CidadeEscola" required />
+                                <input id="nome-cidade" type="text" asp-for="CidadeEscola" value="@Model.CidadeEscola" required />
                             </div>
                         </div>
 
@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="float-left margin-left-75">
-                                <input type="text" id="Telefone" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" required />
+                                <input type="text" id="telefone" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" required />
                             </div>
                         </div>
 
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="SubAreaId" value="@Model.SubAreaId" id="dropSubArea">
+                            <select data-id="sub-area" class="form-control" name="SubAreaId" value="@Model.SubAreaId" id="dropSubArea">
                                 <option disabled selected>Selecione uma subarea</option>
                             </select>
                         </div>
@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="PeriodoApresentacao" value="@Model.PeriodoApresentacao" id="dropArea">
+                            <select data-id="periodo-apresentacao" class="form-control" name="PeriodoApresentacao" value="@Model.PeriodoApresentacao" id="dropArea">
                                 <option disabled selected>Selecione um periodo</option>
                                 @foreach (var periodos in Model.Periodos)
                                 {
@@ -133,7 +133,7 @@
                             <label>Agencia Financiadora:</label>
                         </div>
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="AgenciaId" value="@Model.AgenciaId">
+                            <select id="agencia-financiadora" class="form-control" name="AgenciaId" value="@Model.AgenciaId">
                                 <option value="0">Selecione a agência financiadora</option>
                                 @foreach (var agencia in Model.Agencias)
                                 {
@@ -151,7 +151,7 @@
                             <label>Código CEP (Comitê de Ética em Pesquisa): </label>
                         </div>
                         <div class="float-left margin-left-75">
-                            <input type="text" name="CodigoCEP" value="@Model.CodigoCEP" />
+                            <input id="codigo-cep" type="text" name="CodigoCEP" value="@Model.CodigoCEP" />
                         </div>
                     </div>
                     <hr />
@@ -279,35 +279,35 @@
                 <div role="tabpanel" class="tab-pane" id="Passo3">
                     <div class="form-group margin-top-10 row">
                         <p><b>Titulo: </b></p>
-                        <textarea style="height:40px!important" asp-for="Titulo" value="@Model.Titulo" required></textarea>
+                        <textarea id="titulo" style="height:40px!important" asp-for="Titulo" value="@Model.Titulo" required></textarea>
                     </div>
                     @if (Model.Evento.Id == 7)
                     {
                         <div class="form-group margin-top-10 row">
                             <p><b>Resumo: </b></p>
-                            <textarea asp-for="Resumo" value="@Model.Resumo" required></textarea>
+                            <textarea id="resumo" asp-for="Resumo" value="@Model.Resumo" required></textarea>
                         </div>
 
                     }
                     <div class="form-group margin-top-10 row">
                         <p><b>Introdução: </b></p>
-                        <textarea asp-for="Introducao" value="@Model.Introducao" required></textarea>
+                        <textarea id="introducao" asp-for="Introducao" value="@Model.Introducao" required></textarea>
                     </div>
                     @if (Model.Evento.Id == 8)
                     {
                         <div class="form-group margin-top-10 row">
                             <p><b>Objetivos do projeto: </b></p>
-                            <textarea asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
+                            <textarea id="objetivos" asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
                         </div>
 
                     }
                     <div class="form-group margin-top-10 row">
                         <p><b>Metodologia: </b></p>
-                        <textarea asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
+                        <textarea id="metodologia" asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
                     </div>
                     <div class="form-group margin-top-10 row">
                         <p><b>Resultados: </b></p>
-                        <textarea asp-for="Resultados" value="@Model.Resultados" required></textarea>
+                        <textarea id="resultados" asp-for="Resultados" value="@Model.Resultados" required></textarea>
                     </div>
                     <div class="form-group margin-top-10 row">
                         <div class="float-left">
@@ -321,22 +321,22 @@
                     {
                         <div class="form-group margin-top-10 row">
                             <p><b>Conclusão: </b></p>
-                            <textarea asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
+                            <textarea id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
                         </div>
 
                         <div class="form-group margin-top-10 row">
                             <p><b>Referências bibliográficas: </b></p>
-                            <textarea asp-for="Referencias" value="@Model.Referencias" required></textarea>
+                            <textarea id="referencia" asp-for="Referencias" value="@Model.Referencias" required></textarea>
                         </div>
 
                         <div class="form-group margin-top-10 row">
                             <p><b>Palavras chave: </b></p>
-                            <textarea asp-for="PalavrasChave" style="height:40px!important" value="@Model.PalavrasChave" required></textarea>
+                            <textarea id="palavra-chave" asp-for="PalavrasChave" style="height:40px!important" value="@Model.PalavrasChave" required></textarea>
                         </div>
                     }
                     <div class="form-group margin-top-10">
                         <button class="btn btn-primary float-left prev">Voltar</button>
-                        <button class="btn btn-primary float-right">Cadastrar</button>
+                        <button type="button" id="salvar-trabalho" class="btn btn-primary float-right">Cadastrar</button>
                     </div>
                 </div>
             </div>
@@ -350,6 +350,8 @@
 
     var idAutorPrincipal = $("#autor-principal").val();
 
+    var idEvento = '@Model.Evento.Id'
+
     var autores = new Array();
 
     //autores.push(idAutorPrincipal);
@@ -357,6 +359,40 @@
         id: idAutorPrincipal,
         status: 5,
         orientador: false,
+    });
+
+
+    $("#salvar-trabalho").on("click", function () {
+        var model = {
+            eventoId: idEvento,
+            titulo: $("#titulo").val(),
+            introducao: $("#introducao").val(),
+            metodologia: $("#metodologia").val(),
+            resultados: $("#resultados").val(),
+            resumo: $("#resumo").val(),
+            conclusao: $("#conclusao").val(),
+            referencia: $("#referencia").val(),
+            nomeEscola: $("#nome-escola").val(),
+            telefoneEscola: $("#telefone").val(),
+            cep: $("#codigo-cep").val(),
+            agenciaFinanciadoraId: $("#agencia-financiadora").val(),
+        };
+
+        $.ajax({
+            url: '/trabalho/cadastro',
+            type: 'post',
+            data: {
+                model: model
+            },
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    $("#lista-nomes").append('<li><a class="selectautor" data-status="' + item.statusId + '" data-email="' + item.email + '" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                        '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+                })
+            },
+        })
+
+
     });
 
     //pesquisa os autores para mostrar os nomes de opção
@@ -417,7 +453,7 @@
         }
         else {
             for (var i in autores) {
-                if (autores[i].id == userId) {                    
+                if (autores[i].id == userId) {
                     $('#errors').empty();
                     $('#errors').append('<div class="alert alert-danger" role="alert">Usuario já cadastrado no trabalho</div>');
                     return false;
@@ -443,7 +479,7 @@
         }
         $(".input-nome").val("");
     });
-    
+
     $("#button-cadastrar-email").on("click", function () {
         var email = $("#input-email").val().trim();
         var id = $("#coautores");
@@ -468,7 +504,7 @@
                     },
                     success: function (data) {
                         var status;
-                       
+
                         for (var i in autores) {
                             if (autores[i].id == data.id) {
                                 $('#errors').empty();
@@ -526,7 +562,7 @@
             else {
                 $((".input-nome")).attr("placeholder", "Nome do coautor");
                 $(("#input-email")).attr("placeholder", "Email do coautor");
-            }            
+            }
         });
     }
 
@@ -561,5 +597,5 @@
     });
 
     $('#dropArea').subArea($('#dropSubArea'));
-    $("#Telefone").mask("(99) 9999-9999");
+    $("#telefone").mask("(99) 9999-9999");
 </script>
