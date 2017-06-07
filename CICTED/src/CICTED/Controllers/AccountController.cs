@@ -9,7 +9,8 @@ using CICTED.Domain.Infrastucture.Helpers;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace CICTED.Controllers
 {
@@ -575,10 +576,36 @@ namespace CICTED.Controllers
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var senhaAtual = user.PasswordHash;
-                
 
-                if (senhaAtual == model.SenhaAtual)
+                var result = await _signInManager.PasswordSignInAsync(user.Email,
+                     model.SenhaAtual, user.EmailConfirmed, user.EmailConfirmed);
+                var novaSenha = model.NovaSenha;
+
+                if (result.Succeeded)
                 {
+                    if (novaSenha == model.ConfirmarSenha)
+                    {
+                        var bite = Encoding.UTF8.GetBytes(novaSenha);
+                        using(var hash = SHA1.Create())
+                        {
+                            var hashedInputBytes = hash.ComputeHash(bite);
+                            var hashedInputStringBuilder = new StringBuilder(128);
+                            string hexNumber = "";
+                            foreach(var b in hashedInputBytes)
+                            {
+                                hexNumber += String.Format("{0:X2}", b);
+                            }
+                            string senhaa = hexNumber;
+                            var senha = await _accountRepository.UpdateSenha(senhaa, user.Id);
+                        }
+                        ViewData["Messagen"] = "A senha foi alterada.";
+                        return View("alterarsenha", model);
+                    }
+                    else
+                    {
+                        ViewData["Messager"] = "A senha digitada é diferente da senha confirmada.";
+                        return View("alterarsenha", model);
+                    }
 
                 }
                 else
@@ -587,7 +614,6 @@ namespace CICTED.Controllers
                     return View("alterarsenha", model);
                 }
 
-                return Ok();
             }
             catch (Exception ex)
             {
