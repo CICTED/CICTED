@@ -586,7 +586,7 @@ namespace CICTED.Controllers
                     if (novaSenha == model.ConfirmarSenha)
                     {
                         var bite = Encoding.UTF8.GetBytes(novaSenha);
-                        using(var hash = SHA1.Create())
+                        using(var hash = SHA256.Create())
                         {
                             var hashedInputBytes = hash.ComputeHash(bite);
                             var hashedInputStringBuilder = new StringBuilder(128);
