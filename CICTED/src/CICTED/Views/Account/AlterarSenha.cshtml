@@ -14,6 +14,10 @@
         {
             <div>A senha é diferente da senha atual.</div>
         }
+        @if (ViewData["Messagen"] != null)
+        {
+            <div>A senha foi alterada.</div>
+        }
         <div class="margin-top-10">
             <label>Senha atual:</label>
             <input type="password" style="width:100%" asp-for="SenhaAtual" />
@@ -23,12 +27,15 @@
             <label>Nova Senha:</label>
             <input type="password" style="width:100%" asp-for="NovaSenha"/>
         </div>
-
+        @if (ViewData["Messager"] != null)
+        {
+            <div>A senha digitada é diferente da senha confirmada.</div>
+        }
         <div class="margin-top-10">
             <label>Confirmar Senha:</label>
             <input type="password" style="width:100%" asp-for="ConfirmarSenha"/>
         </div>
 
-        <button type="submit" class="btn btn-primary margin-top-20" style="width: 93%">Cadastrar</button>
+        <button type="submit" class="btn btn-primary margin-top-20" style="width: 93%">Alterar</button>
     </div>
 </form>

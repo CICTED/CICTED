@@ -95,7 +95,8 @@ namespace CICTED.Domain.Infrastucture.Repository
 
                     return cursos.ToList();
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return null;
             }
@@ -112,7 +113,8 @@ namespace CICTED.Domain.Infrastucture.Repository
 
                     return roles.ToList();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return null;
             }
@@ -145,13 +147,35 @@ namespace CICTED.Domain.Infrastucture.Repository
 
                     return queryVerifica.FirstOrDefault();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
+        public async Task<bool> UpdateSenha(string senha, long Id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var updateSenhaQuery = "UPDATE dbo.AspNetUsers SET PasswordHash = @Senha WHERE Id = @Id";
 
+                    var resultadoDados = await db.ExecuteAsync(updateSenhaQuery,
+                                                                new
+                                                                {
+                                                                    Id = Id,
+                                                                    Senha = senha
 
-    }   
+                                                                });
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+    }
 }
