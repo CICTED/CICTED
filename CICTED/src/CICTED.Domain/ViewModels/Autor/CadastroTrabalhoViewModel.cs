@@ -1,4 +1,5 @@
-﻿using CICTED.Domain.Entities.Localizacao;
+﻿using CICTED.Crosscutting.Validations;
+using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Entities.Trabalho;
 using CICTED.Domain.ViewModels.Account;
 using System;
@@ -37,7 +38,7 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public int AgenciaId { get; set; }
 
-        public string TextoCitacao { get; set; }
+        public string TextoCitacao { get; set; }        
 
         public string CodigoCEP { get; set; }
 
@@ -51,6 +52,8 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public string AlunoNome { get; set; }
         
+        [MaxWords(20, ErrorMessage = "máximo 20 palavras")]
+        [MinWords(5, ErrorMessage = "mínimo 5 palavras")]
         public string Titulo { get; set; }
 
         public string Resumo { get; set; }
@@ -59,14 +62,25 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public string Objetivo { get; set; }
 
+        [MaxWords(150, ErrorMessage = "máximo 150 palavras")]
+        [MinWords(20, ErrorMessage = "mínimo 20 palavras")]
         public string Metodologia { get; set; }
 
+        [MaxWords(20, ErrorMessage = "máximo 150 palavras")]
+        [MinWords(5, ErrorMessage = "mínimo 20 palavras")]
         public string Resultados { get; set; }
 
+        [MaxWords(20, ErrorMessage = "máximo 100 palavras")]
+        [MinWords(5, ErrorMessage = "mínimo 20 palavras")]
         public string Conclusao { get; set; }
 
+        [MaxWords(20, ErrorMessage = "máximo 100 palavras")]
+        [MinWords(5, ErrorMessage = "mínimo 20 palavras")]
         public string Referencias { get; set; }
 
+        [MaxWords(20, ErrorMessage = "máximo 6 palavras")]
+        [MinWords(5, ErrorMessage = "mínimo 3 palavras")]
+        public String PalavraChave { get; set; }
         public List<string> PalavrasChave { get; set; }
 
         public long ArtigoId { get; set; }

@@ -100,9 +100,9 @@ namespace CICTED.Controllers
             if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao))
             {
                 model.ReturnMenssagem = "Alterações salvas";
-                return View("Account", "Home");
+                return View(model);
             }
-            return View();
+            return View(model);
         }
 
         [HttpGet("consulta")]
