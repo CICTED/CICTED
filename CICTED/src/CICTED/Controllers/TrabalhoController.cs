@@ -44,15 +44,15 @@ namespace CICTED.Controllers
             _agenciaRepository = agenciaRepository;
         }
 
-        [HttpGet("cadastro/{IdEvento}")]
+        [HttpGet("cadastro/{idEvento}")]
         [Authorize]
-        public async Task<IActionResult> CadastroTrabalho(int IdEvento)
+        public async Task<IActionResult> CadastroTrabalho(int idEvento)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var evento = await _eventoRepository.GetEvento(IdEvento);
+            var evento = await _eventoRepository.GetEvento(idEvento);
             var areas = await _areaRepository.GetAreas();
             var periodos = await _trabalhoRepository.GetPeriodos();
             var agencias = await _agenciaRepository.GetAgencias();
@@ -75,6 +75,7 @@ namespace CICTED.Controllers
                 AutorPrincipal = autorPrincipal,
             };
 
+            model.Evento.Id = idEvento;
 
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
@@ -84,12 +85,11 @@ namespace CICTED.Controllers
             return View(model);
         }
 
-        [HttpPost("cadastro/{IdEvento}")]
-        public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model, int IdEvento)
+        [HttpPost("cadastro")]
+        public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model)
         {
-            model.Evento = await _eventoRepository.GetEvento(IdEvento);
-
-
+            //gera identificação
+            model.Evento = await _eventoRepository.GetEvento(model.EventoId);
             string identificacao = await geraIdentificacao(model.Evento);
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -210,7 +210,6 @@ namespace CICTED.Controllers
             return Json(model);
         }
 
-
         [HttpGet("list/subarea/{areaId}")]
         public async Task<IActionResult> Subarea(int areaId)
         {
@@ -255,7 +254,7 @@ namespace CICTED.Controllers
                     Orientador = autor.Orientador,
                     StatusId = autor.StatusUsuarioId
                 };
-                if(info.Nome != null)
+                if (info.Nome != null)
                 {
                     autorInfo.Nome = info.Nome.ToUpper();
                     autorInfo.Sobrenome = info.Sobrenome.ToUpper();
@@ -280,13 +279,7 @@ namespace CICTED.Controllers
 
             return View("AlterarAutores", model);
         }
-
-        [HttpPost("salva/autor")]
-        public async Task<IActionResult> AlterarAutor(AutoresViewModel model)
-        {
-            return Ok();
-        }
-
+       
         [HttpGet("pesquisa/autor")]
         public async Task<IActionResult> PesquisaAutor(string busca)
         {
@@ -310,7 +303,6 @@ namespace CICTED.Controllers
             return Json(autoresList);
         }
 
-
         [HttpPost("adicionar/autor")]
         public async Task<IActionResult> AdicionarAutor(string email, long id, bool orientador)
         {
@@ -326,14 +318,14 @@ namespace CICTED.Controllers
                     if (existeCadastro == true)
                     {
                         return BadRequest("Usuario já cadastrado no trabalho");
-                        
+
                     }
                     else
                     {
                         var autor = new AutorTrabalho()
                         {
 
-                            StatusUsuarioId = (usuario.Nome == null) ? 3:2,
+                            StatusUsuarioId = (usuario.Nome == null) ? 3 : 2,
                             Orientador = orientador,
                             TrabalhoId = id,
                             UsuarioId = usuario.Id
@@ -443,6 +435,95 @@ namespace CICTED.Controllers
             }
         }
 
+        [HttpPost("adicionar/email")]
+        public async Task<IActionResult> AdicionarEmail(string email)
+        {
+            try
+            {
+                //verifica se esse email já esta cadastrado, devolve id do usuario
+                var usuario = await _accountRepository.BuscaUsuario(email);
+                if (usuario != null)
+                {
+                    var autorCadastrado = new AutorViewModel
+                    {
+                        Id = usuario.Id,
+                        Email = email,
+                        Nome = (usuario.Nome == null) ? "" : usuario.Nome.ToUpper(),
+                        Sobrenome = (usuario.Sobrenome == null) ? "" : usuario.Sobrenome.ToUpper(),
+                        StatusId = (usuario.Nome == null) ? 3 : 2,
+                    };
+                    return Json(autorCadastrado);
+                }
+                else
+                {
+                    string caracteresPermitidos = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789!@$?_-";
+                    char[] chars = new char[6];
+                    Random rd = new Random();
+                    for (int i = 0; i < 6; i++)
+                    {
+                        chars[i] = caracteresPermitidos[rd.Next(0, caracteresPermitidos.Length)];
+                    }
+                    var senha = new string(chars);
+
+                    var user = new ApplicationUser()
+                    {
+                        Email = email,
+                        UserName = email,
+                        NormalizedEmail = email,
+                        NormalizedUserName = email,
+                        FirstAccess = true,
+                        DataCadastro = DateTime.Now,
+                        CursosId = 1,
+                        InstituicaoId = 1,
+                        EnderecoId = 1,
+                    };
+
+                    var result = await _userManager.CreateAsync(user, senha);
+
+                    if (result.Succeeded)
+                    {
+                        try
+                        {
+                            await _userManager.AddToRoleAsync(user, "AUTOR");
+
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            var callbackUrl = Url.Action(
+                               "ConfirmEmail", "Account",
+                               new { user = user.UserName, code = code });
+
+                            var url = $"{urlRoot}{callbackUrl}";
+
+                            //email
+                            var emailConfirmation = await _emailServices.EnviarEmail(user.Email, url, senha);
+
+                            
+                                var autorCadastrado = new AutorViewModel
+                                {
+                                    Id = user.Id,
+                                    Email = email,
+                                    Nome = (usuario.Nome == null) ? "" : usuario.Nome.ToUpper(),
+                                    Sobrenome = (usuario.Sobrenome == null) ? "" : usuario.Sobrenome.ToUpper(),
+                                    StatusId = (usuario.Nome == null) ? 3 : 2,
+                                };
+                                return Json(autorCadastrado);                          
+                        }
+                        catch (Exception ex)
+                        {
+                            await _userManager.DeleteAsync(user);
+
+                            return BadRequest("Houve um erro ao cadastrar o usuário.");
+                        }
+                    }
+                    return Ok();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("avaliacao/painel")]
         public async Task<IActionResult> AvaliacaoPainel()
         {
@@ -453,6 +534,7 @@ namespace CICTED.Controllers
 
             return View(model);
         }
+
         public async Task<string> geraIdentificacao(Evento evento)
         {
             var rand = new Random();
