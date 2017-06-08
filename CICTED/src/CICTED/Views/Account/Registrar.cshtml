@@ -15,33 +15,33 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Nome:</label>
-                <input type="text" name="Nome" value="@Model.Nome" required style="width:500px"/>
+                <input type="text" name="Nome" value="@Model.Nome" required style="width:500px" />
             </div>
             <div class="float-right" style="width:50%">
                 <label>Sobrenome:</label>
-                <input type="text" name="Sobrenome" value="@Model.Sobrenome" required style="width:500px"/>
+                <input type="text" name="Sobrenome" value="@Model.Sobrenome" required style="width:500px" />
             </div>
         </div>
 
-        
+
         <div class="margin-top-10 row">
-            
-            <div class="float-left" style="width:40%">               
+
+            <div class="float-left" style="width:40%">
                 <label>CPF:</label>
-                <input type="text" name="CPF" value="@Model.CPF" style="width:500px"/>
-              
+                <input type="text" name="CPF" value="@Model.CPF" style="width:500px" />
+
             </div>
-           
+
             <div class="float-right" style="width:50%">
                 <label>Outros Documentos(RG, Passaporte, Etc):</label>
-                <input type="text" name="Documento" value="@Model.Documento" style="width:500px"/>
+                <input type="text" name="Documento" value="@Model.Documento" style="width:500px" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Data de Nascimento:</label>
-                <input type="date" name="DataNascimento" value="@Model.DataNascimento" required style="width:500px"/>
+                <input type="date" name="DataNascimento" value="@Model.DataNascimento" required style="width:500px" />
             </div>
 
             <div class="float-right" style="width:50%">
@@ -57,24 +57,24 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Telefone:</label>
-                <input type="tel" name="Telefone" id="Telefone" placeholder="(99) 9999-9999" value="@Model.Telefone" style="width:500px"/>
+                <input type="tel" name="Telefone" id="Telefone" placeholder="(99) 9999-9999" value="@Model.Telefone" style="width:500px" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Celular:</label>
-                <input type="text" name="Celular" id="Celular"  placeholder="(99) 99999-9999" value="@Model.Celular" style="width:500px"/>
+                <input type="text" name="Celular" id="Celular" placeholder="(99) 99999-9999" value="@Model.Celular" style="width:500px" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Email Principal:</label>
-                <input type="text" asp-for="Email" value="@Model.Email" disabled="disabled" style="width:500px"/>
+                <input type="text" asp-for="Email" value="@Model.Email" disabled="disabled" style="width:500px" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Email Secundario:</label>
-                <input type="text" asp-for="EmailSecundario" value="@Model.EmailSecundario" required style="width:500px"/>
+                <input type="text" asp-for="EmailSecundario" value="@Model.EmailSecundario" required style="width:500px" />
             </div>
         </div>
     </div>
@@ -86,22 +86,22 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Logradouro:</label>
-                <input type="text" name="Logradouro" value="@Model.Logradouro" required style="width:500px"/>
+                <input type="text" name="Logradouro" value="@Model.Logradouro" required style="width:500px" />
             </div>
             <div class="float-right" style="width:50%">
                 <label>Número:</label>
-                <input type="text" name="Numero" value="@Model.Numero" required style="width:500px"/>
+                <input type="text" name="Numero" value="@Model.Numero" required style="width:500px" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Bairro:</label>
-                <input type="text" name="Bairro" value="@Model.Bairro" required style="width:500px"/>
+                <input type="text" name="Bairro" value="@Model.Bairro" required style="width:500px" />
             </div>
             <div class="float-right" style="width:50%">
                 <label>CEP:</label>
-                <input type="text" name="CEP" id="Cep" placeholder="99999-999" value="@Model.CEP" required style="width:500px"/>
+                <input type="text" name="CEP" id="Cep" placeholder="99999-999" value="@Model.CEP" required style="width:500px" />
             </div>
         </div>
 
@@ -163,7 +163,7 @@
                         <span class="onoffswitch-switch"></span>
                     </label>
                 </div>
-                <div id="estudante" style="display: none;">
+                <div id="estudante" style="display: none">
                     <div class="float-right row">
                         <label>Curso:</label>
 
@@ -175,7 +175,7 @@
                             }
                         </select>
                         <label class="margin-top-20">Outro:</label>
-                        <input type="text" value="@Model.Curso" style="width:500px"/>
+                        <input type="text" value="@Model.Curso" style="width:500px" />
                     </div>
                 </div>
             </div>
@@ -215,7 +215,7 @@
 
 </form>
 
-<script type="text/javascript">   
+<script type="text/javascript">
 
     $("#button-cancelar").on("click", function () {
         location.href = "/account/login";
