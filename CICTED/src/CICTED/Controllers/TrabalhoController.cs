@@ -449,6 +449,7 @@ namespace CICTED.Controllers
             AvaliacaoTrabalhoViewModel model = new AvaliacaoTrabalhoViewModel();
 
             model.Eventos = await _eventoRepository.getEventos();
+            
 
             return View(model);
         }
