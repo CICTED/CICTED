@@ -12,22 +12,31 @@ namespace CICTED.Controllers
     [Route("administrador")]
     public class AdministradorController : Controller
     {
+        private static string urlRoot = "http://localhost:54134";
         private UserManager<ApplicationUser> _userManager;
         private IAccountRepository _accountRepository;
+        private ITrabalhoRepository _trabalhoRepository;
+        private IEventoRepository _eventoRepository;
+        private IAreaRepository _areaRepository;
+        private IAutorRepository _autorRepository;
+        private IAgenciaRepository _agenciaRepository;
 
-        public AdministradorController(UserManager<ApplicationUser> userManager, IAccountRepository accountRepository)
+
+        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository)
         {
+            _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
             _accountRepository = accountRepository;
+            _eventoRepository = eventoRepository;
+            _areaRepository = areaRepository;
+            _autorRepository = autorRepository;
+            _agenciaRepository = agenciaRepository;
         }
-        [HttpGet("home")]
+
+        [HttpGet("gerenciarOrganizador")]
         [Authorize]
-        public async Task<IActionResult> Home()
+        public async Task<IActionResult> GerenciarOrganizador()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var roles = await _accountRepository.GetRoles(user.Id);
-            ViewBag.Roles = roles;
-            ViewBag.Nome = user.Nome;
             return View();
         }
     }

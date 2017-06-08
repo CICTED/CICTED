@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = "_Menu";
+}
+<title>Gerenciar Organizador - CICTED</title>
+
+<div class="form-consultTrabAdm">
+    <h3 style="font-weight: bold"><span class="fa fa-pencil-square-o"></span> Gerenciar Organizador</h3>
+
+    <div class="form-group">
+        Pesquisar: <input class="input-consulta-trab-adm" id="autor-nome" style="width:350px !important" placeholder="Digite o nome ou email" autocomplete="off" />
+        <div style="height:0px; display:none" class="busca float-left">
+            <ul id="lista-nomes"></ul>
+        </div>
+        <button class="btn btn-primary margin-left-10">Pesquisar</button>
+        <button class="btn btn-primary float-right"><span class="fa fa-child"></span> Novo Organizador</button>
+    </div>
+
+    <hr />
+
+    <table class="tabela-trabalho" style="margin:0 0 auto" border="1">
+        <tr>
+            <th style="width: 50px !important" class="form-group"></th>
+            <th style="width: 90px !important" class="form-group">
+                Avaliador
+            </th>
+            <th>
+                Nome
+            </th>
+            <th>
+                Email
+            </th>
+            <th style="width: 80px !important" class="form-group"></th>
+        </tr>
+
+
+    </table>
+
+    <hr />
+
+    <h5>
+        <b>Legenda:</b>
+        <span class="fa fa-check-circle margin-left-10 color-aprovado"></span> Já acessou
+        <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
+    </h5>
+
+</div>
