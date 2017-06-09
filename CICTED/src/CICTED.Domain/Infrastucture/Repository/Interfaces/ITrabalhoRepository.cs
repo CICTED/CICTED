@@ -13,7 +13,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<Trabalho> GetInformacaoTrabalho(long id);
         Task<List<long>> GetTrabalhosId(long userId);
         Task<ConsultaTrabalho> ConsultaTrabalho(long idTrabalho);        
-        Task<bool> InsertTrabalho(string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, DateTime dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFInanciadoraId, int eventoId, long artigoId, int subAreaId, int periodoApresentacaoId);
+        Task<bool> InsertTrabalho(int statusTrabalhoId, string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, DateTime dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFInanciadoraId, int eventoId, long artigoId, int subAreaId, int periodoApresentacaoId);
         Task<List<PeriodoApresentacao>> GetPeriodos();        
         Task<List<string>> GetPalavrasChave(long idTrabalho);
         Task<string> GetStatusTrabalho(int statusId);

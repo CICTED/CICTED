@@ -16,6 +16,8 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public int EventoId { get; set; }
 
+        public string EventoNome { get; set; }
+
         public string NomeEscola { get; set; }
 
         public string CidadeEscola { get; set; }
@@ -80,7 +82,8 @@ namespace CICTED.Domain.ViewModels.Autor
 
         [MaxWords(20, ErrorMessage = "máximo 6 palavras")]
         [MinWords(5, ErrorMessage = "mínimo 3 palavras")]
-        public String PalavraChave { get; set; }
+        public string PalavraChave { get; set; }
+
         public List<string> PalavrasChave { get; set; }
 
         public long ArtigoId { get; set; }
@@ -91,10 +94,17 @@ namespace CICTED.Domain.ViewModels.Autor
 
         public List<Estado> Estado { get; set; }
 
+        public int StatusTrabalhoId { get; set; }
+
         public List<long> Roles { get; set; }
 
         public string ReturnMenssagem { get; set; }
 
         public List<AutorTrabalho> autores { get; set; }
+
+        //take ids
+        public List<long> CoautoresId { get; set; }
+
+        public long OrientadorId { get; set; }
     }
 }
