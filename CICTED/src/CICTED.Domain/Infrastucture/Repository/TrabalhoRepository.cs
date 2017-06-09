@@ -109,13 +109,13 @@ namespace CICTED.Domain.Infrastucture.Repository
 
 
 
-        public async Task<bool> InsertTrabalho(string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, DateTime dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFinanciadoraId, int eventoId, long artigo, int subAreaId, int periodoApresentacaoId)
+        public async Task<bool> InsertTrabalho(int statusTrabalhoId, string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, DateTime dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFinanciadoraId, int eventoId, long artigo, int subAreaId, int periodoApresentacaoId)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var trabalhoInsertQuery = "INSERT INTO dbo.Trabalho(Titulo, Introducao, Metodologia, Resultado, Resumo, Conclusao, Referencia, NomeEscola, TelefoneEscola, Identificacao, DataCadastro, TextoFinanciadora, CodigoCEP, AgenciaFinanciadoraId, EventoId, Artigo, SubAreaConhecimentoId, PeriodoApresentacaoId) VALUES(@Titulo, @Introducao, @Metodologia, @Resultado, @Resumo, @Conclusao, @Referencia, @NomeEscola, @TelefoneEscola, @Identiicacao,  @DataCadastro, @TextoFinanciadora, @CodigoCEP, @AgenciaFinanciadoraId, @EventoId, @Artigo, @SubAreaConhecimentoId, @PeriodoApresentacaoId)";
+                    var trabalhoInsertQuery = "INSERT INTO dbo.Trabalho(StatusTrabalhoId, Titulo, Introducao, Metodologia, Resultado, Resumo, Conclusao, Referencia, NomeEscola, TelefoneEscola, Identificacao, DataCadastro, TextoFinanciadora, CodigoCEP, AgenciaFinanciadoraId, EventoId, Artigo, SubAreaConhecimentoId, PeriodoApresentacaoId) VALUES(@StatusTrabalhoId, @Titulo, @Introducao, @Metodologia, @Resultado, @Resumo, @Conclusao, @Referencia, @NomeEscola, @TelefoneEscola, @Identiicacao,  @DataCadastro, @TextoFinanciadora, @CodigoCEP, @AgenciaFinanciadoraId, @EventoId, @Artigo, @SubAreaConhecimentoId, @PeriodoApresentacaoId)";
 
                     var trabalhoInsert = await db.QueryAsync<bool>(trabalhoInsertQuery,
                         new
@@ -138,7 +138,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                             Artigo = artigo,
                             SubAreaConhecimentoId = subAreaId,
                             PeriodoApresentacaoId = periodoApresentacaoId,
-
+                            StatusTrabalhoId = statusTrabalhoId
                         });
                     return true;
                 }
