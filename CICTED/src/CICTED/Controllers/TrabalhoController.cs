@@ -91,10 +91,24 @@ namespace CICTED.Controllers
         public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model, int idEvento)
         {
             model.EventoId = idEvento;
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
             if (!ModelState.IsValid)
             {
                 var areas = await _areaRepository.GetAreas();
                 var periodos = await _trabalhoRepository.GetPeriodos();
+                var agencias = await _agenciaRepository.GetAgencias();
+
+                AutorViewModel autorPrincipal = new AutorViewModel()
+                {
+                    Email = user.Email,
+                    Nome = user.Nome.ToUpper(),
+                    Sobrenome = user.Sobrenome.ToUpper(),
+                    Id = user.Id
+                };
+
+                model.AutorPrincipal = autorPrincipal;
+                model.Agencias = agencias;
                 model.AreasConhecimento = areas;
                 model.Periodos = periodos;
                 return View(model);
@@ -102,9 +116,7 @@ namespace CICTED.Controllers
             //gera identificação
             model.Evento = await _eventoRepository.GetEvento(idEvento);
             string identificacao = await geraIdentificacao(model.Evento);
-
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
+                        
             model.DataCadastro = DateTime.Now;
 
             model.StatusTrabalhoId = 3;
