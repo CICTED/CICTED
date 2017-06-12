@@ -68,6 +68,8 @@ namespace CICTED.Controllers
 
             CadastroTrabalhoViewModel model = new CadastroTrabalhoViewModel()
             {
+                EventoNome = evento.EventoNome,
+                EventoId = evento.Id,
                 Evento = evento,
                 AreasConhecimento = areas,
                 Periodos = periodos,
@@ -75,7 +77,7 @@ namespace CICTED.Controllers
                 AutorPrincipal = autorPrincipal,
             };
 
-            model.Evento.Id = idEvento;
+            model.EventoId = idEvento;
 
             var roles = await _accountRepository.GetRoles(user.Id);
             model.Roles = roles;
@@ -85,24 +87,46 @@ namespace CICTED.Controllers
             return View(model);
         }
 
-        [HttpPost("cadastro")]
-        public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model)
+        [HttpPost("cadastro/{idEvento}")]
+        public async Task<IActionResult> CadastroTrabalho(CadastroTrabalhoViewModel model, int idEvento)
         {
-            //gera identificação
-            model.Evento = await _eventoRepository.GetEvento(model.EventoId);
-            string identificacao = await geraIdentificacao(model.Evento);
-
+            model.EventoId = idEvento;
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
+            if (!ModelState.IsValid)
+            {
+                var areas = await _areaRepository.GetAreas();
+                var periodos = await _trabalhoRepository.GetPeriodos();
+                var agencias = await _agenciaRepository.GetAgencias();
+
+                AutorViewModel autorPrincipal = new AutorViewModel()
+                {
+                    Email = user.Email,
+                    Nome = user.Nome.ToUpper(),
+                    Sobrenome = user.Sobrenome.ToUpper(),
+                    Id = user.Id
+                };
+
+                model.AutorPrincipal = autorPrincipal;
+                model.Agencias = agencias;
+                model.AreasConhecimento = areas;
+                model.Periodos = periodos;
+                return View(model);
+            }
+            //gera identificação
+            model.Evento = await _eventoRepository.GetEvento(idEvento);
+            string identificacao = await geraIdentificacao(model.Evento);
+                        
             model.DataCadastro = DateTime.Now;
 
+            model.StatusTrabalhoId = 3;
 
-            if (await _trabalhoRepository.InsertTrabalho(model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao))
+            if (await _trabalhoRepository.InsertTrabalho(model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao))
             {
                 model.ReturnMenssagem = "Alterações salvas";
-                return View("Account", "Home");
+                return View(model);
             }
-            return View();
+            return View(model);
         }
 
         [HttpGet("consulta")]

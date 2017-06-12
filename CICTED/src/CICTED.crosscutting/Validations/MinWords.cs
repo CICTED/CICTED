@@ -17,12 +17,15 @@ namespace CICTED.Crosscutting.Validations
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value.GetType() == Type.GetType("string"))
+            if (value == null)
+                return new ValidationResult($"The attribute {validationContext.DisplayName} can't be null.");
+
+            if (value.GetType() != typeof(string))
             {
                 return new ValidationResult($"The attribute {validationContext.DisplayName} must be a string.");
             }
 
-            if (value.ToString().Split(' ').Length > minWords)
+            if (value.ToString().Split(' ').Length < minWords)
             {
                 return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
             }

@@ -3,32 +3,33 @@
 @{
     Layout = "_Menu";
 }
-<title>Avaliação Trabalhos - CICTED</title>
+<title>Avaliação Painel - CICTED</title>
 
 
 <form class="form-cadTrabalho">
+    <h3 style="text-align:center"><b>Avaliação Painel</b></h3>
     <div class="form-group">
         <b>Evento:</b>
-        <select  class="form-control" name="EventoId" value="@Model.EventoId" id="evento" >
-            <option disabled selected>Selecione um evento</option>
+        <select class="form-control" name="EventoId" style="max-width:125px" value="@Model.EventoId" id="evento">
+            <option disabled selected>Selecione</option>
             @foreach (var evento in Model.Eventos)
             {
-                <option  value="@evento.Id"> @evento.EventoNome</option>
+                <option value="@evento.Id"> @evento.Sigla</option>
 
             }
         </select>
     </div>
     <div class="form-group">
         <b>Identificador Trabalho:</b>
-        <input id="idenificador" class="form-control" type="text" name="IdentificadorTrabalho" value="@Model.IdentificadorTrabalho" />
-    </div>
-    <div class="form-group">
-        <b>Titulo Trabalho:</b>
-        <input class="form-control" style="width:100%!important" type="text" name="TituloTrabalho" value="@Model.TituloTrabalho" />
+        <input style="max-width:135px" id="identificador" class="form-control" type="text" name="IdentificadorTrabalho" value="@Model.IdentificadorTrabalho" />
     </div>
     <div class="form-group">
         <b>SubArea:</b>
-        <input class="form-control" style="width:100%!important"  type="text" name="SubArea" value="@Model.SubArea" />
+        <input class="form-control" style="width:100%!important" type="text" name="SubArea" value="@Model.SubArea" readonly/>
+    </div>
+    <div class="form-group">
+        <b>Titulo Trabalho:</b>
+        <input class="form-control" style="max-width:50%!important" type="text" name="TituloTrabalho" value="@Model.TituloTrabalho" readonly/>
     </div>
 </form>
 
@@ -46,7 +47,7 @@
             },
 
             success: function (data) {
-                $('#identificador').attr(value(data.Sigla + "2017"));
+                $('#identificador').val(data.sigla + "2017");
 
             },
 

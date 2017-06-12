@@ -151,11 +151,7 @@ namespace CICTED.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "AUTOR");
-
-                    //var phoneNumber = "+55012991206314";
-                    //var phoneToken = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
-                    //await _smsService.SendAccountConfirmation(phoneNumber, phoneToken);
-
+                   
                     //link
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Action(
