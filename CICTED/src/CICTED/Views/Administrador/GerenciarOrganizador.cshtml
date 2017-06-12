@@ -1,4 +1,4 @@
-﻿
+﻿@model List<CICTED.Domain.ViewModels.Administrador.GerenciarOrganizador>
 @{
     Layout = "_Menu";
 }
@@ -12,8 +12,8 @@
         <div style="height:0px; display:none" class="busca float-left">
             <ul id="lista-nomes"></ul>
         </div>
-        <button class="btn btn-primary margin-left-10">Pesquisar</button>
-        <button class="btn btn-primary float-right"><span class="fa fa-child"></span> Novo Organizador</button>
+        <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
+        <button class="btn btn-primary float-right" style="width:150px"><span class="fa fa-user-plus"></span>  Novo Organizador</button>
     </div>
 
     <hr />
@@ -30,10 +30,35 @@
             <th>
                 Email
             </th>
-            <th style="width: 80px !important" class="form-group"></th>
+            <th style="width: 80px !important" class="form-group"> Status</th>
         </tr>
 
+        @foreach (var organizadores in Model)
+        {
+            <tr>
+                <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@organizadores.Id"></a></td>
 
+                @if (organizadores.Avaliador == true)
+                {
+                    <td>Sim</td>
+
+                }
+                else
+                {
+                    <td></td>
+                }
+                <td>@organizadores.Nome @organizadores.Sobrenome</td>
+                <td>@organizadores.Email</td>
+                @if (organizadores.IsFirstAcess == true)
+                {
+                    <td><span class="fa fa-times-circle margin-left-10 color-reprovado"></span></td>
+                }
+                else
+                {
+                    <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
+                }
+            </tr>
+        }
     </table>
 
     <hr />
@@ -44,4 +69,29 @@
         <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
     </h5>
 
-</div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div style="width:70%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Informações do Organizador</h3>
+                    <hr />
+                    <table>
+                        <tr><td><b>Nome: </b></td><td></td></tr>
+                        <tr><td><b>Email: </b></td><td></td></tr>
+                        <tr><td><b>Telefone: </b></td><td></td></tr>
+                        <tr><td><b>Celular: </b></td><td></td></tr>
+                        <tr><td><b>Avaliador: </b></td><td></td></tr>
+                        <tr><td><b>CPF: </b></td><td></td></tr>
+                        <tr><td><b>Data de Nascimeto: </b></td><td></td></tr>
+                        <tr><td><b>Gênero: </b></td><td></td></tr>
+                        <tr><td><b>Endereço: </b></td><td></td></tr>
+                        <tr><td><b>Instituição: </b></td><td></td></tr>
+                    </table>
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+    </div>
