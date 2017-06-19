@@ -9,6 +9,12 @@
         <div class="row form-group" style="text-align:center">
             <h3><span class="fa fa-book"></span><b> Cadastrar trabalho </b></h3>
         </div>
+
+        @if (ViewBag.erro == true)
+        {
+            <div class="alert alert-danger" role="alert">Ops, alguma coisa esta errada! Verifique todos os campos.</div>
+        }
+
         <div>
             <ul class="nav nav-pills nav-justified">
                 <li role="presentation" class="active"><a aria-controls="Passo1" href="#Passo1" role="tab" data-toggle="tab">Passo 1</a></li>
@@ -17,6 +23,7 @@
             </ul>
 
             <div class="tab-content">
+                @* Passo 1 *@
                 <div role="tabpanel" class="tab-pane active margin-top-30" id="Passo1">
 
                     <div class="margin-top-30 form-group">
@@ -31,7 +38,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                           <input hidden asp-for="EventoNome" value="@Model.EventoNome"/> <b>@Model.EventoNome</b>
+                            <input hidden asp-for="EventoNome" value="@Model.EventoNome" /> <b>@Model.EventoNome</b>
                         </div>
                     </div>
                     @if (Model.EventoId == 2 || Model.EventoId == 3 || Model.EventoId == 4)
@@ -42,7 +49,7 @@
                             </div>
 
                             <div class="float-left margin-left-75">
-                                <input id="nome-escola" type="text" asp-for="NomeEscola" value="@Model.NomeEscola" required />
+                                <input class="input-trabalho" id="nome-escola" type="text" asp-for="NomeEscola" value="@Model.NomeEscola" required />
                             </div>
                         </div>
 
@@ -52,7 +59,7 @@
                             </div>
 
                             <div class="float-left margin-left-75">
-                                <input id="nome-cidade" type="text" asp-for="CidadeEscola" value="@Model.CidadeEscola" required />
+                                <input class="input-trabalho" id="nome-cidade" type="text" asp-for="CidadeEscola" value="@Model.CidadeEscola" required />
                             </div>
                         </div>
 
@@ -62,7 +69,7 @@
                             </div>
 
                             <div class="float-left margin-left-75">
-                                <input type="text" id="telefone" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" required />
+                                <input class="input-trabalho" type="text" id="telefone" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" required />
                             </div>
                         </div>
 
@@ -74,12 +81,18 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select class="form-control" name="AreaConhecimento" value="@Model.AreaConhecimento" id="dropArea">
+                            <select class="form-control input-trabalho" name="AreaConhecimento" value="@Model.AreaConhecimento" id="dropArea">
                                 <option disabled selected>Selecione uma área</option>
                                 @foreach (var areas in Model.AreasConhecimento)
                                 {
-                                    <option value="@areas.Id"> @areas.Area</option>
-
+                                    if (areas.Id == Model.AreaConhecimento)
+                                    {
+                                        <option value="@areas.Id" selected>@areas.Area</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@areas.Id"> @areas.Area</option>
+                                    }
                                 }
                             </select>
                         </div>
@@ -90,8 +103,12 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select data-id="sub-area" class="form-control" name="SubAreaId" value="@Model.SubAreaId" id="dropSubArea">
+                            <select data-id="sub-area" class="form-control input-trabalho" name="SubAreaId" value="@Model.SubAreaId" id="dropSubArea">
                                 <option disabled selected>Selecione uma subarea</option>
+                                @if (Model.SubAreaId > 0)
+                                {
+                                    <option value="@Model.SubAreaId" selected> @Model.SubAreaNome</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -101,12 +118,15 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select data-id="periodo-apresentacao" class="form-control" name="PeriodoApresentacao" value="@Model.PeriodoApresentacao" id="dropArea">
+                            <select data-id="periodo-apresentacao" class="form-control input-trabalho" name="PeriodoApresentacao" value="@Model.PeriodoApresentacao" id="dropArea">
                                 <option disabled selected>Selecione um periodo</option>
                                 @foreach (var periodos in Model.Periodos)
                                 {
+                                    if (periodos.Id == Model.PeriodoApresentacao)
+                                    {
+                                        <option value="@periodos.Id" selected> @periodos.PeriodoNome</option>
+                                    }
                                     <option value="@periodos.Id"> @periodos.PeriodoNome</option>
-
                                 }
                             </select>
                         </div>
@@ -133,12 +153,15 @@
                             <label>Agencia Financiadora:</label>
                         </div>
                         <div class="float-left margin-left-75">
-                            <select id="agencia-financiadora" class="form-control" name="AgenciaId" value="@Model.AgenciaId">
+                            <select id="agencia-financiadora" class="form-control input-trabalho" name="AgenciaId" value="@Model.AgenciaId">
                                 <option value="0">Selecione a agência financiadora</option>
                                 @foreach (var agencia in Model.Agencias)
                                 {
+                                    if (agencia.Id == Model.AgenciaId)
+                                    {
+                                        <option value="@agencia.Id" selected>@agencia.AgenciaNome</option>
+                                    }
                                     <option value="@agencia.Id">@agencia.AgenciaNome</option>
-
                                 }
                             </select>
                         </div>
@@ -151,7 +174,7 @@
                             <label>Código CEP (Comitê de Ética em Pesquisa): </label>
                         </div>
                         <div class="float-left margin-left-75">
-                            <input id="codigo-cep" type="text" name="CodigoCEP" value="@Model.CodigoCEP" />
+                            <input class="border-radius input-trabalho" autocomplete="off" id="codigo-cep" type="text" name="CodigoCEP" value="@Model.CodigoCEP" />
                         </div>
                     </div>
                     <hr />
@@ -161,7 +184,7 @@
                 </div>
 
 
-
+                @* Passo2 *@
 
                 <div role="tabpanel" class="tab-pane" id="Passo2">
 
@@ -178,7 +201,23 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="porNome">
                             <div class="form-group margin-top-10 row">
-                                <input style="width:350px !important" placeholder="Digite o nome desejado" name="AlunoNome" value="@Model.AlunoNome" /> <button class="btn btn-primary">Cadastrar</button>
+                                <input class="input-add-autor" style="width:350px !important" onclick="deletarAluno(id)"  placeholder="Digite o nome desejado" name="AlunoNome" />
+                                <button class="btn btn-primary">Cadastrar</button>
+                                <div id="nomes-alunos">
+
+
+                                    <div style="width:500px" id="autor-' + userId + '">
+                                        <span class="fa fa-clock-o color-submissao"></span> ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor(' + userId + ')" value="' +
+                                userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                        '<input name="' + name + '" style="visibility:hidden;float: right;width: 1px;" value="' + userId + '" />
+                                    </div>
+
+
+                                    <div id="Bruna">
+                                        <input name="AlunosNome" style="border:0px;  background:white" class="margin-top-10" disabled value="Bruna" />
+                                        <span class="fa fa-times margin-left-20 link"></span>
+                                    </div>
+                                     </div>
                             </div>
                         </div>
                     }
@@ -196,6 +235,11 @@
                             <h5>Para cadastrar um participante use uma das opções a baixo</h5>
 
                             <div id="errors"></div>
+
+                            @if (ViewBag.orientador == false)
+                            {
+                                <div class="alert alert-danger" role="alert">Orientador é obrigatório!</div>
+                            }
                         </div>
 
                         <ul class="nav nav-tabs" role="tablist">
@@ -253,7 +297,33 @@
                                         <b class="margin-right-40">Coautes: </b>
                                     </td>
 
-                                    <td id="coautores" name="coautores"></td>
+                                    <td id="coautores" name="coautores">
+                                        @if (Model.Coautores != null)
+                                        {
+                                            foreach (var coautor in Model.Coautores)
+                                            {
+                                                <div style="width:500px" id="autor-@coautor.Id">
+                                                    @if (coautor.StatusId == 2)
+                                                    {
+                                                        <span class="fa fa-clock-o color-submissao"></span>
+                                                    }
+                                                    @if (coautor.StatusId == 3)
+                                                    {
+                                                        <span class="fa fa-clock-o color-avaliacao"></span>
+                                                    }
+                                                    @coautor.Nome @coautor.Sobrenome <b> @coautor.Email</b><a class="deleta-autor" onclick="deletarAutor(@coautor.Id)" value="@coautor.Id">
+                                                        <span class="fa fa-times margin-left-20 link"></span>
+                                                    </a>
+                                                    <input style="visibility:hidden;float: right;width: 1px;" name="CoautoresId" value="@coautor.Id" />
+                                                </div>
+
+                                            }
+
+                                        }
+
+                                    </td>
+
+
                                 </tr>
 
 
@@ -261,7 +331,26 @@
                                 <tr>
                                     <td><b>Orientador: </b></td>
 
-                                    <td id="orientador"></td>
+                                    <td id="orientador">
+
+                                        @if (Model.Orientador != null)
+                                        {
+                                            <div style="width:500px" id="autor-@Model.Orientador.Id">
+                                                @if (Model.Orientador.StatusId == 2)
+                                                {
+                                                    <span class="fa fa-clock-o color-submissao"></span>
+                                                }
+                                                @if (Model.Orientador.StatusId == 3)
+                                                {
+                                                    <span class="fa fa-clock-o color-avaliacao"></span>
+                                                }
+                                                @Model.Orientador.Nome @Model.Orientador.Sobrenome <b> @Model.Orientador.Email</b><a class="deleta-autor" onclick="deletarAutor(@Model.Orientador.Id)" value="@Model.Orientador.Id">
+                                                    <span class="fa fa-times margin-left-20 link"></span>
+                                                </a>
+                                                <input style="visibility:hidden;float: right;width: 1px;" name="OrientadorId" value="@Model.Orientador.Id" />
+                                            </div>
+                                        }
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -269,12 +358,12 @@
 
                     <hr />
                     <div class="form-group margin-top-10">
-                        <button class="btn btn-primary float-left prev">Voltar</button>
+                        <button type="button" class="btn btn-primary float-left prev">Voltar</button>
                         <button type="button" class="btn btn-primary float-right next">Avançar</button>
                     </div>
                 </div>
 
-
+                @* Passo 3 *@
 
                 <div role="tabpanel" class="tab-pane" id="Passo3">
                     <div class="form-group margin-top-10 row">
@@ -286,29 +375,34 @@
                     {
                         <div class="form-group margin-top-10 row">
                             <p><b>Resumo: </b></p>
-                            <textarea asp-validation-for="Resumo" id="resumo" asp-for="Resumo" value="@Model.Resumo" required></textarea>
+                            <textarea id="resumo" asp-for="Resumo" value="@Model.Resumo" required></textarea>
+                            <span class="text-danger" asp-validation-for="Resumo"></span>
                         </div>
 
                     }
                     <div class="form-group margin-top-10 row">
                         <p><b>Introdução: </b></p>
-                        <textarea asp-validation-for="Introducao" id="introducao" asp-for="Introducao" value="@Model.Introducao" required></textarea>
+                        <textarea id="introducao" asp-for="Introducao" value="@Model.Introducao" required></textarea>
+                        <span class="text-danger" asp-validation-for="Introducao"></span>
                     </div>
                     @if (Model.EventoId == 8)
                     {
                         <div class="form-group margin-top-10 row">
                             <p><b>Objetivos do projeto: </b></p>
-                            <textarea asp-validation-for="Objetivo" id="objetivos" asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
+                            <textarea id="objetivos" asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
+                            <span class="text-danger" asp-validation-for="Objetivo"></span>
                         </div>
 
                     }
                     <div class="form-group margin-top-10 row">
                         <p><b>Metodologia: </b></p>
-                        <textarea asp-validation-for="Metodologia" id="metodologia" asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
+                        <textarea id="metodologia" asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
+                        <span class="text-danger" asp-validation-for="Metodologia"></span>
                     </div>
                     <div class="form-group margin-top-10 row">
                         <p><b>Resultados: </b></p>
-                        <textarea asp-validation-for="Resultados" id="resultados" asp-for="Resultados" value="@Model.Resultados" required></textarea>
+                        <textarea id="resultados" asp-for="Resultados" value="@Model.Resultados" required></textarea>
+                        <span class="text-danger" asp-validation-for="Resultados"></span>
                     </div>
                     <div class="form-group margin-top-10 row">
                         <div class="float-left">
@@ -322,17 +416,20 @@
                     {
                         <div class="form-group margin-top-10 row">
                             <p><b>Conclusão: </b></p>
-                            <textarea asp-validation-for="Conclusao" id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
+                            <textarea id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
+                            <span class="text-danger" asp-validation-for="Conclusao"></span>
                         </div>
 
                         <div class="form-group margin-top-10 row">
                             <p><b>Referências bibliográficas: </b></p>
-                            <textarea asp-validation-for="Referencias" id="referencia" asp-for="Referencias" value="@Model.Referencias" ></textarea>
+                            <textarea asp-validation-for="Referencias" id="referencia" asp-for="Referencias" value="@Model.Referencias"></textarea>
+                            <span class="text-danger" asp-validation-for="Referencias"></span>
                         </div>
 
                         <div class="form-group margin-top-10 row">
                             <p><b>Palavras chave: </b></p>
                             <textarea asp-validation-for="PalavraChave" id="palavra-chave" asp-for="PalavraChave" style="height:40px!important" value="@Model.PalavrasChave" required></textarea>
+                            <span class="text-danger" asp-validation-for="PalavraChave"></span>
                         </div>
                     }
                     <div class="form-group margin-top-10">
@@ -342,7 +439,7 @@
                 </div>
             </div>
         </div>
-    </form>
+</form>
 
 
 </body>
@@ -362,39 +459,6 @@
         orientador: false,
     });
 
-
-    //$("#salvar-trabalho").on("click", function () {
-    //    var model = {
-    //        eventoId: idEvento,
-    //        titulo: $("#titulo").val(),
-    //        introducao: $("#introducao").val(),
-    //        metodologia: $("#metodologia").val(),
-    //        resultados: $("#resultados").val(),
-    //        resumo: $("#resumo").val(),
-    //        conclusao: $("#conclusao").val(),
-    //        referencia: $("#referencia").val(),
-    //        nomeEscola: $("#nome-escola").val(),
-    //        telefoneEscola: $("#telefone").val(),
-    //        cep: $("#codigo-cep").val(),
-    //        agenciaFinanciadoraId: $("#agencia-financiadora").val(),
-    //    };
-
-    //    $.ajax({
-    //        url: '/trabalho/cadastro',
-    //        type: 'post',
-    //        data: {
-    //            model: model
-    //        },
-    //        success: function (data) {
-    //            $.each(data, function (i, item) {
-    //                $("#lista-nomes").append('<li><a class="selectautor" data-status="' + item.statusId + '" data-email="' + item.email + '" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
-    //                    '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
-    //            })
-    //        },
-    //    })
-
-
-    //});
 
     //pesquisa os autores para mostrar os nomes de opção
     $(".input-nome").keyup(function () {
@@ -443,7 +507,7 @@
         var name = "CoautoresId";
 
         if ($.trim($("#orientador").html()) == '') {
-            id = ($("#orientador"));
+            id = $("#orientador");
             name = "OrientadorId";
         }
 
@@ -475,8 +539,7 @@
 
             id.append('<div style="width:500px" id="autor-' + userId + '"><span class="fa fa-clock-o color-submissao"></span> ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor(' + userId + ')" value="' +
                                 userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
-                                '<input name="'+name+'" style = "visibility:hidden;float: right;width: 1px;" value="' + userId + '" /></div>');
-
+                                '<input name="' + name + '" style = "visibility:hidden;float: right;width: 1px;" value="' + userId + '" /></div>');
         }
         $(".input-nome").val("");
     });
@@ -489,11 +552,7 @@
         var name = "CoautoresId";
 
         if (email.length > 0) {
-            if ($.trim($("#orientador").html()) == '') {
-                id = ($("#orientador"));
-                orientador = true;
-                var name = "OrientadorId";
-            }
+
 
             var qtdCoautores = $("div[id *= autor]").length - 1;
             if (qtdCoautores >= 5) {
@@ -523,6 +582,13 @@
                             orientador: orientador
                         });
 
+
+                        if ($.trim($("#orientador").html()) == '') {
+                            id = ($("#orientador"));
+                            name = "OrientadorId";
+                        }
+
+
                         id.attr("data-id", "autor-" + data.id);
                         if (data.statusId == 2) {
                             status = '<span class="fa fa-clock-o color-submissao"></span>';
@@ -534,14 +600,14 @@
                         id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
                             data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor(' + data.id + ')" value="' +
                             data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
-                            '<input style = "visibility:hidden;float: right;width: 1px;" name="'+name+'" value="' + data.id + '" /></div>');
+                            '<input style = "visibility:hidden;float: right;width: 1px;" name="' + name + '" value="' + data.id + '" /></div>');
                     },
                     error: function (x, y, message) {
                         $('#errors').empty();
                         $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
                     },
-
                 })
+                $(".input-add-autor").val("");
             }
         }
     });
@@ -567,6 +633,12 @@
                 $((".input-nome")).attr("placeholder", "Nome do coautor");
                 $(("#input-email")).attr("placeholder", "Email do coautor");
             }
+        });
+    }
+
+    function deletarAluno(id) {
+        $(document).ready(function () {
+            $("#" + id).remove();           
         });
     }
 

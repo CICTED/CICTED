@@ -109,15 +109,15 @@ namespace CICTED.Domain.Infrastucture.Repository
 
 
 
-        public async Task<bool> InsertTrabalho(int statusTrabalhoId, string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, DateTime dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFinanciadoraId, int eventoId, long artigo, int subAreaId, int periodoApresentacaoId)
+        public async Task<long> InsertTrabalho(int statusTrabalhoId, string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, DateTime dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFinanciadoraId, int eventoId, long artigo, int subAreaId, int periodoApresentacaoId)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var trabalhoInsertQuery = "INSERT INTO dbo.Trabalho(StatusTrabalhoId, Titulo, Introducao, Metodologia, Resultado, Resumo, Conclusao, Referencia, NomeEscola, TelefoneEscola, Identificacao, DataCadastro, TextoFinanciadora, CodigoCEP, AgenciaFinanciadoraId, EventoId, Artigo, SubAreaConhecimentoId, PeriodoApresentacaoId) VALUES(@StatusTrabalhoId, @Titulo, @Introducao, @Metodologia, @Resultado, @Resumo, @Conclusao, @Referencia, @NomeEscola, @TelefoneEscola, @Identiicacao,  @DataCadastro, @TextoFinanciadora, @CodigoCEP, @AgenciaFinanciadoraId, @EventoId, @Artigo, @SubAreaConhecimentoId, @PeriodoApresentacaoId)";
+                    var trabalhoInsertQuery = "INSERT INTO dbo.Trabalho(StatusTrabalhoId, Titulo, Introducao, Metodologia, Resultado, Resumo, Conclusao, Referencia, NomeEscola, TelefoneEscola, Identificacao, DataCadastro, TextoFinanciadora, CodigoCEP, AgenciaFinanciadoraId, EventoId, Artigo, SubAreaConhecimentoId, PeriodoApresentacaoId) VALUES(@StatusTrabalhoId, @Titulo, @Introducao, @Metodologia, @Resultado, @Resumo, @Conclusao, @Referencia, @NomeEscola, @TelefoneEscola, @Identiicacao,  @DataCadastro, @TextoFinanciadora, @CodigoCEP, @AgenciaFinanciadoraId, @EventoId, @Artigo, @SubAreaConhecimentoId, @PeriodoApresentacaoId); SELECT SCOPE_IDENTITY();";
 
-                    var trabalhoInsert = await db.QueryAsync<bool>(trabalhoInsertQuery,
+                    var trabalhoInsert = await db.QueryAsync<long>(trabalhoInsertQuery,
                         new
                         {
                             Titulo = titulo,
@@ -140,12 +140,12 @@ namespace CICTED.Domain.Infrastucture.Repository
                             PeriodoApresentacaoId = periodoApresentacaoId,
                             StatusTrabalhoId = statusTrabalhoId
                         });
-                    return true;
+                    return trabalhoInsert.FirstOrDefault();
                 }
             }
             catch (Exception ex)
             {
-                return false;
+                return 0;
             }
         }
 
@@ -166,12 +166,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public Task<bool> InsertTrabalho(int id, string titulo, string introducao, string metodologia, string resultado, string resumo, string conclusao, string referencias, string nomeEscola, string telefoneEscola, string cidadeEscola, string identificacao, string dataCadastro, string textoFinanciadora, string codigoCep, int agenciaFInanciadoraId, int eventoId, long artioId, int subAreaId)
-        {
-            throw new NotImplementedException();
-        }
-
-
+       
 
         public async Task<string> GetStatusTrabalho(int statusId)
         {
@@ -274,7 +269,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<bool> CadastraAutorTrabalho(AutorTrabalho autor)
+        public async Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId)
         {
             try
             {
@@ -283,13 +278,11 @@ namespace CICTED.Domain.Infrastucture.Repository
                     var cadastroQuery = await db.QueryAsync<bool>("INSERT INTO dbo.AutorTrabalho(StatusUsuarioId, UsuarioId, Orientador, TrabalhoId) VALUES (@StatusUsuarioId, @UsuarioId, @Orientador, @TrabalhoId)",
                         new
                         {
-                            UsuarioId = autor.UsuarioId,
-                            StatusUsuarioId = autor.StatusUsuarioId,
-                            Orientador = autor.Orientador,
-                            TrabalhoId = autor.TrabalhoId,
+                            UsuarioId = userId,
+                            StatusUsuarioId = userStatus,
+                            Orientador = orientador,
+                            TrabalhoId = trabalhoId,
                         });
-
-
                 }
                 return true;
             }
