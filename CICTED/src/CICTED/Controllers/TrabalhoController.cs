@@ -93,11 +93,55 @@ namespace CICTED.Controllers
             model.EventoId = idEvento;
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            if (!ModelState.IsValid)
+            var coautores = new List<AutorViewModel>();
+            AutorViewModel orientador = null;
+
+            if (model.CoautoresId != null)
             {
+                foreach (var autor in model.CoautoresId)
+                {
+                    var coautor = await _autorRepository.GetAutor(autor);
+                    coautor.Orientador = false;
+                    coautor.Id = autor;
+                    if (coautor.Nome == null)
+                    {
+                        coautor.StatusId = 3;
+                    }
+                    else
+                    {
+                        coautor.StatusId = 2;
+                    }
+                    coautores.Add(coautor);
+                }
+            }
+
+            if (model.OrientadorId != 0)
+            {
+                orientador = await _autorRepository.GetAutor(model.OrientadorId);
+                orientador.Orientador = true;
+                orientador.Id = model.OrientadorId;                
+                if (orientador.Nome == null)
+                {
+                    orientador.StatusId = 3;
+                }
+                else
+                {
+                    orientador.StatusId = 2;
+                }
+            }
+
+
+            #region ModelState.IsValid
+            if (!ModelState.IsValid || model.OrientadorId == 0)
+            {
+                if (model.OrientadorId == 0)
+                {
+                    ViewBag.orientador = false;
+                }
                 var areas = await _areaRepository.GetAreas();
                 var periodos = await _trabalhoRepository.GetPeriodos();
                 var agencias = await _agenciaRepository.GetAgencias();
+
 
                 AutorViewModel autorPrincipal = new AutorViewModel()
                 {
@@ -107,26 +151,49 @@ namespace CICTED.Controllers
                     Id = user.Id
                 };
 
+                model.Orientador = orientador;
+                model.Coautores = coautores;
+                model.SubAreaNome = await _areaRepository.GetSubArea(model.SubAreaId);
                 model.AutorPrincipal = autorPrincipal;
                 model.Agencias = agencias;
                 model.AreasConhecimento = areas;
                 model.Periodos = periodos;
+                ViewBag.erro = true;
                 return View(model);
             }
+            #endregion ModelState.IsValid
+
             //gera identificação
             model.Evento = await _eventoRepository.GetEvento(idEvento);
             string identificacao = await geraIdentificacao(model.Evento);
-                        
+
             model.DataCadastro = DateTime.Now;
 
             model.StatusTrabalhoId = 3;
 
-            if (await _trabalhoRepository.InsertTrabalho(model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao))
+            var trabalho = await _trabalhoRepository.InsertTrabalho(model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao);
+
+            if (trabalho > 0)
             {
+                var autorPrincipal = await _trabalhoRepository.CadastraAutorTrabalho(user.Id, 1, false, trabalho);
+                //SALVAR AUTOR TRABALHO
+                if (coautores != null)
+                {
+                    foreach (var coautor in coautores)
+                    {
+                        var autorTrabalho = await _trabalhoRepository.CadastraAutorTrabalho(coautor.Id, coautor.StatusId, coautor.Orientador, trabalho);
+                    }
+                }
+
+                if (orientador != null)
+                {
+                    var autorTrabalho = await _trabalhoRepository.CadastraAutorTrabalho(orientador.Id, orientador.StatusId, orientador.Orientador, trabalho);
+                }
+
                 model.ReturnMenssagem = "Alterações salvas";
-                return View(model);
+                return RedirectToAction("ConsultaTrabalho");
             }
-            return View(model);
+            return BadRequest();
         }
 
         [HttpGet("consulta")]
@@ -141,8 +208,6 @@ namespace CICTED.Controllers
             {
                 model.Add(await _trabalhoRepository.ConsultaTrabalho(trabalho));
             }
-
-
             return View(model);
         }
 
@@ -303,7 +368,7 @@ namespace CICTED.Controllers
 
             return View("AlterarAutores", model);
         }
-       
+
         [HttpGet("pesquisa/autor")]
         public async Task<IActionResult> PesquisaAutor(string busca)
         {
@@ -355,7 +420,7 @@ namespace CICTED.Controllers
                             UsuarioId = usuario.Id
                         };
 
-                        var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor);
+                        var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor.UsuarioId, autor.StatusUsuarioId, autor.Orientador, autor.TrabalhoId);
 
                         if (cadastrar == true)
                         {
@@ -424,8 +489,9 @@ namespace CICTED.Controllers
                                 TrabalhoId = id,
                                 UsuarioId = user.Id
                             };
+
                             //cadastra autor no trabalho
-                            var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor);
+                            var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor.UsuarioId, autor.StatusUsuarioId, autor.Orientador, autor.TrabalhoId);
 
                             if (cadastrar == true)
                             {
@@ -520,16 +586,16 @@ namespace CICTED.Controllers
                             //email
                             var emailConfirmation = await _emailServices.EnviarEmail(user.Email, url, senha);
 
-                            
-                                var autorCadastrado = new AutorViewModel
-                                {
-                                    Id = user.Id,
-                                    Email = email,
-                                    Nome = (usuario.Nome == null) ? "" : usuario.Nome.ToUpper(),
-                                    Sobrenome = (usuario.Sobrenome == null) ? "" : usuario.Sobrenome.ToUpper(),
-                                    StatusId = (usuario.Nome == null) ? 3 : 2,
-                                };
-                                return Json(autorCadastrado);                          
+
+                            var autorCadastrado = new AutorViewModel
+                            {
+                                Id = user.Id,
+                                Email = email,
+                                Nome = (usuario.Nome == null) ? "" : usuario.Nome.ToUpper(),
+                                Sobrenome = (usuario.Sobrenome == null) ? "" : usuario.Sobrenome.ToUpper(),
+                                StatusId = (usuario.Nome == null) ? 3 : 2,
+                            };
+                            return Json(autorCadastrado);
                         }
                         catch (Exception ex)
                         {
@@ -554,7 +620,7 @@ namespace CICTED.Controllers
             AvaliacaoTrabalhoViewModel model = new AvaliacaoTrabalhoViewModel();
 
             model.Eventos = await _eventoRepository.getEventos();
-            
+
 
             return View(model);
         }

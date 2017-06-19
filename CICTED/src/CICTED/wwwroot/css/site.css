@@ -369,8 +369,14 @@ select {
     border-radius: 0;
 }
 
-
-
+.input-trabalho {
+    border-radius: 5px !important;
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cccccc;
+    padding: 2px;
+}
 
 .tabela-trabalho {
     margin: 20px;
@@ -719,7 +725,7 @@ input[type=checkbox] {
         width: 200px;
         outline: none;
     }
-    
+
     .form-alterarSenha span {
         color: rgba(0, 0, 0, 0.31);
     }
