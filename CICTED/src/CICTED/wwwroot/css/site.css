@@ -628,9 +628,8 @@ input[type=checkbox] {
     height: auto !important;
 }
 .form-cadAvaliacao {
-    width: 750px;
-    min-height: 300px;
-    height: auto !important;
+    width: 750px;   
+    height: 400px;
     margin: 0 auto;
     background-color: #FFFFFF;
     border-radius: 0px;
