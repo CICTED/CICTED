@@ -325,6 +325,7 @@ namespace CICTED.Controllers
         }
 
         [HttpGet("home")]
+        [Authorize]
         public async Task<IActionResult> Home()
         {
             return View();
@@ -385,6 +386,7 @@ namespace CICTED.Controllers
 
 
         [HttpGet("meusdados")]
+        [Authorize]
         public async Task<IActionResult> DadosUsuario()
         {
             try
@@ -560,6 +562,7 @@ namespace CICTED.Controllers
         }
 
         [HttpGet("alterarSenha")]
+        [Authorize]
         public async Task<IActionResult> AlterarSenha()
         {
             return View();
