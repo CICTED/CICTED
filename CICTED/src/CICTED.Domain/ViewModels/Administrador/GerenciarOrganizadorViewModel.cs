@@ -20,6 +20,6 @@ namespace CICTED.Domain.ViewModels.Administrador
         public string Endereco { get; set; }
         public int InstituicaoId { get; set; }
         public string Instituicao { get; set; }
-        public bool IsFirstAcess { get; set; }
+        public bool FirstAccess { get; set; }
     }
 }

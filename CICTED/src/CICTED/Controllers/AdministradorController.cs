@@ -47,6 +47,7 @@ namespace CICTED.Controllers
 
             foreach (var organizador in organizadores)
             {
+                var isAvaliador = await _administradorRepository.IsAvaliador(organizador.Id);
 
                 var organizadorConsulta = new GerenciarOrganizador()
                 {
@@ -58,8 +59,9 @@ namespace CICTED.Controllers
                     Email = organizador.Email,
                     Genero = organizador.Genero,
                     Celular = organizador.Celular,
-                    CPF = organizador.CPF, 
-                    Avaliador = organizador.Avaliador
+                    CPF = organizador.CPF,
+                    Avaliador = isAvaliador,
+                    FirstAccess = organizador.FirstAccess
                 };
                 model.Add(organizadorConsulta);
             }
