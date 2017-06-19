@@ -36,26 +36,26 @@
         @foreach (var organizadores in Model)
         {
             <tr>
-                <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@organizadores.Id"></a></td>
+                <td><a class="fa fa-search link organizador" data-toggle="modal" data-target="#myModal" data-id="@organizadores.Id"></a></td>
 
-                @if (organizadores.Avaliador == true)
+                @if (organizadores.Avaliador == false)
                 {
-                    <td>Sim</td>
+                    <td></td>
 
                 }
                 else
                 {
-                    <td></td>
+                    <td>Sim</td>
                 }
                 <td>@organizadores.Nome @organizadores.Sobrenome</td>
                 <td>@organizadores.Email</td>
-                @if (organizadores.IsFirstAcess == true)
+                @if (organizadores.FirstAccess == false)
                 {
-                    <td><span class="fa fa-times-circle margin-left-10 color-reprovado"></span></td>
+                    <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
                 }
                 else
                 {
-                    <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
+                    <td><span class="fa fa-times-circle margin-left-10 color-reprovado"></span></td>
                 }
             </tr>
         }
@@ -75,23 +75,59 @@
             <div style="padding:10px" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+
                     <h3 style="font-weight:bold"><span class="fa fa-user"></span> Informações do Organizador</h3>
+
                     <hr />
+
                     <table>
-                        <tr><td><b>Nome: </b></td><td></td></tr>
-                        <tr><td><b>Email: </b></td><td></td></tr>
-                        <tr><td><b>Telefone: </b></td><td></td></tr>
-                        <tr><td><b>Celular: </b></td><td></td></tr>
-                        <tr><td><b>Avaliador: </b></td><td></td></tr>
-                        <tr><td><b>CPF: </b></td><td></td></tr>
-                        <tr><td><b>Data de Nascimeto: </b></td><td></td></tr>
-                        <tr><td><b>Gênero: </b></td><td></td></tr>
+                        <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
+                        <tr><td><b>Email: </b></td><td id="Email"></td></tr>
+                        <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
+                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
+                        <tr><td><b>Avaliador: </b></td><td id="Avaliador"></td></tr>
+                        <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
+                        <tr><td><b>Data de Nascimeto: </b></td><td id="data-nascimento"></td></tr>
+                        <tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>
                         <tr><td><b>Endereço: </b></td><td></td></tr>
                         <tr><td><b>Instituição: </b></td><td></td></tr>
                     </table>
-                    <hr />
+
+                    <br />
+
+                    <button class="btn btn-primary" style="margin-left:40%; width:100px"><span class="fa fa-pencil-square-o"></span> Editar</button>
+                    <button class="btn btn-primary margin-left-20" style="width:100px"><span class="fa fa-close"></span> Excluir</button>
+
                 </div>
             </div>
         </div>
 
     </div>
+</div>
+
+<script type="text/javascript">
+
+    $(".organizador").on("click", function () {
+        var organizador = $(this);
+        var id = organizador.attr("data-id");
+
+        $.ajax({
+            url: '/administrador/gerenciarOrganizador',
+            type: 'get',
+            data: {
+                id: id
+            },
+
+            success: function (data) {
+                $('#Nome').text(data.Nome);
+                $('#Email').text(data.Email);
+                $('#Telefone').text(data.Telefone);
+                $('Celular').text(data.Celular);
+                $('CPF').text(data.CPF);
+                $('#data-nascimento').text(data.dataNascimento.toString('dd/MM/yyyy'));
+                $('#Genero').text(data.Genero);
+
+            }
+        });
+    });
+</script>
