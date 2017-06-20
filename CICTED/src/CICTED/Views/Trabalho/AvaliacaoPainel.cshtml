@@ -31,8 +31,8 @@
                     <input class="form-control" id="nota" style="width:65px" type="text" name="Nota" value="@Model.Nota" />
                 </div>
                 <div id="emoji" class="form-group float-right margin-left-30">
-                    <span class="fa fa-meh-o fa-5x"></span>                    
-                    
+                    <span class="fa fa-meh-o fa-5x"></span>
+
                 </div>
             </div>
         </div>
@@ -49,7 +49,9 @@
             <input class="form-control" style="max-width:100%!important" type="text" name="TituloTrabalho" value="@Model.TituloTrabalho" readonly />
         </div>
     </div>
-
+    <div class="form-group float-right">
+        <button class="btn btn-primary">Avaliar</button>
+    </div>
 </form>
 
 
@@ -76,29 +78,21 @@
         });
     });
 
-    $("#nota").on("keyup", function () {
+    $("#nota").keyup(function () {
         var nota = $(this);
-        var id = $(this).va();
+        var id = parseFloat($(this).val()).toFixed(2);
+        if (id > 10.00) {
+            alert("Nota invalida");
+        }
+        else if (id >= 6.00) {
+            $("#emoji").html('<span class="fa fa-smile-o fa-5x" style="color:green"></span>');
+        }
+        else {
+            $("#emoji").html('<span class="fa fa-frown-o fa-5x" style="color:red"></span>');
+        }
 
-        $ajax({            
-            data: {
-                id:id
-            },
 
-            sucess: function (data) {
-                if (data >= 6) {
-                    $("#emoji").html('<span class="fa fa-smile-o fa-5x" style="color:green"></span>');
-                }
-                else {
-                    $("#emoji").html('<span class="fa fa-frown-o fa-5x" style="color:red"></span>');
-                }
-            },
-            error: function (x, y, message) {
-                alert("Não deu não")
-            },
-
-            });
     });
 
-    $("#nota").mask("99,99");
+    $("#nota").mask("99.99");
 </script>
