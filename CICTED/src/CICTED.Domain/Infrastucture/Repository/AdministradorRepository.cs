@@ -73,5 +73,74 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return false;
             }
         }
+
+        public async Task<List<GerenciarAvaliador>> GetAvaliador()
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectAvaliadoresId = await db.QueryAsync<long>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 3");
+                    var avaliador = selectAvaliadoresId.ToList();
+                    List<GerenciarAvaliador> avaliadores = new List<GerenciarAvaliador>();
+
+                    foreach(var id in avaliador)
+                    {
+                        var selectAvaliadores = await db.QueryAsync<GerenciarAvaliador>("SELECT * FROM dbo.AspNetUsers WHERE Id = @avaliadorId",
+                            new
+                            {
+                                avaliadorId = id
+                            });
+
+                        GerenciarAvaliador aval = selectAvaliadores.FirstOrDefault();
+                        if (aval != null)
+                        {
+                            avaliadores.Add(aval);
+                        }
+                    }
+
+                    return avaliadores;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<GerenciarAutor>> GetAutor()
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectAutoresId = await db.QueryAsync<long>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 4");
+                    var autor = selectAutoresId.ToList();
+                    List<GerenciarAutor> autores = new List<GerenciarAutor>();
+
+                    foreach (var id in autor)
+                    {
+                        var selectAutores = await db.QueryAsync<GerenciarAutor>("SELECT * FROM dbo.AspNetUsers WHERE Id = @autorId",
+                            new
+                            {
+                                autorId = id
+                            });
+
+                        GerenciarAutor aut = selectAutores.FirstOrDefault();
+                        if (aut != null)
+                        {
+                            autores.Add(aut);
+                        }
+                    }
+
+                    return autores;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
 }

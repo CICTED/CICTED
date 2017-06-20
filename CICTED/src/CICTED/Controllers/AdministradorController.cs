@@ -67,7 +67,59 @@ namespace CICTED.Controllers
             }
 
             return View(model);
-            
+
+        }
+
+        [HttpGet("gerenciarAvaliador")]
+        [Authorize]
+        public async Task<IActionResult> GerenciarAvaliador()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var avaliadores = await _administradorRepository.GetAvaliador();
+            List<GerenciarAvaliador> model = new List<GerenciarAvaliador>();
+
+            foreach (var avaliador in avaliadores)
+            {
+                var avaliadorConsulta = new GerenciarAvaliador()
+                {
+                    Id = avaliador.Id,
+                    Nome = avaliador.Nome,
+                    Sobrenome = avaliador.Sobrenome,
+                    Telefone = avaliador.Telefone,
+                    Email = avaliador.Email,
+                    Celular = avaliador.Celular,
+                    FirstAccess = avaliador.FirstAccess
+                };
+                model.Add(avaliadorConsulta);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet("gerenciarAutor")]
+        [Authorize]
+        public async Task<IActionResult> GerenciarAutor()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var autores = await _administradorRepository.GetAutor();
+            List<GerenciarAutor> model = new List<GerenciarAutor>();
+
+            foreach (var autor in autores)
+            {
+                var autorConsulta = new GerenciarAutor()
+                {
+                    Id = autor.Id,
+                    Nome = autor.Nome,
+                    Sobrenome = autor.Sobrenome,
+                    Telefone = autor.Telefone,
+                    Email = autor.Email,
+                    Celular = autor.Celular,
+                    FirstAccess = autor.FirstAccess
+                };
+                model.Add(autorConsulta);
+            }
+
+            return View(model);
         }
     }
 
