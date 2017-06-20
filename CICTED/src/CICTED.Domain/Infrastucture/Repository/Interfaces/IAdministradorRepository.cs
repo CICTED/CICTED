@@ -9,5 +9,8 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
     public interface IAdministradorRepository
     {
         Task<List<GerenciarOrganizador>> GetOrganizador();
+        Task<bool> IsAvaliador(int userID);
+        Task<List<GerenciarAvaliador>> GetAvaliador();
+        Task<List<GerenciarAutor>> GetAutor();
     }
 }

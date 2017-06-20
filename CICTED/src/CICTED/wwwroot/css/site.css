@@ -467,6 +467,14 @@ select {
     border-radius: 5px;
     box-sizing: border-box;
 }
+.input-busca-avaliador {
+    outline: none;
+    max-width: 280px;
+    height: 33px;
+    width: 350px !important;
+    padding: 0 12px 0 25px;
+    background: white url(http://cssdeck.com/uploads/media/items/5/5JuDgOa.png) 8px 10px no-repeat;    
+}
 
 .input-consulta-trab-adm {
     max-width: 300px;
@@ -619,7 +627,16 @@ input[type=checkbox] {
     width: auto !important;
     height: auto !important;
 }
-
+.form-cadAvaliacao {
+    width: 750px;   
+    height: 400px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
 
 .form-cadTrabalho {
     width: 800px;

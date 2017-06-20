@@ -47,6 +47,7 @@ namespace CICTED.Controllers
 
             foreach (var organizador in organizadores)
             {
+                var isAvaliador = await _administradorRepository.IsAvaliador(organizador.Id);
 
                 var organizadorConsulta = new GerenciarOrganizador()
                 {
@@ -58,14 +59,67 @@ namespace CICTED.Controllers
                     Email = organizador.Email,
                     Genero = organizador.Genero,
                     Celular = organizador.Celular,
-                    CPF = organizador.CPF, 
-                    Avaliador = organizador.Avaliador
+                    CPF = organizador.CPF,
+                    Avaliador = isAvaliador,
+                    FirstAccess = organizador.FirstAccess
                 };
                 model.Add(organizadorConsulta);
             }
 
             return View(model);
-            
+
+        }
+
+        [HttpGet("gerenciarAvaliador")]
+        [Authorize]
+        public async Task<IActionResult> GerenciarAvaliador()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var avaliadores = await _administradorRepository.GetAvaliador();
+            List<GerenciarAvaliador> model = new List<GerenciarAvaliador>();
+
+            foreach (var avaliador in avaliadores)
+            {
+                var avaliadorConsulta = new GerenciarAvaliador()
+                {
+                    Id = avaliador.Id,
+                    Nome = avaliador.Nome,
+                    Sobrenome = avaliador.Sobrenome,
+                    Telefone = avaliador.Telefone,
+                    Email = avaliador.Email,
+                    Celular = avaliador.Celular,
+                    FirstAccess = avaliador.FirstAccess
+                };
+                model.Add(avaliadorConsulta);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet("gerenciarAutor")]
+        [Authorize]
+        public async Task<IActionResult> GerenciarAutor()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var autores = await _administradorRepository.GetAutor();
+            List<GerenciarAutor> model = new List<GerenciarAutor>();
+
+            foreach (var autor in autores)
+            {
+                var autorConsulta = new GerenciarAutor()
+                {
+                    Id = autor.Id,
+                    Nome = autor.Nome,
+                    Sobrenome = autor.Sobrenome,
+                    Telefone = autor.Telefone,
+                    Email = autor.Email,
+                    Celular = autor.Celular,
+                    FirstAccess = autor.FirstAccess
+                };
+                model.Add(autorConsulta);
+            }
+
+            return View(model);
         }
     }
 

@@ -1,11 +1,11 @@
-﻿@model List<CICTED.Domain.ViewModels.Administrador.GerenciarOrganizador>
+﻿@model List<CICTED.Domain.ViewModels.Administrador.GerenciarAutor>
 @{
     Layout = "_Menu";
 }
-<title>Gerenciar Organizador - CICTED</title>
+<title>Gerenciar Autor - CICTED</title>
 
 <div class="form-consultTrabAdm">
-    <h3 style="font-weight: bold"><span class="fa fa-pencil-square-o"></span> Gerenciar Organizador</h3>
+    <h3 style="font-weight: bold"><span class="fa fa-pencil-square-o"></span> Gerenciar Autor</h3>
 
     <div class="form-group">
         Pesquisar: <input class="input-consulta-trab-adm" id="autor-nome" style="width:350px !important" placeholder="Digite o nome ou email" autocomplete="off" />
@@ -13,7 +13,6 @@
             <ul id="lista-nomes"></ul>
         </div>
         <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
-        <button class="btn btn-primary float-right" style="width:150px"><span class="fa fa-user-plus"></span>  Novo Organizador</button>
     </div>
 
     <hr />
@@ -21,35 +20,25 @@
     <table class="tabela-trabalho" style="margin:0 0 auto" border="1">
         <tr>
             <th style="width: 50px !important" class="form-group"></th>
-            <th style="width: 90px !important" class="form-group">
-                Avaliador
-            </th>
             <th>
                 Nome
             </th>
             <th>
                 Email
             </th>
+            <th>Identificação do Trabalho</th>
             <th style="width: 80px !important" class="form-group"> Status</th>
         </tr>
 
-        @foreach (var organizadores in Model)
+        @foreach (var autores in Model)
         {
             <tr>
-                <td><a class="fa fa-search link organizador" data-toggle="modal" data-target="#myModal" data-id="@organizadores.Id"></a></td>
+                <td><a class="fa fa-search link organizador" data-toggle="modal" data-target="#myModal" data-id="@autores.Id"></a></td>
 
-                @if (organizadores.Avaliador == false)
-                {
-                    <td></td>
-
-                }
-                else
-                {
-                    <td>Sim</td>
-                }
-                <td>@organizadores.Nome @organizadores.Sobrenome</td>
-                <td>@organizadores.Email</td>
-                @if (organizadores.FirstAccess == false)
+                <td>@autores.Nome @autores.Sobrenome</td>
+                <td>@autores.Email</td>
+                <td>@autores.TrabalhoIdentificacao</td>
+                @if (autores.FirstAccess == false)
                 {
                     <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
                 }
@@ -85,12 +74,8 @@
                         <tr><td><b>Email: </b></td><td id="Email"></td></tr>
                         <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
                         <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
-                        <tr><td><b>Avaliador: </b></td><td></td></tr>
-                        <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
-                        <tr><td><b>Data de Nascimeto: </b></td><td ></td></tr>
-                        <tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>
-                        <tr><td><b>Endereço: </b></td><td></td></tr>
-                        <tr><td><b>Instituição: </b></td><td></td></tr>
+                        <tr><td><b>Evento: </b></td><td></td></tr>
+                        <tr><td><b>Área de Conhecimento: </b></td><td></td></tr>
                     </table>
 
                     <br />
@@ -107,12 +92,12 @@
 
 <script type="text/javascript">
 
-    $(".gerenciarOrganizador").on("click", function () {
-        var organizador = $(this);
-        var id = organizador.attr("data-id");
+    $(".gerenciarAvaliador").on("click", function () {
+        var avaliador = $(this);
+        var id = avaliador.attr("data-id");
 
         $.ajax({
-            url: '/administrador/gerenciarOrganizador',
+            url: '/administrador/gerenciarAvaliador',
             type: 'get',
             data: {
                 id: id
@@ -123,9 +108,6 @@
                 $('#Email').text(data.Email);
                 $('#Telefone').text(data.Telefone);
                 $('Celular').text(data.Celular);
-                $('CPF').text(data.CPF);
-                $('#Genero').text(data.Genero);
-
             }
         });
     });
