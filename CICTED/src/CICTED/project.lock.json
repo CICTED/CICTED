@@ -4460,21 +4460,19 @@
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
           "NETCore.MailKit": "1.0.1",
-          "NETStandard.Library": "1.6.0",
-          "System.ComponentModel.Annotations": "4.3.0"
+          "NETStandard.Library": "1.6.0"
         },
         "compile": {
-          "netstandard1.6/CICTED.Crosscutting.dll": {}
+          "netstandard1.6/CICTED.crosscutting.dll": {}
         },
         "runtime": {
-          "netstandard1.6/CICTED.Crosscutting.dll": {}
+          "netstandard1.6/CICTED.crosscutting.dll": {}
         }
       },
       "CICTED.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
-          "CICTED.Crosscutting": "1.0.0",
           "Dapper": "1.50.2",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0-preview1-final",
           "Microsoft.EntityFrameworkCore": "1.1.0",

@@ -13,8 +13,7 @@
           "Microsoft.EntityFrameworkCore": "1.1.0",
           "NETStandard.Library": "1.6.0",
           "Dapper": "1.50.2",
-          "NETCore.MailKit": "1.0.1",
-          "CICTED.Crosscutting": "1.0.0"
+          "NETCore.MailKit": "1.0.1"
         },
         "runtime": {
           "CICTED.Domain.dll": {}
@@ -1702,16 +1701,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
-      },
-      "CICTED.Crosscutting/1.0.0": {
-        "dependencies": {
-          "NETCore.MailKit": "1.0.1",
-          "NETStandard.Library": "1.6.0",
-          "System.ComponentModel.Annotations": "4.3.0"
-        },
-        "runtime": {
-          "CICTED.Crosscutting.dll": {}
-        }
       }
     }
   },
@@ -2385,11 +2374,6 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-2eZu6IP+etFVBBFUFzw2w6J21DqIN5eL9Y8r8JfJWUmV28Z5P0SNU01oCisVHQgHsDhHPnmq2s1hJrJCFZWloQ=="
-    },
-    "CICTED.Crosscutting/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

@@ -200,13 +200,23 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="porNome">
                             <div class="form-group margin-top-10 row">
-                                <input type="text" class="input-add-autor" id="input-add-aluno" style="width:350px !important" placeholder="Digite o nome desejado" name="AlunoNome" />
-                                <a id="button-cadastrar-aluno" class="btn btn-primary">Cadastrar</a>
+                                <input class="input-add-autor" style="width:350px !important" onclick="deletarAluno(id)"  placeholder="Digite o nome desejado" name="AlunoNome" />
+                                <button class="btn btn-primary">Cadastrar</button>
                                 <div id="nomes-alunos">
 
 
-                                    
-                                </div>
+                                    <div style="width:500px" id="autor-' + userId + '">
+                                        <span class="fa fa-clock-o color-submissao"></span> ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor(' + userId + ')" value="' +
+                                userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                        '<input name="' + name + '" style="visibility:hidden;float: right;width: 1px;" value="' + userId + '" />
+                                    </div>
+
+
+                                    <div id="Bruna">
+                                        <input name="AlunosNome" style="border:0px;  background:white" class="margin-top-10" disabled value="Bruna" />
+                                        <span class="fa fa-times margin-left-20 link"></span>
+                                    </div>
+                                     </div>
                             </div>
                         </div>
                     }
@@ -346,7 +356,7 @@
                     }
 
                     <hr />
-                    <div class="form-group" style="margin-top: 200px">
+                    <div class="form-group margin-top-10">
                         <button type="button" class="btn btn-primary float-left prev">Voltar</button>
                         <button type="button" class="btn btn-primary float-right next">Avançar</button>
                     </div>
@@ -428,7 +438,7 @@
                 </div>
             </div>
         </div>
-    </form>
+</form>
 
 
 </body>
@@ -526,20 +536,11 @@
             id.attr("data-id", "autor-" + userId);
 
 
-            id.append('<div style="width:500px" id="autor-' + userId + '"><span class="fa fa-clock-o color-submissao"></span> ' + nome + '<b> ' + email + '</b><a onclick="deletarAutor(' + userId + ')" ><span class="fa fa-times margin-left-20 link"></span></a>' +
+            id.append('<div style="width:500px" id="autor-' + userId + '"><span class="fa fa-clock-o color-submissao"></span> ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor(' + userId + ')" value="' +
+                                userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
                                 '<input name="' + name + '" style = "visibility:hidden;float: right;width: 1px;" value="' + userId + '" /></div>');
         }
         $(".input-nome").val("");
-    });
-
-    $("#button-cadastrar-aluno").on("click", function () {
-        var aluno = $("#input-add-aluno").val().trim();
-        if (aluno != null) {
-            $("#nomes-alunos").append('<div style="width:500px" id="aluno-' + aluno + '">' +  aluno + '<a onclick="deletarAluno(\'' + aluno + '\')" ><span class="fa fa-times margin-left-20 link"></span></a>' +
-                            '<input name="AlunosNome" style = "visibility: hidden; float: right; width: 1px;" value="' + aluno + '" /></div>');
-
-
-        }
     });
 
     //cadastrar email
@@ -636,7 +637,7 @@
 
     function deletarAluno(id) {
         $(document).ready(function () {
-            $("#aluno-" + id).remove();
+            $("#" + id).remove();           
         });
     }
 
