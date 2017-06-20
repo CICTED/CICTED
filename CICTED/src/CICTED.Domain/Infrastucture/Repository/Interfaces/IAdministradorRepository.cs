@@ -12,5 +12,8 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<bool> IsAvaliador(int userID);
         Task<List<GerenciarAvaliador>> GetAvaliador();
         Task<List<GerenciarAutor>> GetAutor();
+        Task<string> GetEvento(int userId);
+        Task<string> GetSubAreaConhecimento(int userId);
+        Task<string> GetIdentificacaoTrabalho(int userId);
     }
 }

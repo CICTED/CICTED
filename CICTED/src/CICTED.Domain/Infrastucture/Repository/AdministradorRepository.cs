@@ -61,9 +61,8 @@ namespace CICTED.Domain.Infrastucture.Repository
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
                     var selectIsAvaliador = await db.QueryAsync<bool>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 3 AND UserId = @userId", new { userId = userID });
-                    var isAvaliador = selectIsAvaliador.FirstOrDefault();
 
-                    return isAvaliador;
+                    return selectIsAvaliador.FirstOrDefault();
                 }
 
 
@@ -84,7 +83,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                     var avaliador = selectAvaliadoresId.ToList();
                     List<GerenciarAvaliador> avaliadores = new List<GerenciarAvaliador>();
 
-                    foreach(var id in avaliador)
+                    foreach (var id in avaliador)
                     {
                         var selectAvaliadores = await db.QueryAsync<GerenciarAvaliador>("SELECT * FROM dbo.AspNetUsers WHERE Id = @avaliadorId",
                             new
@@ -101,6 +100,45 @@ namespace CICTED.Domain.Infrastucture.Repository
 
                     return avaliadores;
                 }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> GetEvento(int userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var eventoId = await db.QueryAsync<int>("SELECT EventoId FROM dbo.AvaliadorEvento WHERE UsuarioId = @userId", new { userId = userId });
+
+                    var evento = await db.QueryAsync<string>("SELECT Sigla FROM dbo.Evento WHERE Id = @eventoId", new { eventoId = eventoId });
+
+                    return evento.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> GetSubAreaConhecimento(int userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var subAreaConhecimentoId = await db.QueryAsync<int>("SELECT SubAreaConhecimentoId FROM dbo.AvaliadorSubAreaConhecimento WHERE UsuarioId = @userId", new { userId = userId });
+
+                    var subAreaConhecimento = await db.QueryAsync<string>("SELECT Nome FROM dbo.SubAreaConhecimento WHERE Id = @subAreaConhecimentoId", new { subAreaConhecimentoId = subAreaConhecimentoId });
+
+                    return subAreaConhecimento.FirstOrDefault();
+                }
+
             }
             catch (Exception ex)
             {
@@ -134,6 +172,25 @@ namespace CICTED.Domain.Infrastucture.Repository
                     }
 
                     return autores;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> GetIdentificacaoTrabalho(int userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var trabalhoId = await db.QueryAsync<int>("SELECT TrabalhoID FROM dbo.AutorTrabalho WHERE UsuarioId = @userId", new { userId = userId });
+
+                    var identificação = await db.QueryAsync<string>("SELECT Identificacao FROM dbo.Trabalho WHERE Id = @trabalhoId", new { trabalhoId = trabalhoId });
+
+                    return identificação.FirstOrDefault();
                 }
             }
             catch (Exception ex)

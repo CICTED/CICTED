@@ -12,8 +12,8 @@ namespace CICTED.Domain.ViewModels.Administrador
         public string Sobrenome { get; set; }
         public string EventoNome { get; set; }
         public int EventoId { get; set; }
-        public string AreaConhecimentoNome { get; set; }
-        public int AreaConhecimentoId { get; set; }
+        public string SubAreaConhecimentoNome { get; set; }
+        public int SubAreaConhecimentoId { get; set; }
         public string Email { get; set; }
         public string Telefone { get; set; }
         public string Celular { get; set; }

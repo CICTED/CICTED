@@ -76,10 +76,15 @@ namespace CICTED.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var avaliadores = await _administradorRepository.GetAvaliador();
+
             List<GerenciarAvaliador> model = new List<GerenciarAvaliador>();
 
             foreach (var avaliador in avaliadores)
             {
+                var evento = await _administradorRepository.GetEvento(avaliador.Id);
+
+                var subAreaConhecimento = await _administradorRepository.GetSubAreaConhecimento(avaliador.Id);
+
                 var avaliadorConsulta = new GerenciarAvaliador()
                 {
                     Id = avaliador.Id,
@@ -88,6 +93,8 @@ namespace CICTED.Controllers
                     Telefone = avaliador.Telefone,
                     Email = avaliador.Email,
                     Celular = avaliador.Celular,
+                    EventoNome = evento,
+                    SubAreaConhecimentoNome = subAreaConhecimento,
                     FirstAccess = avaliador.FirstAccess
                 };
                 model.Add(avaliadorConsulta);
@@ -106,6 +113,8 @@ namespace CICTED.Controllers
 
             foreach (var autor in autores)
             {
+                var identificacao = await _administradorRepository.GetIdentificacaoTrabalho(autor.Id);
+
                 var autorConsulta = new GerenciarAutor()
                 {
                     Id = autor.Id,
@@ -114,6 +123,7 @@ namespace CICTED.Controllers
                     Telefone = autor.Telefone,
                     Email = autor.Email,
                     Celular = autor.Celular,
+                    TrabalhoIdentificacao = identificacao,
                     FirstAccess = autor.FirstAccess
                 };
                 model.Add(autorConsulta);
