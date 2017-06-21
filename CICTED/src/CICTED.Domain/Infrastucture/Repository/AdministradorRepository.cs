@@ -54,7 +54,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<bool> IsAvaliador(int userID)
+        public async Task<bool> IsAvaliador(long userID)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<string> GetEvento(int userId)
+        public async Task<string> GetEvento(long userId)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<string> GetSubAreaConhecimento(int userId)
+        public async Task<string> GetSubAreaConhecimento(long userId)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<string> GetIdentificacaoTrabalho(int userId)
+        public async Task<string> GetIdentificacaoTrabalho(long userId)
         {
             try
             {
@@ -199,5 +199,46 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+        public async Task<GerenciarOrganizador> GetOrganizador(long id)
+        {
+            using (var db = new SqlConnection(_settings.ConnectionString))
+            {
+                var selectOrganizadores = await db.QueryAsync<GerenciarOrganizador>("SELECT * FROM dbo.AspNetUsers WHERE Id = @organizadorId",
+                            new
+                            {
+                                organizadorId = id
+                            });
+
+                return selectOrganizadores.FirstOrDefault();
+            }
+        }
+
+        public async Task<GerenciarAvaliador> GetAvaliador(long id)
+        {
+            using (var db = new SqlConnection(_settings.ConnectionString))
+            {
+                var selectAvaliadores = await db.QueryAsync<GerenciarAvaliador>("SELECT * FROM dbo.AspNetUsers WHERE Id = @avaliadorId",
+                            new
+                            {
+                                avaliadorId = id
+                            });
+
+                return selectAvaliadores.FirstOrDefault();
+            }
+        }
+
+        public async Task<GerenciarAutor> GetAutor(long id)
+        {
+            using (var db = new SqlConnection(_settings.ConnectionString))
+            {
+                var selectAutores = await db.QueryAsync<GerenciarAutor>("SELECT * FROM dbo.AspNetUsers WHERE Id = @autorId",
+                           new
+                           {
+                               autorId = id
+                           });
+
+                return selectAutores.FirstOrDefault();
+            }
+        }
     }
 }

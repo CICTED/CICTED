@@ -33,11 +33,11 @@
         @foreach (var autores in Model)
         {
             <tr>
-                <td><a class="fa fa-search link organizador" data-toggle="modal" data-target="#myModal" data-id="@autores.Id"></a></td>
+                <td><a class="fa fa-search link autor" data-toggle="modal" data-target="#myModal" data-id="@autores.Id"></a></td>
 
                 <td>@autores.Nome @autores.Sobrenome</td>
                 <td>@autores.Email</td>
-                <td>@autores.TrabalhoIdentificacao</td>
+                <td>@autores.Identificacao</td>
                 @if (autores.FirstAccess == false)
                 {
                     <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
@@ -65,7 +65,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Informações do Organizador</h3>
+                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Informações do Autor</h3>
 
                     <hr />
 
@@ -73,9 +73,7 @@
                         <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
                         <tr><td><b>Email: </b></td><td id="Email"></td></tr>
                         <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
-                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
-                        <tr><td><b>Evento: </b></td><td></td></tr>
-                        <tr><td><b>Área de Conhecimento: </b></td><td></td></tr>
+                        <tr><td><b>Identificação do Trabalho: </b></td><td id="Identificacao"></td></tr>
                     </table>
 
                     <br />
@@ -92,22 +90,22 @@
 
 <script type="text/javascript">
 
-    $(".gerenciarAvaliador").on("click", function () {
-        var avaliador = $(this);
-        var id = avaliador.attr("data-id");
+    $(".autor").on("click", function () {
+        var autor = $(this);
+        var id = autor.attr("data-id");
 
         $.ajax({
-            url: '/administrador/gerenciarAvaliador',
+            url: '/administrador/informacaoAutor',
             type: 'get',
             data: {
                 id: id
             },
 
             success: function (data) {
-                $('#Nome').text(data.Nome + '' + data.Sobrenome);
-                $('#Email').text(data.Email);
-                $('#Telefone').text(data.Telefone);
-                $('Celular').text(data.Celular);
+                $('#Nome').text(data.nome + ' ' + data.sobrenome);
+                $('#Email').text(data.email);
+                $('#Telefone').text(data.phoneNumber);
+                $('Identificacao').text(data.identificacao);
             }
         });
     });

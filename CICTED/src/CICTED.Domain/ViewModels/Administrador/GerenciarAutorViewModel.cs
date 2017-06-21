@@ -11,9 +11,8 @@ namespace CICTED.Domain.ViewModels.Administrador
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Email { get; set; }
-        public string TrabalhoIdentificacao { get; set; }
-        public string Telefone { get; set; }
-        public string Celular { get; set; }
+        public string Identificacao { get; set; }
+        public string PhoneNumber { get; set; }
         public bool FirstAccess { get; set; }
     }
 }

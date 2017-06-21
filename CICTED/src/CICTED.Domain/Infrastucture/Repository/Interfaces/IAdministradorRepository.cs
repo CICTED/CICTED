@@ -9,11 +9,14 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
     public interface IAdministradorRepository
     {
         Task<List<GerenciarOrganizador>> GetOrganizador();
-        Task<bool> IsAvaliador(int userID);
+        Task<bool> IsAvaliador(long userID);
         Task<List<GerenciarAvaliador>> GetAvaliador();
         Task<List<GerenciarAutor>> GetAutor();
-        Task<string> GetEvento(int userId);
-        Task<string> GetSubAreaConhecimento(int userId);
-        Task<string> GetIdentificacaoTrabalho(int userId);
+        Task<string> GetEvento(long userId);
+        Task<string> GetSubAreaConhecimento(long userId);
+        Task<string> GetIdentificacaoTrabalho(long userId);
+        Task<GerenciarOrganizador> GetOrganizador(long id);
+        Task<GerenciarAvaliador> GetAvaliador(long id);
+        Task<GerenciarAutor> GetAutor(long id);
     }
 }

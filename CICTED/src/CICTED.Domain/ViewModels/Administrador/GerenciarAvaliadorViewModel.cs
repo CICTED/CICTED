@@ -15,8 +15,7 @@ namespace CICTED.Domain.ViewModels.Administrador
         public string SubAreaConhecimentoNome { get; set; }
         public int SubAreaConhecimentoId { get; set; }
         public string Email { get; set; }
-        public string Telefone { get; set; }
-        public string Celular { get; set; }
+        public string PhoneNumber { get; set; }
         public bool FirstAccess { get; set; }
     }
 }

@@ -84,7 +84,6 @@
                         <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
                         <tr><td><b>Email: </b></td><td id="Email"></td></tr>
                         <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
-                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
                         <tr><td><b>Avaliador: </b></td><td></td></tr>
                         <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
                         <tr><td><b>Data de Nascimeto: </b></td><td ></td></tr>
@@ -107,24 +106,22 @@
 
 <script type="text/javascript">
 
-    $(".gerenciarOrganizador").on("click", function () {
+    $(".organizador").on("click", function () {
         var organizador = $(this);
         var id = organizador.attr("data-id");
 
         $.ajax({
-            url: '/administrador/gerenciarOrganizador',
+            url: '/administrador/informacaoOrganizador',
             type: 'get',
             data: {
                 id: id
             },
 
             success: function (data) {
-                $('#Nome').text(data.Nome + '' + data.Sobrenome);
-                $('#Email').text(data.Email);
-                $('#Telefone').text(data.Telefone);
-                $('Celular').text(data.Celular);
+                $('#Nome').text(data.nome + ' ' + data.sobrenome);
+                $('#Email').text(data.email);
+                $('#Telefone').text(data.phoneNumber);
                 $('CPF').text(data.CPF);
-                $('#Genero').text(data.Genero);
 
             }
         });

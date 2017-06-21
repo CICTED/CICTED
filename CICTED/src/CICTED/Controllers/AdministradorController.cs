@@ -54,11 +54,10 @@ namespace CICTED.Controllers
                     Id = organizador.Id,
                     Nome = organizador.Nome,
                     Sobrenome = organizador.Sobrenome,
-                    Telefone = organizador.Telefone,
+                    PhoneNumber = organizador.PhoneNumber,
                     Nascimento = organizador.Nascimento,
                     Email = organizador.Email,
                     Genero = organizador.Genero,
-                    Celular = organizador.Celular,
                     CPF = organizador.CPF,
                     Avaliador = isAvaliador,
                     FirstAccess = organizador.FirstAccess
@@ -90,9 +89,8 @@ namespace CICTED.Controllers
                     Id = avaliador.Id,
                     Nome = avaliador.Nome,
                     Sobrenome = avaliador.Sobrenome,
-                    Telefone = avaliador.Telefone,
+                    PhoneNumber = avaliador.PhoneNumber,
                     Email = avaliador.Email,
-                    Celular = avaliador.Celular,
                     EventoNome = evento,
                     SubAreaConhecimentoNome = subAreaConhecimento,
                     FirstAccess = avaliador.FirstAccess
@@ -120,10 +118,9 @@ namespace CICTED.Controllers
                     Id = autor.Id,
                     Nome = autor.Nome,
                     Sobrenome = autor.Sobrenome,
-                    Telefone = autor.Telefone,
+                    PhoneNumber = autor.PhoneNumber,
                     Email = autor.Email,
-                    Celular = autor.Celular,
-                    TrabalhoIdentificacao = identificacao,
+                    Identificacao = identificacao,
                     FirstAccess = autor.FirstAccess
                 };
                 model.Add(autorConsulta);
@@ -131,6 +128,67 @@ namespace CICTED.Controllers
 
             return View(model);
         }
-    }
 
+
+        [HttpGet("informacaoOrganizador")]
+        [Authorize]
+        public async Task<IActionResult> InformacaoOrganizador(long id)
+        {
+            GerenciarOrganizador organizadores = await _administradorRepository.GetOrganizador(id);
+
+            var model = new GerenciarOrganizador()
+            {
+                Nome = organizadores.Nome,
+                Sobrenome = organizadores.Sobrenome,
+                PhoneNumber = organizadores.PhoneNumber,
+                CPF = organizadores.CPF,
+                Email = organizadores.Email,
+                Nascimento = organizadores.Nascimento,
+                Genero = organizadores.Genero
+            };
+
+            return Json(model);
+        }
+
+        [HttpGet("informacaoAvaliador")]
+        [Authorize]
+        public async Task<IActionResult> InformacaoAvaliador(long id)
+        {
+            GerenciarAvaliador avaliadores = await _administradorRepository.GetAvaliador(id);
+            var eventos = await _administradorRepository.GetEvento(id);
+            var subArea = await _administradorRepository.GetSubAreaConhecimento(id);
+
+            var model = new GerenciarAvaliador()
+            {
+                Nome = avaliadores.Nome,
+                Sobrenome = avaliadores.Sobrenome,
+                Email = avaliadores.Email,
+                PhoneNumber = avaliadores.PhoneNumber,
+                EventoNome = eventos,
+                SubAreaConhecimentoNome = subArea
+            };
+
+            return Json(model);
+        }
+
+        [HttpGet("informacaoAutor")]
+        [Authorize]
+        public async Task<IActionResult> InformacaoAutor(long id)
+        {
+            GerenciarAutor autores = await _administradorRepository.GetAutor(id);
+            var identificacao = await _administradorRepository.GetIdentificacaoTrabalho(id);
+
+            var model = new GerenciarAutor()
+            {
+                Nome = autores.Nome,
+                Sobrenome = autores.Sobrenome,
+                PhoneNumber = autores.PhoneNumber,
+                Email = autores.Email,
+                Identificacao = identificacao
+            };
+
+            return Json(model);
+        }
+
+    }
 }
