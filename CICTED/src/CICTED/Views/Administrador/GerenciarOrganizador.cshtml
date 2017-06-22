@@ -84,12 +84,11 @@
                         <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
                         <tr><td><b>Email: </b></td><td id="Email"></td></tr>
                         <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
-                        <tr><td><b>Avaliador: </b></td><td></td></tr>
+                        <tr><td><b>Avaliador: </b></td><td id="Avaliador"></td></tr>
                         <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
-                        <tr><td><b>Data de Nascimeto: </b></td><td ></td></tr>
+                        <tr><td><b>Data de Nascimeto: </b></td><td id="Nascimento"></td></tr>
                         <tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>
                         <tr><td><b>Endereço: </b></td><td></td></tr>
-                        <tr><td><b>Instituição: </b></td><td></td></tr>
                     </table>
 
                     <br />
@@ -121,7 +120,21 @@
                 $('#Nome').text(data.nome + ' ' + data.sobrenome);
                 $('#Email').text(data.email);
                 $('#Telefone').text(data.phoneNumber);
-                $('#CPF').text(data.CPF);
+                $('#CPF').text(data.cpf);
+                $('#Nascimento').text(data.dataNascimento);
+
+                if (data.avaliador == true) {
+                    $('#Avaliador').text('Sim');
+                } else {
+                    $('#Avaliador').text('Não');
+
+                }
+
+                if (data.genero == true) {
+                    $('#Genero').text('Feminino');
+                } else {
+                    $('#Genero').text('Masculino');
+                }
 
             }
         });

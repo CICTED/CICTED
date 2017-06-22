@@ -187,8 +187,9 @@ namespace CICTED.Domain.Infrastucture.Repository
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
                     var trabalhoId = await db.QueryAsync<int>("SELECT TrabalhoID FROM dbo.AutorTrabalho WHERE UsuarioId = @userId", new { userId = userId });
+                    var trabalho = trabalhoId.FirstOrDefault();
 
-                    var identificação = await db.QueryAsync<string>("SELECT Identificacao FROM dbo.Trabalho WHERE Id = @trabalhoId", new { trabalhoId = trabalhoId });
+                    var identificação = await db.QueryAsync<string>("SELECT Identificacao FROM dbo.Trabalho WHERE Id = @trabalhoId", new { trabalhoId = trabalho });
 
                     return identificação.FirstOrDefault();
                 }
