@@ -48,9 +48,10 @@
                                 <label>Nome da escola: </label>
                             </div>
 
-                            <div class="float-left margin-left-75">
-                                <input class="input-trabalho" id="nome-escola" type="text" asp-for="NomeEscola" value="@Model.NomeEscola" required />
-                            </div>
+                            <div class="float-left margin-left-75 nome-escola">
+                                <input class="input-trabalho" type="text" id="nome-escola" asp-for="NomeEscola" value="@Model.NomeEscola" />
+                                <span style="display: none" id="campo-nome" class="text-danger campo-obrigatorio">Campo obrigatório</span>
+                             </div>
                         </div>
 
                         <div class="form-group row">
@@ -58,9 +59,10 @@
                                 <label>Cidade da escola: </label>
                             </div>
 
-                            <div class="float-left margin-left-75">
-                                <input class="input-trabalho" id="nome-cidade" type="text" asp-for="CidadeEscola" value="@Model.CidadeEscola" required />
-                            </div>
+                            <div class="float-left margin-left-75 cidade-escola">
+                                <input class="input-trabalho" type="text" id="cidade-escola" asp-for="CidadeEscola" value="@Model.CidadeEscola" />
+                                <span style="display: none" id="campo-cidade" class="text-danger campo-obrigatorio">Campo obrigatório</span>
+                             </div>
                         </div>
 
                         <div class="form-group row">
@@ -68,8 +70,9 @@
                                 <label>Telefone da escola: </label>
                             </div>
 
-                            <div class="float-left margin-left-75">
-                                <input class="input-trabalho" type="text" id="telefone" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" required />
+                            <div class="float-left margin-left-75 telefone-escola">
+                                <input class="input-trabalho" type="text" id="telefone-escola" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" />
+                                <span style="display: none" id="campo-telefone" class="text-danger campo-obrigatorio">Campo obrigatório</span>
                             </div>
                         </div>
 
@@ -179,7 +182,7 @@
                     </div>
                     <hr />
                     <div class="form-group margin-top-10">
-                        <button type="button" class="btn btn-primary float-right next">Avançar</button>
+                        <button id="button-avanca1" type="button" class="btn btn-primary float-right">Avançar</button>
                     </div>
                 </div>
 
@@ -198,15 +201,17 @@
                                     O trabalho deve ter entre 1 e 7 alunos.
                                 </b>
                             </h4>
+                            <div id="aviso"></div>
+                            <span id="qtd-alunos" style="display: none" class="text-danger">Trabalho deve ter pelo menos 1 aluno</span>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="porNome">
                             <div class="form-group margin-top-10 row">
-                                <input class="input-add-autor" style="width:350px !important" onclick="deletarAluno(id)"  placeholder="Digite o nome desejado" name="AlunoNome" />
-                                <button class="btn btn-primary">Cadastrar</button>
-                                <div id="nomes-alunos">
+                                <input type="text" class="input-add-autor margin-bottom-20" id="input-add-aluno" style="width:350px !important" placeholder="Digite o nome desejado" />
+                                <a id="adicionar-aluno" class="btn btn-primary">Cadastrar</a>
+                                <div id="nomes-alunos" style="height:184px">
 
 
-                                     </div>
+                                </div>
                             </div>
                         </div>
                     }
@@ -346,9 +351,9 @@
                     }
 
                     <hr />
-                    <div class="form-group" style="margin-top: 200px">
+                    <div class="form-group margin-bottom-10">
                         <button type="button" class="btn btn-primary float-left prev">Voltar</button>
-                        <button type="button" class="btn btn-primary float-right next">Avançar</button>
+                        <button id="button-avanca2" type="button" class="btn btn-primary float-right">Avançar</button>
                     </div>
                 </div>
 
@@ -428,7 +433,7 @@
                 </div>
             </div>
         </div>
-</form>
+    </form>
 
 
 </body>
@@ -448,6 +453,50 @@
         orientador: false,
     });
 
+    //verifica se nome, telefone e cidade escola estao preenchidos
+    $("#button-avanca1").on("click", function () {
+        if (idEvento == 2 || idEvento == 3 || idEvento == 4) {
+            $("#campo-nome").hide();
+            $("#campo-telefone").hide();
+            $("#campo-cidade").hide();
+
+            if ($("#nome-escola").val().trim() == "") {
+                $("#campo-nome").show();
+            }
+            if ($("#telefone-escola").val().trim() == "") {
+                $("#campo-telefone").show();
+            }
+            if ($("#cidade-escola").val().trim() == "") {
+                $("#campo-cidade").show();
+            }
+            else {
+                $('.nav-pills li.active').next('li').removeClass('disabled');
+                $('.nav-pills li.active').next('li').find('a').attr("data-toggle", "tab").trigger("click");
+                $('.nav-pills li').prev('li').find('a').removeAttr("data-toggle");
+                $('.nav-pills li').prev('li').addClass('disabled');
+            }
+        }
+        else {
+            next();
+        }
+    });
+
+    $("#button-avanca2").on("click", function () {
+        if (idEvento == 2 || idEvento == 3 || idEvento == 4) {
+            $("#qtd-alunos").hide();
+            var qtdAlunos = $("div[id *= aluno-]").length;
+
+            if (qtdAlunos < 1) {
+                $("#qtd-alunos").show();
+            }
+            else {
+                next();
+            }
+        }
+        else {
+            next();
+        }
+    });
 
     //pesquisa os autores para mostrar os nomes de opção
     $(".input-nome").keyup(function () {
@@ -601,13 +650,20 @@
         }
     });
 
-    $("#button-cadastrar-aluno").on("click", function () {
-        var aluno = $("#input-add-aluno").val().trim();
-        if (aluno != null) {
-            $("#nomes-alunos").append('<div style="width:500px" id="aluno-' + aluno + '">' + aluno + '<a onclick="deletarAluno(\'' + aluno + '\')" ><span class="fa fa-times margin-left-20 link"></span></a>' +
-                            '<input name="AlunosNome" style = "visibility: hidden; float: right; width: 1px;" value="' + aluno + '" /></div>');
+    $("#adicionar-aluno").on("click", function () {
+        $('#aviso').empty();
+        var qtdAlunos = $("div[id *= aluno]").length;
 
+        if (qtdAlunos > 7) {
+            $('#aviso').append('<div class="alert alert-danger" role="alert">Permitido apenas 7 alunos</div>');
+        }
+        else {
+            var aluno = $("#input-add-aluno").val();
+            if (aluno != null) {
+                $("#nomes-alunos").append('<div style="width:500px" id="aluno-' + aluno + '">' + aluno + '<a onclick="deletarAluno(\'' + aluno + '\')" ><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input name="AlunosNome" style = "visibility: hidden; float: right; width: 1px;" value="' + aluno + '" /></div>');
 
+            }
         }
     });
 
@@ -638,6 +694,13 @@
         $(document).ready(function () {
             $("#aluno-" + id).remove();
         });
+    }
+
+    function next() {
+        $('.nav-pills li.active').next('li').removeClass('disabled');
+        $('.nav-pills li.active').next('li').find('a').attr("data-toggle", "tab").trigger("click");
+        $('.nav-pills li').prev('li').find('a').removeAttr("data-toggle");
+        $('.nav-pills li').prev('li').addClass('disabled');
     }
 
     $("#checkFinanciado").on("change", function () {
