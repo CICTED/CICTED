@@ -43,35 +43,37 @@
         </tr>
 
         @foreach (var trabalhos in Model)
-            {
+        {
+            <tr>
             <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalhos.Id"></a></td>
 
             <td>@trabalhos.Identificacao</td>
 
             <td>@trabalhos.EventoNome</td>
 
-                <td>@trabalhos.AreaConhecimentoNome</td>
+            <td>@trabalhos.AreaConhecimentoNome</td>
 
                 <td>@trabalhos.SubAreaConhecimentoNome</td>
 
                 <td>
                     @if (trabalhos.StatusTrabalhoId == 1)
-                {
+                    {
                         <span style="font-size:18px" class="fa fa-check-circle color-aprovado"> Aprovado</span>
                     }
                     @if (trabalhos.StatusTrabalhoId == 2)
-                {
+                    {
                         <span style="font-size:18px" class="fa fa-times-circle color-reprovado"> Reprovado</span>
                     }
                     @if (trabalhos.StatusTrabalhoId == 3)
-                {
+                    {
                         <span style="font-size:18px" class="fa fa-clock-o color-submissao"> Aguardando Submissão</span>
                     }
                     @if (trabalhos.StatusTrabalhoId == 4)
-                {
+                    {
                         <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"> Aguardando Avaliação</span>
                     }
                 </td>
+                </tr>
         }
     </table>
 
@@ -167,7 +169,6 @@
             },
 
             success: function (data) {
-                $("#alterar-autores").attr("href", "/trabalho/" + data.id + "/alterar");
                 $('#identificacao').text(data.identificacao);
                 $('#area').text(data.areaConhecimento);
                 $('#subarea').text(data.subArea);
