@@ -73,6 +73,7 @@ namespace CICTED
             services.AddTransient<IAreaRepository, AreaRepository>();
             services.AddTransient<IAutorRepository, AutorRepository>();
             services.AddTransient<IAgenciaRepository, AgenciaRepository>();
+            services.AddTransient<IAdministradorRepository, AdministradorRepository>();
 
             services.AddMvc();
         }
