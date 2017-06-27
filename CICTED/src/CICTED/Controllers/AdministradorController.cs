@@ -22,10 +22,11 @@ namespace CICTED.Controllers
         private IAreaRepository _areaRepository;
         private IAutorRepository _autorRepository;
         private IAgenciaRepository _agenciaRepository;
+        private ILocalizacaoRepository _localizacaoRepository;
         private IAdministradorRepository _administradorRepository;
 
 
-        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository)
+        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
@@ -35,6 +36,7 @@ namespace CICTED.Controllers
             _autorRepository = autorRepository;
             _agenciaRepository = agenciaRepository;
             _administradorRepository = administradorRepository;
+            _localizacaoRepository = localizacaoRepository;
         }
 
         [HttpGet("gerenciarOrganizador")]
@@ -136,6 +138,11 @@ namespace CICTED.Controllers
         {
             GerenciarOrganizador organizadores = await _administradorRepository.GetOrganizador(id);
 
+            GerenciarOrganizador endereco = await _localizacaoRepository.GetEndereco(organizadores.EnderecoId);
+            var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
+            var estado = await _localizacaoRepository.GetEstado(cidade.Id);
+
+
             var model = new GerenciarOrganizador()
             {
                 Nome = organizadores.Nome,
@@ -143,9 +150,14 @@ namespace CICTED.Controllers
                 PhoneNumber = organizadores.PhoneNumber,
                 CPF = organizadores.CPF,
                 Email = organizadores.Email,
-                DataNascimento = organizadores.DataNascimento,
+                Nascimento = organizadores.DataNascimento.ToString("dd/MM/yyyy"),
                 Genero = organizadores.Genero,
-                Avaliador = organizadores.Avaliador
+                Avaliador = organizadores.Avaliador,
+                Logradouro = endereco.Logradouro,
+                Bairro = endereco.Bairro,
+                CidadeNome = cidade.CidadeNome,
+                Sigla = estado.Sigla,
+                Numero = endereco.Numero,
             };
 
             return Json(model);
