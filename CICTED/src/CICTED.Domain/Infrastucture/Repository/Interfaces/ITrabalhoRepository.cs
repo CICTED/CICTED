@@ -21,7 +21,8 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<string> GetInstituicao(long id);
         Task<List<ConsultaTrabalho>> GetTrabalho();
         Task<bool> VerificaCadastroTrabalho(long idTrabalho, long userId);
-        Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId);
+        Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId, bool autorResponsavel);
         Task<bool> DeletarAutorTrabalho(long userId, long idTrabalho);
+        Task<bool> CadastrarAlunoTrabalho(long idTrabalho, List<string> nomeAluno);
     }
 }
