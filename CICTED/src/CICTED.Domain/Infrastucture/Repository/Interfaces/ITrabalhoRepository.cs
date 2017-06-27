@@ -23,5 +23,8 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<bool> VerificaCadastroTrabalho(long idTrabalho, long userId);
         Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId);
         Task<bool> DeletarAutorTrabalho(long userId, long idTrabalho);
+        Task<Trabalho> GetTrabalho(string identificador);
+        Task<SubAreaConhecimento> GetSubArea(long subAreaConhecimentoId);
+
     }
 }
