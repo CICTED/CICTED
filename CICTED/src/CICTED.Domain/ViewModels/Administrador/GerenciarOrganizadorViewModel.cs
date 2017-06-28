@@ -15,8 +15,16 @@ namespace CICTED.Domain.ViewModels.Administrador
         public bool Avaliador { get; set; }
         public string CPF { get; set; }
         public DateTime DataNascimento { get; set; }
+        public string Nascimento { get; set; }
         public bool Genero { get; set; }
-        public string Endereco { get; set; }
+        public long EnderecoId { get; set; }
+        public string Logradouro { get; set; }
+        public string Bairro { get; set; }
+        public int Numero { get; set; }
+        public long CidadeId { get; set; }
+        public string CidadeNome { get; set; }
+        public int EstadoId { get; set; }
+        public string Sigla { get; set; }
         public bool FirstAccess { get; set; }
     }
 }

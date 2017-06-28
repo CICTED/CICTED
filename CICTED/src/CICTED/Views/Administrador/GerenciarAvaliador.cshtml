@@ -13,7 +13,7 @@
             <ul id="lista-nomes"></ul>
         </div>
         <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
-        <button class="btn btn-primary float-right" style="width:150px"><span class="fa fa-user-plus"></span>  Novo Avaliador</button>
+        <a class="fa fa-user-plus link btn btn-primary float-right" style="width:150px" data-toggle="modal" data-target="#cadastroModal">  Novo Avaliador</a>
     </div>
 
     <hr />
@@ -57,6 +57,39 @@
         <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
     </h5>
 
+    <div id="cadastroModal" class="modal fade" role="dialog">
+        <div style="width:40%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Cadastrar Avaliador</h3>
+
+                    <hr />
+
+                    <div class="float-center">
+                        <label>Nome: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <div class="float-center">
+                        <label>Sobrenome: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <div class="float-center">
+                        <label>Email: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <br />
+
+                    <button class="btn btn-primary margin-top-10" style="margin-left:45%; width:100px"><span class="fa fa-pencil-square-o"></span> Cadastrar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="myModal" class="modal fade" role="dialog">
         <div style="width:70%" class="modal-dialog">

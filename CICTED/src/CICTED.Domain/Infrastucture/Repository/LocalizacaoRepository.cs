@@ -2,6 +2,8 @@
 using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.Models.Settings;
+using CICTED.Domain.ViewModels.Account;
+using CICTED.Domain.ViewModels.Administrador;
 using Dapper;
 using Microsoft.Extensions.Options;
 using System;
@@ -243,6 +245,22 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+        public async Task<GerenciarOrganizador> GetEndereco(long enderecoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectEndereco = await db.QueryAsync<GerenciarOrganizador>("SELECT * FROM dbo.Endereco WHERE Id = @id", new { id = enderecoId });
+
+                    return selectEndereco.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
     }
 }
