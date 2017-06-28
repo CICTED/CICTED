@@ -334,5 +334,48 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+        public async Task<Trabalho> GetTrabalho(string identificacao)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var getTrabalho = await db.QueryAsync<Trabalho>("SELECT * FROM dbo.Trabalho WHERE Identificacao = @Identificacao",
+                        new
+                        {
+                            Identificacao = identificacao
+                        });
+
+                    return getTrabalho.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<SubAreaConhecimento> GetSubArea(long subAreaConhecimentoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var getSubArea = await db.QueryAsync<SubAreaConhecimento>("SELECT * FROM dbo.SubAreaConhecimento WHERE Id = @Id",
+                        new
+                        {
+                            Id = subAreaConhecimentoId
+                        });
+
+                    return getSubArea.FirstOrDefault();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
 }

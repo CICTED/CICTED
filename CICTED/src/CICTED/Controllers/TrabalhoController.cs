@@ -13,6 +13,7 @@ using CICTED.Domain.ViewModels.Trabalho;
 using CICTED.Domain.ViewModels.Account;
 using NuGet.Packaging;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
+using CICTED.Domain.Infrastucture.Repository;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,9 +31,10 @@ namespace CICTED.Controllers
         private IAutorRepository _autorRepository;
         private IEmailServices _emailServices;
         private IAgenciaRepository _agenciaRepository;
+        private IAvaliacaoRepository _avaliacaoRepository;
 
 
-        public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository)
+        public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAvaliacaoRepository avaliacaoRepository)
         {
             _emailServices = emailServices;
             _trabalhoRepository = trabalhoRepository;
@@ -42,6 +44,7 @@ namespace CICTED.Controllers
             _areaRepository = areaRepository;
             _autorRepository = autorRepository;
             _agenciaRepository = agenciaRepository;
+            _avaliacaoRepository = avaliacaoRepository;
         }
 
         [HttpGet("cadastro/{idEvento}")]
@@ -636,6 +639,46 @@ namespace CICTED.Controllers
 
             return View(model);
         }
+
+        [HttpPost("avaliacao/painel")]
+        public async Task<IActionResult> AvaliacaoPainel(AvaliacaoTrabalhoViewModel model)
+        {
+            var trabalho = await _trabalhoRepository.GetTrabalho(model.IdentificadorTrabalho);
+            var avaliador = await _userManager.FindByNameAsync(model.Avaliador);
+            var data = DateTime.Now;
+            model.NotaResumo = 0;
+            model.NotaMetodologia = 0;
+            model.NotaResultado = 0;
+            model.NotaObjetivo = 0;
+            model.Favorito = false;
+            model.Comentario = null;
+        
+            if (await _avaliacaoRepository.InsertAvaliacao(trabalho.StatusTrabalhoId, avaliador.Id,trabalho.Id,model.Nota, model.NotaResumo, model.NotaMetodologia, model.NotaResultado, model.NotaObjetivo, model.Favorito,model.Comentario,data,2))
+            {
+                
+                return RedirectToAction("avaliacaoPainel");
+            }
+            else
+            {
+                return BadRequest("Erro ao salvar avaliação");
+            }
+           
+        }
+        [HttpGet("pesquisa/trabalho")]
+        public async Task<IActionResult> pesquisaTrabalho(string identificacao)
+        {
+
+            var trabalho = await _trabalhoRepository.GetTrabalho(identificacao);
+            var subArea = await _trabalhoRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
+            var trabalhoInfo = new AvaliacaoTrabalhoViewModel();
+
+            trabalhoInfo.TituloTrabalho = trabalho.Titulo;
+            trabalhoInfo.SubArea = subArea.Nome;
+
+            return Json(trabalhoInfo); 
+
+        }
+       
 
         public async Task<string> geraIdentificacao(Evento evento)
         {

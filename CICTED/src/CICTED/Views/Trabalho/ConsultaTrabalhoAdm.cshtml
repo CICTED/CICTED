@@ -202,12 +202,12 @@
                     }
 
                     if (item.orientador == true) {
-                        $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
+                        $('#orientador').html(item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
                     } else if (item.status == 1) {
-                        $('#autor-principal').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
+                        $('#autor-principal').html(item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
                     } else {
                         $('#tipo-autor').text('Coautor: ');
-                        $('#outros-autores').append('<div style="width:100%">' + status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ' + '</div>');
+                        $('#outros-autores').append('<div style="width:100%">' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ' + '</div>');
                     }
 
                 });

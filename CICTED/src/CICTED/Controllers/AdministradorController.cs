@@ -55,7 +55,7 @@ namespace CICTED.Controllers
                     Nome = organizador.Nome,
                     Sobrenome = organizador.Sobrenome,
                     PhoneNumber = organizador.PhoneNumber,
-                    Nascimento = organizador.Nascimento,
+                    DataNascimento = organizador.DataNascimento,
                     Email = organizador.Email,
                     Genero = organizador.Genero,
                     CPF = organizador.CPF,
@@ -91,8 +91,8 @@ namespace CICTED.Controllers
                     Sobrenome = avaliador.Sobrenome,
                     PhoneNumber = avaliador.PhoneNumber,
                     Email = avaliador.Email,
-                    EventoNome = evento,
-                    SubAreaConhecimentoNome = subAreaConhecimento,
+                    Evento = evento,
+                    SubAreaConhecimento = subAreaConhecimento,
                     FirstAccess = avaliador.FirstAccess
                 };
                 model.Add(avaliadorConsulta);
@@ -143,8 +143,9 @@ namespace CICTED.Controllers
                 PhoneNumber = organizadores.PhoneNumber,
                 CPF = organizadores.CPF,
                 Email = organizadores.Email,
-                Nascimento = organizadores.Nascimento,
-                Genero = organizadores.Genero
+                DataNascimento = organizadores.DataNascimento,
+                Genero = organizadores.Genero,
+                Avaliador = organizadores.Avaliador
             };
 
             return Json(model);
@@ -164,8 +165,8 @@ namespace CICTED.Controllers
                 Sobrenome = avaliadores.Sobrenome,
                 Email = avaliadores.Email,
                 PhoneNumber = avaliadores.PhoneNumber,
-                EventoNome = eventos,
-                SubAreaConhecimentoNome = subArea
+                Evento = eventos,
+                SubAreaConhecimento = subArea
             };
 
             return Json(model);
