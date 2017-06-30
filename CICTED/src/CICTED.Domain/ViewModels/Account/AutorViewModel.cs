@@ -22,5 +22,7 @@ namespace CICTED.Domain.ViewModels.Account
         public int InstituicaoId { get; set; }
 
         public string Instituicao { get; set; }
+
+        public bool AutorResponsavel { get; set; }
     }
 }

@@ -26,6 +26,7 @@
                 @* Passo 1 *@
                 <div role="tabpanel" class="tab-pane active margin-top-30" id="Passo1">
 
+
                     <div class="margin-top-30 form-group">
                         <h4>
                             <span class="fa fa-warning"></span><b> Confira atentamente o evento no qual irá participar, pois as regras de submissão são diferentes para cada evento.</b>
@@ -51,7 +52,7 @@
                             <div class="float-left margin-left-75 nome-escola">
                                 <input class="input-trabalho" type="text" id="nome-escola" asp-for="NomeEscola" value="@Model.NomeEscola" />
                                 <span style="display: none" id="campo-nome" class="text-danger campo-obrigatorio">Campo obrigatório</span>
-                             </div>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -62,7 +63,7 @@
                             <div class="float-left margin-left-75 cidade-escola">
                                 <input class="input-trabalho" type="text" id="cidade-escola" asp-for="CidadeEscola" value="@Model.CidadeEscola" />
                                 <span style="display: none" id="campo-cidade" class="text-danger campo-obrigatorio">Campo obrigatório</span>
-                             </div>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -71,7 +72,7 @@
                             </div>
 
                             <div class="float-left margin-left-75 telefone-escola">
-                                <input class="input-trabalho" type="text" id="telefone-escola" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" />
+                                <input class="input-trabalho telefone" type="text" id="telefone-escola" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" />
                                 <span style="display: none" id="campo-telefone" class="text-danger campo-obrigatorio">Campo obrigatório</span>
                             </div>
                         </div>
@@ -98,6 +99,7 @@
                                     }
                                 }
                             </select>
+                            <span style="display: none" id="campo-area-conhecimento" class="text-danger">Selecione uma área de conhecimento</span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -113,6 +115,7 @@
                                     <option value="@Model.SubAreaId" selected> @Model.SubAreaNome</option>
                                 }
                             </select>
+                            <span style="display: none" id="campo-sub-conhecimento" class="text-danger">Selecione uma Subarea de conhecimento</span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -121,7 +124,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select data-id="periodo-apresentacao" class="form-control input-trabalho" name="PeriodoApresentacao" value="@Model.PeriodoApresentacao" id="dropArea">
+                            <select data-id="periodo-apresentacao" class="form-control input-trabalho" name="PeriodoApresentacao" value="@Model.PeriodoApresentacao" id="dropPeriodo">
                                 <option disabled selected>Selecione um periodo</option>
                                 @foreach (var periodos in Model.Periodos)
                                 {
@@ -132,6 +135,7 @@
                                     <option value="@periodos.Id"> @periodos.PeriodoNome</option>
                                 }
                             </select>
+                            <span style="display: none" id="campo-periodo" class="text-danger">Selecione um período para apresentação</span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -193,7 +197,7 @@
 
                     @if (Model.EventoId == 2 || Model.EventoId == 3 || Model.EventoId == 4)
                     {
-                        <div class="margin-top-30 form-group">
+                        <div class="margin-top-20 form-group">
                             <h4>
                                 <span class="fa fa-warning"></span>
                                 <b>
@@ -202,18 +206,21 @@
                                 </b>
                             </h4>
                             <div id="aviso"></div>
-                            <span id="qtd-alunos" style="display: none" class="text-danger">Trabalho deve ter pelo menos 1 aluno</span>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="porNome">
-                            <div class="form-group margin-top-10 row">
-                                <input type="text" class="input-add-autor margin-bottom-20" id="input-add-aluno" style="width:350px !important" placeholder="Digite o nome desejado" />
-                                <a id="adicionar-aluno" class="btn btn-primary">Cadastrar</a>
-                                <div id="nomes-alunos" style="height:184px">
+                            <div role="tabpanel" class="tab-pane" id="porNome">
+                                <div class="form-group margin-top-10 row">
+                                    <input type="text" class="input-add-autor margin-bottom-20" id="input-add-aluno" style="width:350px !important" placeholder="Digite o nome desejado" />
+                                    <a id="adicionar-aluno" class="btn btn-primary">
+
+                                    </a>
+                                    <span id="qtd-alunos" style="display: none" class="text-danger">O trabalho deve ter pelo menos 1 aluno</span>
+
+                                    <div id="nomes-alunos" style="height:184px">
 
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     }
                     else
                     {
@@ -229,6 +236,9 @@
                             <h5>Para cadastrar um participante use uma das opções a baixo</h5>
 
                             <div id="errors"></div>
+
+                            <span id="verifica-orientador" style="display: none" class="text-danger">Trabalho deve ter orientador.</span>
+
 
                             @if (ViewBag.orientador == false)
                             {
@@ -351,7 +361,7 @@
                     }
 
                     <hr />
-                    <div class="form-group margin-bottom-10">
+                    <div class="margin-bottom-10">
                         <button type="button" class="btn btn-primary float-left prev">Voltar</button>
                         <button id="button-avanca2" type="button" class="btn btn-primary float-right">Avançar</button>
                     </div>
@@ -360,45 +370,108 @@
                 @* Passo 3 *@
 
                 <div role="tabpanel" class="tab-pane" id="Passo3">
-                    <div class="form-group margin-top-10 row">
+                    <div class="margin-top-10 row">
                         <p><b>Titulo: </b></p>
-                        <textarea id="titulo" style="height:40px!important" asp-for="Titulo" value="@Model.Titulo" required></textarea>
-                        <span class="text-danger" asp-validation-for="Titulo"></span>
+
+                        <div class="on-focus clearfix" style="position: relative">
+                            <textarea id="titulo" style="height:40px!important" asp-for="Titulo" value="@Model.Titulo" required></textarea>
+                            <div class="tool-tip">mínimo 5 palavras, máximo 20 palavras</div>
+                            <span class="text-danger" asp-validation-for="Titulo"></span>
+                        </div>
+
                     </div>
+
+                    @* RESUMO *@
                     @if (Model.EventoId == 7)
                     {
-                        <div class="form-group margin-top-10 row">
+                        <div class="margin-top-10 row">
                             <p><b>Resumo: </b></p>
-                            <textarea id="resumo" asp-for="Resumo" value="@Model.Resumo" required></textarea>
-                            <span class="text-danger" asp-validation-for="Resumo"></span>
+
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="resumo" asp-for="Resumo" value="@Model.Resumo" required></textarea>
+                                <div class="tool-tip">mínimo 20 palavras, máximo 50 palavras</div>
+                                <span class="text-danger" asp-validation-for="Resumo"></span>
+                            </div>
+
                         </div>
 
                     }
-                    <div class="form-group margin-top-10 row">
+
+                    @* INTRODUÇÃO *@
+                    <div class="margin-top-10 row">
                         <p><b>Introdução: </b></p>
-                        <textarea id="introducao" asp-for="Introducao" value="@Model.Introducao" required></textarea>
-                        <span class="text-danger" asp-validation-for="Introducao"></span>
+                        <div class="on-focus clearfix" style="position: relative">
+                            <textarea id="introducao" asp-for="Introducao" value="@Model.Introducao" required></textarea>
+                            <div class="tool-tip">mínimo 20 palavras, máximo 150 palavras</div>
+                            <span class="text-danger" asp-validation-for="Introducao"></span>
+                        </div>
                     </div>
+
+                    @* OBJETIVO DO PROJETO *@
                     @if (Model.EventoId == 8)
                     {
-                        <div class="form-group margin-top-10 row">
+                        <div class="margin-top-10 row">
                             <p><b>Objetivos do projeto: </b></p>
-                            <textarea id="objetivos" asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
-                            <span class="text-danger" asp-validation-for="Objetivo"></span>
+
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="objetivos" asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
+                                <div class="tool-tip">mínimo 20 palavras, máximo 60 palavras</div>
+                                <span class="text-danger" asp-validation-for="Objetivo"></span>
+                            </div>
+
                         </div>
 
                     }
-                    <div class="form-group margin-top-10 row">
-                        <p><b>Metodologia: </b></p>
-                        <textarea id="metodologia" asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
-                        <span class="text-danger" asp-validation-for="Metodologia"></span>
+
+                    @* Metodologia *@
+                    <div class="margin-top-10 row">
+                        @if (Model.EventoId == 7)
+                        {
+                            <p><b>Material e metodologia: </b></p>
+                        }
+                        else if (Model.EventoId == 8)
+                        {
+                            <p><b>Metodologia ou estratégia de execução/realização: </b></p>
+                        }
+                        else
+                        {
+                            <p><b>Metodologia: </b></p>
+                        }
+
+
+                        <div class="on-focus clearfix" style="position: relative">
+                            <textarea id="metodologia" asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
+                            <div class="tool-tip">mínimo 50 palavras, máximo 300 palavras</div>
+                            <span class="text-danger" asp-validation-for="Metodologia"></span>
+                        </div>
+
                     </div>
-                    <div class="form-group margin-top-10 row">
-                        <p><b>Resultados: </b></p>
-                        <textarea id="resultados" asp-for="Resultados" value="@Model.Resultados" required></textarea>
-                        <span class="text-danger" asp-validation-for="Resultados"></span>
+
+                    @* Resultados *@
+                    <div class="margin-top-10 row">
+                        @if (Model.EventoId == 7)
+                        {
+                            <p><b>Resultado e discussões: </b></p>
+                        }
+                        else if (Model.EventoId == 8)
+                        {
+                            <p><b>Resultados esperados: </b></p>
+                        }
+                        else
+                        {
+                            <p><b>Resultados: </b></p>
+                        }
+
+
+                        <div class="on-focus clearfix" style="position: relative">
+                            <textarea id="resultados" asp-for="Resultados" value="@Model.Resultados" required></textarea>
+                            <div class="tool-tip">mínimo 20 palavras, máximo 150 palavras</div>
+                            <span class="text-danger" asp-validation-for="Resultados"></span>
+                        </div>
                     </div>
-                    <div class="form-group margin-top-10 row">
+
+                    @* Figuras *@
+                    <div class="margin-top-10 row">
                         <div class="float-left">
                             <p><b>Figuras: </b></p>
                         </div>
@@ -406,29 +479,42 @@
                             <button class="btn btn-primary"><span class="fa fa-file-image-o" aria-hidden="true"></span> Adicionar</button>
                         </div>
                     </div>
+
+                    @* Conclusao, referencia, palavra chave *@
                     @if (Model.EventoId != 8)
                     {
-                        <div class="form-group margin-top-10 row">
+                        <div class="margin-top-10 row">
                             <p><b>Conclusão: </b></p>
-                            <textarea id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
-                            <span class="text-danger" asp-validation-for="Conclusao"></span>
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
+                                <div class="tool-tip">mínimo 20 palavras, máximo 100 palavras</div>
+                                <span class="text-danger" asp-validation-for="Conclusao"></span>
+                            </div>
                         </div>
 
-                        <div class="form-group margin-top-10 row">
+                        <div class="margin-top-10 row">
                             <p><b>Referências bibliográficas: </b></p>
-                            <textarea asp-validation-for="Referencias" id="referencia" asp-for="Referencias" value="@Model.Referencias"></textarea>
-                            <span class="text-danger" asp-validation-for="Referencias"></span>
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea asp-validation-for="Referencias" id="referencia" asp-for="Referencias" value="@Model.Referencias"></textarea>
+                                <div class="tool-tip">mínimo 20 palavras, máximo 100 palavras</div>
+                                <span class="text-danger" asp-validation-for="Referencias"></span>
+                            </div>
                         </div>
 
-                        <div class="form-group margin-top-10 row">
+                        <div class="margin-top-10 row">
                             <p><b>Palavras chave: </b></p>
-                            <textarea asp-validation-for="PalavraChave" id="palavra-chave" asp-for="PalavraChave" style="height:40px!important" value="@Model.PalavrasChave" required></textarea>
-                            <span class="text-danger" asp-validation-for="PalavraChave"></span>
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea asp-validation-for="PalavraChave" id="palavra-chave" asp-for="PalavraChave" style="height:40px!important" value="@Model.PalavrasChave" required></textarea>
+                                <div class="tool-tip">mínimo 3 palavras, máximo 6 palavras</div>
+                                <span class="text-danger" asp-validation-for="PalavraChave"></span>
+                            </div>
                         </div>
                     }
+
+                    @* Cadastrar *@
                     <div class="form-group margin-top-10">
-                        <button class="btn btn-primary float-left prev">Voltar</button>
-                        <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
+                        <button type="button" class="btn btn-primary float-left prev">Voltar</button>
+                        <button id="cadastrar-trabalho" type="submit" class="btn btn-primary float-right">Cadastrar</button>
                     </div>
                 </div>
             </div>
@@ -453,32 +539,48 @@
         orientador: false,
     });
 
+   
+
     //verifica se nome, telefone e cidade escola estao preenchidos
     $("#button-avanca1").on("click", function () {
+        $("#campo-area-conhecimento").hide();
+        $("#campo-sub-conhecimento").hide();
+        $("#campo-periodo").hide();
+
+
         if (idEvento == 2 || idEvento == 3 || idEvento == 4) {
             $("#campo-nome").hide();
             $("#campo-telefone").hide();
             $("#campo-cidade").hide();
 
             if ($("#nome-escola").val().trim() == "") {
-                $("#campo-nome").show();
+                return $("#campo-nome").show();
             }
-            if ($("#telefone-escola").val().trim() == "") {
-                $("#campo-telefone").show();
-            }
+
             if ($("#cidade-escola").val().trim() == "") {
-                $("#campo-cidade").show();
+                return $("#campo-cidade").show();
             }
-            else {
-                $('.nav-pills li.active').next('li').removeClass('disabled');
-                $('.nav-pills li.active').next('li').find('a').attr("data-toggle", "tab").trigger("click");
-                $('.nav-pills li').prev('li').find('a').removeAttr("data-toggle");
-                $('.nav-pills li').prev('li').addClass('disabled');
+
+            if ($("#telefone-escola").val().trim() == "") {
+                return $("#campo-telefone").show();
             }
+        }
+
+        if ($("#dropArea").val() == null) {
+            return $("#campo-area-conhecimento").show();
+        }
+        if ($("#dropSubArea").val() == null || $("#dropSubArea").val() == -1) {
+            return $("#campo-sub-conhecimento").show();
+        }
+        if ($("#dropPeriodo").val() == null) {
+            return $("#campo-periodo").show();
         }
         else {
             next();
         }
+
+
+
     });
 
     $("#button-avanca2").on("click", function () {
@@ -494,9 +596,15 @@
             }
         }
         else {
-            next();
+            $("#verifica-orientador").hide();
+            if ($.trim($("#orientador").html()) == '') {
+                $("#verifica-orientador").show();
+            }else{
+                next();            
+            }
         }
     });
+
 
     //pesquisa os autores para mostrar os nomes de opção
     $(".input-nome").keyup(function () {
@@ -652,17 +760,18 @@
 
     $("#adicionar-aluno").on("click", function () {
         $('#aviso').empty();
-        var qtdAlunos = $("div[id *= aluno]").length;
+        var aluno = $("#input-add-aluno").val().trim();
+        var id = trim(aluno);
 
-        if (qtdAlunos > 7) {
-            $('#aviso').append('<div class="alert alert-danger" role="alert">Permitido apenas 7 alunos</div>');
-        }
-        else {
-            var aluno = $("#input-add-aluno").val();
-            if (aluno != null) {
-                $("#nomes-alunos").append('<div style="width:500px" id="aluno-' + aluno + '">' + aluno + '<a onclick="deletarAluno(\'' + aluno + '\')" ><span class="fa fa-times margin-left-20 link"></span></a>' +
+        if(aluno != ""){
+            var qtdAlunos = $("div[id *= aluno]").length;
+
+            if (qtdAlunos > 7) {
+                $('#aviso').append('<div class="alert alert-danger" role="alert">Permitido apenas 7 alunos</div>');
+            }
+            else {
+                $("#nomes-alunos").append('<div style="width:500px" id="aluno-' + id + '">' + aluno + '<a onclick="deletarAluno(\'' + id + '\')" ><span class="fa fa-times margin-left-20 link"></span></a>' +
                                 '<input name="AlunosNome" style = "visibility: hidden; float: right; width: 1px;" value="' + aluno + '" /></div>');
-
             }
         }
     });
@@ -694,6 +803,13 @@
         $(document).ready(function () {
             $("#aluno-" + id).remove();
         });
+    }
+
+    function trim(vlr){
+        while(vlr.indexOf(" ") != -1){
+            vlr = vlr.replace(" ", "");
+        }
+        return vlr;
     }
 
     function next() {
@@ -734,5 +850,5 @@
     });
 
     $('#dropArea').subArea($('#dropSubArea'));
-    $("#telefone").mask("(99) 9999-9999");
+    $(".telefone").mask("(99) 9999-9999");
 </script>

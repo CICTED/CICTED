@@ -269,20 +269,45 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId)
+        public async Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId, bool autorResponsavel)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var cadastroQuery = await db.QueryAsync<bool>("INSERT INTO dbo.AutorTrabalho(StatusUsuarioId, UsuarioId, Orientador, TrabalhoId) VALUES (@StatusUsuarioId, @UsuarioId, @Orientador, @TrabalhoId)",
+                    var cadastroQuery = await db.QueryAsync<bool>("INSERT INTO dbo.AutorTrabalho(StatusUsuarioId, UsuarioId, Orientador, TrabalhoId, AutorResponsavel) VALUES (@StatusUsuarioId, @UsuarioId, @Orientador, @TrabalhoId, @AutorResponsavel)",
                         new
                         {
                             UsuarioId = userId,
                             StatusUsuarioId = userStatus,
                             Orientador = orientador,
                             TrabalhoId = trabalhoId,
+                            AutorResponsavel = autorResponsavel,
                         });
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> CadastrarAlunoTrabalho(long idTrabalho, List<string> nomeAluno)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    foreach (var aluno in nomeAluno)
+                    {
+                        var result = await db.QueryAsync<bool>("INSERT INTO dbo.AlunoTrabalho(TrabalhoId, AlunoNome) VALUES (@TrabalhoId, @AlunoNome)",
+                                                            new
+                                                            {
+                                                                TrabalhoId = idTrabalho,
+                                                                AlunoNome = aluno
+                                                            });
+                    }
                 }
                 return true;
             }
