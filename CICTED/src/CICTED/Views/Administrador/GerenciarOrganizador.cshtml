@@ -13,7 +13,8 @@
             <ul id="lista-nomes"></ul>
         </div>
         <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
-        <a class="fa fa-user-plus link btn btn-primary float-right" style="width:150px" data-toggle="modal" data-target="#cadastroModal"> Novo Organizador</a>
+        <button class="fa fa-user-plus link btn btn-primary float-right" style="width:150px" type="submit" onclick="location.href='/administrador/cadastrarOrganizador'" > Novo Organizador</button>
+       
     </div>
 
     <hr />
@@ -69,64 +70,7 @@
         <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
     </h5>
 
-    <div id="cadastroModal" class="modal fade" role="dialog">
-        <div style="width:40%" class="modal-dialog">
-            <div style="padding:10px" class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Cadastrar Organizador</h3>
-
-                    <hr />
-
-                    <div class="float-center" style="margin-top:-10px">
-                        <label>Nome: </label>
-                        <input class="input-consulta-trab-adm" style="width:350px !important" />
-                    </div>
-
-                    <div class="float-center" style="margin-top:15px">
-                        <label>Sobrenome: </label>
-                        <input class="input-consulta-trab-adm" style="width:350px !important" />
-                    </div>
-
-                    <div class="float-center" style="margin-top:15px">
-                        <label>Email: </label>
-                        <input type="email" class="input-consulta-trab-adm" style="width:350px !important" />
-                    </div>
-
-                    <div class="float-center" style="margin-top:15px">
-                        <label>Telefone: </label>
-                        <input class="input-consulta-trab-adm" style="width:350px !important" />
-                    </div>
-
-                    <div class="float-center" style="margin-top:15px">
-                        <label>CPF: </label>
-                        <input class="input-consulta-trab-adm" style="width:350px !important" />
-                    </div>
-
-                    <div class="float-center" style="margin-top:15px">
-                        <label>Data de Nascimento: </label>
-                        <input class="input-consulta-trab-adm" style="width:350px !important" />
-                    </div>
-
-                    <div class="float-center" style="margin-top:15px">
-                        <label>Gênero: </label>
-                        <select class="input-consulta-trab-adm"  style="width:500px">
-                            <option value="-1">Selecione um gênero</option>
-                            <option value="false">Masculino</option>
-                            <option value="true">Feminino</option>
-                        </select>
-                    </div>
-
-                    <br />
-
-                    <button class="btn btn-primary margin-top-10" style="margin-left:40%; width:100px"> Cadastrar</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <div id="myModal" class="modal fade" role="dialog">
         <div style="width:70%" class="modal-dialog">
             <div style="padding:10px" class="modal-content">

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.ViewModels.Administrador;
 using System.Collections.Generic;
+using System;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -69,6 +70,20 @@ namespace CICTED.Controllers
 
             return View(model);
 
+        }
+
+        [HttpGet("cadastrarOrganizador")]
+        [Authorize]
+        public async Task<IActionResult> CadastrarOrganizador()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("gerenciarAvaliador")]
