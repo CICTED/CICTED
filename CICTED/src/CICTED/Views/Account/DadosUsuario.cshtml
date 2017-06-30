@@ -74,12 +74,12 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Telefone:</label>
-                <input type="tel" value="@Model.Telefone" style="width:500px" asp-for="Telefone" />
+                <input type="tel" value="@Model.Telefone" style="width:500px" asp-for="Telefone" id="Telefone"/>
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Celular:</label>
-                <input type="text" value="@Model.Celular" style="width:500px" asp-for="Celular" />
+                <input type="tel" value="@Model.Celular" style="width:500px" asp-for="Celular" id="Celular"/>
             </div>
         </div>
 
@@ -122,7 +122,7 @@
 
             <div class="float-right" style="width:50%">
                 <label>CEP:</label>
-                <input type="text" value="@Model.CEP" style="width:500px" asp-for="CEP" />
+                <input type="text" value="@Model.CEP" style="width:500px" asp-for="CEP" id="CEP"/>
             </div>
         </div>
 
@@ -300,4 +300,8 @@
 
         }
     });
+
+    $("#Telefone").mask("(99) 9999-9999");
+    $("#Celular").mask("(99) 99999-9999");
+    $("#Cep").mask("99999-999");
 </script>

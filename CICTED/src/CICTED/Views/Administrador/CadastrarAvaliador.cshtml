@@ -2,12 +2,11 @@
 @{
     Layout = "_Menu";
 }
+<title>Cadastrar Avaliador - CICTED</title>
 
-<title>Cadastrar Organizador - CICTED</title>
-
-<form class="form-cadastro-adm" asp-contoller="administrador" asp-action="cadastrarOrganizador" method="post">
+<form class="form-cadastro-adm" asp-contoller="administrador" asp-action="cadastrarAvaliador" method="post">
     <div style="text-align:center">
-        <h2><span class="fa fa-user-plus"></span><b> Cadastrar Organizador</b></h2>
+        <h2><span class="fa fa-user-plus"></span><b> Cadastrar Avaliador</b></h2>
     </div>
 
     <div class="form-group">
@@ -32,36 +31,23 @@
 
             <div class="float-right" style="width:50%">
                 <label>Confirmar email: </label>
-                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="Email" />
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
-                <label>Telefone: </label>
-                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="PhoneNumber" id="Telefone" placeholder="(99) 9999-9999" />
+                <label>Celular: </label>
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" id="Celular" placeholder="(99) 99999-9999" />
             </div>
 
             <div class="float-right" style="width:50%">
-                <label>Celular: </label>
-                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="Celular" id="Celular" placeholder="(99) 99999-9999" />
+                <label>Telefone: </label>
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="PhoneNumber" id="Telefone" placeholder="(99) 9999-9999" />
             </div>
         </div>
 
-        <div class="margin-top-10 row">
-            <div class="float-left" style="width:40%">
-                <label>É avaliador?</label>
-                <div class="onoffswitch margin-right-10">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkAvaliador" asp-for="Avaliador">
-                    <label class="onoffswitch-label" for="checkAvaliador">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="margin-top-10 row" id="avaliador" style="display: none">
+        <div class="margin-top-10 row" id="avaliador">
             <div class="float-left" style="width:40%">
                 <label>Evento:</label>
                 <select class="input-consulta-trab-adm" style="width:500px !important">
@@ -81,21 +67,5 @@
         <br />
 
         <button class="btn btn-primary margin-top-10" style="margin-left:40%; width:100px"> Cadastrar</button>
-
     </div>
 </form>
-
-<script type="text/javascript">
-    $("#checkAvaliador").on("change", function () {
-        if ($(this).is(":checked")) {
-            $("#avaliador").css("display", "block");
-        } else {
-            $("#avaliador").css("display", "none");
-
-        }
-    });
-
-
-    $("#Celular").mask("(99) 99999-9999");
-    $("#Telefone").mask("(99) 9999-9999")
-</script>

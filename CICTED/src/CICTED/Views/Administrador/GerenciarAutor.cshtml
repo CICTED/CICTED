@@ -1,4 +1,4 @@
-﻿@model List<CICTED.Domain.ViewModels.Administrador.GerenciarAutor>
+﻿@model List<CICTED.Domain.ViewModels.Administrador.Gerenciar>
 @{
     Layout = "_Menu";
 }
@@ -26,7 +26,6 @@
             <th>
                 Email
             </th>
-            <th>Identificação do Trabalho</th>
             <th style="width: 80px !important" class="form-group"> Status</th>
         </tr>
 
@@ -37,7 +36,6 @@
 
                 <td>@autores.Nome @autores.Sobrenome</td>
                 <td>@autores.Email</td>
-                <td>@autores.Identificacao</td>
                 @if (autores.FirstAccess == false)
                 {
                     <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
@@ -73,7 +71,12 @@
                         <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
                         <tr><td><b>Email: </b></td><td id="Email"></td></tr>
                         <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
-                        <tr><td><b>Identificação do Trabalho: </b></td><td id="Identificacao"></td></tr>
+                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
+                        <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
+                        <tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>
+                        <tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>
+                        <tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>
+                        <tr><td><b>Instituição: </b></td><td id="Instituicao"></td></tr>
                     </table>
 
                     <br />
@@ -105,7 +108,18 @@
                 $('#Nome').text(data.nome + ' ' + data.sobrenome);
                 $('#Email').text(data.email);
                 $('#Telefone').text(data.phoneNumber);
-                $('#Identificacao').text(data.identificacao);
+                $('#Celular').text(data.celular);
+                $('#CPF').text(data.cpf);
+                $('#Nascimento').text(data.nascimento);
+                $('#Endereco').text(data.logradouro + ', ' + data.numero + ', ' + data.bairro + ', ' + data.cidadeNome + ' - ' + data.sigla);
+                $('#Instituicao').text(data.instituicaoNome);
+                
+                if (data.genero == true) {
+                    $('#Genero').text('Feminino');
+                } else {
+                    $('#Genero').text('Masculino');
+                }
+
             }
         });
     });

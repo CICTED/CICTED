@@ -1,4 +1,4 @@
-﻿@model List<CICTED.Domain.ViewModels.Administrador.GerenciarOrganizador>
+﻿@model List<CICTED.Domain.ViewModels.Administrador.Gerenciar>
 @{
     Layout = "_Menu";
 }
@@ -85,6 +85,7 @@
                         <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
                         <tr><td><b>Email: </b></td><td id="Email"></td></tr>
                         <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
+                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
                         <tr><td><b>Avaliador: </b></td><td id="Avaliador"></td></tr>
                         <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
                         <tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>
@@ -121,6 +122,7 @@
                 $('#Nome').text(data.nome + ' ' + data.sobrenome);
                 $('#Email').text(data.email);
                 $('#Telefone').text(data.phoneNumber);
+                $('#Celular').text(data.celular);
                 $('#CPF').text(data.cpf);
                 $('#Nascimento').text(data.nascimento);
                 $('#Endereco').text(data.logradouro + ', ' + data.numero + ', ' + data.bairro + ', ' + data.cidadeNome + ' - ' + data.sigla);

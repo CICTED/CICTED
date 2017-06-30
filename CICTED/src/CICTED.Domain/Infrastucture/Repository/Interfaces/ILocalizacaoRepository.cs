@@ -15,6 +15,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<long> InsertEndereco(Endereco endereco, long cidadeId, long enderecoExterior = 0);
         Task<long> UpdateEnderecoExterior(EnderecoExterior endereco);
         Task<long> UpdateEndereco(Endereco endereco, long cidadeId, long enderecoId, long enderecoExterior = 0);
-        Task<GerenciarOrganizador> GetEndereco(long enderecoId);
+        Task<Gerenciar> GetEndereco(long enderecoId);
     }
 }
