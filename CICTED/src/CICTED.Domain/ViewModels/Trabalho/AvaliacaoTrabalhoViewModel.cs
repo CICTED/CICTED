@@ -14,6 +14,7 @@ namespace CICTED.Domain.ViewModels.Trabalho
         public string TituloTrabalho { get; set; }
         public string SubArea { get; set; }
         public string Avaliador { get; set; }
+        public long AvaliadorId { get; set; }
         public float Nota { get; set; }
         public float NotaResumo { get; set; }
         public float NotaMetodologia { get; set; }

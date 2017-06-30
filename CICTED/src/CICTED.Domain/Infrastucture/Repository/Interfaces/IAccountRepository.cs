@@ -18,6 +18,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<Endereco> GetEndereco(long enderecoId);
         Task<AutorViewModel> BuscaUsuario(string email);
         Task<bool> UpdateSenha(string senha, long id);
+        Task<AutorViewModel> BuscaUsuarioNome(string nome);
         
     }
 }

@@ -177,5 +177,24 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return false;
             }
         }
+
+        public async Task<AutorViewModel> BuscaUsuarioNome(string nome)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var queryVerifica = await db.QueryAsync<AutorViewModel>("SELECT Id, Nome, Sobrenome, Email FROM dbo.AspNetUsers WHERE Nome = @Nome",
+                        new { Nome = nome });
+
+                    return queryVerifica.FirstOrDefault();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

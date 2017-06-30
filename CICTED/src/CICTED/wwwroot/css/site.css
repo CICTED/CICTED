@@ -454,7 +454,7 @@ select {
 
 
 
-.input-add-autor {
+.input-add-autor{
     outline: none;
     max-width: 350px;
     height: 33px;
@@ -464,10 +464,11 @@ select {
     border-width: 1px;
     border-style: solid;
     border-color: #a8acbc #babdcc #c0c3d2;
-    border-radius: 5px;
+    border-radius: 5px !important;
     box-sizing: border-box;
 }
 .input-busca-avaliador {
+    border-radius: 5px !important;
     outline: none;
     max-width: 280px;
     height: 33px;
@@ -638,6 +639,37 @@ input[type=checkbox] {
     font-size: 14px;
 }
 
+.dashboard{
+    width: 900px;
+    height: 800px;
+    max-height: unset;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.dashboard a{
+  
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none;   
+    border-radius: 5px;
+    font-family: 'Lucida Sans';
+    color: #000000;
+    background: #E6E9E7;
+    cursor: pointer;
+    font-family: 14px;
+}
+
+
+a:hover .dashboard{
+    text-decoration: none
+}
 .form-cadTrabalho {
     width: 800px;
     min-height: 550px;
@@ -776,7 +808,7 @@ input[type=checkbox] {
 .form-control {
     display: block;
     border: 1px solid #ccc;
-    border-radius: 0px;
+    border-radius: 5px;
     outline: none !important;
 }
 

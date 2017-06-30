@@ -632,16 +632,12 @@ namespace CICTED.Controllers
         public async Task<IActionResult> AvaliacaoPainel(AvaliacaoTrabalhoViewModel model)
         {
             var trabalho = await _trabalhoRepository.GetTrabalho(model.IdentificadorTrabalho);
-            var avaliador = await _userManager.FindByNameAsync(model.Avaliador);
-            var data = DateTime.Now;
-            model.NotaResumo = 0;
-            model.NotaMetodologia = 0;
-            model.NotaResultado = 0;
-            model.NotaObjetivo = 0;
-            model.Favorito = false;
-            model.Comentario = null;
+
+            
+
+            var data = DateTime.Now;           
         
-            if (await _avaliacaoRepository.InsertAvaliacao(trabalho.StatusTrabalhoId, avaliador.Id,trabalho.Id,model.Nota, model.NotaResumo, model.NotaMetodologia, model.NotaResultado, model.NotaObjetivo, model.Favorito,model.Comentario,data,2))
+            if (await _avaliacaoRepository.InsertAvaliacao(trabalho.StatusTrabalhoId, model.AvaliadorId,trabalho.Id,model.Nota, model.NotaResumo, model.NotaMetodologia, model.NotaResultado, model.NotaObjetivo, model.Favorito,model.Comentario,data,2))
             {
                 
                 return RedirectToAction("avaliacaoPainel");
@@ -666,7 +662,18 @@ namespace CICTED.Controllers
             return Json(trabalhoInfo); 
 
         }
-       
+        [HttpGet("Dashboard")]
+        public async Task<IActionResult> dashboard()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return View();
+            }
+        }
 
         public async Task<string> geraIdentificacao(Evento evento)
         {

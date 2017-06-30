@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group float-left margin-left-20">
                     <b>Identificador Trabalho:</b>
-                    <input style="max-width:150px" id="identificador" class="form-control" type="text" name="IdentificadorTrabalho" value="@Model.IdentificadorTrabalho" />
+                    <input style="max-width:150px" id="identificador" class="form-control" type="text" name="IdentificadorTrabalho" autocomplete="off" value="@Model.IdentificadorTrabalho" />
                 </div>
                 <div class="form-group float-right ">
                     <div class="form-group float-left">
@@ -36,12 +36,16 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group " style="margin-top:-50px">
+            <div class="form-group add-autor" style="margin-top:-50px">
                 <b>Avaliador:</b>
-                <input class="form-control fa-search input-busca-avaliador input-nome" autocomplete="off" type="text" name="SubArea" value="@Model.SubArea" />
+                <input class="form-control input-busca-avaliador input-nome" autocomplete="off" type="text" name="Avaliador" value="@Model.Avaliador" />
+                <input name="AvaliadorId" value="@Model.AvaliadorId" hidden id="input-avaliador-id"/>
+
                 <div style="height:0px;" class="busca float-left">
                     <ul id="lista-nomes"></ul>
                 </div>
+
+
             </div>
             <div class="form-group ">
                 <b>SubArea:</b>
@@ -142,30 +146,28 @@
                 },
                 success: function (data) {
                     $.each(data, function (i, item) {
-                        $("#lista-nomes").append('<li><a class="selectautor" data-status="' + item.statusId + '" data-email="' + item.email + '" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
-                            '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+                        $("#lista-nomes").append('<li><a data-id="'+item.id+'" class="selectautor">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                            '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');                      
+
                     })
                 },
             })
         }
     });
 
-    var id = 0;
+    
 
     //seleciona o nome, preenche input
     $('body').on("click", ".selectautor", function () {
-        id = $(this).data("id");
-        email = $(this).data("email");
-        status = $(this).data("status")
+        var id = $(this).data("id");
         var nome = $(this).text();
         $(".input-nome").val(nome);
-        $(".input-nome").attr('id', id);
-        $(".input-nome").attr('data-email', email);
-        $(".input-nome").attr('data-status', status);
         $("#lista-nomes").empty();
+
+        $("#input-avaliador-id").val(id);
     });
 
 
 
-    $("#nota").mask("99.99");
+    $("#nota").mask("99,99");
 </script>
