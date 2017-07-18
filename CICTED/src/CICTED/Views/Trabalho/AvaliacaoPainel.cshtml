@@ -15,7 +15,7 @@
                     <select class="form-control" name="EventoId" style="max-width:125px" value="@Model.EventoId" id="evento">
                         <option disabled selected>Selecione</option>
                         @foreach (var evento in Model.Eventos)
-            {
+            {   
                             <option value="@evento.Id"> @evento.Sigla</option>
 
                         }

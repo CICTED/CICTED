@@ -640,7 +640,7 @@ input[type=checkbox] {
 }
 
 .dashboard{
-    width: 900px;
+    width: 825px;
     height: 800px;
     max-height: unset;
     margin: 0 auto;
@@ -651,21 +651,35 @@ input[type=checkbox] {
     font-size: 14px;
 }
 
-.dashboard a{
+.dashboard-link{
   
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 10px;
     padding-right: 10px;
-    text-decoration: none;   
+    text-decoration: none !important;   
     border-radius: 5px;
     font-family: 'Lucida Sans';
     color: #000000;
-    background: #E6E9E7;
+    background: #FFFFFF;
     cursor: pointer;
     font-family: 14px;
 }
 
+.dashboard-linkClicked{
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none !important;   
+    border-radius: 5px;
+    font-family: 'Lucida Sans';
+    color: #FFFFFF;
+    background: #143458;
+    cursor: pointer;
+    font-family: 14px;
+    
+}
 
 a:hover .dashboard{
     text-decoration: none
