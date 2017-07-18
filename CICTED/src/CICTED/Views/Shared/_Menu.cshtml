@@ -53,7 +53,7 @@
                     <a class="float-left"><span class="fa fa-gear"></span> Gerenciar</a>
                     <ul style="margin-left:-68px!important; width:180px !important">
                         <li>
-                            <a asp-controller="administrador" asp-action="gerenciarOrganizador"><span class="fa fa-pencil" ></span> Organizadores</a>
+                            <a asp-controller="administrador" asp-action="gerenciarOrganizador"><span class="fa fa-pencil"></span> Organizadores</a>
                         </li>
                         <li>
                             <a asp-controller="administrador" asp-action="gerenciarAvaliador"><span class="fa fa-pencil"></span> Avaliadores</a>
@@ -68,7 +68,10 @@
 
             @if (User.IsInRole("Organizador"))
             {
-                <li><a><span class="fa fa-tachometer"></span> Dashboard</a></li>
+                <li>
+                    <a asp-controller="trabalho" asp-action="dashboard"><span class="fa fa-tachometer"></span>Dashboard</a>
+                </li>
+
                 <li>
                     <a><span class="fa fa-file-text-o"></span> Consultar</a>
                     <ul style="margin-left:-60px!important; width:145px">

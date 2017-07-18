@@ -641,7 +641,7 @@ input[type=checkbox] {
 
 .dashboard{
     width: 825px;
-    height: 800px;
+    height: auto;
     max-height: unset;
     margin: 0 auto;
     background-color: #FFFFFF;
