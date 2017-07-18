@@ -245,13 +245,13 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<GerenciarOrganizador> GetEndereco(long enderecoId)
+        public async Task<Gerenciar> GetEndereco(long enderecoId)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var selectEndereco = await db.QueryAsync<GerenciarOrganizador>("SELECT * FROM dbo.Endereco WHERE Id = @id", new { id = enderecoId });
+                    var selectEndereco = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.Endereco WHERE Id = @id", new { id = enderecoId });
 
                     return selectEndereco.FirstOrDefault();
                 }

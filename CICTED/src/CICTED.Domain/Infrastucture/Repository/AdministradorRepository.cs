@@ -18,7 +18,7 @@ namespace CICTED.Domain.Infrastucture.Repository
         {
             _settings = settings.Value;
         }
-        public async Task<List<GerenciarOrganizador>> GetOrganizador()
+        public async Task<List<Gerenciar>> GetOrganizador()
         {
             try
             {
@@ -26,17 +26,17 @@ namespace CICTED.Domain.Infrastucture.Repository
                 {
                     var selectOrganizadoresId = await db.QueryAsync<long>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 2");
                     var organizador = selectOrganizadoresId.ToList();
-                    List<GerenciarOrganizador> organizadores = new List<GerenciarOrganizador>();
+                    List<Gerenciar> organizadores = new List<Gerenciar>();
 
                     foreach (var id in organizador)
                     {
-                        var selectOrganizadores = await db.QueryAsync<GerenciarOrganizador>("SELECT * FROM dbo.AspNetUsers WHERE Id = @organizadorId",
+                        var selectOrganizadores = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.AspNetUsers WHERE Id = @organizadorId",
                             new
                             {
                                 organizadorId = id
                             });
 
-                        GerenciarOrganizador org = selectOrganizadores.FirstOrDefault();
+                        Gerenciar org = selectOrganizadores.FirstOrDefault();
                         if (org != null)
                         {
                             organizadores.Add(org);
@@ -73,7 +73,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<List<GerenciarAvaliador>> GetAvaliador()
+        public async Task<List<Gerenciar>> GetAvaliador()
         {
             try
             {
@@ -81,17 +81,17 @@ namespace CICTED.Domain.Infrastucture.Repository
                 {
                     var selectAvaliadoresId = await db.QueryAsync<long>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 3");
                     var avaliador = selectAvaliadoresId.ToList();
-                    List<GerenciarAvaliador> avaliadores = new List<GerenciarAvaliador>();
+                    List<Gerenciar> avaliadores = new List<Gerenciar>();
 
                     foreach (var id in avaliador)
                     {
-                        var selectAvaliadores = await db.QueryAsync<GerenciarAvaliador>("SELECT * FROM dbo.AspNetUsers WHERE Id = @avaliadorId",
+                        var selectAvaliadores = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.AspNetUsers WHERE Id = @avaliadorId",
                             new
                             {
                                 avaliadorId = id
                             });
 
-                        GerenciarAvaliador aval = selectAvaliadores.FirstOrDefault();
+                        Gerenciar aval = selectAvaliadores.FirstOrDefault();
                         if (aval != null)
                         {
                             avaliadores.Add(aval);
@@ -146,7 +146,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<List<GerenciarAutor>> GetAutor()
+        public async Task<List<Gerenciar>> GetAutor()
         {
             try
             {
@@ -154,17 +154,17 @@ namespace CICTED.Domain.Infrastucture.Repository
                 {
                     var selectAutoresId = await db.QueryAsync<long>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 4");
                     var autor = selectAutoresId.ToList();
-                    List<GerenciarAutor> autores = new List<GerenciarAutor>();
+                    List<Gerenciar> autores = new List<Gerenciar>();
 
                     foreach (var id in autor)
                     {
-                        var selectAutores = await db.QueryAsync<GerenciarAutor>("SELECT * FROM dbo.AspNetUsers WHERE Id = @autorId",
+                        var selectAutores = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.AspNetUsers WHERE Id = @autorId",
                             new
                             {
                                 autorId = id
                             });
 
-                        GerenciarAutor aut = selectAutores.FirstOrDefault();
+                        Gerenciar aut = selectAutores.FirstOrDefault();
                         if (aut != null)
                         {
                             autores.Add(aut);
@@ -180,31 +180,11 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<string> GetIdentificacaoTrabalho(long userId)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var trabalhoId = await db.QueryAsync<int>("SELECT TrabalhoID FROM dbo.AutorTrabalho WHERE UsuarioId = @userId", new { userId = userId });
-                    var trabalho = trabalhoId.FirstOrDefault();
-
-                    var identificação = await db.QueryAsync<string>("SELECT Identificacao FROM dbo.Trabalho WHERE Id = @trabalhoId", new { trabalhoId = trabalho });
-
-                    return identificação.FirstOrDefault();
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
-        public async Task<GerenciarOrganizador> GetOrganizador(long id)
+        public async Task<Gerenciar> GetOrganizador(long id)
         {
             using (var db = new SqlConnection(_settings.ConnectionString))
             {
-                var selectOrganizadores = await db.QueryAsync<GerenciarOrganizador>("SELECT * FROM dbo.AspNetUsers WHERE Id = @organizadorId",
+                var selectOrganizadores = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.AspNetUsers WHERE Id = @organizadorId",
                             new
                             {
                                 organizadorId = id
@@ -214,11 +194,11 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<GerenciarAvaliador> GetAvaliador(long id)
+        public async Task<Gerenciar> GetAvaliador(long id)
         {
             using (var db = new SqlConnection(_settings.ConnectionString))
             {
-                var selectAvaliadores = await db.QueryAsync<GerenciarAvaliador>("SELECT * FROM dbo.AspNetUsers WHERE Id = @avaliadorId",
+                var selectAvaliadores = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.AspNetUsers WHERE Id = @avaliadorId",
                             new
                             {
                                 avaliadorId = id
@@ -228,17 +208,36 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<GerenciarAutor> GetAutor(long id)
+        public async Task<Gerenciar> GetAutor(long id)
         {
             using (var db = new SqlConnection(_settings.ConnectionString))
             {
-                var selectAutores = await db.QueryAsync<GerenciarAutor>("SELECT * FROM dbo.AspNetUsers WHERE Id = @autorId",
+                var selectAutores = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.AspNetUsers WHERE Id = @autorId",
                            new
                            {
                                autorId = id
                            });
 
                 return selectAutores.FirstOrDefault();
+            }
+        }
+
+        public async Task<string> GetInstituicao(long instituicaoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var instituicao = await db.QueryAsync<string>("SELECT InstituicaoNome FROM dbo.Instituicao WHERE Id = @instituicaoId", new { instituicaoId = instituicaoId });
+
+                    
+                    return instituicao.FirstOrDefault();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }
