@@ -377,5 +377,60 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+        public async Task<bool> CadastraPalavrasChave(string palavras, long trabalhoId)
+        {
+            try
+            {
+                using(var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var palavrasChave = palavras.Replace(" ", "");
+                    var palavrasList = (palavrasChave.Split(',')).ToList();
+                    var palavraId = new List<long>();
+                    
+                    foreach(var palavra in palavrasList)
+                    {
+                        var existe = await db.QueryAsync<long>("SELECT Id FROM dbo.PalavraChave WHERE Palavra = @Palavra",
+                            new
+                            {
+                                Palavra = palavra,
+                            });
+
+                        var result = existe.FirstOrDefault();
+
+                        if (result != 0)
+                        {
+                            palavrasList.Remove(palavra);
+                            palavraId.Add(result);
+                        }
+                        else
+                        {
+                            var querySalvar = await db.QueryAsync<long>("INSERT INTO dbo.PalavraChave(Palavra) VALUES (@Palavra); SELECT SCOPE_IDENTITY();", new
+                            {
+                                Palavra = palavra,
+                            });
+
+                            palavraId.Add(querySalvar.FirstOrDefault());
+                        }
+                    }
+                    
+                    if (palavraId != null)
+                    {
+                        foreach (var id in palavraId) {
+                            var querySalvaId = await db.ExecuteAsync("INSERT INTO dbo.PalavraChaveTrabalho(PalavraChaveId, TrabalhoId) VALUES (@PalavraChaveId, @TrabalhoId)", new
+                            {
+                                PalavraChaveId = id,
+                                TrabalhoId = trabalhoId
+                            });
+                        }
+                    }
+
+                }
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }

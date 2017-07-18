@@ -178,6 +178,8 @@ namespace CICTED.Controllers
 
             var trabalhoId = await _trabalhoRepository.InsertTrabalho(model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao);
 
+            var palavrasChave = await _trabalhoRepository.CadastraPalavrasChave(model.PalavraChave, trabalhoId);
+
             if (trabalhoId > 0)
             {
                 var autorPrincipal = await _trabalhoRepository.CadastraAutorTrabalho(user.Id, 1, false, trabalhoId, true);
