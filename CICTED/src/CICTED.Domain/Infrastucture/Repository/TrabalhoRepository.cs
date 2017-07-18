@@ -115,7 +115,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var trabalhoInsertQuery = "INSERT INTO dbo.Trabalho(StatusTrabalhoId, Titulo, Introducao, Metodologia, Resultado, Resumo, Conclusao, Referencia, NomeEscola, TelefoneEscola, Identificacao, DataCadastro, TextoFinanciadora, CodigoCEP, AgenciaFinanciadoraId, EventoId, Artigo, SubAreaConhecimentoId, PeriodoApresentacaoId) VALUES(@StatusTrabalhoId, @Titulo, @Introducao, @Metodologia, @Resultado, @Resumo, @Conclusao, @Referencia, @NomeEscola, @TelefoneEscola, @Identiicacao,  @DataCadastro, @TextoFinanciadora, @CodigoCEP, @AgenciaFinanciadoraId, @EventoId, @Artigo, @SubAreaConhecimentoId, @PeriodoApresentacaoId); SELECT SCOPE_IDENTITY();";
+                    var trabalhoInsertQuery = "INSERT INTO dbo.Trabalho(StatusTrabalhoId, Titulo, Introducao, Metodologia, Resultado, Resumo, Conclusao, Referencia, NomeEscola, TelefoneEscola, Identificacao, DataCadastro, TextoFinanciadora, CodigoCEP, AgenciaFinanciadoraId, EventoId, Artigo, SubAreaConhecimentoId, PeriodoApresentacaoId, CidadeEscola) VALUES(@StatusTrabalhoId, @Titulo, @Introducao, @Metodologia, @Resultado, @Resumo, @Conclusao, @Referencia, @NomeEscola, @TelefoneEscola, @Identiicacao,  @DataCadastro, @TextoFinanciadora, @CodigoCEP, @AgenciaFinanciadoraId, @EventoId, @Artigo, @SubAreaConhecimentoId, @PeriodoApresentacaoId, @CidadeEscola); SELECT SCOPE_IDENTITY();";
 
                     var trabalhoInsert = await db.QueryAsync<long>(trabalhoInsertQuery,
                         new
@@ -138,7 +138,8 @@ namespace CICTED.Domain.Infrastucture.Repository
                             Artigo = artigo,
                             SubAreaConhecimentoId = subAreaId,
                             PeriodoApresentacaoId = periodoApresentacaoId,
-                            StatusTrabalhoId = statusTrabalhoId
+                            StatusTrabalhoId = statusTrabalhoId,
+                            CidadeEscola = cidadeEscola
                         });
                     return trabalhoInsert.FirstOrDefault();
                 }
