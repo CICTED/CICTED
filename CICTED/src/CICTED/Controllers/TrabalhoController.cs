@@ -106,6 +106,7 @@ namespace CICTED.Controllers
                     var coautor = await _autorRepository.GetAutor(autor);
                     coautor.Orientador = false;
                     coautor.Id = autor;
+                    coautor.AutorResponsavel = false;
                     if (coautor.Nome == null)
                     {
                         coautor.StatusId = 3;
@@ -122,7 +123,8 @@ namespace CICTED.Controllers
             {
                 orientador = await _autorRepository.GetAutor(model.OrientadorId);
                 orientador.Orientador = true;
-                orientador.Id = model.OrientadorId;                
+                orientador.Id = model.OrientadorId;
+                orientador.AutorResponsavel = false;
                 if (orientador.Nome == null)
                 {
                     orientador.StatusId = 3;
@@ -135,7 +137,7 @@ namespace CICTED.Controllers
 
 
             #region ModelState.IsValid
-            if (!ModelState.IsValid || model.OrientadorId == 0)
+            if (!ModelState.IsValid)
             {
                 if (model.OrientadorId == 0)
                 {
@@ -174,27 +176,39 @@ namespace CICTED.Controllers
 
             model.StatusTrabalhoId = 3;
 
-            var trabalho = await _trabalhoRepository.InsertTrabalho(model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao);
+            var trabalhoId = await _trabalhoRepository.InsertTrabalho(model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao);
 
-            if (trabalho > 0)
+            var palavrasChave = await _trabalhoRepository.CadastraPalavrasChave(model.PalavraChave, trabalhoId);
+
+            if (trabalhoId > 0)
             {
-                var autorPrincipal = await _trabalhoRepository.CadastraAutorTrabalho(user.Id, 1, false, trabalho);
-                //SALVAR AUTOR TRABALHO
-                if (coautores != null)
+                var autorPrincipal = await _trabalhoRepository.CadastraAutorTrabalho(user.Id, 1, false, trabalhoId, true);
+
+                if (idEvento == 2 || idEvento == 3 || idEvento == 4)
                 {
-                    foreach (var coautor in coautores)
+                    var cadastraAlunos = await _trabalhoRepository.CadastrarAlunoTrabalho(trabalhoId, model.AlunosNome);
+                    model.ReturnMenssagem = "Alterações salvas";
+                    return RedirectToAction("ConsultaTrabalho");
+                }
+                else
+                {
+                    //SALVAR AUTOR TRABALHO
+                    if (coautores != null)
                     {
-                        var autorTrabalho = await _trabalhoRepository.CadastraAutorTrabalho(coautor.Id, coautor.StatusId, coautor.Orientador, trabalho);
+                        foreach (var coautor in coautores)
+                        {
+                            var autorTrabalho = await _trabalhoRepository.CadastraAutorTrabalho(coautor.Id, coautor.StatusId, coautor.Orientador, trabalhoId, false);
+                        }
                     }
-                }
 
-                if (orientador != null)
-                {
-                    var autorTrabalho = await _trabalhoRepository.CadastraAutorTrabalho(orientador.Id, orientador.StatusId, orientador.Orientador, trabalho);
-                }
+                    if (orientador != null)
+                    {
+                        var autorTrabalho = await _trabalhoRepository.CadastraAutorTrabalho(orientador.Id, orientador.StatusId, orientador.Orientador, trabalhoId, false);
+                    }
 
-                model.ReturnMenssagem = "Alterações salvas";
-                return RedirectToAction("ConsultaTrabalho");
+                    model.ReturnMenssagem = "Alterações salvas";
+                    return RedirectToAction("ConsultaTrabalho");
+                }
             }
             return BadRequest();
         }
@@ -423,7 +437,7 @@ namespace CICTED.Controllers
                             UsuarioId = usuario.Id
                         };
 
-                        var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor.UsuarioId, autor.StatusUsuarioId, autor.Orientador, autor.TrabalhoId);
+                        var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor.UsuarioId, autor.StatusUsuarioId, autor.Orientador, autor.TrabalhoId, false);
 
                         if (cadastrar == true)
                         {
@@ -494,7 +508,7 @@ namespace CICTED.Controllers
                             };
 
                             //cadastra autor no trabalho
-                            var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor.UsuarioId, autor.StatusUsuarioId, autor.Orientador, autor.TrabalhoId);
+                            var cadastrar = await _trabalhoRepository.CadastraAutorTrabalho(autor.UsuarioId, autor.StatusUsuarioId, autor.Orientador, autor.TrabalhoId, false);
 
                             if (cadastrar == true)
                             {

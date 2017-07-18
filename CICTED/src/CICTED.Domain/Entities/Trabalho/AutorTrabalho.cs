@@ -18,6 +18,7 @@ namespace CICTED.Domain.Entities.Trabalho
         public bool Orientador { get; set; }
         [Required]
         public long TrabalhoId { get; set; }
-
+        [Required]
+        public bool AutorResponsavel { get; set; }
     }
 }

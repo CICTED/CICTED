@@ -32,7 +32,7 @@ namespace CICTED
         }
 
         public IConfigurationRoot Configuration { get; }
-        
+
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -73,11 +73,12 @@ namespace CICTED
             services.AddTransient<IAreaRepository, AreaRepository>();
             services.AddTransient<IAutorRepository, AutorRepository>();
             services.AddTransient<IAgenciaRepository, AgenciaRepository>();
+            services.AddTransient<IAdministradorRepository, AdministradorRepository>();
             services.AddTransient<IAvaliacaoRepository, AvaliacaoRepository>();
 
             services.AddMvc();
         }
-        
+
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {

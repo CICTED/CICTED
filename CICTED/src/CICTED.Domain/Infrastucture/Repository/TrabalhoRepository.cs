@@ -269,20 +269,45 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId)
+        public async Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId, bool autorResponsavel)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var cadastroQuery = await db.QueryAsync<bool>("INSERT INTO dbo.AutorTrabalho(StatusUsuarioId, UsuarioId, Orientador, TrabalhoId) VALUES (@StatusUsuarioId, @UsuarioId, @Orientador, @TrabalhoId)",
+                    var cadastroQuery = await db.QueryAsync<bool>("INSERT INTO dbo.AutorTrabalho(StatusUsuarioId, UsuarioId, Orientador, TrabalhoId, AutorResponsavel) VALUES (@StatusUsuarioId, @UsuarioId, @Orientador, @TrabalhoId, @AutorResponsavel)",
                         new
                         {
                             UsuarioId = userId,
                             StatusUsuarioId = userStatus,
                             Orientador = orientador,
                             TrabalhoId = trabalhoId,
+                            AutorResponsavel = autorResponsavel,
                         });
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> CadastrarAlunoTrabalho(long idTrabalho, List<string> nomeAluno)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    foreach (var aluno in nomeAluno)
+                    {
+                        var result = await db.QueryAsync<bool>("INSERT INTO dbo.AlunoTrabalho(TrabalhoId, AlunoNome) VALUES (@TrabalhoId, @AlunoNome)",
+                                                            new
+                                                            {
+                                                                TrabalhoId = idTrabalho,
+                                                                AlunoNome = aluno
+                                                            });
+                    }
                 }
                 return true;
             }
@@ -349,6 +374,61 @@ namespace CICTED.Domain.Infrastucture.Repository
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        public async Task<bool> CadastraPalavrasChave(string palavras, long trabalhoId)
+        {
+            try
+            {
+                using(var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var palavrasChave = palavras.Replace(" ", "");
+                    var palavrasList = (palavrasChave.Split(',')).ToList();
+                    var palavraId = new List<long>();
+                    
+                    foreach(var palavra in palavrasList)
+                    {
+                        var existe = await db.QueryAsync<long>("SELECT Id FROM dbo.PalavraChave WHERE Palavra = @Palavra",
+                            new
+                            {
+                                Palavra = palavra,
+                            });
+
+                        var result = existe.FirstOrDefault();
+
+                        if (result != 0)
+                        {
+                            palavrasList.Remove(palavra);
+                            palavraId.Add(result);
+                        }
+                        else
+                        {
+                            var querySalvar = await db.QueryAsync<long>("INSERT INTO dbo.PalavraChave(Palavra) VALUES (@Palavra); SELECT SCOPE_IDENTITY();", new
+                            {
+                                Palavra = palavra,
+                            });
+
+                            palavraId.Add(querySalvar.FirstOrDefault());
+                        }
+                    }
+                    
+                    if (palavraId != null)
+                    {
+                        foreach (var id in palavraId) {
+                            var querySalvaId = await db.ExecuteAsync("INSERT INTO dbo.PalavraChaveTrabalho(PalavraChaveId, TrabalhoId) VALUES (@PalavraChaveId, @TrabalhoId)", new
+                            {
+                                PalavraChaveId = id,
+                                TrabalhoId = trabalhoId
+                            });
+                        }
+                    }
+
+                }
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
             }
         }
 

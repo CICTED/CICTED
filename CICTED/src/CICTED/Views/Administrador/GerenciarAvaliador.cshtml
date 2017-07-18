@@ -1,4 +1,4 @@
-﻿@model List<CICTED.Domain.ViewModels.Administrador.GerenciarAvaliador>
+﻿@model List<CICTED.Domain.ViewModels.Administrador.Gerenciar>
 @{
     Layout = "_Menu";
 }
@@ -13,7 +13,8 @@
             <ul id="lista-nomes"></ul>
         </div>
         <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
-        <button class="btn btn-primary float-right" style="width:150px"><span class="fa fa-user-plus"></span>  Novo Avaliador</button>
+        <button class="fa fa-user-plus link btn btn-primary float-right" style="width:150px" type="submit" onclick="location.href='/administrador/cadastrarAvaliador'"> Novo Avaliador</button>
+
     </div>
 
     <hr />
@@ -57,9 +58,42 @@
         <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
     </h5>
 
+    <div id="cadastroModal" class="modal fade" role="dialog">
+        <div style="width:40%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Cadastrar Avaliador</h3>
+
+                    <hr />
+
+                    <div class="float-center">
+                        <label>Nome: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <div class="float-center">
+                        <label>Sobrenome: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <div class="float-center">
+                        <label>Email: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <br />
+
+                    <button class="btn btn-primary margin-top-10" style="margin-left:45%; width:100px"><span class="fa fa-pencil-square-o"></span> Cadastrar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="myModal" class="modal fade" role="dialog">
-        <div style="width:70%" class="modal-dialog">
+        <div style="width:50%" class="modal-dialog">
             <div style="padding:10px" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -72,6 +106,11 @@
                         <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
                         <tr><td><b>Email: </b></td><td id="Email"></td></tr>
                         <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
+                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
+                        <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
+                        <tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>
+                        <tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>
+                        <tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>
                         <tr><td><b>Evento: </b></td><td id="Evento"></td></tr>
                         <tr><td><b>Subarea de Conhecimento: </b></td><td id="SubArea"></td></tr>
                     </table>
@@ -105,6 +144,23 @@
                 $('#Nome').text(data.nome + ' ' + data.sobrenome);
                 $('#Email').text(data.email);
                 $('#Telefone').text(data.phoneNumber);
+                $('#Celular').text(data.celular);
+                $('#CPF').text(data.cpf);
+                $('#Nascimento').text(data.nascimento);
+                $('#Endereco').text(data.logradouro + ', ' + data.numero + ', ' + data.bairro + ', ' + data.cidadeNome + ' - ' + data.sigla);
+
+                if (data.avaliador == false) {
+                    $('#Avaliador').text('Sim');
+                } else {
+                    $('#Avaliador').text('Não');
+
+                }
+
+                if (data.genero == true) {
+                    $('#Genero').text('Feminino');
+                } else {
+                    $('#Genero').text('Masculino');
+                }
                 $('#Evento').text(data.evento);
                 $('#SubArea').text(data.subAreaConhecimento);
             }
