@@ -696,10 +696,10 @@ namespace CICTED.Controllers
             }
         }
 
-        //public async Task<IActionResult> GraficoTrabalhos(int idEvento)
-        //{
+        public async Task<IActionResult> GraficoTrabalhos(int idEvento)
+        {
 
-        //}
+        }
 
        public async Task<string> geraIdentificacao(Evento evento)
         {

@@ -434,22 +434,22 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        //public async Task<List<DateTime>> BuscaDatasCadastrados(int idEvento = 0)
-        //{
-        //    try
-        //    {
-        //        using (var db = new SqlConnection(_settings.ConnectionString))
-        //        {
-        //            if (idEvento == 0)
-        //            {
-        //                var selectDataCadastrados = await db.QueryAsync<DateTime>("SELECT ");
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
+        public async Task<List<DateTime>> BuscaDatasCadastrados(int idEvento = 0)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    if (idEvento == 0)
+                    {
+                        var selectDataCadastrados = await db.QueryAsync<DateTime>("SELECT ");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

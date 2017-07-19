@@ -27,6 +27,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<Trabalho> GetTrabalho(string identificador);
         Task<SubAreaConhecimento> GetSubArea(long subAreaConhecimentoId);
         Task<bool> CadastraPalavrasChave(string palavras, long trabalhoId);
-        //Task<List<int>> BuscaDatasCadastrados(int idEvento = 0);
+        Task<List<int>> BuscaDatasCadastrados(int idEvento = 0);
     }
 }
