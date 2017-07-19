@@ -708,6 +708,7 @@ a:hover .dashboard{
         resize: none;
         border-radius: 5px;
         outline: none;
+        padding: 8px;
     }
 
 .form-cadastro-adm {

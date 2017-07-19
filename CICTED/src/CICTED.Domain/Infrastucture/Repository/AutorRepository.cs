@@ -81,7 +81,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT StatusUsuarioId, UsuarioId, Orientador FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId", new { TrabalhoId = id });
+                    var selectTrabalhoQuery = await db.QueryAsync<AutorTrabalho>("SELECT StatusUsuarioId, UsuarioId, Orientador, AutorResponsavel FROM dbo.AutorTrabalho WHERE TrabalhoId = @TrabalhoId", new { TrabalhoId = id });
 
                     return selectTrabalhoQuery.ToList();
                 }

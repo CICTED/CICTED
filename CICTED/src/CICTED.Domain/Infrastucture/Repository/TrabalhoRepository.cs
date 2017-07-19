@@ -400,7 +400,6 @@ namespace CICTED.Domain.Infrastucture.Repository
 
                         if (result != 0)
                         {
-                            palavrasList.Remove(palavra);
                             palavraId.Add(result);
                         }
                         else

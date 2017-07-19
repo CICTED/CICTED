@@ -168,7 +168,10 @@
                                     {
                                         <option value="@agencia.Id" selected>@agencia.AgenciaNome</option>
                                     }
-                                    <option value="@agencia.Id">@agencia.AgenciaNome</option>
+                                    else
+                                    {
+                                        <option value="@agencia.Id">@agencia.AgenciaNome</option>
+                                    }
                                 }
                             </select>
                         </div>
@@ -207,18 +210,18 @@
                             </h4>
                             <div id="aviso"></div>
                         </div>
-                            <div role="tabpanel" class="tab-pane" id="porNome">
-                                <div class="form-group margin-top-10 row">
-                                    <input type="text" class="input-add-autor margin-bottom-20" id="input-add-aluno" style="width:350px !important" placeholder="Digite o nome desejado" />
-                                    <a id="adicionar-aluno" class="btn btn-primary">Cadastrar</a>
-                                    <span id="qtd-alunos" style="display: none" class="text-danger">O trabalho deve ter pelo menos 1 aluno</span>
+                        <div role="tabpanel" class="tab-pane" id="porNome">
+                            <div class="form-group margin-top-10 row">
+                                <input type="text" class="input-add-autor margin-bottom-20" id="input-add-aluno" style="width:350px !important" placeholder="Digite o nome desejado" />
+                                <a id="adicionar-aluno" class="btn btn-primary">Cadastrar</a>
+                                <span id="qtd-alunos" style="display: none" class="text-danger">O trabalho deve ter pelo menos 1 aluno</span>
 
-                                    <div id="nomes-alunos" style="height:184px">
+                                <div id="nomes-alunos" style="height:184px">
 
 
-                                    </div>
                                 </div>
                             </div>
+                        </div>
                     }
                     else
                     {
@@ -374,7 +377,7 @@
                         <div class="on-focus clearfix" style="position: relative">
                             <textarea id="titulo" style="height:40px!important" asp-for="Titulo" value="@Model.Titulo" required></textarea>
                             <div class="tool-tip">mínimo 5 palavras, máximo 20 palavras</div>
-                            <span class="text-danger" asp-validation-for="Titulo"></span>
+                            <span hidden id="titulo-error" class="message-error">mínimo 5 palavras, máximo 20 palavras</span>
                         </div>
 
                     </div>
@@ -388,7 +391,7 @@
                             <div class="on-focus clearfix" style="position: relative">
                                 <textarea id="resumo" asp-for="Resumo" value="@Model.Resumo" required></textarea>
                                 <div class="tool-tip">mínimo 20 palavras, máximo 50 palavras</div>
-                                <span class="text-danger" asp-validation-for="Resumo"></span>
+                                <span hidden id="resumo-error" class="message-error">mínimo 20 palavras, máximo 50 palavras</span>
                             </div>
 
                         </div>
@@ -401,7 +404,7 @@
                         <div class="on-focus clearfix" style="position: relative">
                             <textarea id="introducao" asp-for="Introducao" value="@Model.Introducao" required></textarea>
                             <div class="tool-tip">mínimo 20 palavras, máximo 150 palavras</div>
-                            <span class="text-danger" asp-validation-for="Introducao"></span>
+                            <span hidden id="introducao-error" class="message-error">mínimo 20 palavras, máximo 150 palavras</span>
                         </div>
                     </div>
 
@@ -414,7 +417,7 @@
                             <div class="on-focus clearfix" style="position: relative">
                                 <textarea id="objetivos" asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
                                 <div class="tool-tip">mínimo 20 palavras, máximo 60 palavras</div>
-                                <span class="text-danger" asp-validation-for="Objetivo"></span>
+                                <span hidden id="objetivos-error" class="message-error">mínimo 20 palavras, máximo 60 palavras</span>
                             </div>
 
                         </div>
@@ -440,7 +443,7 @@
                         <div class="on-focus clearfix" style="position: relative">
                             <textarea id="metodologia" asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
                             <div class="tool-tip">mínimo 50 palavras, máximo 300 palavras</div>
-                            <span class="text-danger" asp-validation-for="Metodologia"></span>
+                            <span hidden id="metodologia-error" class="message-error">mínimo 50 palavras, máximo 300 palavras</span>
                         </div>
 
                     </div>
@@ -464,7 +467,7 @@
                         <div class="on-focus clearfix" style="position: relative">
                             <textarea id="resultados" asp-for="Resultados" value="@Model.Resultados" required></textarea>
                             <div class="tool-tip">mínimo 20 palavras, máximo 150 palavras</div>
-                            <span class="text-danger" asp-validation-for="Resultados"></span>
+                            <span hidden id="resultados-error" class="message-error">mínimo 20 palavras, máximo 150 palavras</span>
                         </div>
                     </div>
 
@@ -486,7 +489,7 @@
                             <div class="on-focus clearfix" style="position: relative">
                                 <textarea id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
                                 <div class="tool-tip">mínimo 20 palavras, máximo 100 palavras</div>
-                                <span class="text-danger" asp-validation-for="Conclusao"></span>
+                                <span hidden id="conclusao-error" class="message-error">mínimo 20 palavras, máximo 100 palavras</span>
                             </div>
                         </div>
 
@@ -495,7 +498,7 @@
                             <div class="on-focus clearfix" style="position: relative">
                                 <textarea id="referencia" asp-for="Referencias" value="@Model.Referencias"></textarea>
                                 <div class="tool-tip">mínimo 20 palavras, máximo 100 palavras</div>
-                                <span class="text-danger" asp-validation-for="Referencias"></span>
+                                <span hidden id="referencia-error" class="message-error">mínimo 20 palavras, máximo 100 palavras</span>
                             </div>
                         </div>
 
@@ -503,8 +506,9 @@
                             <p><b>Palavras chave: </b></p>
                             <div class="on-focus clearfix" style="position: relative">
                                 <textarea id="palavra-chave" asp-for="PalavraChave" style="height:40px!important" value="@Model.PalavrasChave" required></textarea>
-                                <div class="tool-tip">mínimo 3 palavras, máximo 6 palavras</div>
-                                <span class="text-danger" asp-validation-for="PalavraChave"></span>
+                                <div class="tool-tip">mínimo 3 palavras, máximo 6 palavras (palavras separadas por vírgula)</div>
+                                <span hidden id="palavra-chave-error" class="message-error">mínimo 3 palavras, máximo 6 palavras</span>
+
                             </div>
                         </div>
                     }
@@ -538,24 +542,69 @@
     });
 
 
-    $("#cadastrar-trabalho").on("click", function(){
-        var titulo = ($("#titulo").val()).toString().split(' ').length;
-        var introducao = ($("#introducao").val()).toString().split(' ').length;
-        var metodologia = ($("#metodologia").val()).toString().split(' ').length;
-        var resultados = ($("#resultados").val()).toString().split(' ').length;
+    $("#cadastrar-trabalho").on("click", function () {
+        $(".message-error").hide();
 
-        //se evento for 8{
-        var conclusao = ($("#conclusao").val()).toString().split(' ').length;
-        var referencia = ($("#referencia").val()).toString().split(' ').length;
-        var palavraChave = ($("#palavra-chave").val()).toString().split(' ').length;
-
-        //se evento for 7{
-        var resumo = ($("#resumo").val()).toString().split(' ').length;
-       
-        if(titulo < 3 || titulo > 6){
-            return false;        
+        var titulo = ($("#titulo").val()).toString().trim().split(' ').length;
+        if (titulo < 5 || titulo > 20) {
+            $("#titulo-error").show();
+            return false;
         }
-   
+
+        var introducao = ($("#introducao").val()).toString().trim().split(' ').length;
+        if (introducao < 20 || introducao > 150) {
+            $("#introducao-error").show();
+            return false;
+        }
+
+        var metodologia = ($("#metodologia").val()).toString().trim().split(' ').length;
+        if (metodologia < 50 || metodologia > 300) {
+            $("#metodologia-error").show();
+            return false;
+        }
+
+        var resultados = ($("#resultados").val()).toString().trim().split(' ').length;
+        if (resultados < 20 || resultados > 150) {
+            $("#resultados-error").show();
+            return false;
+        }
+
+        if (idEvento != 8) {
+            var conclusao = ($("#conclusao").val()).toString().trim().split(' ').length;
+            if (conclusao < 20 || conclusao > 100) {
+                $("#conclusao-error").show();
+                return false;
+            }
+
+            var referencia = ($("#referencia").val()).toString().trim().split(' ').length;
+            if (referencia < 20 || referencia > 100) {
+                $("#referencia-error").show();
+                return false;
+            }
+
+            var palavraChave = ($("#palavra-chave").val()).toString().trim().replace(' ', '').split(',').length;
+            if (palavraChave < 3 || palavraChave > 6) {
+                $("#palavra-chave-error").show();
+                return false;
+            }
+        }
+
+        if (idEvento == 8) {
+            var objetivos = ($("#objetivos").val()).toString().trim().split(' ').length;
+            if (objetivos < 20 || objetivos > 60) {
+                $("#objetivos-error").show();
+                return false;
+            }
+        }
+
+        if (idEvento == 7) {
+            var resumo = ($("#resumo").val()).toString().trim().split(' ').length;
+            if (resumo < 20 || resumo > 50) {
+                $("#resumo-error").show();
+                return false;
+            }
+        }
+
     });
 
     //verifica se nome, telefone e cidade escola estao preenchidos
@@ -616,8 +665,8 @@
             $("#verifica-orientador").hide();
             if ($.trim($("#orientador").html()) == '') {
                 $("#verifica-orientador").show();
-            }else{
-                next();            
+            } else {
+                next();
             }
         }
     });
@@ -779,7 +828,7 @@
         var aluno = $("#input-add-aluno").val().trim();
         var id = trim(aluno);
 
-        if(aluno != ""){
+        if (aluno != "") {
             var qtdAlunos = $("div[id *= aluno]").length;
 
             if (qtdAlunos > 7) {
@@ -822,8 +871,8 @@
         });
     }
 
-    function trim(vlr){
-        while(vlr.indexOf(" ") != -1){
+    function trim(vlr) {
+        while (vlr.indexOf(" ") != -1) {
             vlr = vlr.replace(" ", "");
         }
         return vlr;
