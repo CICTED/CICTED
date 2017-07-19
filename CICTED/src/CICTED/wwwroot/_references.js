@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="js/chart.min.js" />
 /// <reference path="js/cicted.min.js" />
 /// <reference path="js/jquery.maskedinput.js" />
 /// <reference path="js/site.js" />

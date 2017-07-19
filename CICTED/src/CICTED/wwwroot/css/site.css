@@ -454,7 +454,7 @@ select {
 
 
 
-.input-add-autor{
+.input-add-autor {
     outline: none;
     max-width: 350px;
     height: 33px;
@@ -467,6 +467,7 @@ select {
     border-radius: 5px !important;
     box-sizing: border-box;
 }
+
 .input-busca-avaliador {
     border-radius: 5px !important;
     outline: none;
@@ -474,7 +475,7 @@ select {
     height: 33px;
     width: 350px !important;
     padding: 0 12px 0 25px;
-    background: white url(http://cssdeck.com/uploads/media/items/5/5JuDgOa.png) 8px 10px no-repeat;    
+    background: white url(http://cssdeck.com/uploads/media/items/5/5JuDgOa.png) 8px 10px no-repeat;
 }
 
 .input-consulta-trab-adm {
@@ -628,8 +629,9 @@ input[type=checkbox] {
     width: auto !important;
     height: auto !important;
 }
+
 .form-cadAvaliacao {
-    width: 750px;   
+    width: 750px;
     height: 400px;
     margin: 0 auto;
     background-color: #FFFFFF;
@@ -639,7 +641,7 @@ input[type=checkbox] {
     font-size: 14px;
 }
 
-.dashboard{
+.dashboard {
     width: 825px;
     height: auto;
     max-height: unset;
@@ -651,13 +653,12 @@ input[type=checkbox] {
     font-size: 14px;
 }
 
-.dashboard-link{
-  
+.dashboard-link {
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 10px;
     padding-right: 10px;
-    text-decoration: none !important;   
+    text-decoration: none !important;
     border-radius: 5px;
     font-family: 'Lucida Sans';
     color: #000000;
@@ -666,24 +667,24 @@ input[type=checkbox] {
     font-family: 14px;
 }
 
-.dashboard-linkClicked{
+.dashboard-linkClicked {
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 10px;
     padding-right: 10px;
-    text-decoration: none !important;   
+    text-decoration: none !important;
     border-radius: 5px;
     font-family: 'Lucida Sans';
     color: #FFFFFF;
     background: #143458;
     cursor: pointer;
     font-family: 14px;
-    
 }
 
-a:hover .dashboard{
-    text-decoration: none
+a:hover .dashboard {
+    text-decoration: none;
 }
+
 .form-cadTrabalho {
     width: 800px;
     min-height: 550px;
@@ -991,59 +992,64 @@ label {
 /* tooltip */
 
 
-.tool-tip{
-	color: #fff;
-	background-color: rgb(169, 169, 169);
-	text-shadow: none;
-	font-size: 12px;
-	border-radius: 7px;	
-	text-align: center;	
-	opacity: 0;
-	z-index: 999;
-	padding: 3px 8px;	
-	position: absolute;
-	cursor: default;
+.tool-tip {
+    color: #fff;
+    background-color: rgb(169, 169, 169);
+    text-shadow: none;
+    font-size: 12px;
+    border-radius: 7px;
+    text-align: center;
+    opacity: 0;
+    z-index: 999;
+    padding: 3px 8px;
+    position: absolute;
+    cursor: default;
     top: auto;
-	bottom: 116%;
-	left: 50%;	
+    bottom: 116%;
+    left: 50%;
 }
 
-.tool-tip.top:after,
-.tool-tip:after{
-	position: absolute;
-	bottom: -12px;
-	left: 50%;
-	margin-left: -7px;
-	content: ' ';
-	border: 6px solid transparent;
-    border-top-color: rgb(169, 169, 169);	
-}
+    .tool-tip.top:after,
+    .tool-tip:after {
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        margin-left: -7px;
+        content: ' ';
+        border: 6px solid transparent;
+        border-top-color: rgb(169, 169, 169);
+    }
 
-/* default heights, width and margin w/o Javscript */
+    /* default heights, width and margin w/o Javscript */
 
-.tool-tip,
-.tool-tip.top{
-	width: auto;
-	height: 22px;
-	margin-left: -43px;
-}
+    .tool-tip,
+    .tool-tip.top {
+        width: auto;
+        height: 22px;
+        margin-left: -43px;
+    }
 
 /* on hover of element containing tooltip default*/
 
 *:not(.on-focus):hover > .tool-tip,
-.on-focus textarea:focus + .tool-tip{
-	visibility: visible;
-	opacity: 1;
-	-webkit-transition: all 240ms ease-in-out;
-	-moz-transition: all 240ms ease-in-out;
-	-ms-transition: all 240ms ease-in-out;
-	-o-transition: all 240ms ease-in-out;
-	transition: all 240ms ease-in-out;		
+.on-focus textarea:focus + .tool-tip {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: all 240ms ease-in-out;
+    -moz-transition: all 240ms ease-in-out;
+    -ms-transition: all 240ms ease-in-out;
+    -o-transition: all 240ms ease-in-out;
+    transition: all 240ms ease-in-out;
 }
 
 
-	
+.box {
+    margin: 0px auto;
+    width: 70%;
+}
 
-
-
-
+.box-chart {
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
