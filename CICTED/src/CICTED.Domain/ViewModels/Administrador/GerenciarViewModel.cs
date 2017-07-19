@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CICTED.Domain.Entities.Trabalho;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,8 +29,11 @@ namespace CICTED.Domain.ViewModels.Administrador
         public string Sigla { get; set; }
         public string InstituicaoNome { get; set; }
         public int InstituicaoId { get; set; }
+        public List<Evento> Eventos { get; set; }
         public string Evento { get; set; }
         public int EventoId { get; set; }
+        public int AreaConhecimentoId { get; set; }
+        public List<AreaConhecimento> AreaConhecimento { get; set; }
         public string SubAreaConhecimento { get; set; }
         public int SubAreaConhecimentoId { get; set; }
         public bool FirstAccess { get; set; }
