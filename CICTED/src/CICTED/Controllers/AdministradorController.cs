@@ -79,7 +79,34 @@ namespace CICTED.Controllers
         {
             try
             {
-                return View();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                var areaConhecimento = await _areaRepository.GetAreas();
+                var eventos = await _eventoRepository.getEventos();
+
+                Gerenciar model = new Gerenciar()
+                {
+                    AreaConhecimento = areaConhecimento,
+                    Eventos = eventos,
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("cadastrarOrganizador")]
+        [Authorize]
+        public async Task<IActionResult> CadastrarOrganizador(Gerenciar model)
+        {
+            try
+            {
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -125,12 +152,32 @@ namespace CICTED.Controllers
         {
             try
             {
-                return View();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                var areaConhecimento = await _areaRepository.GetAreas();
+                var eventos = await _eventoRepository.getEventos();
+
+                Gerenciar model = new Gerenciar()
+                {
+                    AreaConhecimento = areaConhecimento,
+                    Eventos = eventos,
+                };
+
+                return View(model);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("cadastrarAvaliador")]
+        [Authorize]
+        public async Task<IActionResult> CadastrarAvaliador(Gerenciar model)
+        {
+            return Ok();
         }
 
         [HttpGet("gerenciarAutor")]

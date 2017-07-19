@@ -62,25 +62,55 @@
         </div>
 
         <div class="margin-top-10 row" id="avaliador" style="display: none">
-            <div class="float-left" style="width:40%">
-                <label>Evento:</label>
-                <select class="input-consulta-trab-adm" style="width:500px !important">
-                    <option value="-1">Selecione o evento</option>
-                </select>
+            <div>
+                <div class="float-left" style="width:40%">
+                    <label>Evento:</label>
+                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropEvento" value="@Model.EventoId" asp-for="EventoId">
+                        <option value="-1">Selecione o evento</option>
+                        @foreach (var evento in Model.Eventos)
+                        {
+                            <option value="@evento.Id"> @evento.Sigla</option>
+
+                        }
+                    </select>
+                </div>
+                <div class="float-right" style="width:50%">
+                    <label>Área:</label>
+                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId">
+                        <option value="-1">Selecione a área</option>
+                        @foreach (var areas in Model.AreaConhecimento)
+                        {
+                            <option value="@areas.Id">@areas.Area</option>
+
+                        }
+                    </select>
+                </div>
             </div>
-            <div class="float-right" style="width:50%">
-                <label>Subarea:</label>
-                <select class="input-consulta-trab-adm" style="width:500px !important">
-                    <option value="-1">Selecione a subarea</option>
-                </select>
+
+            <div>
+                <div class="float-left margin-top-10" style="width:40%">
+                    <label>Subarea:</label>
+                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropSubArea">
+                        <option value="-1">Selecione a subarea</option>
+                    </select>
+                </div>
             </div>
         </div>
 
+        <div class="margin-top-10 row" id="avaliador" style="display: none">
 
+        </div>
 
         <br />
 
-        <button class="btn btn-primary margin-top-10" style="margin-left:40%; width:100px"> Cadastrar</button>
+        <div class="margin-top-10" style="margin-left:33%">
+            <div class="float-left">
+                <button type="submit" class="btn btn-primary" style="width:100px" formmethod="get" asp-controller="administrador" asp-action="GerenciarOrganizador"> Cancelar</button>
+            </div>
+            <div class="float-left margin-left-10">
+                <button class="btn btn-primary" style="width:100px"> Cadastrar</button>
+            </div>
+        </div>
 
     </div>
 </form>
@@ -95,7 +125,25 @@
         }
     });
 
+    $('#dropArea').subArea($('#dropSubArea'));
 
     $("#Celular").mask("(99) 99999-9999");
-    $("#Telefone").mask("(99) 9999-9999")
+    $("#Telefone").mask("(99) 9999-9999");
+
+    $("#dropEvento").on("change", function () {
+        var evento = $(this);
+        var id = $(this).val();
+
+        $.ajax({
+            url: '/evento/descricao',
+            type: 'get',
+            data: {
+                id: id
+            },
+
+            error: function (x, y, message) {
+                alert("Evento nao encontrado ")
+            },
+        });
+    });
 </script>
