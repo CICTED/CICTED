@@ -685,7 +685,9 @@ namespace CICTED.Controllers
             }
             else
             {
-                return View();
+                DashboardViewModel model = new DashboardViewModel();
+
+                return View(model);
             }
         }
 
