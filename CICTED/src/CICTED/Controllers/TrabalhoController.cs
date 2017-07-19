@@ -667,7 +667,7 @@ namespace CICTED.Controllers
            
         }
         [HttpGet("pesquisa/trabalho")]
-        public async Task<IActionResult> pesquisaTrabalho(string identificacao)
+        public async Task<IActionResult> PesquisaTrabalho(string identificacao)
         {
 
             var trabalho = await _trabalhoRepository.GetTrabalho(identificacao);
@@ -681,7 +681,8 @@ namespace CICTED.Controllers
 
         }
         [HttpGet("Dashboard")]
-        public async Task<IActionResult> dashboard()
+        [Authorize]
+        public async Task<IActionResult> Dashboard()
         {
             if (!ModelState.IsValid)
             {
@@ -695,7 +696,12 @@ namespace CICTED.Controllers
             }
         }
 
-        public async Task<string> geraIdentificacao(Evento evento)
+        public async Task<IActionResult> GraficoTrabalhos(int idEvento)
+        {
+
+        }
+
+       public async Task<string> geraIdentificacao(Evento evento)
         {
             var rand = new Random();
             var next = rand.Next(10000, 99999);
@@ -712,6 +718,8 @@ namespace CICTED.Controllers
             }
 
         }
+
+       
 
 
     }

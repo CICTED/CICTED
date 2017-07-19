@@ -4,7 +4,7 @@
     Layout = "_Menu";
 }
 <script type="text/javascript">
-        var randomnb = function(){ return Math.round(Math.random()*300)};
+    var randomnb = function () { return Math.round(Math.random() * 300) };
 </script>
 
 <div class="form-group dashboard">
@@ -52,49 +52,54 @@
     </div>
     <div class="form-group margin-top-30 margin-left-75">
         <div class="form-group float-left">
-            <input hidden name="Cadastrados"  value="@Model.Cadastrados"/> <h1 class="margin-left-30"><b>@Model.Cadastrados</b></h1>           
+            <input hidden name="Cadastrados" value="@Model.Cadastrados" /> <h1 class="margin-left-30"><b>@Model.Cadastrados</b></h1>
             <h4>Cadastrados</h4>
         </div>
 
         <div class="form-gorup float-left margin-left-50">
-            <input hidden name="Submetidos" value="@Model.Submetidos" /> <h1 class="margin-left-30"><b>@Model.Submetidos</b></h1>           
+            <input hidden name="Submetidos" value="@Model.Submetidos" /> <h1 class="margin-left-30"><b>@Model.Submetidos</b></h1>
             <h4>Submetidos</h4>
         </div>
 
         <div class="form-gorup float-left margin-left-50">
-            <input hidden name="Avalidos" value="@Model.Avaliados" /> <h1 class="margin-left-30"><b>@Model.Avaliados</b></h1>           
+            <input hidden name="Avalidos" value="@Model.Avaliados" /> <h1 class="margin-left-30"><b>@Model.Avaliados</b></h1>
             <h4>Avaliados</h4>
         </div>
 
         <div class="form-gorup float-left margin-left-50">
-            <input hidden name="Aprovados" value="@Model.Aprovados" /> <h1 class="margin-left-30"><b>@Model.Aprovados</b></h1>           
+            <input hidden name="Aprovados" value="@Model.Aprovados" /> <h1 class="margin-left-30"><b>@Model.Aprovados</b></h1>
             <h4>Aprovados</h4>
         </div>
         <div class="form-gorup float-left margin-left-50">
-            <input hidden name="Reprovados" value="@Model.Reprovados" /> <h1 class="margin-left-30"><b>@Model.Reprovados</b></h1>           
+            <input hidden name="Reprovados" value="@Model.Reprovados" /> <h1 class="margin-left-30"><b>@Model.Reprovados</b></h1>
             <h4>Reprovados</h4>
         </div>
     </div>
 
-    <div class="box">       
+    <div class="box">
 
         <h2 style="text-align:center">Número de trabalhos por mês</h2>
         <br />
         <div class="box-chart">
 
-            <canvas id="GraficoLine" style="width:100%;"></canvas>
+            <canvas id="GraficoLine" style="width:100%;"></canvas>            
 
-            <script type="text/javascript">
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
 
                 var options = {
-                    responsive:true
+                    responsive: true
                 };
 
                 var data = {
                     labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
                     datasets: [
                         {
-                            label: "Dados primários",
+                            label: "Cadastrados",
                             fillColor: "rgba(220,220,220,0.2)",
                             strokeColor: "rgba(220,220,220,1)",
                             pointColor: "rgba(220,220,220,1)",
@@ -104,28 +109,31 @@
                             data: [50, 30, 40, 50, 90, 10, 20, 30, 35, 100, 150, 200]
                         },
                         {
-                            label: "Dados secundários",
+                            label: "Submetidos",
                             fillColor: "rgba(151,187,205,0.2)",
                             strokeColor: "rgba(151,187,205,1)",
                             pointColor: "rgba(151,187,205,1)",
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(151,187,205,1)",
-                            data: [1, 48, 40, 19, 86, 27, 90, 200, 87, 20, 50, 20]
+                            data: [28, 48, 40, 19, 86, 27, 90, 200, 87, 20, 50, 20]
+                        },
+                        {
+                            label: "Avaliados",
+                            fillColor: "rgba(151,187,205,0.2)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data: [28, 48, 40, 19, 86, 27, 90, 200, 87, 20, 50, 20]
                         }
                     ]
                 };
 
-                window.onload = function(){
+                window.onload = function () {
 
                     var ctx = document.getElementById("GraficoLine").getContext("2d");
                     var LineChart = new Chart(ctx).Line(data, options);
                 }
-            </script>            
-
-        </div>
-
-    </div>
-   
-</div>
-
+</script>

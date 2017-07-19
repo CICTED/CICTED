@@ -382,13 +382,13 @@ namespace CICTED.Domain.Infrastucture.Repository
         {
             try
             {
-                using(var db = new SqlConnection(_settings.ConnectionString))
+                using (var db = new SqlConnection(_settings.ConnectionString))
                 {
                     var palavrasChave = palavras.Replace(" ", "");
                     var palavrasList = (palavrasChave.Split(',')).ToList();
                     var palavraId = new List<long>();
-                    
-                    foreach(var palavra in palavrasList)
+
+                    foreach (var palavra in palavrasList)
                     {
                         var existe = await db.QueryAsync<long>("SELECT Id FROM dbo.PalavraChave WHERE Palavra = @Palavra",
                             new
@@ -412,10 +412,11 @@ namespace CICTED.Domain.Infrastucture.Repository
                             palavraId.Add(querySalvar.FirstOrDefault());
                         }
                     }
-                    
+
                     if (palavraId != null)
                     {
-                        foreach (var id in palavraId) {
+                        foreach (var id in palavraId)
+                        {
                             var querySalvaId = await db.ExecuteAsync("INSERT INTO dbo.PalavraChaveTrabalho(PalavraChaveId, TrabalhoId) VALUES (@PalavraChaveId, @TrabalhoId)", new
                             {
                                 PalavraChaveId = id,
@@ -426,11 +427,29 @@ namespace CICTED.Domain.Infrastucture.Repository
 
                 }
                 return true;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return false;
             }
         }
 
+        public async Task<List<DateTime>> BuscaDatasCadastrados(int idEvento = 0)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    if (idEvento == 0)
+                    {
+                        var selectDataCadastrados = await db.QueryAsync<DateTime>("SELECT ");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
