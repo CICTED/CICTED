@@ -186,7 +186,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<bool> getIdentificacaoTrabalho(string identificacao)
+        public async Task<bool> GetIdentificacaoTrabalho(string identificacao)
         {
             try
             {
@@ -227,7 +227,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<List<ConsultaTrabalho>> GetTrabalho()
+        public async Task<List<ConsultaTrabalho>> GetTrabalhos()
         {
             try
             {
@@ -434,16 +434,81 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<List<DateTime>> BuscaDatasCadastrados(int idEvento = 0)
+        public async Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasCadastrados(int idEvento)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    if (idEvento == 0)
-                    {
-                        var selectDataCadastrados = await db.QueryAsync<DateTime>("SELECT ");
-                    }
+                    var query = $"SELECT dbo.Trabalho.DataCadastro, DATEPART(MONTH, dbo.Trabalho.DataCadastro) AS Mes, COUNT(*) As Quantidade "
+                    + "FROM dbo.Trabalho "
+                    + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} " : "")} "
+                    + "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataCadastro), dbo.Trabalho.DataCadastro";
+
+                    var selectDataCadastrados = await db.QueryAsync<QuantidadeDatasViewModel>(query);
+                    return selectDataCadastrados.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasSubmetidos(int idEvento)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = $"SELECT dbo.Trabalho.DataSubmissao, DATEPART(MONTH, dbo.Trabalho.DataSubmissao) AS Mes, COUNT(*) As Quantidade "
+                    + "FROM dbo.Trabalho "
+                    
+                    + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} AND" : "WHERE")} dbo.Trabalho.DataSubmissao is not null "
+                    + "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataSubmissao), dbo.Trabalho.DataSubmissao";
+
+                    var selectDataSubmissao = await db.QueryAsync<QuantidadeDatasViewModel>(query);
+                    return selectDataSubmissao.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<QuantidadeDatasViewModel>> GetQuantidadeDataAvaliacao(int idEvento)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = "SELECT dbo.AvaliacaoTrabalho.DataAvaliacao, DATEPART(MONTH, dbo.Trabalho.DataCadastro) AS Mes, COUNT(*) As Quantidade " +
+                                "FROM dbo.Trabalho, dbo.AvaliacaoTrabalho " +
+                                "WHERE dbo.AvaliacaoTrabalho.TrabalhoId = dbo.Trabalho.Id " +
+                                "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataCadastro), dbo.AvaliacaoTrabalho.DataAvaliacao";
+                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query);
+                    return selectDataAvaliacao.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<long>> GetIdTtrabalhos(int idEvento)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectIdTrabalho = await db.QueryAsync<long>("SELECT Id FROM dbo.Trabalho WHERE EventoId = @EventoId",
+                        new
+                        {
+                            EventoId = idEvento
+                        });
+                    return selectIdTrabalho.ToList();
                 }
             }
             catch (Exception ex)

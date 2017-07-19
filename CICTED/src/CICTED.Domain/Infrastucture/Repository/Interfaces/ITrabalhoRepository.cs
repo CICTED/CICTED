@@ -17,9 +17,9 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<List<PeriodoApresentacao>> GetPeriodos();        
         Task<List<string>> GetPalavrasChave(long idTrabalho);
         Task<string> GetStatusTrabalho(int statusId);
-        Task<bool> getIdentificacaoTrabalho(string identificacao);
+        Task<bool> GetIdentificacaoTrabalho(string identificacao);
         Task<string> GetInstituicao(long id);
-        Task<List<ConsultaTrabalho>> GetTrabalho();
+        Task<List<ConsultaTrabalho>> GetTrabalhos();
         Task<bool> VerificaCadastroTrabalho(long idTrabalho, long userId);
         Task<bool> CadastraAutorTrabalho(long userId, int userStatus, bool orientador, long trabalhoId, bool autorResponsavel);
         Task<bool> DeletarAutorTrabalho(long userId, long idTrabalho);
@@ -27,6 +27,9 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<Trabalho> GetTrabalho(string identificador);
         Task<SubAreaConhecimento> GetSubArea(long subAreaConhecimentoId);
         Task<bool> CadastraPalavrasChave(string palavras, long trabalhoId);
-        Task<List<int>> BuscaDatasCadastrados(int idEvento = 0);
+        Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasCadastrados(int idEvento = 0);
+        Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasSubmetidos(int idEvento = 0);
+        Task<List<QuantidadeDatasViewModel>> GetQuantidadeDataAvaliacao(int idEvento = 0);
+        Task<List<long>> GetIdTtrabalhos(int idEvento);
     }
 }

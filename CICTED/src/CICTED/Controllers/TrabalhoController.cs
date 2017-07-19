@@ -233,7 +233,7 @@ namespace CICTED.Controllers
         public async Task<IActionResult> ConsultaTrabalhoAdm()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var trabalhos = await _trabalhoRepository.GetTrabalho();
+            var trabalhos = await _trabalhoRepository.GetTrabalhos();
             List<ConsultaTrabalho> model = new List<ConsultaTrabalho>();
             foreach (var trabalho in trabalhos)
             {
@@ -691,14 +691,20 @@ namespace CICTED.Controllers
             else
             {
                 DashboardViewModel model = new DashboardViewModel();
-
+                var cadastrados = await _trabalhoRepository.GetQuantidadeDatasCadastrados();
+                var submetidos = await _trabalhoRepository.GetQuantidadeDatasSubmetidos();
+                var avaliados = await _trabalhoRepository.GetQuantidadeDataAvaliacao();
                 return View(model);
             }
         }
 
         public async Task<IActionResult> GraficoTrabalhos(int idEvento)
         {
+            var cadastrados = await _trabalhoRepository.GetQuantidadeDatasCadastrados(idEvento);
+            var submetidos = await _trabalhoRepository.GetQuantidadeDatasSubmetidos(idEvento);
+            var avaliados = await _trabalhoRepository.GetQuantidadeDataAvaliacao(idEvento);
 
+            return View();
         }
 
        public async Task<string> geraIdentificacao(Evento evento)
@@ -708,7 +714,7 @@ namespace CICTED.Controllers
 
             var identificacao = evento.Sigla + "2017" + next;
 
-            if (await _trabalhoRepository.getIdentificacaoTrabalho(identificacao))
+            if (await _trabalhoRepository.GetIdentificacaoTrabalho(identificacao))
             {
                 return identificacao;
             }
