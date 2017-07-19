@@ -274,6 +274,7 @@ namespace CICTED.Controllers
             foreach (var autor in autoresId)
             {
                 var info = await _autorRepository.GetAutor(autor.UsuarioId);
+               
                 var autorInfo = new AutorViewModel()
                 {
                     Email = info.Email,
@@ -281,7 +282,8 @@ namespace CICTED.Controllers
                     Nome = info.Nome,
                     Orientador = autor.Orientador,
                     Sobrenome = info.Sobrenome,
-                    StatusId = autor.StatusUsuarioId
+                    StatusId = autor.StatusUsuarioId,
+                    AutorResponsavel = autor.AutorResponsavel,
                 };
                 autores.Add(autorInfo);
             }
@@ -310,6 +312,8 @@ namespace CICTED.Controllers
                 SubArea = subArea,
                 Status = status,
                 Id = trabalho.Id,
+                StatusTrabalhoId = trabalho.StatusTrabalhoId,
+                
             };
 
 

@@ -160,14 +160,22 @@
                 $('#area').text(data.areaConhecimento);
                 $('#subarea').text(data.subArea);
                 $('#evento').text(data.eventoNome);
-                $('#status').text(data.status);
-                $('#data-cadastro').text(data.dataCadastro.toString('dd/MM/yyyy'));
+                $('#status').text(data.status);                
+             
+                var d = new Date(data.dataCadastro);             
+                               
+
+                $('#data-cadastro').text(d.getDate() + "/" + (d.getMonth() + 1) + "/" +  d.getFullYear());
 
                 if (data.statusTrabalhoId != 3) {
-                    $('#data-submissao').text(data.dataSubmissao);
+                    var dataSubmissao = new Date(data.dataSubmissao);
+                    $('#data-submissao').text(dataSubmissao.getDate() + "/" + (dataSubmissao.getMonth() + 1) + "/" + dataSubmissao.getFullYear());
+                }
+                else {
+                    $('#data-submissao').text("Trabalho não submetido");
                 }
 
-                $('#data-submissao').text(data.subarea);
+                //$('#data-submissao').text(data.subarea);
 
                 $('#outros-autores').html('');
 
@@ -191,7 +199,7 @@
                     if (item.orientador == true) {
                         $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
                     }
-                    else if (item.statusId == 5) {
+                    else if (item.autorResponsavel == true) {
                         $('#autor-principal').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
                     }
                     else {
@@ -209,7 +217,8 @@
                 $('#titulo').html("<b>" + data.titulo + "</b>");
                 $('#introducao').text(data.introducao);
                 $('#metodologia').text(data.metodologia);
-                $('#resultado').text(data.resultado);
+                $('#resultados').text(data.resultado);
+                $('#conclusao').text(data.conclusao);
                 $('#referencia').text(data.referencia);
                 $('#palavras-chave').text(data.palavrasChave);
 
