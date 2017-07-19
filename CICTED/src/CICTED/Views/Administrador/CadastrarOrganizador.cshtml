@@ -65,14 +65,14 @@
             <div>
                 <div class="float-left" style="width:40%">
                     <label>Evento:</label>
-                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropEvento" value="@Model.EventoId" asp-for="EventoId">
+                    <select class="input-consulta-trab-adm" style="width:500px !important" id="Evento" value="@Model.EventoId" asp-for="EventoId" multiple="multiple">
                         <option value="-1">Selecione o evento</option>
                         @foreach (var evento in Model.Eventos)
                         {
                             <option value="@evento.Id"> @evento.Sigla</option>
 
                         }
-                    </select>
+                    </select> 
                 </div>
                 <div class="float-right" style="width:50%">
                     <label>Área:</label>
@@ -97,10 +97,6 @@
             </div>
         </div>
 
-        <div class="margin-top-10 row" id="avaliador" style="display: none">
-
-        </div>
-
         <br />
 
         <div class="margin-top-10" style="margin-left:33%">
@@ -114,6 +110,8 @@
 
     </div>
 </form>
+
+<script src="multiple-select.js"></script>
 
 <script type="text/javascript">
     $("#checkAvaliador").on("change", function () {
@@ -130,20 +128,5 @@
     $("#Celular").mask("(99) 99999-9999");
     $("#Telefone").mask("(99) 9999-9999");
 
-    $("#dropEvento").on("change", function () {
-        var evento = $(this);
-        var id = $(this).val();
-
-        $.ajax({
-            url: '/evento/descricao',
-            type: 'get',
-            data: {
-                id: id
-            },
-
-            error: function (x, y, message) {
-                alert("Evento nao encontrado ")
-            },
-        });
-    });
+    $("#Evento").multipleSelect();
 </script>
