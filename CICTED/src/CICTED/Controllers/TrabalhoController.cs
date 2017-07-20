@@ -170,7 +170,7 @@ namespace CICTED.Controllers
 
             //gera identificação
             model.Evento = await _eventoRepository.GetEvento(idEvento);
-            string identificacao = await geraIdentificacao(model.Evento);
+            string identificacao = await GeraIdentificacao(model.Evento);
 
             model.DataCadastro = DateTime.Now;
 
@@ -680,34 +680,8 @@ namespace CICTED.Controllers
             return Json(trabalhoInfo); 
 
         }
-        [HttpGet("Dashboard")]
-        [Authorize]
-        public async Task<IActionResult> Dashboard()
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            else
-            {
-                DashboardViewModel model = new DashboardViewModel();
-                var cadastrados = await _trabalhoRepository.GetQuantidadeDatasCadastrados();
-                var submetidos = await _trabalhoRepository.GetQuantidadeDatasSubmetidos();
-                var avaliados = await _trabalhoRepository.GetQuantidadeDataAvaliacao();
-                return View(model);
-            }
-        }
-
-        public async Task<IActionResult> GraficoTrabalhos(int idEvento)
-        {
-            var cadastrados = await _trabalhoRepository.GetQuantidadeDatasCadastrados(idEvento);
-            var submetidos = await _trabalhoRepository.GetQuantidadeDatasSubmetidos(idEvento);
-            var avaliados = await _trabalhoRepository.GetQuantidadeDataAvaliacao(idEvento);
-
-            return View();
-        }
-
-       public async Task<string> geraIdentificacao(Evento evento)
+        
+       public async Task<string> GeraIdentificacao(Evento evento)
         {
             var rand = new Random();
             var next = rand.Next(10000, 99999);
@@ -720,7 +694,7 @@ namespace CICTED.Controllers
             }
             else
             {
-                return await geraIdentificacao(evento);
+                return await GeraIdentificacao(evento);
             }
 
         }

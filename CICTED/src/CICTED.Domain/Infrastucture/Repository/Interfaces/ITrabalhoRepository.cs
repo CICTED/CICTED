@@ -26,10 +26,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<bool> CadastrarAlunoTrabalho(long idTrabalho, List<string> nomeAluno);
         Task<Trabalho> GetTrabalho(string identificador);
         Task<SubAreaConhecimento> GetSubArea(long subAreaConhecimentoId);
-        Task<bool> CadastraPalavrasChave(string palavras, long trabalhoId);
-        Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasCadastrados(int idEvento = 0);
-        Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasSubmetidos(int idEvento = 0);
-        Task<List<QuantidadeDatasViewModel>> GetQuantidadeDataAvaliacao(int idEvento = 0);
+        Task<bool> CadastraPalavrasChave(string palavras, long trabalhoId);       
         Task<List<long>> GetIdTtrabalhos(int idEvento);
     }
 }
