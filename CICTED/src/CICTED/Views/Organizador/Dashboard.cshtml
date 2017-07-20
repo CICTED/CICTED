@@ -3,9 +3,6 @@
 @{
     Layout = "_Menu";
 }
-<script type="text/javascript">
-    var randomnb = function () { return Math.round(Math.random() * 300) };
-</script>
 
 <div class="form-group dashboard">
     <h2 style="text-align:center"><b>Dashboard</b></h2>
@@ -106,8 +103,9 @@
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: [50, 30, 40, 50, 90, 10, 20, 30, 35, 100, 150, 200]
+                            data: [@Model.Cadastrados, 30, 40, 50, 90, 10, 20, 30, 35, 100, 150, 200]
                         },
+                       
                         {
                             label: "Submetidos",
                             fillColor: "rgba(151,187,205,0.2)",
@@ -132,7 +130,6 @@
                 };
 
                 window.onload = function () {
-
                     var ctx = document.getElementById("GraficoLine").getContext("2d");
                     var LineChart = new Chart(ctx).Line(data, options);
                 }

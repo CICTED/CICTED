@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace CICTED.Domain.Infrastucture.Repository
 {
-    public class DashboardRepository : IDashboardRepository
+    public class OrganizadorRepository : IOrganizadorRepository
     {
         #region
         private CustomSettings _settings;
-        public DashboardRepository(IOptions<CustomSettings> settings)
+        public OrganizadorRepository(IOptions<CustomSettings> settings)
         {
             _settings = settings.Value;
         }
@@ -27,10 +27,10 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var query = $"SELECT dbo.Trabalho.DataCadastro, DATEPART(MONTH, dbo.Trabalho.DataCadastro) AS Mes, COUNT(*) As Quantidade "
+                    var query = $"SELECT DATEPART(MONTH, dbo.Trabalho.DataCadastro) AS Mes, COUNT(*) As Quantidade "
                     + "FROM dbo.Trabalho "
                     + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} " : "")} "
-                    + "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataCadastro), dbo.Trabalho.DataCadastro";
+                    + "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataCadastro)";
 
                     var selectDataCadastrados = await db.QueryAsync<QuantidadeDatasViewModel>(query);
                     return selectDataCadastrados.ToList();
@@ -48,11 +48,10 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var query = $"SELECT dbo.Trabalho.DataSubmissao, DATEPART(MONTH, dbo.Trabalho.DataSubmissao) AS Mes, COUNT(*) As Quantidade "
+                    var query = $"SELECT DATEPART(MONTH, dbo.Trabalho.DataSubmissao) AS Mes, COUNT(*) As Quantidade "
                     + "FROM dbo.Trabalho "
-
                     + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} AND" : "WHERE")} dbo.Trabalho.DataSubmissao is not null "
-                    + "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataSubmissao), dbo.Trabalho.DataSubmissao";
+                    + "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataSubmissao)";
 
                     var selectDataSubmissao = await db.QueryAsync<QuantidadeDatasViewModel>(query);
                     return selectDataSubmissao.ToList();
@@ -64,25 +63,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<List<QuantidadeDatasViewModel>> GetQuantidadeDataAvaliacao(int idEvento)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var query = "SELECT dbo.AvaliacaoTrabalho.DataAvaliacao, DATEPART(MONTH, dbo.Trabalho.DataCadastro) AS Mes, COUNT(*) As Quantidade " +
-                                "FROM dbo.Trabalho, dbo.AvaliacaoTrabalho " +
-                                "WHERE dbo.AvaliacaoTrabalho.TrabalhoId = dbo.Trabalho.Id " +
-                                "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataCadastro), dbo.AvaliacaoTrabalho.DataAvaliacao";
-                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query);
-                    return selectDataAvaliacao.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        
 
     }
 }
