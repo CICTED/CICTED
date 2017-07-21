@@ -43,15 +43,30 @@ namespace CICTED.Controllers
                 var totalAvaliados = 0;
                 var totalSubmetidos = 0;
 
+
                 DashboardViewModel model = new DashboardViewModel();
+                
                 var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados();
                 var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();
                 var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
 
-                foreach(var conta in cadastrados)
-                {
-                    totalCadastrados += conta.Quantidade;
-                }
+                //foreach(var trabalho in cadastrados)
+                //{
+                //    totalCadastrados += trabalho.Quantidade;
+                //    model.CadastradosMes.Insert(trabalho.Mes - 1, trabalho.Quantidade);
+                //}
+
+                //foreach(var trabalho in avaliados)
+                //{
+                //    totalAvaliados += trabalho.Quantidade;
+                //    model.AvaliadosMes[trabalho.Mes - 1] = trabalho.Quantidade;
+                //}
+
+                //foreach (var trabalho in submetidos)
+                //{
+                //    totalSubmetidos += trabalho.Quantidade;
+                //    model.SubmetidosMes[trabalho.Mes - 1] = trabalho.Quantidade;
+                //}
 
                 model.Cadastrados = cadastrados.Count();
                 model.Avaliados = avaliados.Count();
@@ -60,14 +75,7 @@ namespace CICTED.Controllers
             }
         }
 
-        public async Task<IActionResult> GraficoTrabalhos(int idEvento)
-        {
-            var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados();
-            var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();
-            var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
-
-            return View();
-        }
+        
 
     }
 }
