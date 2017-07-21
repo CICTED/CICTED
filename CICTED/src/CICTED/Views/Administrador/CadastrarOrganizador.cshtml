@@ -65,19 +65,17 @@
             <div>
                 <div class="float-left" style="width:40%">
                     <label>Evento:</label>
-                    <select class="input-consulta-trab-adm" style="width:500px !important" value="@Model.EventoId" asp-for="EventoId" multiple="multiple">
-                        <option value="-1">Selecione o evento</option>
+                    <select class="evento" style="width:500px !important" value="@Model.EventoId" asp-for="EventoId" multiple="multiple" id="ev">
                         @foreach (var evento in Model.Eventos)
                         {
                             <option value="@evento.Id"> @evento.Sigla</option>
 
                         }
-                    </select> 
+                    </select>
                 </div>
                 <div class="float-right" style="width:50%">
                     <label>Área:</label>
-                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId">
-                        <option value="-1">Selecione a área</option>
+                    <select class="area" style="width:500px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId">
                         @foreach (var areas in Model.AreaConhecimento)
                         {
                             <option value="@areas.Id">@areas.Area</option>
@@ -90,9 +88,7 @@
             <div>
                 <div class="float-left margin-top-10" style="width:40%">
                     <label>Subarea:</label>
-                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropSubArea">
-                        <option value="-1">Selecione a subarea</option>
-                    </select>
+                    <select class="subArea" style="width:500px !important" id="dropSubArea"></select>
                 </div>
             </div>
         </div>
@@ -111,7 +107,6 @@
     </div>
 </form>
 
-<script src="multiple-select.js"></script>
 
 <script type="text/javascript">
     $("#checkAvaliador").on("change", function () {
@@ -128,5 +123,15 @@
     $("#Celular").mask("(99) 99999-9999");
     $("#Telefone").mask("(99) 9999-9999");
 
-    $('select').multipleSelect();
+    $('.evento').multipleSelect({
+        placeholder: "Selecione o Evento"
+    });
+
+    $('.area').multipleSelect({
+        placeholder: "Selecione a Área"
+    });
+
+    $('.subArea').multipleSelect({
+        placeholder: "Selecione a Subarea"
+    });
 </script>
