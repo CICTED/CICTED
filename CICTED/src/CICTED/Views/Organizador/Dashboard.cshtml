@@ -103,7 +103,7 @@
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: [@Model.Cadastrados, 30, 40, 50, 90, 10, 20, 30, 35, 100, 150, 200]
+                            data: loadDadosDeCadastro()
                         },
                        
                         {
@@ -134,5 +134,42 @@
                     var LineChart = new Chart(ctx).Line(data, options);
                 }
 
+                function loadDadosDeCadastro() {
+                    $.ajax({
+                        url: '/relatorios/trabalhos/cadastrados',
+                        type: 'GET',
+                    
+                        success: function (valores) {
+                            
+                            var dados = dadosDeCadastroPorMes(valores);
+                            return (dados);
+                        },
+
+                        error: function(x,y,message){
+                            alert("Ta errado isso ai seu bosta");
+                        
+                        },
+                    });
+
+                }
+
+                function dadosDeCadastroPorMes(dados)
+                {
+                    var dadosPorMes = new Array();
+                    var i = 0;
+                    for(i = 0 ; i < 12 ; i++)
+                    {
+                        dadosPorMes[i] = 0;
+
+                        $.each(dados, function (j, item) {
+                            console.log(item);
+                            if (item.mes - 1 == i) {
+                                dadosPorMes[i] = item.quantidade;
+                            }
+                        });
+                    }
+
+                    return dadosPorMes;
+                }
 
 </script>
