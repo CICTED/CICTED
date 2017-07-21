@@ -103,7 +103,7 @@
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: loadDadosDeCadastro()
+                            data: this.dadosPorMes
                         },
                        
                         {
@@ -129,9 +129,11 @@
                     ]
                 };
 
+                var ctx;
+
                 window.onload = function () {
-                    var ctx = document.getElementById("GraficoLine").getContext("2d");
-                    var LineChart = new Chart(ctx).Line(data, options);
+                    loadDadosDeCadastro()
+                    ctx = document.getElementById("GraficoLine").getContext("2d");
                 }
 
                 function loadDadosDeCadastro() {
@@ -140,9 +142,9 @@
                         type: 'GET',
                     
                         success: function (valores) {
-                            
-                            var dados = dadosDeCadastroPorMes(valores);
-                            return (dados);
+                            dadosDeCadastroPorMes(valores);
+                            data.datasets[0].data = dadosPorMes;
+                            var LineChart = new Chart(ctx).Line(data, options);
                         },
 
                         error: function(x,y,message){
@@ -153,23 +155,22 @@
 
                 }
 
+                var dadosPorMes = new Array();
+
                 function dadosDeCadastroPorMes(dados)
                 {
-                    var dadosPorMes = new Array();
+                    
                     var i = 0;
                     for(i = 0 ; i < 12 ; i++)
                     {
-                        dadosPorMes[i] = 0;
+                        dadosPorMes.push(0);
 
                         $.each(dados, function (j, item) {
-                            console.log(item);
                             if (item.mes - 1 == i) {
-                                dadosPorMes[i] = item.quantidade;
+                                dadosPorMes.push(item.quantidade);
                             }
                         });
                     }
-
-                    return dadosPorMes;
                 }
 
 </script>
