@@ -91,6 +91,8 @@
                 var options = {
                     responsive: true
                 };
+                loadDadosDeCadastro()
+                loadDadosDeSubmicao()
 
                 var data = {
                     labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
@@ -103,7 +105,7 @@
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: this.dadosPorMes
+                            data: this.dadosCadastradosPorMes
                         },
                        
                         {
@@ -114,7 +116,7 @@
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(151,187,205,1)",
-                            data: [28, 48, 40, 19, 86, 27, 90, 200, 87, 20, 50, 20]
+                            data: this.dadosSubmetidosPorMes
                         },
                         {
                             label: "Avaliados",
@@ -130,10 +132,12 @@
                 };
 
                 var ctx;
+                var LineChart;
 
                 window.onload = function () {
-                    loadDadosDeCadastro()
+                    
                     ctx = document.getElementById("GraficoLine").getContext("2d");
+                    LineChart = new Chart(ctx).Line(data, options);
                 }
 
                 function loadDadosDeCadastro() {
@@ -141,10 +145,9 @@
                         url: '/relatorios/trabalhos/cadastrados',
                         type: 'GET',
                     
-                        success: function (valores) {
-                            dadosDeCadastroPorMes(valores);
-                            data.datasets[0].data = dadosPorMes;
-                            var LineChart = new Chart(ctx).Line(data, options);
+                        success: function (cadastrados) {
+                            dadosDeCadastroPorMes(cadastrados);
+                            data.datasets[0].data = dadosCadastradosPorMes;
                         },
 
                         error: function(x,y,message){
@@ -155,22 +158,61 @@
 
                 }
 
-                var dadosPorMes = new Array();
+                var dadosCadastradosPorMes = new Array();
 
-                function dadosDeCadastroPorMes(dados)
+                function dadosDeCadastroPorMes(cadastrados)
                 {
                     
                     var i = 0;
-                    for(i = 0 ; i < 12 ; i++)
-                    {
-                        dadosPorMes.push(0);
 
-                        $.each(dados, function (j, item) {
-                            if (item.mes - 1 == i) {
-                                dadosPorMes.push(item.quantidade);
+                    //for(i = 0 ; i < 12 ; i++)
+                    //{        
+                        $.each(cadastrados, function (j, item) {
+                            if ((item.mes - 1) == i) {
+                                dadosCadastradosPorMes.push(item.quantidade);                                
+                            } else {
+                                dadosCadastradosPorMes.push(0);
                             }
+                            i++;
                         });
-                    }
+                    //}
+                }
+
+                function loadDadosDeSubmicao() {
+                    $.ajax({
+                        url: '/relatorios/trabalhos/submetidos',
+                        type: 'GET',
+
+                        success: function (submetidos) {
+                            dadosDeSubmicaoPorMes(submetidos);
+                            data.datasets[1].data = dadosSubmetidosPorMes;
+                        },
+
+                        error: function (x, y, message) {
+                            alert("Ta errado isso ai seu bosta");
+
+                        },
+                    });
+
+                }
+
+                var dadosSubmetidosPorMes = new Array();
+
+                function dadosDeSubmicaoPorMes(submetidos) {
+
+                    var i = 0;
+                    
+                        
+
+                        $.each(submetidos, function (j, item) {
+                            if ((item.mes - 1) == i) {
+                                dadosSubmetidosPorMes.push(item.quantidade);
+                            } else {
+                                dadosSubmetidosPorMes.push(0);
+                            }
+                            i++;
+                        });
+                  
                 }
 
 </script>

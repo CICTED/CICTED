@@ -38,39 +38,35 @@ namespace CICTED.Controllers
                 return BadRequest();
             }
             else
-            {
-                var totalCadastrados = 0;
-                var totalAvaliados = 0;
-                var totalSubmetidos = 0;
-
-
+            {            
                 DashboardViewModel model = new DashboardViewModel();
                 
                 var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados();
                 var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();
                 var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
 
-                //foreach(var trabalho in cadastrados)
-                //{
-                //    totalCadastrados += trabalho.Quantidade;
-                //    model.CadastradosMes.Insert(trabalho.Mes - 1, trabalho.Quantidade);
-                //}
+                var totalCadastrados = 0;
+                var totalSubmetidos = 0;
+                var totalAvaliados = 0;
 
-                //foreach(var trabalho in avaliados)
-                //{
-                //    totalAvaliados += trabalho.Quantidade;
-                //    model.AvaliadosMes[trabalho.Mes - 1] = trabalho.Quantidade;
-                //}
+                foreach (var trabalho in cadastrados)
+                {
+                    totalCadastrados += trabalho.Quantidade;
+                }
 
-                //foreach (var trabalho in submetidos)
-                //{
-                //    totalSubmetidos += trabalho.Quantidade;
-                //    model.SubmetidosMes[trabalho.Mes - 1] = trabalho.Quantidade;
-                //}
+                foreach (var trabalho in submetidos)
+                {
+                    totalSubmetidos += trabalho.Quantidade;
+                }
 
-                model.Cadastrados = cadastrados.Count();
-                model.Avaliados = avaliados.Count();
-                model.Submetidos = submetidos.Count();
+                foreach (var trabalho in avaliados)
+                {
+                    totalAvaliados += trabalho.Quantidade;
+                }
+
+                model.Cadastrados = totalCadastrados;
+                model.Avaliados = totalAvaliados;
+                model.Submetidos = totalSubmetidos;
                 return View("Dashboard", model);
             }
         }
