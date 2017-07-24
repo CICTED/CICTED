@@ -1,6 +1,7 @@
 ﻿using CICTED.Domain.Entities.Trabalho;
 using CICTED.Domain.Models.Settings;
 using CICTED.Domain.ViewModels.Account;
+using CICTED.Domain.ViewModels.Trabalho;
 using Dapper;
 using Microsoft.Extensions.Options;
 using System;
@@ -37,6 +38,24 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
             catch (Exception ex)
             {
 
+                return null;
+            }
+        }
+
+        public async Task<List<string>> GetAlunos(long trabalhoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var querySelect = "SELECT AlunoNome FROM dbo.AlunoTrabalho WHERE TrabalhoId = @TrabalhoId";
+
+                    var selectAlunoNome = await db.QueryAsync<string>(querySelect, new { TrabalhoId = trabalhoId });
+
+                    return selectAlunoNome.ToList();
+                }
+            }catch(Exception ex)
+            {
                 return null;
             }
         }
@@ -124,7 +143,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
             }
         }
 
-        public async Task<AutorTrabalho> selectOrientador(long idTrabalho)
+        public async Task<AutorTrabalho> SelectOrientador(long idTrabalho)
         {
             try
             {
@@ -146,7 +165,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
             }
         }
 
-        public async Task<AutorTrabalho> selectAutores(long idTrabalho)
+        public async Task<AutorTrabalho> SelectAutores(long idTrabalho)
         {
             try
             {
@@ -191,5 +210,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
                 return false;
             }
         }
+
+
     }
 }
