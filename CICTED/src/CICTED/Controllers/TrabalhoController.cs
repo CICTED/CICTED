@@ -313,7 +313,7 @@ namespace CICTED.Controllers
                 Status = status,
                 Id = trabalho.Id,
                 StatusTrabalhoId = trabalho.StatusTrabalhoId,
-                
+                EventoId = evento.Id,
             };
 
 
@@ -344,13 +344,14 @@ namespace CICTED.Controllers
             return BadRequest("Não foi possível excluir");
         }
 
-        [HttpGet("{id}/alterar/autor")]
-        public async Task<IActionResult> AlterarAutor(long id)
+        [HttpGet("alterar/autor")]
+        public async Task<IActionResult> AlterarAutor(int eventoId, long trabalhoId)
         {
-            var autoresId = await _autorRepository.GetAutoresId(id);
+            var autoresId = await _autorRepository.GetAutoresId(trabalhoId);
+            
 
             AutoresViewModel model = new AutoresViewModel();
-            model.Id = id;
+            model.Id = trabalhoId;
             List<AutorViewModel> coautores = new List<AutorViewModel>() { };
 
             foreach (var autor in autoresId)
@@ -359,6 +360,7 @@ namespace CICTED.Controllers
 
                 var autorInfo = new AutorViewModel()
                 {
+                    AutorResponsavel = autor.AutorResponsavel,
                     Id = autor.UsuarioId,
                     Email = info.Email,
                     Orientador = autor.Orientador,
@@ -369,12 +371,10 @@ namespace CICTED.Controllers
                     autorInfo.Nome = info.Nome.ToUpper();
                     autorInfo.Sobrenome = info.Sobrenome.ToUpper();
                 }
-
-                if (autorInfo.StatusId == 5)
+                if(autorInfo.AutorResponsavel == true)
                 {
                     model.AutorPrincipal = autorInfo;
                 }
-
                 else if (autorInfo.Orientador == true)
                 {
                     model.Orientador = autorInfo;
