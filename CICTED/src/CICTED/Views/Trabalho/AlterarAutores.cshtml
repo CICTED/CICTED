@@ -12,7 +12,7 @@
                 <b>
                     Você é o Autor Principal do trabalho;<br />
                     Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
-                    O trabalho terá obrigatoriamente 1 (um) orientador.
+                    <wbr />O trabalho terá obrigatoriamente 1 (um) orientador.
                 </b>
             </h4>
             <h5>Para cadastrar um participante use uma das opções a baixo</h5>
@@ -139,6 +139,8 @@
                             <b>@Model.Orientador.Email</b>
                             <a class="deleta-autor" onclick="deletarAutor(@Model.Orientador.Id)" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
                             <input style="visibility:hidden;width: 1px;" name="Ids" value="@Model.Orientador.Id" />
+
+
                         </div>
                     </td>
                 </tr>

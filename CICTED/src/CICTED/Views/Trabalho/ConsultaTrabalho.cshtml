@@ -82,7 +82,7 @@
 
                     <div style="width:100%; height:50px">
                         <h4 class="float-left"><b style="color:#4e93ea">Autores</b></h4>
-                        <a id="alterar-autores" class="float-right btn-alterar">Alterar autores</a>
+                        <a id="alterar-autores" href="" class="float-right btn-alterar">Alterar autores</a>
                     </div>
 
 
@@ -143,6 +143,24 @@
 
 <script type="text/javascript">
 
+    //$("#alterar-autores").on("click", function () {
+    //    var button = $(this);
+    //    var idEvento = button.attr("data-id");
+    //    var idTrabalho = button.attr("data-trabalho");
+
+    //    $.ajax({
+    //        url: '/trabalho/alterar/autor',
+    //        type: 'get',
+    //        data: {
+    //            eventoId: idEvento,
+    //            trabalhoId: idTrabalho,
+    //        },
+    //    })
+
+    //});
+
+
+
     $(".trabalho").on("click", function () {
         var trabalho = $(this);
         var id = trabalho.attr("data-id");
@@ -155,7 +173,10 @@
             },
 
             success: function (data) {
-                $("#alterar-autores").attr("href", "/trabalho/" + data.id + "/alterar/autor");
+                
+                $("#alterar-autores").attr("/trabalho/alterar/autor/"+data.eventoId+"/"+data.id);
+                //$("#alterar-autores").attr('data-trabalho', data.id);
+                //$("#alterar-autores").attr("href", "/trabalho/" + data.id + "/alterar/autor");
                 $('#identificacao').text(data.identificacao);
                 $('#area').text(data.areaConhecimento);
                 $('#subarea').text(data.subArea);

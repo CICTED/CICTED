@@ -44,6 +44,8 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public string EventoNome { get; set; }
 
+        public long EventoId { get; set; }
+
         public List<string> palavrasChave { get; set; }
 
         public string AreaConhecimento { get; set; }

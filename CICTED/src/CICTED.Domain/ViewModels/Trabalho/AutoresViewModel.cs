@@ -10,6 +10,8 @@ namespace CICTED.Domain.ViewModels.Trabalho
     {
         public long Id { get; set; }
 
+        public List<string> AlunosNomes { get; set; }
+
         public AutorViewModel AutorPrincipal { get; set; }
 
         public List<AutorViewModel> Coautores { get; set; }
