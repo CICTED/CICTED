@@ -274,7 +274,7 @@ namespace CICTED.Controllers
             foreach (var autor in autoresId)
             {
                 var info = await _autorRepository.GetAutor(autor.UsuarioId);
-               
+
                 var autorInfo = new AutorViewModel()
                 {
                     Email = info.Email,
@@ -313,7 +313,7 @@ namespace CICTED.Controllers
                 Status = status,
                 Id = trabalho.Id,
                 StatusTrabalhoId = trabalho.StatusTrabalhoId,
-                
+
             };
 
 
@@ -331,6 +331,8 @@ namespace CICTED.Controllers
             }
             return Json(subAreas);
         }
+
+        
 
         [HttpPost("deletar/autor")]
         public async Task<IActionResult> DeletarAutorTrabalho(long userId, long idTrabalho)
@@ -651,20 +653,20 @@ namespace CICTED.Controllers
         {
             var trabalho = await _trabalhoRepository.GetTrabalho(model.IdentificadorTrabalho);
 
-            
 
-            var data = DateTime.Now;           
-        
-            if (await _avaliacaoRepository.InsertAvaliacao(trabalho.StatusTrabalhoId, model.AvaliadorId,trabalho.Id,model.Nota, model.NotaResumo, model.NotaMetodologia, model.NotaResultado, model.NotaObjetivo, model.Favorito,model.Comentario,data,2))
+
+            var data = DateTime.Now;
+
+            if (await _avaliacaoRepository.InsertAvaliacao(trabalho.StatusTrabalhoId, model.AvaliadorId, trabalho.Id, model.Nota, model.NotaResumo, model.NotaMetodologia, model.NotaResultado, model.NotaObjetivo, model.Favorito, model.Comentario, data, 2))
             {
-                
+
                 return RedirectToAction("avaliacaoPainel");
             }
             else
             {
                 return BadRequest("Erro ao salvar avaliação");
             }
-           
+
         }
         [HttpGet("pesquisa/trabalho")]
         public async Task<IActionResult> PesquisaTrabalho(string identificacao)
@@ -677,11 +679,11 @@ namespace CICTED.Controllers
             trabalhoInfo.TituloTrabalho = trabalho.Titulo;
             trabalhoInfo.SubArea = subArea.Nome;
 
-            return Json(trabalhoInfo); 
+            return Json(trabalhoInfo);
 
         }
-        
-       public async Task<string> GeraIdentificacao(Evento evento)
+
+        public async Task<string> GeraIdentificacao(Evento evento)
         {
             var rand = new Random();
             var next = rand.Next(10000, 99999);
@@ -699,7 +701,7 @@ namespace CICTED.Controllers
 
         }
 
-       
+
 
 
     }

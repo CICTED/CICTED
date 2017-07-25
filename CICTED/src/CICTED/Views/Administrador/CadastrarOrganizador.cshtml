@@ -32,7 +32,7 @@
 
             <div class="float-right" style="width:50%">
                 <label>Confirmar email: </label>
-                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="Email" />
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="ConfirmaEmail" />
             </div>
         </div>
 
@@ -121,7 +121,7 @@
         }
     });
 
-    $('#dropArea').subArea($('#dropSubArea'));
+    $('#dropArea').subAreas($('#dropSubArea'));
 
     $("#Celular").mask("(99) 99999-9999");
     $("#Telefone").mask("(99) 9999-9999");
