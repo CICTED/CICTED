@@ -37,7 +37,7 @@ namespace CICTED.Controllers
 
             return Json(submetidos);
         }
-        [HttpGet("trabalhosAvaliados")]
+        [HttpGet("trabalhos/avaliados")]
         public async Task<IActionResult> TrabalhosAvaliados(int idEvento)
         {
             var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
