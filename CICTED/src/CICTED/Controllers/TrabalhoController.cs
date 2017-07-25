@@ -344,50 +344,56 @@ namespace CICTED.Controllers
             return BadRequest("Não foi possível excluir");
         }
 
-        [HttpGet("alterar/autor")]
+        [HttpGet("alterar/autor/{eventoId}/{trabalhoId}")]
         public async Task<IActionResult> AlterarAutor(int eventoId, long trabalhoId)
         {
-            var autoresId = await _autorRepository.GetAutoresId(trabalhoId);
-            
-
-            AutoresViewModel model = new AutoresViewModel();
-            model.Id = trabalhoId;
-            List<AutorViewModel> coautores = new List<AutorViewModel>() { };
-
-            foreach (var autor in autoresId)
+            if(eventoId == 2 || eventoId == 3 || eventoId == 4)
             {
-                var info = await _autorRepository.GetAutor(autor.UsuarioId);
-
-                var autorInfo = new AutorViewModel()
-                {
-                    AutorResponsavel = autor.AutorResponsavel,
-                    Id = autor.UsuarioId,
-                    Email = info.Email,
-                    Orientador = autor.Orientador,
-                    StatusId = autor.StatusUsuarioId
-                };
-                if (info.Nome != null)
-                {
-                    autorInfo.Nome = info.Nome.ToUpper();
-                    autorInfo.Sobrenome = info.Sobrenome.ToUpper();
-                }
-                if(autorInfo.AutorResponsavel == true)
-                {
-                    model.AutorPrincipal = autorInfo;
-                }
-                else if (autorInfo.Orientador == true)
-                {
-                    model.Orientador = autorInfo;
-                }
-                else
-                {
-                    coautores.Add(autorInfo);
-                }
+                var alunosTrabalho = await _autorRepository.GetAlunos(trabalhoId);
+                AutoresViewModel model = new AutoresViewModel();
+                return PartialView("AlterarAutores", model);
             }
+            else
+            {
+                var autoresId = await _autorRepository.GetAutoresId(trabalhoId);
+                AutoresViewModel model = new AutoresViewModel();
+                model.Id = trabalhoId;
+                List<AutorViewModel> coautores = new List<AutorViewModel>() { };
 
-            model.Coautores = coautores;
+                foreach (var autor in autoresId)
+                {
+                    var info = await _autorRepository.GetAutor(autor.UsuarioId);
 
-            return View("AlterarAutores", model);
+                    var autorInfo = new AutorViewModel()
+                    {
+                        AutorResponsavel = autor.AutorResponsavel,
+                        Id = autor.UsuarioId,
+                        Email = info.Email,
+                        Orientador = autor.Orientador,
+                        StatusId = autor.StatusUsuarioId
+                    };
+                    if (info.Nome != null)
+                    {
+                        autorInfo.Nome = info.Nome.ToUpper();
+                        autorInfo.Sobrenome = info.Sobrenome.ToUpper();
+                    }
+                    if (autorInfo.AutorResponsavel == true)
+                    {
+                        model.AutorPrincipal = autorInfo;
+                    }
+                    else if (autorInfo.Orientador == true)
+                    {
+                        model.Orientador = autorInfo;
+                    }
+                    else
+                    {
+                        coautores.Add(autorInfo);
+                    }
+                }
+
+                model.Coautores = coautores;
+                return View("AlterarAutores", model);
+            } 
         }
 
         [HttpGet("pesquisa/autor")]
