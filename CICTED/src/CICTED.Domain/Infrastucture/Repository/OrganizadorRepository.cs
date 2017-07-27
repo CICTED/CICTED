@@ -63,7 +63,22 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        
+        public async Task<int> GetQuantidadeTrabalhos(int idArea)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectQuantidadeTralahos = db.QueryAsync<int>
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+
 
     }
 }
