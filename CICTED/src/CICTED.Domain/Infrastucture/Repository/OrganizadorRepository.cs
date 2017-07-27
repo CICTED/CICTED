@@ -69,13 +69,13 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var selectQuantidadeTralahos = await db.QueryAsync<int>("select dbo.Trabalho.Id From dbo.SubAreaConhecimento, dbo.Trabalho Where dbo.SubAreaConhecimento.AreaConhecimentoId = 3 and dbo.Trabalho.SubAreaConhecimentoId = dbo.SubAreaConhecimento.Id ",
+                    var selectQuantidadeTrabalhos = await db.QueryAsync<int>("select dbo.Trabalho.Id From dbo.SubAreaConhecimento, dbo.Trabalho Where dbo.SubAreaConhecimento.AreaConhecimentoId = 3 and dbo.Trabalho.SubAreaConhecimentoId = dbo.SubAreaConhecimento.Id ",
                         new
                         {
                             AreaConhecimentoId = idArea
                         });
 
-                    var listaTrabalhos = selectQuantidadeTralahos.ToList();
+                    var listaTrabalhos = selectQuantidadeTrabalhos.ToList();
 
                     return listaTrabalhos.Count();
                 }
