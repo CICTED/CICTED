@@ -77,7 +77,7 @@
                 <div class="float-right" style="width:50%">
                     <label>Área: <br />
                     (pressione a tecla CTRL para selecionar mais de uma área)</label>
-                    <select class="input-consulta-trab-adm" style="width:300px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId" multiple>
+                    <select class="input-consulta-trab-adm dropArea" style="width:300px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId" multiple>
                         @foreach (var areas in Model.AreaConhecimento)
                         {
                             <option value="@areas.Id">@areas.Area</option>
@@ -122,6 +122,10 @@
     });
 
     $('#dropArea').subAreas($('#dropSubArea'));
+
+    $('.dropArea').select2({
+        placeholder: "Selecione a area",
+    });
 
     $("#Celular").mask("(99) 99999-9999");
     $("#Telefone").mask("(99) 9999-9999");

@@ -1,0 +1,123 @@
+﻿@model List<CICTED.Domain.ViewModels.Administrador.Gerenciar>
+@{
+    Layout = "_Menu";
+}
+<title>Consultar Usuário - CICTED</title>
+
+<div class="form-consultTrabAdm">
+    <h3 style="font-weight: bold"><span class="fa fa-pencil-square-o"></span> Consultar Usuário</h3>
+
+    <div class="form-group">
+        Pesquisar: <input class="input-consulta-trab-adm" id="usuario-nome" style="width:350px !important" placeholder="Digite o nome ou email" autocomplete="off" />
+        <div style="height:0px; display:none" class="busca float-left">
+            <ul id="lista-nomes"></ul>
+        </div>
+        <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
+    </div>
+
+    <hr />
+
+    <table class="tabela-trabalho" style="margin:0 0 auto" border="1">
+        <tr>
+            <th style="width: 50px !important" class="form-group"></th>
+            <th>
+                Nome
+            </th>
+            <th>
+                Email
+            </th>
+            <th style="width: 80px !important" class="form-group"> Status</th>
+        </tr>
+
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td><a class="fa fa-search link usuario" data-toggle="modal" data-target="#myModal" data-id="@usuario.Id"></a></td>
+
+                <td>@usuario.Nome @usuario.Sobrenome</td>
+                <td>@usuario.Email</td>
+                @if (usuario.FirstAccess == false)
+                {
+                    <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
+                }
+                else
+                {
+                    <td><span class="fa fa-times-circle margin-left-10 color-reprovado"></span></td>
+                }
+            </tr>
+        }
+    </table>
+
+    <hr />
+
+    <h5>
+        <b>Legenda:</b>
+        <span class="fa fa-check-circle margin-left-10 color-aprovado"></span> Já acessou
+        <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
+    </h5>
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div style="width:50%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Informações do Usuário</h3>
+
+                    <hr />
+
+                    <table class="table-trabalho">
+                        <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
+                        <tr><td><b>Email: </b></td><td id="Email"></td></tr>
+                        <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
+                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
+                        <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
+                        <tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>
+                        <tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>
+                        <tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>
+                        <tr><td><b>Função: </b></td><td id="Funcao"></td></tr>
+                    </table>
+
+                    <br />
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(".usuario").on("click", function () {
+        var autor = $(this);
+        var id = autor.attr("data-id");
+
+        $.ajax({
+            url: '/organizador/informacaoUsuario',
+            type: 'get',
+            data: {
+                id: id
+            },
+
+            success: function (data) {
+                $('#Nome').text(data.nome + ' ' + data.sobrenome);
+                $('#Email').text(data.email);
+                $('#Telefone').text(data.phoneNumber);
+                $('#Celular').text(data.celular);
+                $('#CPF').text(data.cpf);
+                $('#Nascimento').text(data.nascimento);
+                $('#Endereco').text(data.logradouro + ', ' + data.numero + ', ' + data.bairro + ', ' + data.cidadeNome + ' - ' + data.sigla);
+                $('#Funcao').text();
+
+                if (data.genero == true) {
+                    $('#Genero').text('Feminino');
+                } else {
+                    $('#Genero').text('Masculino');
+                }
+
+            }
+        });
+    });
+</script>
