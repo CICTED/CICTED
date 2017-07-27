@@ -63,6 +63,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+
         public async Task<int> GetQuantidadeTrabalhos(int idArea)
         {
             try
