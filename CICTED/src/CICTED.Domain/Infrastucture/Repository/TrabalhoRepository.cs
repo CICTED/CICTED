@@ -434,7 +434,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-       
+
 
         public async Task<List<long>> GetIdTtrabalhos(int idEvento)
         {
@@ -451,6 +451,71 @@ namespace CICTED.Domain.Infrastucture.Repository
                 }
             }
             catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> DeletarAutoresTrabalho(long trabalhoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = "DELETE FROM dbo.AutorTrabalho WHERE AutorResponsavel = @AutorResponsavel AND TrabalhoId = @TrabalhoId";
+
+                    var delete = await db.ExecuteAsync(query,
+                                                        new
+                                                        {
+                                                            AutorResponsavel = false,
+                                                            TrabalhoId = trabalhoId
+                                                        });
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeletarAlunosTrabalho(long trabalhoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = "DELETE FROM dbo.AlunoTrabalho WHERE TrabalhoId = @TrabalhoId";
+
+                    var delete = await db.ExecuteAsync(query,
+                                                        new
+                                                        {
+                                                            TrabalhoId = trabalhoId
+                                                        });
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<string>> GetAlunos(long trabalhoId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = "SELECT AlunoNome FROM dbo.AlunoTrabalho WHERE TrabalhoId = @TrabalhoId";
+
+                    var select = await db.QueryAsync<string>(query, new { TrabalhoId = trabalhoId });
+
+                    return select.ToList();
+                }
+            }catch(Exception ex)
             {
                 return null;
             }

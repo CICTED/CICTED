@@ -46,7 +46,7 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public long EventoId { get; set; }
 
-        public List<string> palavrasChave { get; set; }
+        public List<string> PalavrasChave { get; set; }
 
         public string AreaConhecimento { get; set; }
 
@@ -56,7 +56,9 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public int StatusTrabalhoId { get; set; }
 
-        public List<AutorViewModel> autores { get; set; }
+        public List<AutorViewModel> Autores { get; set; }
+
+        public List<string> Alunos { get; set; }
     }
 
 
