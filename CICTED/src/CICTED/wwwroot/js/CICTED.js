@@ -56,7 +56,7 @@
         var subAreaId = dropSubAreas.val();
 
         dropDown.on('change', function () {
-            var areaId = $(this).select2();
+            var areaId = $(this).select2() || [];
 
            
                 $.ajax({
@@ -64,13 +64,13 @@
                     method: 'GET',
                     success: function (data) {
                         console.log(data);
-                        if (areaId === 1) {
+                        if (areaId == 1) {
                             dropSubAreas.append('<optgroup label="Ciencias Biologicas"></optgroup>')
                         } else {
-                            if (areaId === 2) {
+                            if (areaId == 2) {
                                 dropSubAreas.append('<optgroup label="Ciencias Exatas"></optgroup>')
                             } else {
-                                if (areaId === 3) {
+                                if (areaId == 3) {
                                     dropSubAreas.append('<optgroup label="Ciencias Humanas"></optgroup>')
                                 }
                             }

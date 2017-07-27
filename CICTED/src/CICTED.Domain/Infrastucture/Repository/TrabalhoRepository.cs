@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 using Dapper;
 using CICTED.Domain.ViewModels.Trabalho;
-using CICTED.Domain.ViewModels.Account;
+
 
 namespace CICTED.Domain.Infrastucture.Repository
 {

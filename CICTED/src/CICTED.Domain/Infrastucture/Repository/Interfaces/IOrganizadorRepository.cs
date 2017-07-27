@@ -1,4 +1,5 @@
-﻿using CICTED.Domain.ViewModels.Trabalho;
+﻿using CICTED.Domain.ViewModels.Administrador;
+using CICTED.Domain.ViewModels.Trabalho;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasSubmetidos(int idEvento = 0);
         Task<int> GetQuantidadeTrabalhos(int idArea);
         Task<int> GetQuantidadeTrabalhosAvaliados(int idArea);
+        Task<List<Gerenciar>> GetUsuarios();
+        Task<Gerenciar> GetUsuarios(long id);
     }
 }
