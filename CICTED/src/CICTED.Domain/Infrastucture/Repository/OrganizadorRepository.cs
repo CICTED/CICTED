@@ -69,7 +69,15 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var selectQuantidadeTralahos = db.QueryAsync<int>
+                    var selectQuantidadeTralahos = await db.QueryAsync<int>("select dbo.Trabalho.Id From dbo.SubAreaConhecimento, dbo.Trabalho Where dbo.SubAreaConhecimento.AreaConhecimentoId = 3 and dbo.Trabalho.SubAreaConhecimentoId = dbo.SubAreaConhecimento.Id ",
+                        new
+                        {
+                            AreaConhecimentoId = idArea
+                        });
+
+                    var listaTrabalhos = selectQuantidadeTralahos.ToList();
+
+                    return listaTrabalhos.Count();
                 }
             }
             catch (Exception ex)
@@ -78,7 +86,10 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-
-
+        public Task<int> GetQuantidadeTrabalhosAvaliados(int idArea)
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }

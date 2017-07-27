@@ -45,6 +45,10 @@ namespace CICTED.Controllers
                 var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados();
                 var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();
                 var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
+                model.TrabalhosBiologicas = await _organizadorRepository.GetQuantidadeTrabalhos(1);
+                model.TrabalhosExatas = await _organizadorRepository.GetQuantidadeTrabalhos(2);
+                model.TrabalhosHumanas = await _organizadorRepository.GetQuantidadeTrabalhos(3);
+
 
                 var totalCadastrados = 0;
                 var totalSubmetidos = 0;
@@ -68,6 +72,7 @@ namespace CICTED.Controllers
                 model.Cadastrados = totalCadastrados;
                 model.Avaliados = totalAvaliados;
                 model.Submetidos = totalSubmetidos;
+
                 return View("Dashboard", model);
             }
         }
