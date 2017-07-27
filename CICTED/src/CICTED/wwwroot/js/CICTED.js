@@ -32,23 +32,61 @@
             var areaId = $(this).val();
             dropSubAreas.html('<option value="-1">Selecione a subarea</option>');
 
-            $.ajax({
-                url: '/trabalho/list/subarea/' + areaId,
-                method: 'GET',
-                success: function (data) {
-                    console.log(data);
-                    $.each(data, function (i, item) {                        
-                            dropSubAreas.append('<option value="'+item.id+'">'+item.nome+'</option>');
-                      
-                    });
-                    dropSubAreas.removeAttr('disabled');
-                },
-                error: function (x, y, message) {
-                    console.log(data);
-                    dropSubAreas.attr('disabled','disabled');
-                }
-            });
+                $.ajax({
+                    url: '/trabalho/list/subarea/' + areaId,
+                    method: 'GET',
+                    success: function (data) {
+                        console.log(data);
+                        $.each(data, function (i, item) {
+                            dropSubAreas.append('<option value="' + item.id + '">' + item.nome + '</option>');
+
+                        });
+                        dropSubAreas.removeAttr('disabled');
+                    },
+                    error: function (x, y, message) {
+                        console.log(data);
+                        dropSubAreas.attr('disabled', 'disabled');
+                    }
+                });
         });
     };
-                           
+         
+    $.fn.subAreas = function (dropSubAreas) {
+        var dropDown = $(this);
+        var subAreaId = dropSubAreas.val();
+
+        dropDown.on('change', function () {
+            var areaId = $(this).select2();
+
+           
+                $.ajax({
+                    url: '/trabalho/list/subarea/' + areaId,
+                    method: 'GET',
+                    success: function (data) {
+                        console.log(data);
+                        if (areaId === 1) {
+                            dropSubAreas.append('<optgroup label="Ciencias Biologicas"></optgroup>')
+                        } else {
+                            if (areaId === 2) {
+                                dropSubAreas.append('<optgroup label="Ciencias Exatas"></optgroup>')
+                            } else {
+                                if (areaId === 3) {
+                                    dropSubAreas.append('<optgroup label="Ciencias Humanas"></optgroup>')
+                                }
+                            }
+                        }
+                        $.each(data, function (i, item) {
+                            dropSubAreas.append('<option value="' + item.id + '">' + item.nome + '</option>');
+
+                        });
+                        dropSubAreas.removeAttr('disabled');
+                    },
+                    error: function (x, y, message) {
+                        console.log(data);
+                        dropSubAreas.attr('disabled', 'disabled');
+                    }
+                });
+        });
+    };
+
 })(jQuery);
