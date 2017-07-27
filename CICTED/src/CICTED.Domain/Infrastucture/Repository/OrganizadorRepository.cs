@@ -1,5 +1,6 @@
 ﻿using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.Models.Settings;
+using CICTED.Domain.ViewModels.Administrador;
 using CICTED.Domain.ViewModels.Trabalho;
 using Dapper;
 using Microsoft.Extensions.Options;
@@ -90,6 +91,40 @@ namespace CICTED.Domain.Infrastucture.Repository
         {
             throw new NotImplementedException();
         }
-        
+
+
+        public async Task<List<Gerenciar>> GetUsuarios()
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectUsuarios = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.AspNetUsers");
+
+                    return selectUsuarios.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<Gerenciar> GetUsuarios(long id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectUsuarios = await db.QueryAsync<Gerenciar>("SELECT * FROM dbo.AspNetUsers WHERE Id = @Id", new { Id = id });
+
+                    return selectUsuarios.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
