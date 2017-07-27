@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.ViewModels.Trabalho;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
+using CICTED.Domain.ViewModels.Organizador;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

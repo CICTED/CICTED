@@ -1,4 +1,4 @@
-﻿@model CICTED.Domain.ViewModels.Trabalho.DashboardViewModel
+﻿@model CICTED.Domain.ViewModels.Organizador.DashboardViewModel
 
 @{
     Layout = "_Menu";
@@ -84,7 +84,35 @@
         </div>
 
     </div>
+    <h5>
+        Legenda:
+        <span class="fa fa-circle margin-left-30" style="color:#B22222"></span> Cadastrados
+        <span class="fa fa-circle margin-left-30" style="color:#4682B4"></span> Submetidos
+        <span class="fa fa-circle margin-left-30" style="color:#2E8B57"></span> Avaliados
+    </h5>
 
+    <table class="table table-striped">
+        <tr>
+            <th style="width:200px">Área</th>
+            <th style="width:150px">N° Trabalhos</th>
+            <th style="width:150px">N° Avaliados</th>
+        </tr>
+        <tr>
+            <td>Ciências Biológicas</td>
+            <td value="@Model.TrabalhosBiologicas">@Model.TrabalhosBiologicas</td>
+            <td value="@Model.AvaliadosBiologicas">@Model.TrabalhosBiologicas</td>
+        </tr>
+        <tr>
+            <td>Ciências Exatas</td>
+            <td value="@Model.TrabalhosExatas">@Model.TrabalhosExatas</td>
+            <td value="@Model.AvaliadosExatas">@Model.TrabalhosExatas</td>
+        </tr>
+        <tr>
+            <td>Ciências Humanas</td>
+            <td @Model.TrabalhosHumanas>@Model.TrabalhosHumanas</td>
+            <td value="@Model.AvaliadosHumanas">@Model.AvaliadosHumanas</td>
+        </tr>
+    </table>
 </div>
 <script type="text/javascript">
 

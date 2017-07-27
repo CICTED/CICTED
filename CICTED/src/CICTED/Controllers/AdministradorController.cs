@@ -7,6 +7,8 @@ using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.ViewModels.Administrador;
 using System.Collections.Generic;
 using System;
+using CICTED.Domain.Infrastucture.Services.Interfaces;
+using CICTED.Domain.Infrastucture.Helpers;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,9 +27,10 @@ namespace CICTED.Controllers
         private IAgenciaRepository _agenciaRepository;
         private ILocalizacaoRepository _localizacaoRepository;
         private IAdministradorRepository _administradorRepository;
+        private IEmailServices _emailServices;
 
 
-        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository)
+        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository, IEmailServices emailServices)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
@@ -38,6 +41,7 @@ namespace CICTED.Controllers
             _agenciaRepository = agenciaRepository;
             _administradorRepository = administradorRepository;
             _localizacaoRepository = localizacaoRepository;
+            _emailServices = emailServices;
         }
 
         [HttpGet("gerenciarOrganizador")]
@@ -106,7 +110,54 @@ namespace CICTED.Controllers
         {
             try
             {
-                return Ok();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                var user = new ApplicationUser
+                {
+                    Email = model.Email,
+                    NormalizedEmail = model.Email.ToUpper(),
+                    UserName = model.Email,
+                    NormalizedUserName = model.Email.ToUpper(),
+                    DataCadastro = DateTime.Now,
+                    Nome = model.Nome,
+                    Sobrenome = model.Sobrenome,
+                    PhoneNumber = model.PhoneNumber,
+                    Celular = model.Celular,
+                    CursosId = 1,
+                    InstituicaoId = 1,
+                    EnderecoId = 1,
+                    FirstAccess = true
+                };
+
+                var result = await _userManager.CreateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "ORGANIZADOR");
+
+                    //link
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(
+                       "ConfirmEmail", "Account",
+                       new { user = user.UserName, code = code });
+
+                    var url = $"{urlRoot}{callbackUrl}";
+
+                    //email
+                    var email = await _emailServices.EnviarEmail(user.Email, url);
+
+                    ViewBag.Cadastrado = "cadastrado";
+                    return View("GerenciarOrganizador", new List<Gerenciar>());
+                }
+                else
+                {
+                    await _userManager.DeleteAsync(user);
+                    ViewBag.Errors = result.ConvertToHTML();
+                    return View("CadastrarOrganizador", model);
+                }
             }
             catch (Exception ex)
             {
@@ -177,7 +228,69 @@ namespace CICTED.Controllers
         [Authorize]
         public async Task<IActionResult> CadastrarAvaliador(Gerenciar model)
         {
-            return Ok();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                if (model.Email == model.ConfirmaEmail)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = model.Email,
+                        NormalizedEmail = model.Email.ToUpper(),
+                        UserName = model.Email,
+                        NormalizedUserName = model.Email.ToUpper(),
+                        DataCadastro = DateTime.Now,
+                        Nome = model.Nome,
+                        Sobrenome = model.Sobrenome,
+                        PhoneNumber = model.PhoneNumber,
+                        Celular = model.Celular,
+                        CursosId = 1,
+                        InstituicaoId = 1,
+                        EnderecoId = 1,
+                        FirstAccess = true
+                    };
+
+                    var result = await _userManager.CreateAsync(user);
+
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, "AVALIADOR");
+
+                        //link
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Action(
+                           "ConfirmEmail", "Account",
+                           new { user = user.UserName, code = code });
+
+                        var url = $"{urlRoot}{callbackUrl}";
+
+                        //email
+                        var email = await _emailServices.EnviarEmail(user.Email, url);
+
+                        ViewBag.Cadastrado = "cadastrado";
+                        return View("GerenciarAvaliador", new List<Gerenciar>());
+
+                    }
+                    else
+                    {
+                        await _userManager.DeleteAsync(user);
+                        ViewBag.Errors = result.ConvertToHTML();
+                        return View("CadastrarAvaliador", model);
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("gerenciarAutor")]
