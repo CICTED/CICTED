@@ -11,8 +11,7 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
     {
         Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasCadastrados(int idEvento = 0);
         Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasSubmetidos(int idEvento = 0);
-        Task<int> GetQuantidadeTrabalhos(int idArea);
-        Task<int> GetQuantidadeTrabalhosAvaliados(int idArea);
+        Task<int> GetQuantidadeTrabalhos(int idArea, int idEvento = 0);        
         Task<List<Gerenciar>> GetUsuarios();
         Task<Gerenciar> GetUsuarios(long id);
     }

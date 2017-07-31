@@ -54,6 +54,7 @@ namespace CICTED.Controllers
                 var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados();
                 var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();
                 var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
+
                 model.TrabalhosBiologicas = await _organizadorRepository.GetQuantidadeTrabalhos(1);
                 model.TrabalhosExatas = await _organizadorRepository.GetQuantidadeTrabalhos(2);
                 model.TrabalhosHumanas = await _organizadorRepository.GetQuantidadeTrabalhos(3);
