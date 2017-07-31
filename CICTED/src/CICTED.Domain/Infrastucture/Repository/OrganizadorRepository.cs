@@ -64,12 +64,9 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-<<<<<<< HEAD
-        public async Task<int> GetQuantidadeTrabalhos(int idArea, int idEvento)
-=======
 
-        public async Task<int> GetQuantidadeTrabalhos(int idArea)
->>>>>>> 38e0ee090b2d33fbe38318d82e22e5e9351a17eb
+        public async Task<int> GetQuantidadeTrabalhos(int idArea, int idEvento)
+
         {
             try
             {
