@@ -88,19 +88,29 @@
 
 
                     <table class="table-trabalho">
-                        <tr><td><b class="margin-right-40">Autor Principal: </b></td><td id="autor-principal"></td></tr>
+                        <tr><td><b class="margin-right-40">Autor Responsável: </b></td><td id="autor-principal"></td></tr>
+
 
 
                         <tr>
                             <td>
-                                <b id="tipo-autor">Coautor: </b>
+                                <b id="tipo-orientador"> </b>
+                            </td>
+                            <td id="orientador"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b id="tipo-autor"></b>
                             </td>
                             <td id="outros-autores"></td>
                         </tr>
 
                         <tr>
-                            <td><b>Orientador: </b></td>
-                            <td id="orientador"></td>
+                            <td>
+                                <b id="tipo-alunos"></b>
+                            </td>
+                            <td id="alunos"></td>
                         </tr>
                     </table>
                     <hr />
@@ -143,24 +153,6 @@
 
 <script type="text/javascript">
 
-    //$("#alterar-autores").on("click", function () {
-    //    var button = $(this);
-    //    var idEvento = button.attr("data-id");
-    //    var idTrabalho = button.attr("data-trabalho");
-
-    //    $.ajax({
-    //        url: '/trabalho/alterar/autor',
-    //        type: 'get',
-    //        data: {
-    //            eventoId: idEvento,
-    //            trabalhoId: idTrabalho,
-    //        },
-    //    })
-
-    //});
-
-
-
     $(".trabalho").on("click", function () {
         var trabalho = $(this);
         var id = trabalho.attr("data-id");
@@ -173,20 +165,17 @@
             },
 
             success: function (data) {
-                
-                $("#alterar-autores").attr("/trabalho/alterar/autor/"+data.eventoId+"/"+data.id);
-                //$("#alterar-autores").attr('data-trabalho', data.id);
-                //$("#alterar-autores").attr("href", "/trabalho/" + data.id + "/alterar/autor");
+
+                $("#alterar-autores").attr("href", "/trabalho/alterar/autor/" + data.eventoId + "/" + data.id);
                 $('#identificacao').text(data.identificacao);
                 $('#area').text(data.areaConhecimento);
                 $('#subarea').text(data.subArea);
                 $('#evento').text(data.eventoNome);
-                $('#status').text(data.status);                
-             
-                var d = new Date(data.dataCadastro);             
-                               
+                $('#status').text(data.status);
 
-                $('#data-cadastro').text(d.getDate() + "/" + (d.getMonth() + 1) + "/" +  d.getFullYear());
+                var d = new Date(data.dataCadastro);
+                $('#data-cadastro').text(d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear());
+
 
                 if (data.statusTrabalhoId != 3) {
                     var dataSubmissao = new Date(data.dataSubmissao);
@@ -196,15 +185,25 @@
                     $('#data-submissao').text("Trabalho não submetido");
                 }
 
-                //$('#data-submissao').text(data.subarea);
 
                 $('#outros-autores').html('');
+                $('#tipo-orientador').html('');
+                $('#tipo-autor').html('');
+                $('#tipo-alunos').html('');
+                $('#orientador').html('');
+                $('#alunos').html('');
+
+                if (data.alunos != 0) {
+                    $('#tipo-alunos').text('Alunos: ');
+                    $.each(data.alunos, function (i, item) {
+                        $('#alunos').append('<div style="width:100%"><b> ' + item + '</b></div>');
+                    });
+                }
 
                 $.each(data.autores, function (i, item) {
                     var status;
 
-
-                    if (item.statusId == 1 || item.statusId == 5) {
+                    if (item.statusId == 1) {
                         status = '<span class="fa fa-check-circle color-aprovado"></span>';
                     }
                     else if (item.statusId == 2) {
@@ -218,6 +217,7 @@
                     }
 
                     if (item.orientador == true) {
+                        $('#tipo-orientador').text('Orientador: ');
                         $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
                     }
                     else if (item.autorResponsavel == true) {
