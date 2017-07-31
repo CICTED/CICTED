@@ -10,6 +10,9 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
     {
         Task<List<Gerenciar>> GetOrganizador();
         Task<bool> IsAvaliador(long userID);
+        Task<bool> IsOrganizador(long userID);
+        Task<bool> IsAutor(long userID);
+        Task<bool> IsAdministrador(long userID);
         Task<List<Gerenciar>> GetAvaliador();
         Task<List<Gerenciar>> GetAutor();
         Task<string> GetEvento(long userId);
