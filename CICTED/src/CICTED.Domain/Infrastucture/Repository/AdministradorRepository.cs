@@ -73,6 +73,63 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+        public async Task<bool> IsOrganizador(long userID)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectIsOrganizador = await db.QueryAsync<bool>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 2 AND UserId = @userId", new { userId = userID });
+
+                    return selectIsOrganizador.FirstOrDefault();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> IsAutor(long userID)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectIsAutor = await db.QueryAsync<bool>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 4 AND UserId = @userId", new { userId = userID });
+
+                    return selectIsAutor.FirstOrDefault();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> IsAdministrador(long userID)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectIsAdministrador = await db.QueryAsync<bool>("SELECT UserId FROM dbo.AspNetUserRoles WHERE RoleId = 1 AND UserId = @userId", new { userId = userID });
+
+                    return selectIsAdministrador.FirstOrDefault();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<List<Gerenciar>> GetAvaliador()
         {
             try

@@ -54,6 +54,7 @@ namespace CICTED.Controllers
                 var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados();
                 var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();
                 var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
+
                 model.TrabalhosBiologicas = await _organizadorRepository.GetQuantidadeTrabalhos(1);
                 model.TrabalhosExatas = await _organizadorRepository.GetQuantidadeTrabalhos(2);
                 model.TrabalhosHumanas = await _organizadorRepository.GetQuantidadeTrabalhos(3);
@@ -130,6 +131,10 @@ namespace CICTED.Controllers
             var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
             var estado = await _localizacaoRepository.GetEstado(cidade.Id);
 
+            var isAvaliador = await _administradorRepository.IsAvaliador(usuarios.Id);
+            var isAdministrador = await _administradorRepository.IsAdministrador(usuarios.Id);
+            var isAutor = await _administradorRepository.IsAutor(usuarios.Id);
+            var isOrganizador = await _administradorRepository.IsOrganizador(usuarios.Id);
 
             var model = new Gerenciar()
             {
@@ -141,7 +146,10 @@ namespace CICTED.Controllers
                 Email = usuarios.Email,
                 Nascimento = usuarios.DataNascimento.ToString("dd/MM/yyyy"),
                 Genero = usuarios.Genero,
-                Avaliador = usuarios.Avaliador,
+                Avaliador = isAvaliador,
+                Autor = isAutor,
+                Administrador = isAdministrador,
+                Organizador = isOrganizador,
                 Logradouro = endereco.Logradouro,
                 Bairro = endereco.Bairro,
                 CidadeNome = cidade.CidadeNome,

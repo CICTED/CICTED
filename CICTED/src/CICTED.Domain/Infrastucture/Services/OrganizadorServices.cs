@@ -28,9 +28,9 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
                 {
                     var query = "SELECT DATEPART(MONTH, dbo.Trabalho.DataCadastro) AS Mes, COUNT(*) As Quantidade " +
                                 "FROM dbo.Trabalho, dbo.AvaliacaoTrabalho " +
-                                "WHERE dbo.AvaliacaoTrabalho.TrabalhoId = dbo.Trabalho.Id " +
+                                "WHERE dbo.AvaliacaoTrabalho.TrabalhoId = dbo.Trabalho.Id AND dbo.Trabalho.EventoId = @EventoId " +
                                 "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataCadastro)";
-                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query);
+                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,new {EventoId = idEvento });
                     return selectDataAvaliacao.ToList();
                 }
             }
@@ -38,6 +38,26 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
             {
                 return null;
             }
+        }
+
+        public async Task<int> GetQuantidadeTrabalhosAvaliados(int idArea, int idEvento)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = "SELECT dbo.Trabalho.Id FROM dbo.Trabalho, dbo.AvaliacaoTrabalho "+
+                                 "WHERE dbo.AvaliacaoTrabalho.TrabalhoId = dbo.Trabalho.Id and dbo.Trabalho.EventoId = @EventoId";
+                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,new { EventoId = idEvento });
+
+                    return selectDataAvaliacao.ToList().Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
         }
     }
 }
