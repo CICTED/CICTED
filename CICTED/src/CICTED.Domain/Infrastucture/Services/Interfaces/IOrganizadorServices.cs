@@ -10,5 +10,6 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
     {
         Task<List<QuantidadeDatasViewModel>> GetQuantidadeDataAvaliacao(int idEvento = 0);
         Task<int> GetQuantidadeTrabalhosAvaliados(int idArea, int idEvento = 0);
+        Task<int> GetQuantidadeTrabalhos(int idArea, int idEvento = 0);
     }
 }

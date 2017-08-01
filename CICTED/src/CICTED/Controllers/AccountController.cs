@@ -26,8 +26,9 @@ namespace CICTED.Controllers
         private IAccountRepository _accountRepository;
         private ITrabalhoRepository _trabalhoRepository;
         private IAutorRepository _autorRepository;
+        private ILocalizacaoServices _localizacaoServices;
 
-        public AccountController(ITrabalhoRepository trabalhoRepository, IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoRepository localizacaoRepository, ISmsService smsService, IAutorRepository autorRepository)
+        public AccountController(ITrabalhoRepository trabalhoRepository, IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailServices emailServices, ILocalizacaoRepository localizacaoRepository, ISmsService smsService, IAutorRepository autorRepository, ILocalizacaoServices localizacaoServices)
         {
             _localizacaoRepository = localizacaoRepository;
             _emailServices = emailServices;
@@ -37,6 +38,7 @@ namespace CICTED.Controllers
             _accountRepository = accountRepository;
             _trabalhoRepository = trabalhoRepository;
             _autorRepository = autorRepository;
+            _localizacaoServices = localizacaoServices;
         }
 
         [HttpGet("login")]
@@ -394,7 +396,7 @@ namespace CICTED.Controllers
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 var endereco = await _accountRepository.GetEndereco(user.EnderecoId);
                 var estados = await _localizacaoRepository.GetEstados();
-                var estado = await _localizacaoRepository.GetEstado(endereco.CidadeId);
+                var estado = await _localizacaoServices.GetEstado(endereco.CidadeId);
                 var cursos = await _accountRepository.GetCursos();
                 var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
                 var cidades = await _localizacaoRepository.GetCidades(estado.Id);

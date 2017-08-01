@@ -41,25 +41,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
-        public async Task<Estado> GetEstado(long cidadeId)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var estadoId = await db.QueryAsync<int>("SELECT EstadoId FROM dbo.Cidade WHERE Id = @Id", new { Id = cidadeId });
-
-                    var result = await db.QueryAsync<Estado>("SELECT * FROM dbo.Estado WHERE Id = @Id", new { Id = estadoId });
-
-                    return result.FirstOrDefault();
-                }
-            }
-
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        
 
         public async Task<List<Cidade>> GetCidades(int estadoId)
         {

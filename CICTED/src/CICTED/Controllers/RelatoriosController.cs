@@ -53,9 +53,9 @@ namespace CICTED.Controllers
             var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos(idEvento);
             var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao(idEvento);
 
-            model.TrabalhosBiologicas = await _organizadorRepository.GetQuantidadeTrabalhos(1);
-            model.TrabalhosExatas = await _organizadorRepository.GetQuantidadeTrabalhos(2);
-            model.TrabalhosHumanas = await _organizadorRepository.GetQuantidadeTrabalhos(3);
+            model.TrabalhosBiologicas = await _organizadorServices.GetQuantidadeTrabalhos(1);
+            model.TrabalhosExatas = await _organizadorServices.GetQuantidadeTrabalhos(2);
+            model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhos(3);
 
             model.Cadastrados = cadastrados.Count();
             model.Submetidos = submetidos.Count();
