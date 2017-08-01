@@ -31,5 +31,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<bool> DeletarAutoresTrabalho(long trabalhoId);
         Task<bool> DeletarAlunosTrabalho(long trabalhoId);
         Task<List<string>> GetAlunos(long trabalhoId);
+        Task<bool> UpdateTrabalho(long trabalhoId, model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultado, model.Resumo, model.Conclusao, model.Referencia, model.ArtigoId)
     }
 }

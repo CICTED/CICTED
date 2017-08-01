@@ -20,6 +20,8 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public string Resultado { get; set; }
 
+        public string Objetivo { get; set; }
+
         public string Resumo { get; set; }
 
         public string Conclusao { get; set; }
@@ -48,6 +50,8 @@ namespace CICTED.Domain.ViewModels.Trabalho
 
         public List<string> PalavrasChave { get; set; }
 
+        public string PalavraChave { get; set; }
+
         public string AreaConhecimento { get; set; }
 
         public string SubArea { get; set; }
@@ -59,6 +63,10 @@ namespace CICTED.Domain.ViewModels.Trabalho
         public List<AutorViewModel> Autores { get; set; }
 
         public List<string> Alunos { get; set; }
+
+        public long ArtigoId { get; set; }
+
+
     }
 
 

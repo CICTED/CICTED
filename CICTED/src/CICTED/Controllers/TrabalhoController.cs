@@ -352,6 +352,7 @@ namespace CICTED.Controllers
         }
 
         [HttpGet("alterar/autor/{eventoId}/{trabalhoId}")]
+        [Authorize]
         public async Task<IActionResult> AlterarAutor(int eventoId, long trabalhoId)
         {
             if (eventoId == 2 || eventoId == 3 || eventoId == 4)
@@ -487,6 +488,40 @@ namespace CICTED.Controllers
             }
 
             return RedirectToAction("ConsultaTrabalho");
+        }
+
+        [HttpGet("editar/{eventoId}/{trabalhoId}")]
+        [Authorize]
+        public async Task<IActionResult> EditarTrabalho(int eventoId, long trabalhoId)
+        {
+            var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(trabalhoId);
+            var palavrasChave = await _trabalhoRepository.GetPalavrasChave(trabalhoId);
+            string palavraChave = string.Join(", ", palavrasChave);
+
+            var model = new InformacoesTrabalhoViewModel()
+            {
+                Introducao = trabalho.Introducao,
+                Metodologia = trabalho.Metodologia,
+                Titulo = trabalho.Titulo,
+                Resumo = trabalho.Resumo,
+                Conclusao = trabalho.Conclusao,
+                PalavraChave = palavraChave,
+                Referencia = trabalho.Referencia,
+                Resultado = trabalho.Resultado,
+                Objetivo = trabalho.Objetivo
+            };
+
+            return View("EditarTrabalho", model);
+        }
+
+        [HttpPost("editar/{eventoId}/{trabalhoId}")]
+        [Authorize]
+        public async Task<IActionResult> EditarTrabalho(InformacoesTrabalhoViewModel model, int eventoId, long trabalhoId)
+        {
+            var updateTrabalho = await _trabalhoRepository.UpdateTrabalho(trabalhoId, model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultado, model.Resumo, model.Conclusao, model.Referencia, model.ArtigoId);
+
+            var palavrasChave = await _trabalhoRepository.CadastraPalavrasChave(model.PalavraChave, trabalhoId);
+
         }
 
         [HttpGet("pesquisa/autor")]
