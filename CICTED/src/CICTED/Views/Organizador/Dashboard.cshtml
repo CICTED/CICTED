@@ -289,7 +289,26 @@
         var id = evento.attr("data-id");
 
         $.ajax({
-            url: ""
+            url: "/relatorios/trabalhos",
+            type: "Get",
+            data: {
+                idEvento : id                    
+            },
+            success: function (id) {
+                window.onload = function () {
+                    loadDadosDeAvaliacao();
+                    loadDadosDeCadastro();
+                    loadDadosDeSubmicao();
+                    ctx = document.getElementById("GraficoLine").getContext("2d");
+                }
+
+
+            },
+            
+            error: function (x,y,message) {
+                alert("Não deu")
+
+            }
         });
     });
 
