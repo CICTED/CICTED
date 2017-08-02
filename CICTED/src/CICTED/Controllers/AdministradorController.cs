@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Infrastucture.Helpers;
+using CICTED.Domain.Infrastucture.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,9 +29,11 @@ namespace CICTED.Controllers
         private ILocalizacaoRepository _localizacaoRepository;
         private IAdministradorRepository _administradorRepository;
         private IEmailServices _emailServices;
+        private IAdministradorServices _administradorServices;
+        private LocalizacaoServices _localizacaoServices;
 
 
-        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository, IEmailServices emailServices)
+        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository, IEmailServices emailServices, IAdministradorServices administradorServices, LocalizacaoServices localizacaoServices)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
@@ -42,6 +45,8 @@ namespace CICTED.Controllers
             _administradorRepository = administradorRepository;
             _localizacaoRepository = localizacaoRepository;
             _emailServices = emailServices;
+            _administradorServices = administradorServices;
+            _localizacaoServices = localizacaoServices;
         }
 
         [HttpGet("gerenciarOrganizador")]
@@ -49,7 +54,7 @@ namespace CICTED.Controllers
         public async Task<IActionResult> GerenciarOrganizador()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var organizadores = await _administradorRepository.GetOrganizador();
+            var organizadores = await _administradorServices.GetOrganizador();
             List<Gerenciar> model = new List<Gerenciar>();
 
             foreach (var organizador in organizadores)
@@ -170,15 +175,15 @@ namespace CICTED.Controllers
         public async Task<IActionResult> GerenciarAvaliador()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var avaliadores = await _administradorRepository.GetAvaliador();
+            var avaliadores = await _administradorServices.GetAvaliador();
 
             List<Gerenciar> model = new List<Gerenciar>();
 
             foreach (var avaliador in avaliadores)
             {
-                var evento = await _administradorRepository.GetEvento(avaliador.Id);
+                var evento = await _administradorServices.GetEvento(avaliador.Id);
 
-                var subAreaConhecimento = await _administradorRepository.GetSubAreaConhecimento(avaliador.Id);
+                var subAreaConhecimento = await _administradorServices.GetSubAreaConhecimento(avaliador.Id);
 
                 var avaliadorConsulta = new Gerenciar()
                 {
@@ -298,7 +303,7 @@ namespace CICTED.Controllers
         public async Task<IActionResult> GerenciarAutor()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var autores = await _administradorRepository.GetAutor();
+            var autores = await _administradorServices.GetAutor();
             List<Gerenciar> model = new List<Gerenciar>();
 
             foreach (var autor in autores)
@@ -328,7 +333,7 @@ namespace CICTED.Controllers
 
             Gerenciar endereco = await _localizacaoRepository.GetEndereco(organizadores.EnderecoId);
             var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
-            var estado = await _localizacaoRepository.GetEstado(cidade.Id);
+            var estado = await _localizacaoServices.GetEstado(cidade.Id);
 
 
             var model = new Gerenciar()
@@ -359,9 +364,9 @@ namespace CICTED.Controllers
             Gerenciar avaliadores = await _administradorRepository.GetAvaliador(id);
             Gerenciar endereco = await _localizacaoRepository.GetEndereco(avaliadores.EnderecoId);
             var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
-            var estado = await _localizacaoRepository.GetEstado(cidade.Id);
-            var eventos = await _administradorRepository.GetEvento(id);
-            var subArea = await _administradorRepository.GetSubAreaConhecimento(id);
+            var estado = await _localizacaoServices.GetEstado(cidade.Id);
+            var eventos = await _administradorServices.GetEvento(id);
+            var subArea = await _administradorServices.GetSubAreaConhecimento(id);
 
             var model = new Gerenciar()
             {
@@ -393,7 +398,7 @@ namespace CICTED.Controllers
             Gerenciar endereco = await _localizacaoRepository.GetEndereco(autores.EnderecoId);
             var instituicao = await _administradorRepository.GetInstituicao(autores.InstituicaoId);
             var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
-            var estado = await _localizacaoRepository.GetEstado(cidade.Id);
+            var estado = await _localizacaoServices.GetEstado(cidade.Id);
 
             var model = new Gerenciar()
             {

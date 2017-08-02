@@ -32,6 +32,8 @@ namespace CICTED.Controllers
         private IEmailServices _emailServices;
         private IAgenciaRepository _agenciaRepository;
         private IAvaliacaoRepository _avaliacaoRepository;
+        private IAreaServices _areaServices;
+        private ITrabalhoServices _trabalhoServices;
 
 
         public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAvaliacaoRepository avaliacaoRepository)
@@ -178,7 +180,7 @@ namespace CICTED.Controllers
 
             var trabalhoId = await _trabalhoRepository.InsertTrabalho(model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultados, model.Resumo, model.Conclusao, model.Referencias, model.NomeEscola, model.TelefoneEscola, model.CidadeEscola, identificacao, model.DataCadastro, model.TextoCitacao, model.CodigoCEP, model.AgenciaId, model.Evento.Id, model.ArtigoId, model.SubAreaId, model.PeriodoApresentacao);
 
-            var palavrasChave = await _trabalhoRepository.CadastraPalavrasChave(model.PalavraChave, trabalhoId);
+            var palavrasChave = await _trabalhoServices.CadastraPalavrasChave(model.PalavraChave, trabalhoId);
 
             if (trabalhoId > 0)
             {
@@ -239,7 +241,7 @@ namespace CICTED.Controllers
             {
 
                 var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
-                var areaConhecimento = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
+                var areaConhecimento = await _areaServices.GetArea(trabalho.SubAreaConhecimentoId);
                 var subAreaConhecimento = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
 
                 var trabalhoConsulta = new ConsultaTrabalho()
@@ -263,8 +265,8 @@ namespace CICTED.Controllers
         {
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
             var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
-            var palavrasChave = await _trabalhoRepository.GetPalavrasChave(id);
-            var area = await _areaRepository.GetArea(trabalho.SubAreaConhecimentoId);
+            var palavrasChave = await _trabalhoServices.GetPalavrasChave(id);
+            var area = await _areaServices.GetArea(trabalho.SubAreaConhecimentoId);
             var subArea = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
             var status = await _trabalhoRepository.GetStatusTrabalho(trabalho.StatusTrabalhoId);
 
@@ -495,7 +497,7 @@ namespace CICTED.Controllers
         public async Task<IActionResult> EditarTrabalho(int eventoId, long trabalhoId)
         {
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(trabalhoId);
-            var palavrasChave = await _trabalhoRepository.GetPalavrasChave(trabalhoId);
+            var palavrasChave = await _trabalhoServices.GetPalavrasChave(trabalhoId);
             string palavraChave = string.Join(", ", palavrasChave);
 
             var model = new InformacoesTrabalhoViewModel()
@@ -507,22 +509,21 @@ namespace CICTED.Controllers
                 Conclusao = trabalho.Conclusao,
                 PalavraChave = palavraChave,
                 Referencia = trabalho.Referencia,
-                Resultado = trabalho.Resultado,
-                Objetivo = trabalho.Objetivo
+                Resultado = trabalho.Resultado
             };
 
             return View("EditarTrabalho", model);
         }
 
-        [HttpPost("editar/{eventoId}/{trabalhoId}")]
-        [Authorize]
-        public async Task<IActionResult> EditarTrabalho(InformacoesTrabalhoViewModel model, int eventoId, long trabalhoId)
-        {
-            var updateTrabalho = await _trabalhoRepository.UpdateTrabalho(trabalhoId, model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultado, model.Resumo, model.Conclusao, model.Referencia, model.ArtigoId);
+        //[HttpPost("editar/{eventoId}/{trabalhoId}")]
+        //[Authorize]
+        //public async Task<IActionResult> EditarTrabalho(InformacoesTrabalhoViewModel model, int eventoId, long trabalhoId)
+        //{
+        //    var updateTrabalho = await _trabalhoRepository.UpdateTrabalho(trabalhoId, model.StatusTrabalhoId, model.Titulo, model.Introducao, model.Metodologia, model.Resultado, model.Resumo, model.Conclusao, model.Referencia, model.ArtigoId);
 
-            var palavrasChave = await _trabalhoRepository.CadastraPalavrasChave(model.PalavraChave, trabalhoId);
+        //    var palavrasChave = await _trabalhoServices.CadastraPalavrasChave(model.PalavraChave, trabalhoId);
 
-        }
+        //}
 
         [HttpGet("pesquisa/autor")]
         public async Task<IActionResult> PesquisaAutor(string busca)

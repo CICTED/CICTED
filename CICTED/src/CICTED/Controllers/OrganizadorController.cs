@@ -26,8 +26,9 @@ namespace CICTED.Controllers
         private UserManager<ApplicationUser> _userManager;
         private IAdministradorRepository _administradorRepository;
         private ILocalizacaoRepository _localizacaoRepository;
+        private ILocalizacaoServices _localizacaoServices;
 
-        public OrganizadorController(IOrganizadorServices organizadorServices, ITrabalhoRepository trabalhoRepository, IOrganizadorRepository dashboardRepository, UserManager<ApplicationUser> userManager, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository)
+        public OrganizadorController(IOrganizadorServices organizadorServices, ITrabalhoRepository trabalhoRepository, IOrganizadorRepository dashboardRepository, UserManager<ApplicationUser> userManager, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository, ILocalizacaoServices localizacaoServices)
         {
             _trabalhoRepository = trabalhoRepository;
             _organizadorRepository = dashboardRepository;
@@ -35,6 +36,7 @@ namespace CICTED.Controllers
             _userManager = userManager;
             _administradorRepository = administradorRepository;
             _localizacaoRepository = localizacaoRepository;
+            _localizacaoServices = localizacaoServices;
         }
 
 
@@ -55,9 +57,9 @@ namespace CICTED.Controllers
                 var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();
                 var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
 
-                model.TrabalhosBiologicas = await _organizadorRepository.GetQuantidadeTrabalhos(1);
-                model.TrabalhosExatas = await _organizadorRepository.GetQuantidadeTrabalhos(2);
-                model.TrabalhosHumanas = await _organizadorRepository.GetQuantidadeTrabalhos(3);
+                model.TrabalhosBiologicas = await _organizadorServices.GetQuantidadeTrabalhos(1);
+                model.TrabalhosExatas = await _organizadorServices.GetQuantidadeTrabalhos(2);
+                model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhos(3);
 
 
                 var totalCadastrados = 0;
@@ -129,7 +131,7 @@ namespace CICTED.Controllers
 
             Gerenciar endereco = await _localizacaoRepository.GetEndereco(usuarios.EnderecoId);
             var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
-            var estado = await _localizacaoRepository.GetEstado(cidade.Id);
+            var estado = await _localizacaoServices.GetEstado(cidade.Id);
 
             var isAvaliador = await _administradorRepository.IsAvaliador(usuarios.Id);
             var isAdministrador = await _administradorRepository.IsAdministrador(usuarios.Id);
