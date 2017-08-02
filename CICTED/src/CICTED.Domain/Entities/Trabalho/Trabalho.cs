@@ -21,6 +21,8 @@ namespace CICTED.Domain.Entities.Trabalho
 
         public string Resumo { get; set; }
 
+        public string Objetivo { get; set; }
+
         public string Conclusao { get; set; }
 
         public string Referencia { get; set; }
