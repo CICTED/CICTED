@@ -78,6 +78,9 @@ namespace CICTED
             services.AddTransient<IOrganizadorRepository, OrganizadorRepository>();
             services.AddTransient<IOrganizadorServices, OrganizadorServices>();
             services.AddTransient<ILocalizacaoServices, LocalizacaoServices>();
+            services.AddTransient<IAdministradorServices, AdministradorServices>();
+            services.AddTransient<IAreaServices, AreaServices>();
+            services.AddTransient<ITrabalhoServices, TrabalhoServices>();
 
             services.AddMvc();
         }

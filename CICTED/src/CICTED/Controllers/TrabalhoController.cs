@@ -36,7 +36,7 @@ namespace CICTED.Controllers
         private ITrabalhoServices _trabalhoServices;
 
 
-        public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAvaliacaoRepository avaliacaoRepository)
+        public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAvaliacaoRepository avaliacaoRepository, ITrabalhoServices trabalhoServices, IAreaServices areaServices)
         {
             _emailServices = emailServices;
             _trabalhoRepository = trabalhoRepository;
@@ -47,6 +47,8 @@ namespace CICTED.Controllers
             _autorRepository = autorRepository;
             _agenciaRepository = agenciaRepository;
             _avaliacaoRepository = avaliacaoRepository;
+            _trabalhoServices = trabalhoServices;
+            _areaServices = areaServices;
         }
 
         [HttpGet("cadastro/{idEvento}")]

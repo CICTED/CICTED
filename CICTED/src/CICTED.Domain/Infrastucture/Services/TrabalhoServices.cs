@@ -1,4 +1,5 @@
-﻿using CICTED.Domain.Models.Settings;
+﻿using CICTED.Domain.Infrastucture.Services.Interfaces;
+using CICTED.Domain.Models.Settings;
 using Dapper;
 using Microsoft.Extensions.Options;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CICTED.Domain.Infrastucture.Services
 {
-    public class TrabalhoServices
+    public class TrabalhoServices : ITrabalhoServices
     {
         private CustomSettings _settings;
 
