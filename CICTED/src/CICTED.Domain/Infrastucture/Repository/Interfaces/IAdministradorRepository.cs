@@ -16,5 +16,6 @@ namespace CICTED.Domain.Infrastucture.Repository.Interfaces
         Task<Gerenciar> GetAvaliador(long id);
         Task<Gerenciar> GetAutor(long id);
         Task<string> GetInstituicao(long instituicaoId);
+        Task<bool> Excluir(string id);
     }
 }
