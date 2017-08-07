@@ -30,10 +30,10 @@ namespace CICTED.Controllers
         private IAdministradorRepository _administradorRepository;
         private IEmailServices _emailServices;
         private IAdministradorServices _administradorServices;
-        private LocalizacaoServices _localizacaoServices;
+        private ILocalizacaoServices _localizacaoServices;
 
 
-        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository, IEmailServices emailServices, IAdministradorServices administradorServices, LocalizacaoServices localizacaoServices)
+        public AdministradorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository, IEmailServices emailServices, IAdministradorServices administradorServices, ILocalizacaoServices localizacaoServices)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
