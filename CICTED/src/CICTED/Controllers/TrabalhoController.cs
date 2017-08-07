@@ -36,7 +36,7 @@ namespace CICTED.Controllers
         private ITrabalhoServices _trabalhoServices;
 
 
-        public TrabalhoController(IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAvaliacaoRepository avaliacaoRepository)
+        public TrabalhoController(ITrabalhoServices trabalhoServices, IEmailServices emailServices, ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAvaliacaoRepository avaliacaoRepository)
         {
             _emailServices = emailServices;
             _trabalhoRepository = trabalhoRepository;
@@ -47,6 +47,7 @@ namespace CICTED.Controllers
             _autorRepository = autorRepository;
             _agenciaRepository = agenciaRepository;
             _avaliacaoRepository = avaliacaoRepository;
+            _trabalhoServices = trabalhoServices;
         }
 
         [HttpGet("cadastro/{idEvento}")]
@@ -263,22 +264,24 @@ namespace CICTED.Controllers
         [Authorize]
         public async Task<IActionResult> Informacao(long id)
         {
-            var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
-            var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
-            var palavrasChave = await _trabalhoServices.GetPalavrasChave(id);
-            var area = await _areaServices.GetArea(trabalho.SubAreaConhecimentoId);
-            var subArea = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
-            var status = await _trabalhoRepository.GetStatusTrabalho(trabalho.StatusTrabalhoId);
-
-            List<AutorTrabalho> autoresId = await _autorRepository.GetAutoresId(id);
-            List<AutorViewModel> autores = new List<AutorViewModel>() { };
-            List<string> alunos = new List<string>() { }; 
-
-            if (evento.Id == 2 || evento.Id == 3 || evento.Id == 4)
+            try
             {
-                alunos = await _trabalhoRepository.GetAlunos(id);
-            }
-            
+                var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(id);
+                var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
+                var palavrasChave = await _trabalhoServices.GetPalavrasChave(id);
+                var area = await _areaServices.GetArea(trabalho.SubAreaConhecimentoId);
+                var subArea = await _areaRepository.GetSubArea(trabalho.SubAreaConhecimentoId);
+                var status = await _trabalhoRepository.GetStatusTrabalho(trabalho.StatusTrabalhoId);
+
+                List<AutorTrabalho> autoresId = await _autorRepository.GetAutoresId(id);
+                List<AutorViewModel> autores = new List<AutorViewModel>() { };
+                List<string> alunos = new List<string>() { };
+
+                if (evento.Id == 2 || evento.Id == 3 || evento.Id == 4)
+                {
+                    alunos = await _trabalhoRepository.GetAlunos(id);
+                }
+
                 foreach (var autor in autoresId)
                 {
                     var info = await _autorRepository.GetAutor(autor.UsuarioId);
@@ -297,36 +300,41 @@ namespace CICTED.Controllers
                 }
 
 
-            var model = new InformacoesTrabalhoViewModel()
-            {
-                Titulo = trabalho.Titulo,
-                Identificacao = trabalho.Identificacao,
-                Conclusao = trabalho.Conclusao,
-                Metodologia = trabalho.Metodologia,
-                CidadeEscola = trabalho.CidadeEscola,
-                CodigoCEP = trabalho.CodigoCEP,
-                DataCadastro = trabalho.DataCadastro,
-                Introducao = trabalho.Introducao,
-                NomeEscola = trabalho.NomeEscola,
-                DataSubmissao = trabalho.DataSubmissao,
-                Referencia = trabalho.Referencia,
-                Resultado = trabalho.Resultado,
-                TelefoneEscola = trabalho.TelefoneEscola,
-                Resumo = trabalho.Resumo,
-                TextoFinanciadora = trabalho.TextoFinanciadora,
-                EventoNome = evento.EventoNome,
-                PalavrasChave = palavrasChave,
-                Autores = (autores == null) ? null : autores,
-                AreaConhecimento = area,
-                SubArea = subArea,
-                Status = status,
-                Id = trabalho.Id,
-                StatusTrabalhoId = trabalho.StatusTrabalhoId,
-                EventoId = evento.Id,
-                Alunos = (alunos != null) ? alunos : null,
-            };
+                var model = new InformacoesTrabalhoViewModel()
+                {
+                    Titulo = trabalho.Titulo,
+                    Identificacao = trabalho.Identificacao,
+                    Conclusao = trabalho.Conclusao,
+                    Metodologia = trabalho.Metodologia,
+                    CidadeEscola = trabalho.CidadeEscola,
+                    CodigoCEP = trabalho.CodigoCEP,
+                    DataCadastro = trabalho.DataCadastro,
+                    Introducao = trabalho.Introducao,
+                    NomeEscola = trabalho.NomeEscola,
+                    DataSubmissao = trabalho.DataSubmissao,
+                    Referencia = trabalho.Referencia,
+                    Resultado = trabalho.Resultado,
+                    TelefoneEscola = trabalho.TelefoneEscola,
+                    Resumo = trabalho.Resumo,
+                    TextoFinanciadora = trabalho.TextoFinanciadora,
+                    EventoNome = evento.EventoNome,
+                    PalavrasChave = palavrasChave,
+                    Autores = (autores == null) ? null : autores,
+                    AreaConhecimento = area,
+                    SubArea = subArea,
+                    Status = status,
+                    Id = trabalho.Id,
+                    StatusTrabalhoId = trabalho.StatusTrabalhoId,
+                    EventoId = evento.Id,
+                    Alunos = (alunos != null) ? alunos : null,
+                };
 
-            return Json(model);
+                return Json(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("list/subarea/{areaId}")]
