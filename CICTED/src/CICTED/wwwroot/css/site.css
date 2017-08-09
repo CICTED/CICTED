@@ -358,6 +358,11 @@ select {
     color: red !important;
 }
 /*EndColor*/
+
+input[type=file] {
+    outline: none !important;
+}
+
 .navbar {
     top: 0;
     padding-top: 10px;
@@ -369,6 +374,29 @@ select {
     border-radius: 0;
 }
 
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+    .inputfile + label {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        background-color: black;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+        .inputfile:focus + label,
+        .inputfile + label:hover {
+            background-color: red;
+        }
+
 .input-trabalho {
     border-radius: 5px !important;
     outline: none;
@@ -376,6 +404,11 @@ select {
     border-style: solid;
     border-color: #cccccc;
     padding: 2px;
+}
+
+.imagem-trabalho {
+    width: 150px;
+    height: 100px;
 }
 
 .tabela-trabalho {

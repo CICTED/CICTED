@@ -155,5 +155,28 @@ namespace CICTED.Domain.Infrastucture.Repository
                 return null;
             }
         }
+
+
+        public async Task<bool> Excluir(string id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var result = await db.ExecuteAsync("DELETE * FROM dbo.AspNetUsers WHERE Id = @ID",
+                        new
+                        {
+                            ID = id
+                        });
+                    return true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }

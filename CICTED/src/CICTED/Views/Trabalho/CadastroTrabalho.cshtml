@@ -178,12 +178,12 @@
                             </div>
                         </div>
 
-                            <div class="form-group row">
-                                <label class="float-left margin-left-40" style="width:223px !important">Texto de citação do <wbr /> financiamento: (opcional)</label>
-                                <textarea class="float-left margin-bottom-50" style="width: 440px !important" asp-for="TextoCitacao" value="@Model.TextoCitacao"></textarea>
-                            </div>
-
+                        <div class="form-group row">
+                            <label class="float-left margin-left-40" style="width:223px !important">Texto de citação do <wbr /> financiamento: (opcional)</label>
+                            <textarea class="float-left margin-bottom-50" style="width: 440px !important" asp-for="TextoCitacao" value="@Model.TextoCitacao"></textarea>
                         </div>
+
+                    </div>
                     <hr />
                     <b>Atenção: Caso seu trabalho envolva seres humanos deverão estar aprovadas por Comitê de Ética registrado junto à CONEP/CNS/MS. E o campo abaixo deve ser preenchido.</b>
 
@@ -477,12 +477,24 @@
 
                     @* Figuras *@
                     <div class="margin-top-10 row">
-                        <div class="float-left">
+                        <div class="float-left" style="width: 100%">
                             <p><b>Figuras: </b></p>
+                            <input type="file" name="file" id="imgInp" class="inputfile" />
+                            <label class="btn btn-primary" style="width: 140px !important;" for="imgInp" id="uploadImagem">Selecione arquivo</label>
                         </div>
-                        <div class="float-left margin-left-10">
-                            <button class="btn btn-primary"><span class="fa fa-file-image-o" aria-hidden="true"></span> Adicionar</button>
+
+
+                        <div class="margin-left-10" id="imagens">
+
+                            <div id="imagem1">
+                                <img class="margin-top-20 imagem-trabalho" id="imagem-1" src="" />
+                                <a>excluir</a>
+
+                            </div>
+
                         </div>
+
+
                     </div>
 
                     @* Conclusao, referencia, palavra chave *@
@@ -527,6 +539,24 @@
         </div>
     </form>
 
+    <div id="myModal" class="modal fade" role="dialog">
+        <div style="width:70%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="font-weight:bold">Imagem</h3>
+                    <hr />
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar Trabalho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 </body>
 
@@ -545,6 +575,47 @@
         orientador: false,
     });
 
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var qtdImagens = $("img[id *= imagem-]").length;
+                if (qtdImagens == 0) {
+                    $("#imagens").append('<img class="margin-top-20 imagem-trabalho" id="imagem-1" src="' + e.target.result + '"/>');
+                }
+                else if(qtdImagens == 1){
+                    $("#imagens").append('<img class="margin-top-20 imagem-trabalho" id="imagem-2" src="' + e.target.result + '"/>');
+                }
+                else {
+                    alert("maximo 2");
+                }
+
+                //var src1 = $('#imagem1').attr('src');
+                //var src2 = $('#imagem2').attr('src');
+                //if (src1 == "") {
+                //    $('#imagem1').attr('src', e.target.result);
+                //}
+                //else if(src2 == "") {
+                //    $('#imagem2').attr('src', e.target.result);
+                //}
+                //else {
+                //    alert("máximo 2 imagens");
+                //}
+            }
+
+            
+                            //<img class="imagem-trabalho" id="imagem-1" src="#" alt="your image" />
+                            //<img class="imagem-trabalho" id="imagem2" src="#" alt="your image" />
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
 
     $("#cadastrar-trabalho").on("click", function () {
         $(".message-error").hide();
