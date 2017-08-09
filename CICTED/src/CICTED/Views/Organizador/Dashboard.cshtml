@@ -16,35 +16,35 @@
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link" data-id="1">ENIC</a>
+            <a class="dashboard-link evento" data-id="1">ENIC</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link" data-id="2">ENIC JR</a>
+            <a class="dashboard-link evento" data-id="2">ENIC JR</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link" data-id="3">ENIC TEEN</a>
+            <a class="dashboard-link evento" data-id="3">ENIC TEEN</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link" data-id="4">ENIC KIDS</a>
+            <a class="dashboard-link evento" data-id="4">ENIC KIDS</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link" data-id="5">MIPG</a>
+            <a class="dashboard-link evento" data-id="5">MIPG</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link" data-id="6">SEDUNI</a>
+            <a class="dashboard-link evento" data-id="6">SEDUNI</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link" data-id="7">SEMEX</a>
+            <a class="dashboard-link evento" data-id="7">SEMEX</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link" data-id="8">PP&I</a>
+            <a class="dashboard-link evento" data-id="8">PP&I</a>
         </div>
     </div>
     <div class="form-group margin-top-30 margin-left-75">
@@ -116,10 +116,19 @@
 </div>
 <script type="text/javascript">
 
+
+    $(".evento").on("click", function () {
+        var evento = $(this);
+        var id = evento.attr("data-id");
+
     var options = {
         responsive: true
-    };    
+    };
 
+    loadDadosDeAvaliacao(id);
+    loadDadosDeCadastro(id);
+    loadDadosDeSubmicao(id);
+     
     var data = {
         labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
         datasets: [
@@ -161,12 +170,11 @@
 
 
     window.onload = function () {
-        loadDadosDeAvaliacao();
-        loadDadosDeCadastro();
-        loadDadosDeSubmicao();
+      
         ctx = document.getElementById("GraficoLine").getContext("2d");
     }
 
+   
 
     var dadosCadastradosPorMes = new Array();
     var dadosSubmetidosPorMes = new Array();
@@ -180,10 +188,13 @@
     }
 
 
-    function loadDadosDeCadastro() {
+    function loadDadosDeCadastro(id) {
         $.ajax({
             url: '/relatorios/trabalhos/cadastrados',
             type: 'GET',
+            data: {
+                idEvento: id
+            },
 
             success: function (cadastrados) {
                 dadosDeCadastroPorMes(cadastrados);
@@ -192,7 +203,7 @@
             },
 
             error: function (x, y, message) {
-                alert("Ta errado isso ai seu bosta");
+                alert("dados nao encontrados");
 
             },
         });
@@ -214,11 +225,13 @@
         }
     }
 
-    function loadDadosDeSubmicao() {
+    function loadDadosDeSubmicao(id) {
         $.ajax({
             url: '/relatorios/trabalhos/submetidos',
             type: 'GET',
-
+            data:{
+                idEvento: id
+            },
             success: function (submetidos) {
                 dadosDeSubmicaoPorMes(submetidos);
                 data.datasets[1].data = dadosSubmetidosPorMes;
@@ -226,7 +239,7 @@
             },
 
             error: function (x, y, message) {
-                alert("Ta errado isso ai seu bosta");
+                alert("dados nao encontrados");
 
             },
         });
@@ -250,11 +263,13 @@
     }
 
 
-    function loadDadosDeAvaliacao() {
+    function loadDadosDeAvaliacao(id) {
         $.ajax({
             url: '/relatorios/trabalhos/avaliados',
             type: 'GET',
-
+            data:{
+                idEvento:id
+            },
             success: function (avaliados) {
                 dadosDeAvaliacaoPorMes(avaliados);
                 data.datasets[2].data = dadosAvaliadosPorMes;
@@ -262,7 +277,7 @@
             },
 
             error: function (x, y, message) {
-                alert("Ta errado isso ai seu bosta");
+                alert("dados nao encontrados");
 
             },
         });
@@ -282,34 +297,13 @@
 
         }
     }
+
     
-
-    $(".evento").on(click, function () {
-        var evento = $(this);
-        var id = evento.attr("data-id");
-
-        $.ajax({
-            url: "/relatorios/trabalhos",
-            type: "Get",
-            data: {
-                idEvento : id                    
-            },
-            success: function (id) {
-                window.onload = function () {
-                    loadDadosDeAvaliacao();
-                    loadDadosDeCadastro();
-                    loadDadosDeSubmicao();
-                    ctx = document.getElementById("GraficoLine").getContext("2d");
-                }
-
-
-            },
-            
-            error: function (x,y,message) {
-                alert("Não deu")
-
-            }
-        });
+                
+            //loadDadosDeAvaliacao(id);
+            //loadDadosDeCadastro(id);
+            //loadDadosDeSubmicao(id);                 
+        
     });
 
 </script>

@@ -496,9 +496,11 @@ namespace CICTED.Controllers
         [Authorize]
         public async Task<IActionResult> EditarTrabalho(int eventoId, long trabalhoId)
         {
+
             var trabalho = await _trabalhoRepository.GetInformacaoTrabalho(trabalhoId);
             var palavrasChave = await _trabalhoServices.GetPalavrasChave(trabalhoId);
-            string palavraChave = string.Join(", ", palavrasChave);
+  
+            string palavraChave = string.Join(", ", palavrasChave, " ");
 
             var model = new InformacoesTrabalhoViewModel()
             {

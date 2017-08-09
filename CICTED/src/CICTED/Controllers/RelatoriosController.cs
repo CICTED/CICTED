@@ -38,6 +38,7 @@ namespace CICTED.Controllers
 
             return Json(submetidos);
         }
+
         [HttpGet("trabalhos/avaliados")]
         public async Task<IActionResult> TrabalhosAvaliados(int idEvento)
         {
