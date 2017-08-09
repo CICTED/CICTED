@@ -13,8 +13,8 @@
             <ul id="lista-nomes"></ul>
         </div>
         <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
-        <button class="fa fa-user-plus link btn btn-primary float-right" style="width:150px" type="submit" onclick="location.href='/administrador/cadastrarOrganizador'" > Novo Organizador</button>
-       
+        <button class="fa fa-user-plus link btn btn-primary float-right" style="width:150px" type="submit" onclick="location.href='/administrador/cadastrarOrganizador'"> Novo Organizador</button>
+
     </div>
 
     <hr />
@@ -70,7 +70,7 @@
         <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
     </h5>
 
-    
+
     <div id="myModal" class="modal fade" role="dialog">
         <div style="width:50%" class="modal-dialog">
             <div style="padding:10px" class="modal-content">
@@ -81,22 +81,14 @@
 
                     <hr />
 
-                    <table class="table table-striped">
-                        <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
-                        <tr><td><b>Email: </b></td><td id="Email"></td></tr>
-                        <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
-                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
-                        <tr><td><b>Avaliador: </b></td><td id="Avaliador"></td></tr>
-                        <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
-                        <tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>
-                        <tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>
-                        <tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>
+                    <table class="table table-striped" id="tabelaModal">
+
                     </table>
 
                     <br />
 
                     <button class="btn btn-primary" style="margin-left:32%; width:100px"><span class="fa fa-pencil-square-o"></span> Editar</button>
-                    <button class="btn btn-primary margin-left-20" style="width:100px"><span class="fa fa-close"></span> Excluir</button>
+                    <button asp-controller="administrador" asp-action="excluir" type="submit" class="btn btn-primary margin-left-20" style="width:100px"><span class="fa fa-close"></span> Excluir</button>
 
                 </div>
             </div>
@@ -119,6 +111,36 @@
             },
 
             success: function (data) {
+                if (data.avaliador == false) {
+                    $('#tabelaModal').html('<table class="table table-striped">' +
+                    '<tr><td><b>Nome: </b></td><td id="Nome"></td></tr>' +
+                    '<tr><td><b>Email: </b></td><td id="Email"></td></tr>' +
+                    '<tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>' +
+                    '<tr><td><b>Celular: </b></td><td id="Celular"></td></tr>' +
+                    '<tr><td><b>CPF: </b></td><td id="CPF"></td></tr>' +
+                    '<tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>' +
+                    '<tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>' +
+                    '<tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>' +
+                    '<tr><td><b>Avaliador: </b></td><td id="Avaliador"></td></tr>' +
+                    '</table>');
+                    $('#Avaliador').text('Não');
+                } else {
+                    $('#tabelaModal').html('<table class="table table-striped">' +
+                        '<tr><td><b>Nome: </b></td><td id="Nome"></td></tr>' +
+                        '<tr><td><b>Email: </b></td><td id="Email"></td></tr>' +
+                        '<tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>' +
+                        '<tr><td><b>Celular: </b></td><td id="Celular"></td></tr>' +
+                        '<tr><td><b>CPF: </b></td><td id="CPF"></td></tr>' +
+                        '<tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>' +
+                        '<tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>' +
+                        '<tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>' +
+                        '<tr><td><b>Avaliador: </b></td><td id="Avaliador"></td></tr>' +
+                        '<tr><td><b>Evento: </b></td><td id="Evento"></td></tr>' + 
+                        '<tr><td><b>Subarea de Conhecimento: </b></td><td id="SubArea"></td></tr>' +
+                        '</table>');
+                    $('#Avaliador').text('Sim');
+                }
+
                 $('#Nome').text(data.nome + ' ' + data.sobrenome);
                 $('#Email').text(data.email);
                 $('#Telefone').text(data.phoneNumber);
@@ -126,13 +148,8 @@
                 $('#CPF').text(data.cpf);
                 $('#Nascimento').text(data.nascimento);
                 $('#Endereco').text(data.logradouro + ', ' + data.numero + ', ' + data.bairro + ', ' + data.cidadeNome + ' - ' + data.sigla);
-
-                if (data.avaliador == false) {
-                    $('#Avaliador').text('Sim');
-                } else {
-                    $('#Avaliador').text('Não');
-
-                }
+                $('#Evento').text(data.evento);
+                $('#SubArea').text(data.subArea);
 
                 if (data.genero == true) {
                     $('#Genero').text('Feminino');
@@ -143,4 +160,5 @@
             }
         });
     });
+
 </script>

@@ -334,7 +334,7 @@ namespace CICTED.Controllers
             Gerenciar endereco = await _localizacaoRepository.GetEndereco(organizadores.EnderecoId);
             var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
             var estado = await _localizacaoServices.GetEstado(cidade.Id);
-
+            var isAvaliador = await _administradorRepository.IsAvaliador(organizadores.Id);
 
             var model = new Gerenciar()
             {
@@ -346,7 +346,7 @@ namespace CICTED.Controllers
                 Email = organizadores.Email,
                 Nascimento = organizadores.DataNascimento.ToString("dd/MM/yyyy"),
                 Genero = organizadores.Genero,
-                Avaliador = organizadores.Avaliador,
+                Avaliador = isAvaliador,
                 Logradouro = endereco.Logradouro,
                 Bairro = endereco.Bairro,
                 CidadeNome = cidade.CidadeNome,
@@ -419,6 +419,20 @@ namespace CICTED.Controllers
             };
 
             return Json(model);
+        }
+
+
+        [HttpPost("excluir")]
+        public async Task<IActionResult> Excluir(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var deletar = await _administradorRepository.Excluir(id);
+
+            return RedirectToAction("Home");
         }
 
     }
