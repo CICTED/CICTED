@@ -26,7 +26,6 @@
                 @* Passo 1 *@
                 <div role="tabpanel" class="tab-pane active margin-top-30" id="Passo1">
 
-
                     <div class="margin-top-30 form-group">
                         <h4>
                             <span class="fa fa-warning"></span><b> Confira atentamente o evento no qual irá participar, pois as regras de submissão são diferentes para cada evento.</b>
@@ -477,30 +476,43 @@
 
                     @* Figuras *@
                     <div class="margin-top-10 row">
-                        <div class="float-left" style="width: 100%">
+                        <div class="float-left margin-bottom-30" style="width: 100%">
                             <p><b>Figuras: </b></p>
                             <input type="file" name="file" id="imgInp" class="inputfile" />
                             <label class="btn btn-primary" style="width: 140px !important;" for="imgInp" id="uploadImagem">Selecione arquivo</label>
                         </div>
 
-
                         <div class="margin-left-10" id="imagens">
 
-                            <div id="imagem1">
-                                <img class="margin-top-20 imagem-trabalho" id="imagem-1" src="" />
-                                <a>excluir</a>
+                            <div id="imagem-1" class="width: 400px">
+                                <img class="imagem-trabalho float-left" id="arquivo-imagem" src="" />
+                                <div class="float-left margin-left-20">
 
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <b class="display-inline">Nome do arquivo:</b>
+                                        <h5 class="display-inline" id="nome-imagem"> sjlfasljfhnjsafn.png</h5>
+                                    </div>
+
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <b class="display-inline">Titulo:</b>
+                                        <h5 class="display-inline" id="titulo-imagem"> titulo titulo titulo </h5>
+                                    </div>
+
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <a style="padding: 3px" class="float-riht btn btn-primary float-right">excluir</a>
+                                    </div>
+                                </div>
+                                
                             </div>
 
                         </div>
-
 
                     </div>
 
                     @* Conclusao, referencia, palavra chave *@
                     @if (Model.EventoId != 8)
                     {
-                        <div class="margin-top-10 row">
+                        <div class="margin-top-20 row">
                             <p><b>Conclusão: </b></p>
                             <div class="on-focus clearfix" style="position: relative">
                                 <textarea id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
@@ -540,15 +552,25 @@
     </form>
 
     <div id="myModal" class="modal fade" role="dialog">
-        <div style="width:70%" class="modal-dialog">
+        <div style="width:40%" class="modal-dialog">
             <div style="padding:10px" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 style="font-weight:bold">Imagem</h3>
-                    <hr />
+                    <div id="content-imagem">
+
+                        <img class="imagem-trabalho float-left margin-top-20" id="arquivo-imagem" src="" />
+                        <div class="float-left margin-left-20 margin-top-20" style="width: 60%">
+                            <h5 class="float-left"><b>Nome do arquivo:</b></h5>
+                            <h5 style="width: 60%" class="float-left margin-left-10" id="nome-file"></h5>
+                        </div>
+
+                        <div class="float-left margin-left-20 margin-top-10" style="width: 60%">
+                            <h5><b>Titulo:  </b> <input class="custom-input" id="titulo-file" /></h5>
+                        </div>
+                    </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar Trabalho</button>
+                        <button type="button" class="btn btn-primary margin-top-20" data-dismiss="modal">Cadastrar imagem</button>
                     </div>
                 </div>
             </div>
@@ -576,21 +598,29 @@
     });
 
 
+
     function readURL(input) {
         if (input.files && input.files[0]) {
+            var name = input.files[0].name;
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                var qtdImagens = $("img[id *= imagem-]").length;
-                if (qtdImagens == 0) {
-                    $("#imagens").append('<img class="margin-top-20 imagem-trabalho" id="imagem-1" src="' + e.target.result + '"/>');
-                }
-                else if(qtdImagens == 1){
-                    $("#imagens").append('<img class="margin-top-20 imagem-trabalho" id="imagem-2" src="' + e.target.result + '"/>');
-                }
-                else {
-                    alert("maximo 2");
-                }
+
+                $("#arquivo-imagem").attr('src', e.target.result);
+                $("#nome-file").text(name);
+                $("#myModal").modal();
+
+                //var qtdImagens = $("img[id *= imagem-]").length;
+                //if (qtdImagens == 0) {
+                //    $("#imagens").append('<img class="margin-top-20 imagem-trabalho" id="imagem-1" src="' + e.target.result + '"/>');
+                //}
+                //else if (qtdImagens == 1) {
+                //    $("#imagens").append('<img class="margin-top-20 imagem-trabalho" id="imagem-2" src="' + e.target.result + '"/>');
+
+                //}
+                //else {
+                //    alert("maximo 2");
+                //}
 
                 //var src1 = $('#imagem1').attr('src');
                 //var src2 = $('#imagem2').attr('src');
@@ -605,15 +635,15 @@
                 //}
             }
 
-            
-                            //<img class="imagem-trabalho" id="imagem-1" src="#" alt="your image" />
-                            //<img class="imagem-trabalho" id="imagem2" src="#" alt="your image" />
+
+            //<img class="imagem-trabalho" id="imagem-1" src="#" alt="your image" />
+            //<img class="imagem-trabalho" id="imagem2" src="#" alt="your image" />
 
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    $("#imgInp").change(function(){
+    $("#imgInp").change(function () {
         readURL(this);
     });
 

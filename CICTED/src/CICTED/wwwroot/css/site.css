@@ -1087,3 +1087,14 @@ label {
     margin: 0 auto;
     padding: 10px;
 }
+
+.custom-input {
+    border: 0;
+    width: 86%;
+    outline: none;
+    border-bottom: 1px solid #DDD;
+}
+
+.display-inline{
+    display: inline !important;
+}
