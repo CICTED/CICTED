@@ -421,18 +421,35 @@ namespace CICTED.Controllers
             return Json(model);
         }
 
+        [HttpGet("list/subarea/{areaId}")]
+        public async Task<IActionResult> Subarea(List<int> areaId)
+        {
+            var subAreas = await _areaRepository.GetSubAreass(areaId);
+
+            if (subAreas == null)
+            {
+                return BadRequest("There was an error to load the subAreas.");
+            }
+            return Json(subAreas);
+        }
 
         [HttpPost("excluir")]
         public async Task<IActionResult> Excluir(string id)
         {
-            if (!ModelState.IsValid)
+            try
+            {
+                var deletar = await _administradorRepository.Excluir(id);
+
+                if (deletar == true)
+                {
+                    return Ok();
+                }
+                return BadRequest("Não foi possível excluir");
+            }
+            catch (Exception ex)
             {
                 return BadRequest();
             }
-
-            var deletar = await _administradorRepository.Excluir(id);
-
-            return RedirectToAction("Home");
         }
 
     }

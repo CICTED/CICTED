@@ -56,11 +56,11 @@
         var subAreaId = dropSubAreas.val();
 
         dropDown.on('change', function () {
-            var areaId = $(this).select2() || [];
+            var areaId = $(this).val();
 
            
                 $.ajax({
-                    url: '/trabalho/list/subarea/' + areaId,
+                    url: '/administrador/list/subarea/' + areaId,
                     method: 'GET',
                     success: function (data) {
                         console.log(data);

@@ -71,7 +71,7 @@
     </h5>
 
 
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="myModal" class="modal fade" role="dialog" data-backdrop="static">
         <div style="width:50%" class="modal-dialog">
             <div style="padding:10px" class="modal-content">
                 <div class="modal-header">
@@ -88,7 +88,7 @@
                     <br />
 
                     <button class="btn btn-primary" style="margin-left:32%; width:100px"><span class="fa fa-pencil-square-o"></span> Editar</button>
-                    <button asp-controller="administrador" asp-action="excluir" type="submit" class="btn btn-primary margin-left-20" style="width:100px"><span class="fa fa-close"></span> Excluir</button>
+                    <button id="excluir" href="" class="btn btn-primary margin-left-20" type="button" style="width:100px"><span class="fa fa-close"></span> Excluir</button>
 
                 </div>
             </div>
@@ -102,6 +102,7 @@
     $(".organizador").on("click", function () {
         var organizador = $(this);
         var id = organizador.attr("data-id");
+        var excluir = $('#excluir');
 
         $.ajax({
             url: '/administrador/informacaoOrganizador',
@@ -157,6 +158,9 @@
                     $('#Genero').text('Masculino');
                 }
 
+                excluir.click(function () {
+                    location.href = "administrador/excluir";
+                });
             }
         });
     });
