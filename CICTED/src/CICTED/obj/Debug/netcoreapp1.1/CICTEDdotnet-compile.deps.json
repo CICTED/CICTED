@@ -3143,7 +3143,8 @@
       "CICTED.Crosscutting/1.0.0": {
         "dependencies": {
           "NETCore.MailKit": "1.0.1",
-          "NETStandard.Library": "1.6.1"
+          "NETStandard.Library": "1.6.1",
+          "System.ComponentModel.Annotations": "4.3.0"
         },
         "compile": {
           "CICTED.Crosscutting.dll": {}
@@ -3155,7 +3156,8 @@
           "Microsoft.EntityFrameworkCore": "1.1.0",
           "NETStandard.Library": "1.6.1",
           "Dapper": "1.50.2",
-          "NETCore.MailKit": "1.0.1"
+          "NETCore.MailKit": "1.0.1",
+          "CICTED.Crosscutting": "1.0.0"
         },
         "compile": {
           "CICTED.Domain.dll": {}
@@ -6184,7 +6186,8 @@
       "CICTED.Crosscutting/1.0.0": {
         "dependencies": {
           "NETCore.MailKit": "1.0.1",
-          "NETStandard.Library": "1.6.1"
+          "NETStandard.Library": "1.6.1",
+          "System.ComponentModel.Annotations": "4.3.0"
         },
         "runtime": {
           "CICTED.Crosscutting.dll": {}
@@ -6196,7 +6199,8 @@
           "Microsoft.EntityFrameworkCore": "1.1.0",
           "NETStandard.Library": "1.6.1",
           "Dapper": "1.50.2",
-          "NETCore.MailKit": "1.0.1"
+          "NETCore.MailKit": "1.0.1",
+          "CICTED.Crosscutting": "1.0.0"
         },
         "runtime": {
           "CICTED.Domain.dll": {}
