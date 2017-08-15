@@ -1,0 +1,538 @@
+﻿@model CICTED.Domain.ViewModels.Trabalho.AutoresViewModel
+
+@{
+    Layout = "_Menu";
+}
+
+
+
+<form method="post" asp-contoller="Trabalho" asp-action="AlterarAutor">
+    <div class="autor-home-content">
+
+        @if (Model.EventoId == 2 || Model.EventoId == 3 || Model.EventoId == 4)
+        {
+            <div class="margin-top-20 form-group">
+                <h4>
+                    <span class="fa fa-warning"></span>
+                    <b>
+                        Você é o Professor orientador do trabalho;<br />
+                        O trabalho deve ter entre 1 e 7 alunos.
+                    </b>
+                </h4>
+                <div id="aviso"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="porNome">
+                <div class="form-group margin-top-10 row">
+                    <input type="text" class="input-add-autor margin-bottom-20" id="input-add-aluno" style="width:350px !important" placeholder="Digite o nome desejado" />
+                    <a id="adicionar-aluno" class="btn btn-primary">Cadastrar</a>
+                    <span id="qtd-alunos" style="display: none" class="text-danger">O trabalho deve ter pelo menos 1 aluno</span>
+
+                    <div id="nomes-alunos" style="height:184px">
+                        @if (Model.AlunosInfo != null)
+                        {
+                            @foreach (var aluno in Model.AlunosInfo)
+                            {
+                                <div style="width:500px" id="aluno-@aluno.Id">
+                                    @aluno.Nome
+                                    <a onclick="deletarAluno('@aluno.Id')">
+                                        <span class="fa fa-times margin-left-20 link"></span>
+                                    </a>
+                                    <input name="AlunosNome" style="visibility: hidden; float: right; width: 1px;" value="@aluno.Nome" />
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="margin-top-30 form-group">
+                <h4>
+                    <span class="fa fa-warning"></span>
+                    <b>
+                        Você é o Autor Principal do trabalho;<br />
+                        Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
+                        O trabalho terá obrigatoriamente 1 (um) orientador.
+                    </b>
+                </h4>
+                <h5>Para cadastrar um participante use uma das opções a baixo</h5>
+
+                <div id="errors"></div>
+
+                <span id="verifica-orientador" style="display: none" class="text-danger">Trabalho deve ter orientador.</span>
+
+
+            </div>
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
+                <li><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
+            </ul>
+
+            <div class="tab-content">
+
+
+                @*EMAIL*@
+                <div role="tabpanel" class="tab-pane active " id="porEmail">
+                    <div class="form-group margin-top-10 row">
+
+                        <input autocomplete="off" class="input-add-autor" type="text" value="" id="input-email" placeholder="Email do coautor" />
+
+                        <a id="button-cadastrar-email" class="btn btn-primary">Cadastrar</a>
+                    </div>
+                </div>
+
+
+                @*NOME*@
+                <div role="tabpanel" class="tab-pane" id="porNome">
+                    <div class="form-group margin-top-10 row add-autor">
+                        <input value="" autocomplete="off" class="input-nome input-add-autor" type="text" style="width:350px !important" placeholder="Nome do coautor" />
+
+                        <div style="height:0px;" class="busca float-left">
+                            <ul id="lista-nomes"></ul>
+                        </div>
+
+                        <a id="adicionar-nome" class="btn btn-primary">Adicionar</a>
+                    </div>
+                </div>
+
+                <table class="table-trabalho">
+
+                    @*AUTOR PRINCIPAL*@
+                    <tr>
+                        <td>
+                            <b class="margin-right-40">Autor Principal: </b>
+                        </td>
+                        <td>
+                            @if (Model.AutorPrincipal != null)
+                            {
+                                <div class="float-left">
+                                    <span class="fa fa-check-circle color-aprovado"></span>
+                                    @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
+                                    <b>@Model.AutorPrincipal.Email</b>
+                                    <input id="autor-principal" style="visibility:hidden; width: 1px;" value="@Model.AutorPrincipal.Id" />
+                                </div>
+                            }
+                        </td>
+                    </tr>
+
+
+                    @*COAUTORES*@
+                    <tr>
+                        @if (Model.Coautores != null)
+                        {
+                            <td>
+                                <b class="margin-right-40">Coautes: </b>
+                            </td>
+
+                            <td id="coautores" name="coautores">
+
+                                @foreach (var coautor in Model.Coautores)
+                                {
+                                    <div style="width:500px" id="autor-@coautor.Id" data-id="coautor">
+                                        @if (coautor.StatusId == 1)
+                                        {
+                                            <span class="fa fa-check-circle color-aprovado"></span>
+                                        }
+                                        else if (coautor.StatusId == 2)
+                                        {
+                                            <span class="fa fa-clock-o color-submissao"></span>
+                                        }
+                                        else if (coautor.StatusId == 3)
+                                        {
+                                            <span class="fa fa-clock-o color-avaliacao"></span>
+                                        }
+                                        else if (coautor.StatusId == 4)
+                                        {
+                                            <span class="fa fa-times-circle color-reprovado"></span>
+                                        }
+                                        @coautor.Nome<b> </b> @coautor.Sobrenome
+                                        <b> @coautor.Email</b>
+                                        <a class="deleta-autor" onclick="deletarAutor(@coautor.Id)" data-id="@coautor.Id" value="@coautor.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                                        <input style="visibility:hidden; width: 1px;" name="CoautoresId" value="@coautor.Id" />
+                                    </div>
+                                }
+
+                            </td>
+                        }
+                    </tr>
+
+
+                    @*ORIENTADOR*@
+                    <tr>
+                        <td><b>Orientador: </b></td>
+                        @if (Model.Orientador != null)
+                        {
+                            <td id="orientador">
+                                <div style="width:500px" id="autor-@Model.Orientador.Id" data-id="orientador">
+
+                                    @if (Model.Orientador.StatusId == 1)
+                                    {
+                                        <span class="fa fa-check-circle color-aprovado"></span>
+                                    }
+                                    else if (Model.Orientador.StatusId == 2)
+                                    {
+                                        <span class="fa fa-clock-o color-submissao"></span>
+                                    }
+                                    else if (Model.Orientador.StatusId == 3)
+                                    {
+                                        <span class="fa fa-clock-o color-avaliacao"></span>
+                                    }
+                                    else if (Model.Orientador.StatusId == 4)
+                                    {
+                                        <span class="fa fa-times-circle color-reprovado"></span>
+                                    }
+
+                                    @Model.Orientador.Nome<b> </b> @Model.Orientador.Sobrenome
+                                    <b>@Model.Orientador.Email</b>
+                                    <a class="deleta-autor" onclick="deletarAutor(@Model.Orientador.Id)" value="@Model.Orientador.Id"><span class="fa fa-times margin-left-20 link"></span></a>
+                                    <input style="visibility:hidden;width: 1px;" name="OrientadorId" value="@Model.Orientador.Id" />
+
+
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </div>
+        }
+
+        <hr />
+        <div class="form-group margin-top-10">
+            <button type="button" class="btn btn-primary float-left prev">Cancelar</button>
+            <button id="button-salvar" type="submit" class="btn btn-primary float-right next">Salvar</button>
+        </div>
+    </div>
+</form>
+
+
+<div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" style="width: 200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> <span class="fa fa-exclamation-triangle"></span> AVISO </h4>
+            </div>
+            <div class="modal-body" id="getCode">
+                Máximo de coautores: 5
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var idEvento = @Model.EventoId;
+    if(idEvento !=2 || idEvento !=3 || idEvento !=4){
+        var idAutorPrincipal = $("#autor-principal").val();
+
+        var autores = new Array();
+
+        autores.push({
+            id: idAutorPrincipal,
+            status: 5,
+            orientador: false,
+        });
+    }
+
+    $("#adicionar-aluno").on("click", function () {
+        $('#aviso').empty();
+        var aluno = $("#input-add-aluno").val().trim();
+        var id = trim(aluno);
+
+        if (aluno != "") {
+            var qtdAlunos = $("div[id *= aluno]").length;
+
+            if (qtdAlunos > 7) {
+                $('#aviso').append('<div class="alert alert-danger" role="alert">Permitido apenas 7 alunos</div>');
+            }
+            else {
+                $("#nomes-alunos").append('<div style="width:500px" id="aluno-' + id + '">' + aluno + '<a onclick="deletarAluno(\'' + id + '\')" ><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input name="AlunosNome" style = "visibility: hidden; float: right; width: 1px;" value="' + aluno + '" /></div>');
+            }
+            $("#input-add-aluno").val(" ");
+        }
+    });
+
+    function trim(vlr) {
+        while (vlr.indexOf(" ") != -1) {
+            vlr = vlr.replace(" ", "");
+        }
+        return vlr;
+    }
+
+    $("#button-salvar").on("click", function () {
+        if (idEvento == 2 || idEvento == 3 || idEvento == 4) {
+            $("#qtd-alunos").hide();
+            var qtdAlunos = $("div[id *= aluno-]").length;
+
+            if (qtdAlunos < 1) {
+                $("#qtd-alunos").show();
+            }
+            else {
+                next();
+            }
+        }
+        else {
+            $("#verifica-orientador").hide();
+            if ($.trim($("#orientador").html()) == '') {
+                $("#verifica-orientador").show();
+            } else {
+                next();
+            }
+        }
+    });
+
+    $("#button-cadastrar-email").on("click", function () {
+        var email = $("#input-email").val().trim();
+        var id = $("#coautores");
+        var orientador = false;
+        var name = "CoautoresId";
+
+        if (email.length > 0) {
+
+
+            var qtdCoautores = $("div[id *= autor]").length - 1;
+            if (qtdCoautores >= 5) {
+                $("#getCodeModal").modal('show');
+            }
+            else {
+                $.ajax({
+                    url: '/trabalho/adicionar/email',
+                    type: 'POST',
+                    data: {
+                        email: email,
+                    },
+                    success: function (data) {
+                        var status;
+
+                        for (var i in autores) {
+                            if (autores[i].id == data.id) {
+                                $('#errors').empty();
+                                $('#errors').append('<div class="alert alert-danger" role="alert">Usuario já cadastrado no trabalho</div>');
+                                return false;
+                            }
+                        }
+
+                        autores.push({
+                            id: data.id,
+                            status: data.status,
+                            orientador: orientador
+                        });
+
+
+                        if ($.trim($("#orientador").html()) == '') {
+                            id = ($("#orientador"));
+                            name = "OrientadorId";
+                        }
+
+
+                        id.attr("data-id", "autor-" + data.id);
+                        if (data.statusId == 2) {
+                            status = '<span class="fa fa-clock-o color-submissao"></span>';
+                        }
+                        else if (data.statusId == 3) {
+                            status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+                        }
+
+                        id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
+                            data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor(' + data.id + ')" value="' +
+                            data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                            '<input style = "visibility:hidden;float: right;width: 1px;" name="' + name + '" value="' + data.id + '" /></div>');
+                    },
+                    error: function (x, y, message) {
+                        $('#errors').empty();
+                        $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
+                    },
+                })
+                $(".input-add-autor").val("");
+            }
+        }
+    });
+
+
+    $(".input-nome").keyup(function () {
+        var valor = $(this).val();
+        if (valor.trim() == "") {
+            $("#lista-nomes").empty();
+        }
+
+        if (valor.length > 2) {
+            $("#lista-nomes").html(' ');
+            $.ajax({
+                url: '/trabalho/pesquisa/autor',
+                type: 'get',
+                data: {
+                    busca: valor
+                },
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        $("#lista-nomes").append('<li><a class="selectautor" data-status="' + item.statusId + '" data-email="' + item.email + '" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                            '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+                    })
+                },
+            })
+        }
+    });
+    var id = 0;
+    $('body').on("click", ".selectautor", function () {
+        id = $(this).data("id");
+        email = $(this).data("email");
+        status = $(this).data("status")
+        var nome = $(this).text();
+        $(".input-nome").val(nome);
+        $(".input-nome").attr('id', id);
+        $(".input-nome").attr('data-email', email);
+        $(".input-nome").attr('data-status', status);
+        $("#lista-nomes").empty();
+    });
+
+
+    //verifica se o autor ja esta no trabalho, se nao, adiciona
+    $("#adicionar-nome").on("click", function () {
+        var userId = $(".input-nome").attr("id");
+        var id = $("#coautores");
+        var name = "CoautoresId";
+
+        if ($.trim($("#orientador").html()) == '') {
+            id = $("#orientador");
+            name = "OrientadorId";
+        }
+
+        var qtdCoautores = $("div[id *= autor]").length - 1;
+
+        if (qtdCoautores >= 5) {
+            $("#getCodeModal").modal('show');
+        }
+        else {
+            for (var i in autores) {
+                if (autores[i].id == userId) {
+                    $('#errors').empty();
+                    $('#errors').append('<div class="alert alert-danger" role="alert">Usuario já cadastrado no trabalho</div>');
+                    return false;
+                }
+            }
+
+            var email = $(".input-nome").attr("data-email");
+            var nome = $(".input-nome").val();
+
+            autores.push({
+                id: userId,
+                status: 2,
+                orientador: orientador
+            });
+
+            id.attr("data-id", "autor-" + userId);
+
+
+            id.append('<div style="width:500px" id="autor-' + userId + '"><span class="fa fa-clock-o color-submissao"></span> ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor(' + userId + ')" value="' +
+                                userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input name="' + name + '" style = "visibility:hidden;float: right;width: 1px;" value="' + userId + '" /></div>');
+        }
+        $(".input-nome").val("");
+    });
+
+
+
+    function deletarAutor(id) {
+        $(document).ready(function () {
+            $("#autor-" + id).remove();
+            var orientador = $("#orientador");
+
+            for (var i in autores) {
+                if (autores[i].id == id) {
+                    delete autores[i];
+                    break;
+                }
+            }
+
+            if ($.trim($("#orientador").html()) == '') {
+                $(("#input-email")).attr("placeholder", "Email do orientador");
+                $((".input-nome")).attr("placeholder", "Nome do orientador");
+            }
+            else {
+                $((".input-nome")).attr("placeholder", "Nome do coautor");
+                $(("#input-email")).attr("placeholder", "Email do coautor");
+            }
+        });
+    }
+
+
+    function deletarAluno(id) {
+        $(document).ready(function () {
+            $("#aluno-" + id).remove();
+        });
+    }
+    //cadastrar email
+    $("#button-cadastrar-email").on("click", function () {
+        var email = $("#input-email").val().trim();
+        var id = $("#coautores");
+        var orientador = false;
+        var name = "CoautoresId";
+
+        if (email.length > 0) {
+
+
+            var qtdCoautores = $("div[id *= autor]").length - 1;
+            if (qtdCoautores >= 5) {
+                $("#getCodeModal").modal('show');
+            }
+            else {
+                $.ajax({
+                    url: '/trabalho/adicionar/email',
+                    type: 'POST',
+                    data: {
+                        email: email,
+                    },
+                    success: function (data) {
+                        var status;
+
+                        for (var i in autores) {
+                            if (autores[i].id == data.id) {
+                                $('#errors').empty();
+                                $('#errors').append('<div class="alert alert-danger" role="alert">Usuario já cadastrado no trabalho</div>');
+                                return false;
+                            }
+                        }
+
+                        autores.push({
+                            id: data.id,
+                            status: data.status,
+                            orientador: orientador
+                        });
+
+
+                        if ($.trim($("#orientador").html()) == '') {
+                            id = ($("#orientador"));
+                            name = "OrientadorId";
+                        }
+
+
+                        id.attr("data-id", "autor-" + data.id);
+                        if (data.statusId == 2) {
+                            status = '<span class="fa fa-clock-o color-submissao"></span>';
+                        }
+                        else if (data.statusId == 3) {
+                            status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+                        }
+
+                        id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
+                            data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor(' + data.id + ')" value="' +
+                            data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                            '<input style = "visibility:hidden;float: right;width: 1px;" name="' + name + '" value="' + data.id + '" /></div>');
+                    },
+                    error: function (x, y, message) {
+                        $('#errors').empty();
+                        $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
+                    },
+                })
+                $(".input-add-autor").val("");
+            }
+        }
+    });
+
+
+
+</script>

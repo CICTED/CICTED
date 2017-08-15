@@ -1,0 +1,309 @@
+﻿@model CICTED.Domain.ViewModels.Organizador.DashboardViewModel
+
+@{
+    Layout = "_Menu";
+}
+
+<div class="form-group dashboard">
+    <h2 style="text-align:center"><b>Dashboard</b></h2>
+    <div class="form-group row margin-top-20" style="text-align:center">
+        <div class="margin-left-30 float-left margin-top-10">
+            <h4><b>Eventos: </b></h4>
+        </div>
+
+        <div class="float-left margin-left-20 margin-top-20">
+            <a class="dashboard-linkClicked">TODOS</a>
+        </div>
+
+        <div class="float-left margin-top-20">
+            <a class="dashboard-link evento" data-id="1">ENIC</a>
+        </div>
+
+        <div class="float-left margin-top-20">
+            <a class="dashboard-link evento" data-id="2">ENIC JR</a>
+        </div>
+
+        <div class="float-left margin-top-20">
+            <a class="dashboard-link evento" data-id="3">ENIC TEEN</a>
+        </div>
+
+        <div class="float-left margin-top-20">
+            <a class="dashboard-link evento" data-id="4">ENIC KIDS</a>
+        </div>
+
+        <div class="float-left margin-top-20">
+            <a class="dashboard-link evento" data-id="5">MIPG</a>
+        </div>
+
+        <div class="float-left margin-top-20">
+            <a class="dashboard-link evento" data-id="6">SEDUNI</a>
+        </div>
+
+        <div class="float-left margin-top-20">
+            <a class="dashboard-link evento" data-id="7">SEMEX</a>
+        </div>
+
+        <div class="float-left margin-top-20">
+            <a class="dashboard-link evento" data-id="8">PP&I</a>
+        </div>
+    </div>
+    <div class="form-group margin-top-30 margin-left-75">
+        <div class="form-group float-left">
+            <input hidden name="Cadastrados" value="@Model.Cadastrados" /> <h1 class="margin-left-30"><b>@Model.Cadastrados</b></h1>
+            <h4>Cadastrados</h4>
+        </div>
+
+        <div class="form-gorup float-left margin-left-50">
+            <input hidden name="Submetidos" value="@Model.Submetidos" /> <h1 class="margin-left-30"><b>@Model.Submetidos</b></h1>
+            <h4>Submetidos</h4>
+        </div>
+
+        <div class="form-gorup float-left margin-left-50">
+            <input hidden name="Avalidos" value="@Model.Avaliados" /> <h1 class="margin-left-30"><b>@Model.Avaliados</b></h1>
+            <h4>Avaliados</h4>
+        </div>
+
+        <div class="form-gorup float-left margin-left-50">
+            <input hidden name="Aprovados" value="@Model.Aprovados" /> <h1 class="margin-left-30"><b>@Model.Aprovados</b></h1>
+            <h4>Aprovados</h4>
+        </div>
+        <div class="form-gorup float-left margin-left-50">
+            <input hidden name="Reprovados" value="@Model.Reprovados" /> <h1 class="margin-left-30"><b>@Model.Reprovados</b></h1>
+            <h4>Reprovados</h4>
+        </div>
+    </div>
+
+    <div class="box">
+
+        <h2 style="text-align:center">Número de trabalhos por mês</h2>
+        <br />
+        <div class="box-chart">
+
+            <canvas id="GraficoLine" style="width:100%;"></canvas>
+
+        </div>
+
+    </div>
+    <h5>
+        Legenda:
+        <span class="fa fa-circle margin-left-30" style="color:#B22222"></span> Cadastrados
+        <span class="fa fa-circle margin-left-30" style="color:#4682B4"></span> Submetidos
+        <span class="fa fa-circle margin-left-30" style="color:#2E8B57"></span> Avaliados
+    </h5>
+
+    <table class="table table-striped">
+        <tr>
+            <th style="width:200px">Área</th>
+            <th style="width:150px">N° Trabalhos</th>
+            <th style="width:150px">N° Avaliados</th>
+        </tr>
+        <tr>
+            <td>Ciências Biológicas</td>
+            <td value="@Model.TrabalhosBiologicas">@Model.TrabalhosBiologicas</td>
+            <td value="@Model.AvaliadosBiologicas">@Model.AvaliadosBiologicas</td>
+        </tr>
+        <tr>
+            <td>Ciências Exatas</td>
+            <td value="@Model.TrabalhosExatas">@Model.TrabalhosExatas</td>
+            <td value="@Model.AvaliadosExatas">@Model.AvaliadosExatas</td>
+        </tr>
+        <tr>
+            <td>Ciências Humanas</td>
+            <td value="@Model.TrabalhosHumanas">@Model.TrabalhosHumanas</td>
+            <td value="@Model.AvaliadosHumanas">@Model.AvaliadosHumanas</td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+
+
+    $(".evento").on("click", function () {
+        var evento = $(this);
+        var id = evento.attr("data-id");
+
+    var options = {
+        responsive: true
+    };
+
+    loadDadosDeAvaliacao(id);
+    loadDadosDeCadastro(id);
+    loadDadosDeSubmicao(id);
+     
+    var data = {
+        labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        datasets: [
+            {
+                label: "Cadastrados",
+                fillColor: "rgba(178,34,34,0.03)",
+                strokeColor: "rgba(178,34,34,1)",
+                pointColor: "rgba(178,34,34,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(178,34,34,1)",
+                data: this.dadosCadastradosPorMes
+            },
+
+            {
+                label: "Submetidos",
+                fillColor: "rgba(70,130,180,0.03)",
+                strokeColor: "rgba(70,130,180,1)",
+                pointColor: "rgba(70,130,180,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(70,130,180,1)",
+                data: this.dadosSubmetidosPorMes
+            },
+            {
+                label: "Avaliados",
+                fillColor: "rgba(46,139,87,0.03)",
+                strokeColor: "rgba(46,139,87,1)",
+                pointColor: "rgba(46,139,87,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(46,139,87,1)",
+                data: this.dadosAvaliadosPorMes
+            }
+        ]
+    };
+
+    var ctx;
+
+
+    window.onload = function () {
+      
+        ctx = document.getElementById("GraficoLine").getContext("2d");
+    }
+
+   
+
+    var dadosCadastradosPorMes = new Array();
+    var dadosSubmetidosPorMes = new Array();
+    var dadosAvaliadosPorMes = new Array();
+
+    var i = 0;
+    for (i = 0; i < 12; i++) {
+        dadosCadastradosPorMes[i] = 0;
+        dadosSubmetidosPorMes[i] = 0;
+        dadosAvaliadosPorMes[i] = 0;
+    }
+
+
+    function loadDadosDeCadastro(id) {
+        $.ajax({
+            url: '/relatorios/trabalhos/cadastrados',
+            type: 'GET',
+            data: {
+                idEvento: id
+            },
+
+            success: function (cadastrados) {
+                dadosDeCadastroPorMes(cadastrados);
+                data.datasets[0].data = dadosCadastradosPorMes;
+                var LineChart = new Chart(ctx).Line(data, options);
+            },
+
+            error: function (x, y, message) {
+                alert("dados nao encontrados");
+
+            },
+        });
+
+    }
+
+  
+
+    function dadosDeCadastroPorMes(cadastrados) {
+
+       for (i = 0; i < 12; i++) {
+            $.each(cadastrados, function (j, item) {
+                if ((item.mes - 1) == i) {
+                    dadosCadastradosPorMes[i] = item.quantidade;
+                } 
+            });
+
+
+        }
+    }
+
+    function loadDadosDeSubmicao(id) {
+        $.ajax({
+            url: '/relatorios/trabalhos/submetidos',
+            type: 'GET',
+            data:{
+                idEvento: id
+            },
+            success: function (submetidos) {
+                dadosDeSubmicaoPorMes(submetidos);
+                data.datasets[1].data = dadosSubmetidosPorMes;
+                var LineChart = new Chart(ctx).Line(data, options);
+            },
+
+            error: function (x, y, message) {
+                alert("dados nao encontrados");
+
+            },
+        });
+
+    }
+
+    
+
+    function dadosDeSubmicaoPorMes(submetidos) {
+
+        var i = 0;
+
+        for (i = 0; i < 12; i++){
+            $.each(submetidos, function (j, item) {
+                if ((item.mes - 1) == i) {
+                    dadosSubmetidosPorMes[i] = item.quantidade;
+                }
+            });
+        }
+
+    }
+
+
+    function loadDadosDeAvaliacao(id) {
+        $.ajax({
+            url: '/relatorios/trabalhos/avaliados',
+            type: 'GET',
+            data:{
+                idEvento:id
+            },
+            success: function (avaliados) {
+                dadosDeAvaliacaoPorMes(avaliados);
+                data.datasets[2].data = dadosAvaliadosPorMes;
+                var LineChart = new Chart(ctx).Line(data, options);
+            },
+
+            error: function (x, y, message) {
+                alert("dados nao encontrados");
+
+            },
+        });
+
+    }
+
+
+    function dadosDeAvaliacaoPorMes(avaliados) {
+
+        for (i = 0; i < 12; i++) {
+            $.each(avaliados, function (j, item) {
+                if ((item.mes - 1) == i) {
+                    dadosAvaliadosPorMes[i] = item.quantidade;
+                }
+            });
+
+
+        }
+    }
+
+    
+                
+            //loadDadosDeAvaliacao(id);
+            //loadDadosDeCadastro(id);
+            //loadDadosDeSubmicao(id);                 
+        
+    });
+
+</script>

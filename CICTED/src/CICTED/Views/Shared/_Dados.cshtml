@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/CICTED.min.js" asp-append-version="true"></script>
+    </environment>
+    <script src="~/js/jquery.maskedinput.js"></script>
+    <script src="~/js/jquery.maskedinput.min.js"></script>
+    <script src="~/js/CICTED.js"></script>
+
+</head>
+<body>
+    <div class="navbar" style="position:relative">
+        <img class="margin-right-100 float-right" src="~/images/logoUNITAU/logotipo_branco_unitau.png" />
+    </div>
+    <div class="menu" style="position: relative">
+        <ul>
+            <li>
+                <a class="float-left"> <span class="fa fa-home"></span> Inicio</a>
+            </li>
+            
+            <li class="float-right  margin-left-20">
+                <a><span class="fa fa-sign-out"></span> Sair</a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="admin-content">
+        @RenderBody()
+    </div>
+
+    <div class="footer">
+
+        <span style="font-size:35px" class="fa fa-envelope margin-left-100 float-left"></span>
+        <h5 class="margin-left-10 float-left ">cicted@unitau.br</h5>
+        <div class="barra float-left"></div>
+
+        <a style="font-size: 35px;" class="link fa fa-calendar float-left">
+            <h5 class="margin-left-10 float-right">Calendário</h5>
+        </a>
+        <div class="barra float-left"></div>
+
+        <img style="height: 40px; width: 250px" class="margin-right-100 float-right" src="~/images/rodapé/apoio.png" />
+        <h4 class="float-right margin-right-20">APOIO:</h4>
+        <div class="barra float-right"></div>
+    </div>
+</body>
+</html>

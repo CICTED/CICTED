@@ -1,0 +1,1100 @@
+﻿body {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    background-color: #F2F2F2 !important;
+}
+
+h1, h2, h3, h4, h5, h6, label {
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.admin-content {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.autor-home-content {
+    height: auto;
+    width: auto;
+    padding: 1px 30px 10px 20px;
+    background: white;
+    border-radius: 5px;
+    margin: 30px 100px 0px 100px;
+}
+
+
+/*Modal*/
+.modal {
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select {
+    max-width: 280px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+
+/*Fonts*/
+.font-size-12 {
+    font-size: 12pt !important;
+}
+
+.font-size-15 {
+    font-size: 15pt !important;
+}
+
+.font-size-20 {
+    font-size: 20pt !important;
+}
+
+.font-size-25 {
+    font-size: 25pt !important;
+}
+
+.font-size-30 {
+    font-size: 30pt !important;
+}
+
+.font-size-35 {
+    font-size: 35pt !important;
+}
+/*EndFonts*/
+
+
+/*Margins*/
+.margin-left-10 {
+    margin-left: 10px !important;
+}
+
+.margin-left-20 {
+    margin-left: 20px !important;
+}
+
+.margin-left-30 {
+    margin-left: 30px !important;
+}
+
+.margin-left-40 {
+    margin-left: 40px !important;
+}
+
+.margin-left-50 {
+    margin-left: 50px !important;
+}
+
+.margin-left-75 {
+    margin-left: 75px !important;
+}
+
+.margin-left-100 {
+    margin-left: 100px !important;
+}
+
+.margin-right-10 {
+    margin-right: 10px !important;
+}
+
+.margin-right-20 {
+    margin-right: 20px !important;
+}
+
+.margin-right-30 {
+    margin-right: 30px !important;
+}
+
+.margin-right-40 {
+    margin-right: 40px !important;
+}
+
+.margin-right-50 {
+    margin-right: 50px !important;
+}
+
+.margin-right-75 {
+    margin-right: 75px !important;
+}
+
+.margin-right-100 {
+    margin-right: 100px !important;
+}
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+.margin-left-30 {
+    margin-left: 30px;
+}
+
+.margin-left-40 {
+    margin-left: 40px;
+}
+
+.margin-left-50 {
+    margin-left: 50px;
+}
+
+.margin-left-75 {
+    margin-left: 75px;
+}
+
+.margin-left-100 {
+    margin-left: 100px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
+.margin-right-20 {
+    margin-right: 20px;
+}
+
+.margin-right-30 {
+    margin-right: 30px;
+}
+
+.margin-right-40 {
+    margin-right: 40px;
+}
+
+.margin-right-50 {
+    margin-right: 50px;
+}
+
+.margin-right-75 {
+    margin-right: 75px;
+}
+
+.margin-right-100 {
+    margin-right: 100px;
+}
+
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-top-20 {
+    margin-top: 20px !important;
+}
+
+.margin-top-30 {
+    margin-top: 30px !important;
+}
+
+.margin-top-40 {
+    margin-top: 40px !important;
+}
+
+.margin-top-50 {
+    margin-top: 50px !important;
+}
+
+.margin-top-75 {
+    margin-top: 75px !important;
+}
+
+.margin-top-100 {
+    margin-top: 100px !important;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px !important;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px !important;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px !important;
+}
+
+.margin-bottom-40 {
+    margin-bottom: 40px !important;
+}
+
+.margin-bottom-50 {
+    margin-bottom: 50px !important;
+}
+
+.margin-bottom-75 {
+    margin-bottom: 75px !important;
+}
+
+.margin-bottom-100 {
+    margin-bottom: 100px !important;
+}
+
+.margin-top-20 {
+    margin-top: 20px !important;
+}
+
+.margin-top-30 {
+    margin-top: 30px !important;
+}
+
+.margin-top-40 {
+    margin-top: 40px !important;
+}
+
+.margin-top-50 {
+    margin-top: 50px !important;
+}
+
+.margin-top-75 {
+    margin-top: 75px !important;
+}
+
+.margin-top-100 {
+    margin-top: 100px !important;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.margin-bottom-40 {
+    margin-bottom: 40px;
+}
+
+.margin-bottom-50 {
+    margin-bottom: 50px;
+}
+
+.margin-bottom-75 {
+    margin-bottom: 75px;
+}
+
+.margin-bottom-100 {
+    margin-bottom: 100px;
+}
+/*EndMargins*/
+
+/*Float*/
+.float-right {
+    float: right !important;
+}
+
+.float-left {
+    float: left !important;
+}
+
+.float-center {
+    margin: 0 auto;
+}
+/*EndFloat*/
+
+
+/*Color-Icons*/
+.color-submissao {
+    color: #007cff !important;
+}
+
+.color-avaliacao {
+    color: #f7b800 !important;
+}
+
+.color-aprovado {
+    color: green !important;
+}
+
+.color-reprovado {
+    color: red !important;
+}
+/*EndColor*/
+
+input[type=file] {
+    outline: none !important;
+}
+
+.navbar {
+    top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    height: auto;
+    background: #143458;
+    margin-bottom: 0 !important;
+    border-radius: 0;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+    .inputfile + label {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        background-color: black;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+        .inputfile:focus + label,
+        .inputfile + label:hover {
+            background-color: red;
+        }
+
+.input-trabalho {
+    border-radius: 5px !important;
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cccccc;
+    padding: 2px;
+}
+
+.imagem-trabalho {
+    width: 150px;
+    height: 100px;
+}
+
+.tabela-trabalho {
+    margin: 20px;
+    width: 97%;
+    height: 100%;
+}
+
+    .tabela-trabalho th {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .tabela-trabalho td {
+        padding: 5px;
+        text-align: center;
+    }
+
+
+.menu {
+    height: 40px;
+    background: rgb(0, 38, 70);
+    width: 100%;
+    padding: 5px;
+    position: relative;
+    display: inline-block;
+}
+
+    .menu ul {
+        margin: 0;
+        list-style: none;
+    }
+
+        .menu ul li {
+            float: left;
+            padding-top: 5px;
+            margin-left: 10px;
+        }
+
+            .menu ul li a {
+                color: #fff;
+                text-decoration: none;
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+        .menu ul ul {
+            display: none;
+            margin-left: -30px;
+            margin-top: 10px;
+            width: 150px;
+        }
+
+            .menu ul ul li {
+                background-color: rgba(0, 38, 70, 0.84);
+                padding: 5px;
+                width: 100%;
+            }
+
+        .menu ul li:hover > ul {
+            display: block;
+            position: relative;
+        }
+
+    .menu button {
+        background: transparent;
+        color: white;
+        border: 0px;
+    }
+
+        .menu a:hover, .menu button:hover {
+            color: white;
+            cursor: pointer;
+            text-shadow: 0px 0px 5px #fff;
+        }
+
+
+
+.input-add-autor {
+    outline: none;
+    max-width: 350px;
+    height: 33px;
+    width: 350px !important;
+    padding: 0 12px 0 25px;
+    background: white url(http://cssdeck.com/uploads/media/items/5/5JuDgOa.png) 8px 10px no-repeat;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #a8acbc #babdcc #c0c3d2;
+    border-radius: 5px !important;
+    box-sizing: border-box;
+}
+
+.input-busca-avaliador {
+    border-radius: 5px !important;
+    outline: none;
+    max-width: 280px;
+    height: 33px;
+    width: 350px !important;
+    padding: 0 12px 0 25px;
+    background: white url(http://cssdeck.com/uploads/media/items/5/5JuDgOa.png) 8px 10px no-repeat;
+}
+
+.input-consulta-trab-adm {
+    max-width: 300px;
+    height: 33px;
+    padding: 0 0 0 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #a8acbc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.busca {
+    display: block;
+    position: absolute;
+    width: 350px;
+    padding: 0;
+    margin: 0;
+    border-width: 0px;
+    border-style: solid;
+    border-color: #cbcfe2 #c8cee7 #c4c7d7;
+    border-radius: 3px;
+    background-color: white;
+    list-style: none;
+    text-decoration: none;
+}
+
+    .busca ul li {
+        position: relative;
+        display: block;
+        margin-left: -40px;
+        background: white;
+        border: 1px solid #c4c4c4;
+        -moz-border-radius: 1px;
+        -webkit-border-radius: 1px;
+    }
+
+        .busca ul li a {
+            cursor: pointer;
+            display: block;
+            position: relative;
+            padding: 6px 40px 6px 10px;
+            color: rgb(0, 38, 70);
+            font-weight: 500;
+            text-shadow: 0 1px #fff;
+            border: 1px solid transparent;
+            border-radius: 3px;
+        }
+
+    .busca a:hover {
+        text-decoration: none;
+        color: #fff;
+        text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+        border-color: #2380dd #2179d5 #1a60aa;
+        background-color: rgb(0, 38, 70);
+    }
+
+    .busca ul ul {
+        width: 300px;
+        display: none;
+        position: absolute;
+        background: blue;
+        list-style: none;
+        float: right;
+        margin-left: 345px;
+        border-radius: 3px;
+    }
+
+        .busca ul ul li {
+            padding: 5px;
+            border-radius: 3px;
+            background: rgb(0, 38, 70);
+            color: #fff;
+            text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+        }
+
+.add-autor ul li:hover > ul {
+    display: block;
+}
+
+
+.footer {
+    bottom: 0px;
+    background: rgba(225, 225, 225, 0);
+    width: 100%;
+    height: 50px;
+    padding: 5px 80px 5px 80px;
+    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.31);
+    position: relative;
+}
+
+.barra {
+    height: 40px;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.31);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.link {
+    text-decoration: none !important;
+    color: #333;
+    cursor: pointer;
+}
+
+    .link:hover {
+        color: #4b4b4b;
+    }
+
+
+.logo-login {
+    width: 260px;
+    height: 75px;
+    background-image: url(../images/logoCICTED/logo_blue.png);
+    background-size: cover;
+}
+
+.form-login {
+    width: 300px;
+    height: auto;
+    margin: auto;
+    background-color: #FFFFFF;
+    padding: 0px 20px 20px 20px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    color: #868585;
+    font-size: 12px;
+}
+
+    .form-login input {
+        border: 0;
+        height: 30px;
+        width: 260px;
+        outline: none;
+        border-bottom: 1px solid #DDD;
+    }
+
+        .form-login input:focus {
+            border-bottom: 1px solid;
+        }
+
+    .form-login span {
+        color: rgba(0, 0, 0, 0.31);
+    }
+
+    .form-login h1 {
+        font-weight: 300;
+    }
+
+input[type=checkbox] {
+    width: auto !important;
+    height: auto !important;
+}
+
+.form-cadAvaliacao {
+    width: 750px;
+    height: 400px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.dashboard {
+    width: 825px;
+    height: auto;
+    max-height: unset;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.dashboard-link {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none !important;
+    border-radius: 5px;
+    font-family: 'Lucida Sans';
+    color: #000000;
+    background: #FFFFFF;
+    cursor: pointer;
+    font-family: 14px;
+}
+
+.dashboard-linkClicked {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none !important;
+    border-radius: 5px;
+    font-family: 'Lucida Sans';
+    color: #FFFFFF;
+    background: #143458;
+    cursor: pointer;
+    font-family: 14px;
+}
+
+a:hover .dashboard {
+    text-decoration: none;
+}
+
+.form-cadTrabalho {
+    width: 800px;
+    min-height: 550px;
+    height: auto !important;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    overflow: auto;
+}
+
+    .form-cadTrabalho label {
+        font-size: 16px !important;
+    }
+
+    .form-cadTrabalho textarea {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: 60px;
+        resize: none;
+        border-radius: 5px;
+        outline: none;
+        padding: 8px;
+    }
+
+.form-cadastro-adm {
+    width: 700px;
+    min-height: 300px;
+    height: auto;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    color: #868585;
+    font-size: 12px;
+}
+
+.form-cadastro {
+    width: 700px;
+    min-height: 1000px;
+    height: auto;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    color: #868585;
+    font-size: 12px;
+}
+
+    .form-cadastro input {
+        border: 1px solid #DDD;
+        height: 30px;
+        width: 200px;
+        outline: none;
+    }
+
+    .form-cadastro .form-cadTrabalho input:focus {
+        border-bottom: 1px solid;
+    }
+
+    .form-cadastro .form-cadTrabalho span {
+        color: rgba(0, 0, 0, 0.31);
+    }
+
+    .form-cadastro .form-cadTrabalho h1 {
+        font-weight: 300;
+    }
+
+.form-consultTrabAdm {
+    width: 900px;
+    height: auto !important;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.form-alterarSenha {
+    width: 400px;
+    min-height: 350px;
+    height: auto;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    color: #868585;
+    font-size: 12px;
+}
+
+    .form-alterarSenha input {
+        border: 1px solid #DDD;
+        height: 30px;
+        width: 200px;
+        outline: none;
+    }
+
+    .form-alterarSenha span {
+        color: rgba(0, 0, 0, 0.31);
+    }
+
+    .form-alterarSenha h1 {
+        font-weight: 300;
+    }
+
+.row {
+    width: 100% !important;
+    height: auto !important;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.btn-alterar {
+    color: #4e93ea;
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none !important;
+}
+
+    .btn-alterar:hover {
+        color: white;
+        background: #4e93ea;
+        cursor: pointer;
+    }
+
+.btn {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none;
+    border: 0.5px solid;
+    border-radius: 5px;
+    font-family: 'Lucida Sans';
+    color: #000000;
+    background: #E6E9E7;
+    cursor: pointer;
+}
+
+.btn-primary {
+    border: #143458 !important;
+    background: #143458 !important;
+    color: #ffffff;
+}
+
+.form-control {
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none !important;
+}
+
+    .form-control:focus {
+        border-color: #000000;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);
+        -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);
+        outline: none !important;
+    }
+
+    .form-control:-moz-placeholder {
+        color: #c4c4c4;
+    }
+
+    .form-control::-moz-placeholder {
+        color: #c4c4c4;
+        opacity: 1;
+    }
+
+    .form-control:-ms-input-placeholder {
+        color: #c4c4c4;
+    }
+
+    .form-control::-webkit-input-placeholder {
+        color: #c4c4c4;
+    }
+
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        cursor: not-allowed;
+        background-color: #f8f8f8;
+    }
+
+.form-inline .form-control, .form-group .form-control:first-child {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+textarea.form-control {
+    height: auto;
+}
+
+label {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    font-family: sans-serif;
+    color: #868585;
+}
+
+.table-trabalho td {
+    padding: 5px;
+    border: 0px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.message-error {
+    color: red !important;
+    margin-bottom: -10px !important;
+    margin-top: -10px !important;
+}
+
+/*Switch*/
+.onoffswitch {
+    position: relative;
+    width: 70px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+    display: none;
+}
+
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #999999;
+    border-radius: 23px;
+}
+
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+    .onoffswitch-inner:before, .onoffswitch-inner:after {
+        display: block;
+        float: left;
+        width: 50%;
+        height: 27px;
+        padding: 0;
+        line-height: 27px;
+        font-size: 14px;
+        color: white;
+        font-family: Trebuchet, Arial, sans-serif;
+        font-weight: bold;
+        box-sizing: border-box;
+    }
+
+    .onoffswitch-inner:before {
+        content: "Sim";
+        padding-left: 10px;
+        background-color: #143458;
+        color: #FFFFFF;
+    }
+
+    .onoffswitch-inner:after {
+        content: "Não";
+        padding-right: 10px;
+        background-color: #E6E9E7;
+        color: #858383;
+        text-align: right;
+    }
+
+.onoffswitch-switch {
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 8.5px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 39px;
+    border: 1px solid #999999;
+    border-radius: 23px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
+/*END Switch*/
+
+
+/* tooltip */
+
+
+.tool-tip {
+    color: #fff;
+    background-color: rgb(169, 169, 169);
+    text-shadow: none;
+    font-size: 12px;
+    border-radius: 7px;
+    text-align: center;
+    opacity: 0;
+    z-index: 999;
+    padding: 3px 8px;
+    position: absolute;
+    cursor: default;
+    top: auto;
+    bottom: 116%;
+    left: 50%;
+}
+
+    .tool-tip.top:after,
+    .tool-tip:after {
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        margin-left: -7px;
+        content: ' ';
+        border: 6px solid transparent;
+        border-top-color: rgb(169, 169, 169);
+    }
+
+    /* default heights, width and margin w/o Javscript */
+
+    .tool-tip,
+    .tool-tip.top {
+        width: auto;
+        height: 22px;
+        margin-left: -43px;
+    }
+
+/* on hover of element containing tooltip default*/
+
+*:not(.on-focus):hover > .tool-tip,
+.on-focus textarea:focus + .tool-tip {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: all 240ms ease-in-out;
+    -moz-transition: all 240ms ease-in-out;
+    -ms-transition: all 240ms ease-in-out;
+    -o-transition: all 240ms ease-in-out;
+    transition: all 240ms ease-in-out;
+}
+
+
+.box {
+    margin: 0px auto;
+    width: 70%;
+}
+
+.box-chart {
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.custom-input {
+    border: 0;
+    width: 86%;
+    outline: none;
+    border-bottom: 1px solid #DDD;
+}
+
+.display-inline{
+    display: inline !important;
+}

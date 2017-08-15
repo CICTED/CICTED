@@ -1,0 +1,41 @@
+﻿@model CICTED.Domain.ViewModels.Account.AlterarSenhaViewModel
+@{
+    Layout = "_Menu";
+}
+<title>Alterar Senha - CICTED</title>
+
+<form class="form-alterarSenha !important" method="post" asp-controller="account" asp-action="alterarsenha">
+    <div style="text-align:center">
+        <h2><span class="fa fa-lock"></span><b> Alterar Senha</b></h2>
+    </div>
+
+    <div class="form-group" style="padding:10px 20px 20px 30px">
+        @if (ViewData["Message"] != null)
+        {
+            <div>A senha é diferente da senha atual.</div>
+        }
+        @if (ViewData["Messagen"] != null)
+        {
+            <div>A senha foi alterada.</div>
+        }
+        <div class="margin-top-10">
+            <label>Senha atual:</label>
+            <input type="password" style="width:100%" asp-for="SenhaAtual" />
+        </div>
+
+        <div class="margin-top-10">
+            <label>Nova Senha:</label>
+            <input type="password" style="width:100%" asp-for="NovaSenha"/>
+        </div>
+        @if (ViewData["Messager"] != null)
+        {
+            <div>A senha digitada é diferente da senha confirmada.</div>
+        }
+        <div class="margin-top-10">
+            <label>Confirmar Senha:</label>
+            <input type="password" style="width:100%" asp-for="ConfirmarSenha"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary margin-top-20" style="width: 93%">Alterar</button>
+    </div>
+</form>

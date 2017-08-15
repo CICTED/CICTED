@@ -1,0 +1,254 @@
+﻿@model CICTED.Domain.ViewModels.Account.DadosUsuárioViewModel
+@{
+    Layout = "_CICTED";
+}
+
+<title>Registro - CICTED</title>
+
+
+<form class="form-cadastro !important" asp-controller="account" asp-action="registrar" method="post">
+    <div style="text-align:center">
+        <h2><b>Registrar</b></h2>
+    </div>
+    <div class="form-group">
+        <h4>Dados Pessoais:</h4>
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Nome:</label>
+                <input type="text" name="Nome" value="@Model.Nome" required style="width:500px" />
+            </div>
+            <div class="float-right" style="width:50%">
+                <label>Sobrenome:</label>
+                <input type="text" name="Sobrenome" value="@Model.Sobrenome" required style="width:500px" />
+            </div>
+        </div>
+
+
+        <div class="margin-top-10 row">
+
+            <div class="float-left" style="width:40%">
+                <label>CPF:</label>
+                <input type="text" name="CPF" value="@Model.CPF" style="width:500px" />
+
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Outros Documentos(RG, Passaporte, Etc):</label>
+                <input type="text" name="Documento" value="@Model.Documento" style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Data de Nascimento:</label>
+                <input type="date" name="DataNascimento" value="@Model.DataNascimento" required style="width:500px" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Gênero: </label>
+                <select class="form-control" name="Genero" value="@Model.Genero" style="width:500px">
+                    <option value="-1">Selecione um genero</option>
+                    <option value="false">Masculino</option>
+                    <option value="true">Feminino</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Telefone:</label>
+                <input type="tel" name="Telefone" id="Telefone" placeholder="(99) 9999-9999" value="@Model.Telefone" style="width:500px" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Celular:</label>
+                <input type="text" name="Celular" id="Celular" placeholder="(99) 99999-9999" value="@Model.Celular" style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Email Principal:</label>
+                <input type="text" asp-for="Email" value="@Model.Email" disabled="disabled" style="width:500px" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Email Secundario:</label>
+                <input type="text" asp-for="EmailSecundario" value="@Model.EmailSecundario" required style="width:500px" />
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <h4>Endereço:</h4>
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Logradouro:</label>
+                <input type="text" name="Logradouro" value="@Model.Logradouro" required style="width:500px" />
+            </div>
+            <div class="float-right" style="width:50%">
+                <label>Número:</label>
+                <input type="text" name="Numero" value="@Model.Numero" required style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:50%">
+                <label>Bairro:</label>
+                <input type="text" name="Bairro" value="@Model.Bairro" required style="width:500px" />
+            </div>
+            <div class="float-right" style="width:50%">
+                <label>CEP:</label>
+                <input type="text" name="CEP" id="Cep" placeholder="99999-999" value="@Model.CEP" required style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Estado:</label>
+                <select class="form-control" id="dropEstado" name="Estado" value="@Model.EstadoID" style="width:500px">
+                    <option value="-1">Selecione seu estado</option>
+                    @foreach (var estado in Model.Estados)
+                    {
+                        if (estado.Id == Model.Estado)
+                        {
+                            <option value="@estado.Id" selected>@estado.Sigla</option>
+                        }
+                        else
+                        {
+                            <option value="@estado.Id">@estado.Sigla</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Cidade: </label>
+                <select class="form-control" id="dropCidade" name="CidadeId" value="@Model.CidadeId" style="width:500px">
+                    <option value="-1">Selecione sua cidade</option>
+                    @if (Model.CidadeId > 0)
+                    {
+                        <option value="@Model.CidadeId" selected>@Model.CidadeNome</option>
+
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <h4>Educacional:</h4>
+        <div class="margin-top-10 row">
+            <label>Instituição:</label>
+            <select class="form-control" name="InstituicaoId" value="@Model.InstituicaoId" style="width:500px">
+                <option value="-1">Selecione sua instituição</option>
+                @foreach (var instituicao in Model.Instituicoes)
+                {
+                    <option value="@instituicao.Id">@instituicao.InstituicaoNome</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group margin-top-10">
+            <div class="float-left" style="width:40%">
+                <label>Está cursando?</label>
+                <div class="onoffswitch margin-right-10 float-left">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkEstudante" asp-for="Estudante" checked="@((Model.Estudante) ? true : false)">
+                    <label class="onoffswitch-label" for="checkEstudante">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                <div id="estudante" style="display: none">
+                    <div class="float-right row">
+                        <label>Curso:</label>
+
+                        <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                            <option value="-1">Selecione seu Curso</option>
+                            @foreach (var cursos in Model.Cursos)
+                            {
+                                <option value="@cursos.Id">@cursos.CursoNome</option>
+                            }
+                        </select>
+                        <label class="margin-top-20">Outro:</label>
+                        <input type="text" value="@Model.Curso" style="width:500px" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Você é bolsista?</label>
+                <div class="onoffswitch margin-right-10">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkBolsista" asp-for="Bolsista" checked="@((Model.Bolsista) ? true : false)">
+                    <label class="onoffswitch-label" for="checkBolsista">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                <div id="bolsista" style="display: none;">
+                    <div class="float-left row">
+                        <label>Agência financiadora:</label>
+                        <select class="form-control" style="width:500px">
+                            <option value="-1">Selecione a agência financiadora</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="margin-top-10" align="center">
+        <button type="button" class="btn btn-primary" id="button-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </div>
+
+    @if (ViewBag.CPF == true)
+            {
+        <div style="margin-top: 10px; margin-bottom: 10px" class="alert alert-danger margin-left-40" role="alert">
+            <label style="color:red">CPF invalido</label>
+        </div>
+    }
+
+</form>
+
+<script type="text/javascript">
+
+    $("#button-cancelar").on("click", function () {
+        location.href = "/account/login";
+    });
+
+    $('#dropEstado').states($('#dropCidade'));
+
+
+    $("#checkBolsista").on("change", function () {
+        if ($(this).is(":checked")) {
+            $("#bolsista").css("display", "block");
+        } else {
+            $("#bolsista").css("display", "none");
+
+        }
+    });
+
+    $("#checkEstudante").on("change", function () {
+        if ($(this).is(":checked")) {
+            $("#estudante").css("display", "block");
+        } else {
+            $("#estudante").css("display", "none");
+
+        }
+    });
+
+
+
+    $("#Telefone").mask("(99) 9999-9999");
+    $("#Celular").mask("(99) 99999-9999");
+    $("#Cep").mask("99999-999");
+
+
+
+</script>
+

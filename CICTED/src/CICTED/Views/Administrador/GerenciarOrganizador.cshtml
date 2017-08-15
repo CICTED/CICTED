@@ -1,0 +1,168 @@
+﻿@model List<CICTED.Domain.ViewModels.Administrador.Gerenciar>
+@{
+    Layout = "_Menu";
+}
+<title>Gerenciar Organizador - CICTED</title>
+
+<div class="form-consultTrabAdm">
+    <h3><b><span class="fa fa-pencil-square-o"></span> Gerenciar Organizador</b></h3>
+
+    <div class="form-group">
+        Pesquisar: <input class="input-consulta-trab-adm" id="autor-nome" style="width:350px !important" placeholder="Digite o nome ou email" autocomplete="off" />
+        <div style="height:0px; display:none" class="busca float-left">
+            <ul id="lista-nomes"></ul>
+        </div>
+        <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
+        <button class="fa fa-user-plus link btn btn-primary float-right" style="width:150px" type="submit" onclick="location.href='/administrador/cadastrarOrganizador'"> Novo Organizador</button>
+
+    </div>
+
+    <hr />
+
+    <table class="table table-striped" style="margin:0 0 auto">
+        <tr>
+            <th style="width: 50px !important" class="form-group"></th>
+            <th style="width: 90px !important" class="form-group">
+                Avaliador
+            </th>
+            <th>
+                Nome
+            </th>
+            <th>
+                Email
+            </th>
+            <th style="width: 80px !important" class="form-group"> Status</th>
+        </tr>
+
+        @foreach (var organizadores in Model)
+        {
+            <tr>
+                <td><a class="fa fa-search link organizador" data-toggle="modal" data-target="#myModal" data-id="@organizadores.Id"></a></td>
+
+                @if (organizadores.Avaliador == false)
+                {
+                    <td></td>
+
+                }
+                else
+                {
+                    <td>Sim</td>
+                }
+                <td>@organizadores.Nome @organizadores.Sobrenome</td>
+                <td>@organizadores.Email</td>
+                @if (organizadores.FirstAccess == false)
+                {
+                    <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
+                }
+                else
+                {
+                    <td><span class="fa fa-times-circle margin-left-10 color-reprovado"></span></td>
+                }
+            </tr>
+        }
+    </table>
+
+    <hr />
+
+    <h5>
+        <b>Legenda:</b>
+        <span class="fa fa-check-circle margin-left-10 color-aprovado"></span> Já acessou
+        <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
+    </h5>
+
+
+    <div id="myModal" class="modal fade" role="dialog" data-backdrop="static">
+        <div style="width:50%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Informações do Organizador</h3>
+
+                    <hr />
+
+                    <table class="table table-striped" id="tabelaModal">
+
+                    </table>
+
+                    <br />
+
+                    <button class="btn btn-primary" style="margin-left:32%; width:100px"><span class="fa fa-pencil-square-o"></span> Editar</button>
+                    <button id="excluir" href="" class="btn btn-primary margin-left-20" type="button" style="width:100px"><span class="fa fa-close"></span> Excluir</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(".organizador").on("click", function () {
+        var organizador = $(this);
+        var id = organizador.attr("data-id");
+        var excluir = $('#excluir');
+
+        $.ajax({
+            url: '/administrador/informacaoOrganizador',
+            type: 'get',
+            data: {
+                id: id
+            },
+
+            success: function (data) {
+                if (data.avaliador == false) {
+                    $('#tabelaModal').html('<table class="table table-striped">' +
+                    '<tr><td><b>Nome: </b></td><td id="Nome"></td></tr>' +
+                    '<tr><td><b>Email: </b></td><td id="Email"></td></tr>' +
+                    '<tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>' +
+                    '<tr><td><b>Celular: </b></td><td id="Celular"></td></tr>' +
+                    '<tr><td><b>CPF: </b></td><td id="CPF"></td></tr>' +
+                    '<tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>' +
+                    '<tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>' +
+                    '<tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>' +
+                    '<tr><td><b>Avaliador: </b></td><td id="Avaliador"></td></tr>' +
+                    '</table>');
+                    $('#Avaliador').text('Não');
+                } else {
+                    $('#tabelaModal').html('<table class="table table-striped">' +
+                        '<tr><td><b>Nome: </b></td><td id="Nome"></td></tr>' +
+                        '<tr><td><b>Email: </b></td><td id="Email"></td></tr>' +
+                        '<tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>' +
+                        '<tr><td><b>Celular: </b></td><td id="Celular"></td></tr>' +
+                        '<tr><td><b>CPF: </b></td><td id="CPF"></td></tr>' +
+                        '<tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>' +
+                        '<tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>' +
+                        '<tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>' +
+                        '<tr><td><b>Avaliador: </b></td><td id="Avaliador"></td></tr>' +
+                        '<tr><td><b>Evento: </b></td><td id="Evento"></td></tr>' + 
+                        '<tr><td><b>Subarea de Conhecimento: </b></td><td id="SubArea"></td></tr>' +
+                        '</table>');
+                    $('#Avaliador').text('Sim');
+                }
+
+                $('#Nome').text(data.nome + ' ' + data.sobrenome);
+                $('#Email').text(data.email);
+                $('#Telefone').text(data.phoneNumber);
+                $('#Celular').text(data.celular);
+                $('#CPF').text(data.cpf);
+                $('#Nascimento').text(data.nascimento);
+                $('#Endereco').text(data.logradouro + ', ' + data.numero + ', ' + data.bairro + ', ' + data.cidadeNome + ' - ' + data.sigla);
+                $('#Evento').text(data.evento);
+                $('#SubArea').text(data.subArea);
+
+                if (data.genero == true) {
+                    $('#Genero').text('Feminino');
+                } else {
+                    $('#Genero').text('Masculino');
+                }
+
+                excluir.click(function () {
+                    location.href = "administrador/excluir";
+                });
+            }
+        });
+    });
+
+</script>

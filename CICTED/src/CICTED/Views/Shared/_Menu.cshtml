@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/CICTED.min.js" asp-append-version="true"></script>
+    </environment>
+
+    <script src="~/js/CICTED.js"></script>
+
+    <script src="~/js/jquery.maskedinput.js"></script>
+    <script src="~/js/jquery.maskedinput.min.js"></script>
+    <script src="~/js/CICTED.js"></script>
+    
+    <script src="~/js/Chart.min.js"></script>
+
+</head> 
+<body>
+    <div class="navbar" style="position:relative">
+        <img class="margin-right-100 float-right" src="~/images/logoUNITAU/logotipo_branco_unitau.png" />
+    </div>
+    <div class="menu">
+        <ul>
+            <li><a asp-controller="account" asp-action="home"><span class="fa fa-home"></span> Inicio</a></li>
+
+            @if (User.IsInRole("Administrador"))
+            {
+                <li>
+                    <a class="float-left" asp-controller="trabalho" asp-action="consultar"><span class="fa fa-folder-open"></span> Trabalhos</a>
+                </li>
+
+                <li>
+                    <a class="float-left" asp-controller="trabalho" asp-action="avaliacao/painel"><span class="fa fa-paste"></span> Avaliar Painel</a>
+                </li>
+
+                <li>
+                    <a class="float-left"><span class="fa fa-gear"></span> Gerenciar</a>
+                    <ul style="margin-left:-68px!important; width:180px !important">
+                        <li>
+                            <a asp-controller="administrador" asp-action="gerenciarOrganizador"><span class="fa fa-pencil"></span> Organizadores</a>
+                        </li>
+                        <li>
+                            <a asp-controller="administrador" asp-action="gerenciarAvaliador"><span class="fa fa-pencil"></span> Avaliadores</a>
+                        </li>
+                        <li>
+                            <a asp-controller="administrador" asp-action="gerenciarAutor"><span class="fa fa-pencil"></span> Autores</a>
+                        </li>
+                    </ul>
+                </li>
+
+            }
+
+            @if (User.IsInRole("Organizador"))
+            {
+                <li>
+                    <a asp-controller="organizador" asp-action="dashboard"><span class="fa fa-tachometer"></span> Dashboard</a>
+                </li>
+
+                <li>
+                    <a><span class="fa fa-file-text-o"></span> Consultar</a>
+                    <ul style="margin-left:-60px!important; width:145px">
+                        <li><a asp-controller="trabalho" asp-action="consultar"><span class="fa fa-file-text-o"></span> Trabalhos</a></li>
+                        <li><a><span class="fa fa-pencil"></span> Atividades</a></li>
+                        <li><a asp-controller="organizador" asp-action="consultar/usuario"><span class="fa fa-users"></span> Usuários</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a><span class="fa fa-calendar-o"></span> Apresentações</a>
+                    <ul style="margin-left:-45px!important;">
+                        <li><a><span class="fa fa-calendar"></span> Calendário</a></li>
+                        <li><a>Consulta</a></li>
+                        <li><a>Espaços</a></li>
+                    </ul>
+                </li>
+            }
+
+            @if (User.IsInRole("Autor"))
+            {
+                <li><a asp-controller="trabalho" asp-action="consulta"><span class="fa fa-file-text-o"></span> Meus trabalhos</a></li>
+
+                <li class="float-left"><a><span class="fa fa-exclamation-triangle"></span> Solicitações</a></li>
+            }
+
+            <li class="float-right margin-right-100">
+                <form asp-controller="account" asp-action="logoff" method="post">
+                    <button type="submit"><span class="fa fa-sign-out"></span> Sair</button>
+                </form>
+            </li>
+
+            <li class="float-right">
+                <a class="float-right"><span class="fa fa-address-card-o"></span> Meus Dados</a>
+                <ul style="width:155px !important">
+                    <li class="float-right">
+                        <a asp-controller="account" asp-action="meusdados">
+                            <span class="fa fa-address-book-o"></span> Alterar Dados
+                        </a>
+                    </li>
+
+                    <li class="float-right">
+                        <a asp-controller="account" asp-action="alterarsenha">
+                            <span class="fa fa-lock"></span> Alterar Senha
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+
+    <div class="admin-content">
+        @RenderBody()
+    </div>
+
+
+    <div class="footer">
+        <span style="font-size:35px" class="fa fa-envelope margin-left-100 float-left"></span>
+        <h5 class="margin-left-10 float-left ">cicted@unitau.br</h5>
+        <div class="barra float-left"></div>
+
+        <a style="font-size: 35px;" class="link fa fa-calendar float-left">
+            <h5 class="margin-left-10 float-right">Calendário</h5>
+        </a>
+        <div class="barra float-left"></div>
+
+        <img style="height: 40px; width: 250px" class="margin-right-100 float-right" src="~/images/rodapé/apoio.png" />
+        <h4 class="float-right margin-right-20">APOIO:</h4>
+        <div class="barra float-right"></div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

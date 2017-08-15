@@ -1,0 +1,160 @@
+﻿@model CICTED.Domain.ViewModels.Trabalho.InformacoesTrabalhoViewModel
+
+@{
+    Layout = "_Menu";
+}
+
+<form class="form-cadTrabalho" asp-controller="Trabalho" asp-action="Cadastro/@Model.EventoId" method="post">
+    <div class="row form-group" style="text-align:center">
+        <h3><span class="fa fa-book"></span><b> Editar trabalho </b></h3>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="Passo3">
+        <div class="margin-top-10 row">
+            <p><b>Titulo: </b></p>
+
+            <div class="on-focus clearfix" style="position: relative">
+                <textarea id="titulo" style="height:40px!important" asp-for="Titulo" value="@Model.Titulo" required></textarea>
+                <div class="tool-tip">mínimo 5 palavras, máximo 20 palavras</div>
+                <span hidden id="titulo-error" class="message-error">mínimo 5 palavras, máximo 20 palavras</span>
+            </div>
+
+        </div>
+
+        @* RESUMO *@
+        @if (Model.EventoId == 7)
+        {
+            <div class="margin-top-10 row">
+                <p><b>Resumo: </b></p>
+
+                <div class="on-focus clearfix" style="position: relative">
+                    <textarea id="resumo" asp-for="Resumo" value="@Model.Resumo" required></textarea>
+                    <div class="tool-tip">mínimo 20 palavras, máximo 50 palavras</div>
+                    <span hidden id="resumo-error" class="message-error">mínimo 20 palavras, máximo 50 palavras</span>
+                </div>
+
+            </div>
+
+        }
+
+        @* INTRODUÇÃO *@
+        <div class="margin-top-10 row">
+            <p><b>Introdução: </b></p>
+            <div class="on-focus clearfix" style="position: relative">
+                <textarea id="introducao" asp-for="Introducao" value="@Model.Introducao" required></textarea>
+                <div class="tool-tip">mínimo 20 palavras, máximo 150 palavras</div>
+                <span hidden id="introducao-error" class="message-error">mínimo 20 palavras, máximo 150 palavras</span>
+            </div>
+        </div>
+
+        @* OBJETIVO DO PROJETO *@
+        @if (Model.EventoId == 8)
+        {
+            <div class="margin-top-10 row">
+                <p><b>Objetivos do projeto: </b></p>
+
+                <div class="on-focus clearfix" style="position: relative">
+                    <textarea id="objetivos" asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
+                    <div class="tool-tip">mínimo 20 palavras, máximo 60 palavras</div>
+                    <span hidden id="objetivos-error" class="message-error">mínimo 20 palavras, máximo 60 palavras</span>
+                </div>
+
+            </div>
+
+        }
+
+        @* Metodologia *@
+        <div class="margin-top-10 row">
+            @if (Model.EventoId == 7)
+            {
+                <p><b>Material e metodologia: </b></p>
+            }
+            else if (Model.EventoId == 8)
+            {
+                <p><b>Metodologia ou estratégia de execução/realização: </b></p>
+            }
+            else
+            {
+                <p><b>Metodologia: </b></p>
+            }
+
+
+            <div class="on-focus clearfix" style="position: relative">
+                <textarea id="metodologia" asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
+                <div class="tool-tip">mínimo 50 palavras, máximo 300 palavras</div>
+                <span hidden id="metodologia-error" class="message-error">mínimo 50 palavras, máximo 300 palavras</span>
+            </div>
+
+        </div>
+
+        @* Resultados *@
+        <div class="margin-top-10 row">
+            @if (Model.EventoId == 7)
+            {
+                <p><b>Resultado e discussões: </b></p>
+            }
+            else if (Model.EventoId == 8)
+            {
+                <p><b>Resultados esperados: </b></p>
+            }
+            else
+            {
+                <p><b>Resultados: </b></p>
+            }
+
+
+            <div class="on-focus clearfix" style="position: relative">
+                <textarea id="resultados" asp-for="Resultado" value="@Model.Resultado" required></textarea>
+                <div class="tool-tip">mínimo 20 palavras, máximo 150 palavras</div>
+                <span hidden id="resultados-error" class="message-error">mínimo 20 palavras, máximo 150 palavras</span>
+            </div>
+        </div>
+
+        @* Figuras *@
+        <div class="margin-top-10 row">
+            <div class="float-left">
+                <p><b>Figuras: </b></p>
+            </div>
+            <div class="float-left margin-left-10">
+                <button class="btn btn-primary"><span class="fa fa-file-image-o" aria-hidden="true"></span> Adicionar</button>
+            </div>
+        </div>
+
+        @* Conclusao, referencia, palavra chave *@
+        @if (Model.EventoId != 8)
+        {
+            <div class="margin-top-10 row">
+                <p><b>Conclusão: </b></p>
+                <div class="on-focus clearfix" style="position: relative">
+                    <textarea id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
+                    <div class="tool-tip">mínimo 20 palavras, máximo 100 palavras</div>
+                    <span hidden id="conclusao-error" class="message-error">mínimo 20 palavras, máximo 100 palavras</span>
+                </div>
+            </div>
+
+            <div class="margin-top-10 row">
+                <p><b>Referências bibliográficas: </b></p>
+                <div class="on-focus clearfix" style="position: relative">
+                    <textarea id="referencia" asp-for="Referencia" value="@Model.Referencia"></textarea>
+                    <div class="tool-tip">mínimo 20 palavras, máximo 100 palavras</div>
+                    <span hidden id="referencia-error" class="message-error">mínimo 20 palavras, máximo 100 palavras</span>
+                </div>
+            </div>
+
+                        <div class="margin-top-10 row">
+                            <p><b>Palavras chave: </b></p>
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="palavra-chave" asp-for="PalavraChave" style="height:40px!important" value="@Model.PalavraChave" required></textarea>
+                                <div class="tool-tip">mínimo 3 palavras, máximo 6 palavras (palavras separadas por vírgula)</div>
+                                <span hidden id="palavra-chave-error" class="message-error">mínimo 3 palavras, máximo 6 palavras</span>
+
+                            </div>
+                        </div>
+        }
+
+        @* Cadastrar *@
+        <div class="form-group margin-top-10">
+            <button type="button" class="btn btn-primary float-left prev">Voltar</button>
+            <button id="cadastrar-trabalho" type="submit" class="btn btn-primary float-right">Cadastrar</button>
+        </div>
+    </div>
+    </form>

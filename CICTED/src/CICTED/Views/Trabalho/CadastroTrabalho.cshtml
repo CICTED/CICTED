@@ -1,0 +1,1025 @@
+﻿@model CICTED.Domain.ViewModels.Autor.CadastroTrabalhoViewModel
+@{
+    Layout = "_Menu";
+}
+<title>Cadastro de Trabalho - CICTED</title>
+<body>
+
+    <form class="form-cadTrabalho" asp-controller="Trabalho" asp-action="Cadastro/@Model.EventoId" method="post">
+        <div class="row form-group" style="text-align:center">
+            <h3><span class="fa fa-book"></span><b> Cadastrar trabalho </b></h3>
+        </div>
+
+        @if (ViewBag.erro == true)
+        {
+            <div class="alert alert-danger" role="alert">Ops, alguma coisa esta errada! Verifique todos os campos.</div>
+        }
+
+        <div>
+            <ul class="nav nav-pills nav-justified">
+                <li role="presentation" class="active"><a aria-controls="Passo1" href="#Passo1" role="tab" data-toggle="tab">Passo 1</a></li>
+                <li role="presentation"><a aria-controls="Passo2" href="#Passo2" role="tab" data-toggle="tab">Passo 2</a></li>
+                <li role="presentation"><a aria-controls="Passo3" href="#Passo3" role="tab" data-toggle="tab">Passo 3</a></li>
+            </ul>
+
+            <div class="tab-content">
+                @* Passo 1 *@
+                <div role="tabpanel" class="tab-pane active margin-top-30" id="Passo1">
+
+                    <div class="margin-top-30 form-group">
+                        <h4>
+                            <span class="fa fa-warning"></span><b> Confira atentamente o evento no qual irá participar, pois as regras de submissão são diferentes para cada evento.</b>
+                        </h4>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:250px;">
+                            <label>Evento: </label>
+                        </div>
+
+                        <div class="float-left margin-left-75">
+                            <input hidden asp-for="EventoNome" value="@Model.EventoNome" /> <b>@Model.EventoNome</b>
+                        </div>
+                    </div>
+                    @if (Model.EventoId == 2 || Model.EventoId == 3 || Model.EventoId == 4)
+                    {
+                        <div class="form-group row">
+                            <div class="float-left margin-left-40" style="width:250px;">
+                                <label>Nome da escola: </label>
+                            </div>
+
+                            <div class="float-left margin-left-75 nome-escola">
+                                <input class="input-trabalho" type="text" id="nome-escola" asp-for="NomeEscola" value="@Model.NomeEscola" />
+                                <span style="display: none" id="campo-nome" class="text-danger campo-obrigatorio">Campo obrigatório</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="float-left margin-left-40" style="width:250px;">
+                                <label>Cidade da escola: </label>
+                            </div>
+
+                            <div class="float-left margin-left-75 cidade-escola">
+                                <input class="input-trabalho" type="text" id="cidade-escola" asp-for="CidadeEscola" value="@Model.CidadeEscola" />
+                                <span style="display: none" id="campo-cidade" class="text-danger campo-obrigatorio">Campo obrigatório</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="float-left margin-left-40" style="width:250px;">
+                                <label>Telefone da escola: </label>
+                            </div>
+
+                            <div class="float-left margin-left-75 telefone-escola">
+                                <input class="input-trabalho telefone" type="text" id="telefone-escola" asp-for="TelefoneEscola" value="@Model.TelefoneEscola" />
+                                <span style="display: none" id="campo-telefone" class="text-danger campo-obrigatorio">Campo obrigatório</span>
+                            </div>
+                        </div>
+
+                    }
+
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:250px;">
+                            <label>Area de conhecimento: </label>
+                        </div>
+
+                        <div class="float-left margin-left-75">
+                            <select class="form-control input-trabalho" name="AreaConhecimento" value="@Model.AreaConhecimento" id="dropArea">
+                                <option disabled selected>Selecione uma área</option>
+                                @foreach (var areas in Model.AreasConhecimento)
+                                {
+                                    if (areas.Id == Model.AreaConhecimento)
+                                    {
+                                        <option value="@areas.Id" selected>@areas.Area</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@areas.Id"> @areas.Area</option>
+                                    }
+                                }
+                            </select>
+                            <span style="display: none" id="campo-area-conhecimento" class="text-danger">Selecione uma área de conhecimento</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:250px;">
+                            <label>Subarea: </label>
+                        </div>
+
+                        <div class="float-left margin-left-75">
+                            <select data-id="sub-area" class="form-control input-trabalho" name="SubAreaId" value="@Model.SubAreaId" id="dropSubArea">
+                                <option disabled selected>Selecione uma subarea</option>
+                                @if (Model.SubAreaId > 0)
+                                {
+                                    <option value="@Model.SubAreaId" selected> @Model.SubAreaNome</option>
+                                }
+                            </select>
+                            <span style="display: none" id="campo-sub-conhecimento" class="text-danger">Selecione uma Subarea de conhecimento</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:250px;">
+                            <label>Periodo apresentação: </label>
+                        </div>
+
+                        <div class="float-left margin-left-75">
+                            <select data-id="periodo-apresentacao" class="form-control input-trabalho" name="PeriodoApresentacao" value="@Model.PeriodoApresentacao" id="dropPeriodo">
+                                <option disabled selected>Selecione um periodo</option>
+                                @foreach (var periodos in Model.Periodos)
+                                {
+                                    if (periodos.Id == Model.PeriodoApresentacao)
+                                    {
+                                        <option value="@periodos.Id" selected> @periodos.PeriodoNome</option>
+                                    }
+                                    <option value="@periodos.Id"> @periodos.PeriodoNome</option>
+                                }
+                            </select>
+                            <span style="display: none" id="campo-periodo" class="text-danger">Selecione um período para apresentação</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="float-left margin-left-40" style="width:250px;">
+                            <label>O trabalho é financiado por alguma agência? </label>
+                        </div>
+                        <div class="float-left margin-left-75">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkFinanciado" asp-for="TrabalhoFinanciado" checked="@((Model.TrabalhoFinanciado) ? true : false)" />
+
+                                <label class="onoffswitch-label" for="checkFinanciado">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="Financiado" style="display: none" class="form-group row">
+                        <div class="form-group row">
+                            <div class="float-left margin-left-40" style="width:250px">
+                                <label>Agencia Financiadora:</label>
+                            </div>
+                            <div class="float-left margin-left-75">
+                                <select id="agencia-financiadora" class="form-control input-trabalho" name="AgenciaId" value="@Model.AgenciaId">
+                                    <option value="0">Selecione a agência financiadora</option>
+                                    @foreach (var agencia in Model.Agencias)
+                                    {
+                                        if (agencia.Id == Model.AgenciaId)
+                                        {
+                                            <option value="@agencia.Id" selected>@agencia.AgenciaNome</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@agencia.Id">@agencia.AgenciaNome</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="float-left margin-left-40" style="width:223px !important">Texto de citação do <wbr /> financiamento: (opcional)</label>
+                            <textarea class="float-left margin-bottom-50" style="width: 440px !important" asp-for="TextoCitacao" value="@Model.TextoCitacao"></textarea>
+                        </div>
+
+                    </div>
+                    <hr />
+                    <b>Atenção: Caso seu trabalho envolva seres humanos deverão estar aprovadas por Comitê de Ética registrado junto à CONEP/CNS/MS. E o campo abaixo deve ser preenchido.</b>
+
+                    <div class="form-group row margin-top-20">
+                        <div class="float-left margin-left-40" style="width: 250px">
+                            <label>Código CEP (Comitê de Ética em Pesquisa): </label>
+                        </div>
+                        <div class="float-left margin-left-75">
+                            <input class="border-radius input-trabalho" autocomplete="off" id="codigo-cep" type="text" name="CodigoCEP" value="@Model.CodigoCEP" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group margin-top-10">
+                        <button id="button-avanca1" type="button" class="btn btn-primary float-right">Avançar</button>
+                    </div>
+                </div>
+
+
+                @* Passo2 *@
+
+                <div role="tabpanel" class="tab-pane" id="Passo2">
+
+                    @if (Model.EventoId == 2 || Model.EventoId == 3 || Model.EventoId == 4)
+                    {
+                        <div class="margin-top-20 form-group">
+                            <h4>
+                                <span class="fa fa-warning"></span>
+                                <b>
+                                    Você é o Professor orientador do trabalho;<br />
+                                    O trabalho deve ter entre 1 e 7 alunos.
+                                </b>
+                            </h4>
+                            <div id="aviso"></div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="porNome">
+                            <div class="form-group margin-top-10 row">
+                                <input type="text" class="input-add-autor margin-bottom-20" id="input-add-aluno" style="width:350px !important" placeholder="Digite o nome desejado" />
+                                <a id="adicionar-aluno" class="btn btn-primary">Cadastrar</a>
+                                <span id="qtd-alunos" style="display: none" class="text-danger">O trabalho deve ter pelo menos 1 aluno</span>
+
+                                <div id="nomes-alunos" style="height:184px">
+
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="margin-top-30 form-group">
+                            <h4>
+                                <span class="fa fa-warning"></span>
+                                <b>
+                                    Você é o Autor Principal do trabalho;<br />
+                                    Cada trabalho poderá ter até 7 (sete) autores (Autor Principal, Orientador e Coautores);
+                                    O trabalho terá obrigatoriamente 1 (um) orientador.
+                                </b>
+                            </h4>
+                            <h5>Para cadastrar um participante use uma das opções a baixo</h5>
+
+                            <div id="errors"></div>
+
+                            <span id="verifica-orientador" style="display: none" class="text-danger">Trabalho deve ter orientador.</span>
+
+
+                        </div>
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#porEmail" aria-controls="porEmail" role="tab" data-toggle="tab">Por Email</a></li>
+                            <li role="presentation"><a href="#porNome" aria-controls="porNome" role="tab" data-toggle="tab">Por Nome</a></li>
+                        </ul>
+
+
+                        <div class="tab-content">
+                            @*EMAIL*@
+                            <div role="tabpanel" class="tab-pane active " id="porEmail">
+                                <div class="form-group margin-top-10 row">
+
+                                    <input autocomplete="off" class="input-add-autor" type="text" value="" id="input-email" placeholder="Email do coautor" />
+
+                                    <a id="button-cadastrar-email" class="btn btn-primary">Cadastrar</a>
+                                </div>
+                            </div>
+
+
+                            @*NOME*@
+                            <div role="tabpanel" class="tab-pane" id="porNome">
+                                <div class="form-group margin-top-10 row add-autor">
+                                    <input value="" autocomplete="off" class="input-nome input-add-autor" type="text" style="width:350px !important" placeholder="Nome do coautor" />
+
+                                    <div style="height:0px;" class="busca float-left">
+                                        <ul id="lista-nomes"></ul>
+                                    </div>
+
+                                    <a id="adicionar-nome" class="btn btn-primary">Adicionar</a>
+                                </div>
+                            </div>
+
+                            <table class="table-trabalho">
+
+                                @*AUTOR PRINCIPAL*@
+                                <tr>
+                                    <td>
+                                        <b class="margin-right-40">Autor Principal: </b>
+                                    </td>
+                                    <td>
+                                        <div class="float-left">
+                                            <span class="fa fa-check-circle color-aprovado"></span>
+                                            @Model.AutorPrincipal.Nome @Model.AutorPrincipal.Sobrenome
+                                            <b>@Model.AutorPrincipal.Email</b>
+                                            <input id="autor-principal" style="visibility:hidden; width: 1px;" value="@Model.AutorPrincipal.Id" />
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                @*COAUTORES*@
+                                <tr>
+                                    <td>
+                                        <b class="margin-right-40">Coautes: </b>
+                                    </td>
+
+                                    <td id="coautores" name="coautores">
+                                        @if (Model.Coautores != null)
+                                        {
+                                            foreach (var coautor in Model.Coautores)
+                                            {
+                                                <div style="width:500px" id="autor-@coautor.Id">
+                                                    @if (coautor.StatusId == 2)
+                                                    {
+                                                        <span class="fa fa-clock-o color-submissao"></span>
+                                                    }
+                                                    @if (coautor.StatusId == 3)
+                                                    {
+                                                        <span class="fa fa-clock-o color-avaliacao"></span>
+                                                    }
+                                                    @coautor.Nome @coautor.Sobrenome <b> @coautor.Email</b><a class="deleta-autor" onclick="deletarAutor(@coautor.Id)" value="@coautor.Id">
+                                                        <span class="fa fa-times margin-left-20 link"></span>
+                                                    </a>
+                                                    <input style="visibility:hidden;float: right;width: 1px;" name="CoautoresId" value="@coautor.Id" />
+                                                </div>
+
+                                            }
+
+                                        }
+
+                                    </td>
+
+
+                                </tr>
+
+
+                                @*ORIENTADOR*@
+                                <tr>
+                                    <td><b>Orientador: </b></td>
+
+                                    <td id="orientador">
+
+                                        @if (Model.Orientador != null)
+                                        {
+                                            <div style="width:500px" id="autor-@Model.Orientador.Id">
+                                                @if (Model.Orientador.StatusId == 2)
+                                                {
+                                                    <span class="fa fa-clock-o color-submissao"></span>
+                                                }
+                                                @if (Model.Orientador.StatusId == 3)
+                                                {
+                                                    <span class="fa fa-clock-o color-avaliacao"></span>
+                                                }
+                                                @Model.Orientador.Nome @Model.Orientador.Sobrenome <b> @Model.Orientador.Email</b><a class="deleta-autor" onclick="deletarAutor(@Model.Orientador.Id)" value="@Model.Orientador.Id">
+                                                    <span class="fa fa-times margin-left-20 link"></span>
+                                                </a>
+                                                <input style="visibility:hidden;float: right;width: 1px;" name="OrientadorId" value="@Model.Orientador.Id" />
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+
+                    <hr />
+                    <div class="margin-bottom-10">
+                        <button type="button" class="btn btn-primary float-left prev">Voltar</button>
+                        <button id="button-avanca2" type="button" class="btn btn-primary float-right">Avançar</button>
+                    </div>
+                </div>
+
+                @* Passo 3 *@
+
+                <div role="tabpanel" class="tab-pane" id="Passo3">
+                    <div class="margin-top-10 row">
+                        <p><b>Titulo: </b></p>
+
+                        <div class="on-focus clearfix" style="position: relative">
+                            <textarea id="titulo" style="height:40px!important" asp-for="Titulo" value="@Model.Titulo" required></textarea>
+                            <div class="tool-tip">mínimo 5 palavras, máximo 20 palavras</div>
+                            <span hidden id="titulo-error" class="message-error">mínimo 5 palavras, máximo 20 palavras</span>
+                        </div>
+
+                    </div>
+
+                    @* RESUMO *@
+                    @if (Model.EventoId == 7)
+                    {
+                        <div class="margin-top-10 row">
+                            <p><b>Resumo: </b></p>
+
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="resumo" asp-for="Resumo" value="@Model.Resumo" required></textarea>
+                                <div class="tool-tip">mínimo 20 palavras, máximo 50 palavras</div>
+                                <span hidden id="resumo-error" class="message-error">mínimo 20 palavras, máximo 50 palavras</span>
+                            </div>
+
+                        </div>
+
+                    }
+
+                    @* INTRODUÇÃO *@
+                    <div class="margin-top-10 row">
+                        <p><b>Introdução: </b></p>
+                        <div class="on-focus clearfix" style="position: relative">
+                            <textarea id="introducao" asp-for="Introducao" value="@Model.Introducao" required></textarea>
+                            <div class="tool-tip">mínimo 20 palavras, máximo 150 palavras</div>
+                            <span hidden id="introducao-error" class="message-error">mínimo 20 palavras, máximo 150 palavras</span>
+                        </div>
+                    </div>
+
+                    @* OBJETIVO DO PROJETO *@
+                    @if (Model.EventoId == 8)
+                    {
+                        <div class="margin-top-10 row">
+                            <p><b>Objetivos do projeto: </b></p>
+
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="objetivos" asp-form="Objetivo" value="@Model.Objetivo" required></textarea>
+                                <div class="tool-tip">mínimo 20 palavras, máximo 60 palavras</div>
+                                <span hidden id="objetivos-error" class="message-error">mínimo 20 palavras, máximo 60 palavras</span>
+                            </div>
+
+                        </div>
+
+                    }
+
+                    @* Metodologia *@
+                    <div class="margin-top-10 row">
+                        @if (Model.EventoId == 7)
+                        {
+                            <p><b>Material e metodologia: </b></p>
+                        }
+                        else if (Model.EventoId == 8)
+                        {
+                            <p><b>Metodologia ou estratégia de execução/realização: </b></p>
+                        }
+                        else
+                        {
+                            <p><b>Metodologia: </b></p>
+                        }
+
+
+                        <div class="on-focus clearfix" style="position: relative">
+                            <textarea id="metodologia" asp-for="Metodologia" value="@Model.Metodologia" required></textarea>
+                            <div class="tool-tip">mínimo 50 palavras, máximo 300 palavras</div>
+                            <span hidden id="metodologia-error" class="message-error">mínimo 50 palavras, máximo 300 palavras</span>
+                        </div>
+
+                    </div>
+
+                    @* Resultados *@
+                    <div class="margin-top-10 row">
+                        @if (Model.EventoId == 7)
+                        {
+                            <p><b>Resultado e discussões: </b></p>
+                        }
+                        else if (Model.EventoId == 8)
+                        {
+                            <p><b>Resultados esperados: </b></p>
+                        }
+                        else
+                        {
+                            <p><b>Resultados: </b></p>
+                        }
+
+
+                        <div class="on-focus clearfix" style="position: relative">
+                            <textarea id="resultados" asp-for="Resultados" value="@Model.Resultados" required></textarea>
+                            <div class="tool-tip">mínimo 20 palavras, máximo 150 palavras</div>
+                            <span hidden id="resultados-error" class="message-error">mínimo 20 palavras, máximo 150 palavras</span>
+                        </div>
+                    </div>
+
+                    @* Figuras *@
+                    <div class="margin-top-10 row">
+                        <div class="float-left margin-bottom-30" style="width: 100%">
+                            <p><b>Figuras: </b></p>
+                            <input type="file" name="file" id="imgInp" class="inputfile" />
+                            <label class="btn btn-primary" style="width: 140px !important;" for="imgInp" id="uploadImagem">Selecione arquivo</label>
+                        </div>
+
+                        <div class="margin-left-10" id="imagens">
+
+                            <div id="imagem-1" class="width: 400px">
+                                <img class="imagem-trabalho float-left" id="arquivo-imagem" src="" />
+                                <div class="float-left margin-left-20">
+
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <b class="display-inline">Nome do arquivo:</b>
+                                        <h5 class="display-inline" id="nome-imagem"> sjlfasljfhnjsafn.png</h5>
+                                    </div>
+
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <b class="display-inline">Titulo:</b>
+                                        <h5 class="display-inline" id="titulo-imagem"> titulo titulo titulo </h5>
+                                    </div>
+
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <a style="padding: 3px" class="float-riht btn btn-primary float-right">excluir</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    @* Conclusao, referencia, palavra chave *@
+                    @if (Model.EventoId != 8)
+                    {
+                        <div class="margin-top-20 row">
+                            <p><b>Conclusão: </b></p>
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="conclusao" asp-for="Conclusao" value="@Model.Conclusao" required></textarea>
+                                <div class="tool-tip">mínimo 20 palavras, máximo 100 palavras</div>
+                                <span hidden id="conclusao-error" class="message-error">mínimo 20 palavras, máximo 100 palavras</span>
+                            </div>
+                        </div>
+
+                        <div class="margin-top-10 row">
+                            <p><b>Referências bibliográficas: </b></p>
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="referencia" asp-for="Referencias" value="@Model.Referencias"></textarea>
+                                <div class="tool-tip">mínimo 20 palavras, máximo 100 palavras</div>
+                                <span hidden id="referencia-error" class="message-error">mínimo 20 palavras, máximo 100 palavras</span>
+                            </div>
+                        </div>
+
+                        <div class="margin-top-10 row">
+                            <p><b>Palavras chave: </b></p>
+                            <div class="on-focus clearfix" style="position: relative">
+                                <textarea id="palavra-chave" asp-for="PalavraChave" style="height:40px!important" value="@Model.PalavrasChave" required></textarea>
+                                <div class="tool-tip">mínimo 3 palavras, máximo 6 palavras (palavras separadas por vírgula)</div>
+                                <span hidden id="palavra-chave-error" class="message-error">mínimo 3 palavras, máximo 6 palavras</span>
+
+                            </div>
+                        </div>
+                    }
+
+                    @* Cadastrar *@
+                    <div class="form-group margin-top-10">
+                        <button type="button" class="btn btn-primary float-left prev">Voltar</button>
+                        <button id="cadastrar-trabalho" type="submit" class="btn btn-primary float-right">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div style="width:40%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div id="content-imagem">
+
+                        <img class="imagem-trabalho float-left margin-top-20" id="arquivo-imagem" src="" />
+                        <div class="float-left margin-left-20 margin-top-20" style="width: 60%">
+                            <h5 class="float-left"><b>Nome do arquivo:</b></h5>
+                            <h5 style="width: 60%" class="float-left margin-left-10" id="nome-file"></h5>
+                        </div>
+
+                        <div class="float-left margin-left-20 margin-top-10" style="width: 60%">
+                            <h5><b>Titulo:  </b> <input class="custom-input" id="titulo-file" /></h5>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary margin-top-20" data-dismiss="modal">Cadastrar imagem</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+<script type="text/javascript">
+
+    var idAutorPrincipal = $("#autor-principal").val();
+
+    var idEvento = '@Model.EventoId'
+
+    var autores = new Array();
+
+    //autores.push(idAutorPrincipal);
+    autores.push({
+        id: idAutorPrincipal,
+        status: 5,
+        orientador: false,
+    });
+
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var name = input.files[0].name;
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                $("#arquivo-imagem").attr('src', e.target.result);
+                $("#nome-file").text(name);
+                $("#myModal").modal();
+
+                //var qtdImagens = $("img[id *= imagem-]").length;
+                //if (qtdImagens == 0) {
+                //    $("#imagens").append('<img class="margin-top-20 imagem-trabalho" id="imagem-1" src="' + e.target.result + '"/>');
+                //}
+                //else if (qtdImagens == 1) {
+                //    $("#imagens").append('<img class="margin-top-20 imagem-trabalho" id="imagem-2" src="' + e.target.result + '"/>');
+
+                //}
+                //else {
+                //    alert("maximo 2");
+                //}
+
+                //var src1 = $('#imagem1').attr('src');
+                //var src2 = $('#imagem2').attr('src');
+                //if (src1 == "") {
+                //    $('#imagem1').attr('src', e.target.result);
+                //}
+                //else if(src2 == "") {
+                //    $('#imagem2').attr('src', e.target.result);
+                //}
+                //else {
+                //    alert("máximo 2 imagens");
+                //}
+            }
+
+
+            //<img class="imagem-trabalho" id="imagem-1" src="#" alt="your image" />
+            //<img class="imagem-trabalho" id="imagem2" src="#" alt="your image" />
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function () {
+        readURL(this);
+    });
+
+    $("#cadastrar-trabalho").on("click", function () {
+        $(".message-error").hide();
+
+        var titulo = ($("#titulo").val()).toString().trim().split(' ').length;
+        if (titulo < 5 || titulo > 20) {
+            $("#titulo-error").show();
+            return false;
+        }
+
+        var introducao = ($("#introducao").val()).toString().trim().split(' ').length;
+        if (introducao < 20 || introducao > 150) {
+            $("#introducao-error").show();
+            return false;
+        }
+
+        var metodologia = ($("#metodologia").val()).toString().trim().split(' ').length;
+        if (metodologia < 50 || metodologia > 300) {
+            $("#metodologia-error").show();
+            return false;
+        }
+
+        var resultados = ($("#resultados").val()).toString().trim().split(' ').length;
+        if (resultados < 20 || resultados > 150) {
+            $("#resultados-error").show();
+            return false;
+        }
+
+        if (idEvento != 8) {
+            var conclusao = ($("#conclusao").val()).toString().trim().split(' ').length;
+            if (conclusao < 20 || conclusao > 100) {
+                $("#conclusao-error").show();
+                return false;
+            }
+
+            var referencia = ($("#referencia").val()).toString().trim().split(' ').length;
+            if (referencia < 20 || referencia > 100) {
+                $("#referencia-error").show();
+                return false;
+            }
+
+            var palavraChave = ($("#palavra-chave").val()).toString().trim().replace(' ', '').split(',').length;
+            if (palavraChave < 3 || palavraChave > 6) {
+                $("#palavra-chave-error").show();
+                return false;
+            }
+        }
+
+        if (idEvento == 8) {
+            var objetivos = ($("#objetivos").val()).toString().trim().split(' ').length;
+            if (objetivos < 20 || objetivos > 60) {
+                $("#objetivos-error").show();
+                return false;
+            }
+        }
+
+        if (idEvento == 7) {
+            var resumo = ($("#resumo").val()).toString().trim().split(' ').length;
+            if (resumo < 20 || resumo > 50) {
+                $("#resumo-error").show();
+                return false;
+            }
+        }
+
+    });
+
+    //verifica se nome, telefone e cidade escola estao preenchidos
+    $("#button-avanca1").on("click", function () {
+        $("#campo-area-conhecimento").hide();
+        $("#campo-sub-conhecimento").hide();
+        $("#campo-periodo").hide();
+
+
+        if (idEvento == 2 || idEvento == 3 || idEvento == 4) {
+            $("#campo-nome").hide();
+            $("#campo-telefone").hide();
+            $("#campo-cidade").hide();
+
+            if ($("#nome-escola").val().trim() == "") {
+                return $("#campo-nome").show();
+            }
+
+            if ($("#cidade-escola").val().trim() == "") {
+                return $("#campo-cidade").show();
+            }
+
+            if ($("#telefone-escola").val().trim() == "") {
+                return $("#campo-telefone").show();
+            }
+        }
+
+        if ($("#dropArea").val() == null) {
+            return $("#campo-area-conhecimento").show();
+        }
+        if ($("#dropSubArea").val() == null || $("#dropSubArea").val() == -1) {
+            return $("#campo-sub-conhecimento").show();
+        }
+        if ($("#dropPeriodo").val() == null) {
+            return $("#campo-periodo").show();
+        }
+        else {
+            next();
+        }
+
+
+
+    });
+
+    $("#button-avanca2").on("click", function () {
+        if (idEvento == 2 || idEvento == 3 || idEvento == 4) {
+            $("#qtd-alunos").hide();
+            var qtdAlunos = $("div[id *= aluno-]").length;
+
+            if (qtdAlunos < 1) {
+                $("#qtd-alunos").show();
+            }
+            else {
+                next();
+            }
+        }
+        else {
+            $("#verifica-orientador").hide();
+            if ($.trim($("#orientador").html()) == '') {
+                $("#verifica-orientador").show();
+            } else {
+                next();
+            }
+        }
+    });
+
+    //pesquisa os autores para mostrar os nomes de opção
+    $(".input-nome").keyup(function () {
+        var valor = $(this).val();
+        if (valor.trim() == "") {
+            $("#lista-nomes").empty();
+        }
+
+        if (valor.length > 2) {
+            $("#lista-nomes").html(' ');
+            $.ajax({
+                url: '/trabalho/pesquisa/autor',
+                type: 'get',
+                data: {
+                    busca: valor
+                },
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        $("#lista-nomes").append('<li><a class="selectautor" data-status="' + item.statusId + '" data-email="' + item.email + '" data-id="' + item.id + '">' + item.nome.toUpperCase() + ' ' + item.sobrenome.toUpperCase() + '</a>' +
+                            '<ul><li>Email: ' + item.email + '<br />Instituição:' + item.instituicao + '</li></ul></li>');
+                    })
+                },
+            })
+        }
+    });
+
+    var id = 0;
+
+    //seleciona o nome, preenche input
+    $('body').on("click", ".selectautor", function () {
+        id = $(this).data("id");
+        email = $(this).data("email");
+        status = $(this).data("status")
+        var nome = $(this).text();
+        $(".input-nome").val(nome);
+        $(".input-nome").attr('id', id);
+        $(".input-nome").attr('data-email', email);
+        $(".input-nome").attr('data-status', status);
+        $("#lista-nomes").empty();
+    });
+
+    //verifica se o autor ja esta no trabalho, se nao, adiciona
+    $("#adicionar-nome").on("click", function () {
+        var userId = $(".input-nome").attr("id");
+        var id = $("#coautores");
+        var name = "CoautoresId";
+
+        if ($.trim($("#orientador").html()) == '') {
+            id = $("#orientador");
+            name = "OrientadorId";
+        }
+
+        var qtdCoautores = $("div[id *= autor]").length - 1;
+
+        if (qtdCoautores >= 5) {
+            $("#getCodeModal").modal('show');
+        }
+        else {
+            for (var i in autores) {
+                if (autores[i].id == userId) {
+                    $('#errors').empty();
+                    $('#errors').append('<div class="alert alert-danger" role="alert">Usuario já cadastrado no trabalho</div>');
+                    return false;
+                }
+            }
+
+            var email = $(".input-nome").attr("data-email");
+            var nome = $(".input-nome").val();
+
+            autores.push({
+                id: userId,
+                status: 2,
+                orientador: orientador
+            });
+
+            id.attr("data-id", "autor-" + userId);
+
+
+            id.append('<div style="width:500px" id="autor-' + userId + '"><span class="fa fa-clock-o color-submissao"></span> ' + nome + '<b> ' + email + '</b><a class="deleta-autor" onclick="deletarAutor(' + userId + ')" value="' +
+                                userId + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input name="' + name + '" style = "visibility:hidden;float: right;width: 1px;" value="' + userId + '" /></div>');
+        }
+        $(".input-nome").val("");
+    });
+
+    //cadastrar email
+    $("#button-cadastrar-email").on("click", function () {
+        var email = $("#input-email").val().trim();
+        var id = $("#coautores");
+        var orientador = false;
+        var name = "CoautoresId";
+
+        if (email.length > 0) {
+
+
+            var qtdCoautores = $("div[id *= autor]").length - 1;
+            if (qtdCoautores >= 5) {
+                $("#getCodeModal").modal('show');
+            }
+            else {
+                $.ajax({
+                    url: '/trabalho/adicionar/email',
+                    type: 'POST',
+                    data: {
+                        email: email,
+                    },
+                    success: function (data) {
+                        var status;
+
+                        for (var i in autores) {
+                            if (autores[i].id == data.id) {
+                                $('#errors').empty();
+                                $('#errors').append('<div class="alert alert-danger" role="alert">Usuario já cadastrado no trabalho</div>');
+                                return false;
+                            }
+                        }
+
+                        autores.push({
+                            id: data.id,
+                            status: data.status,
+                            orientador: orientador
+                        });
+
+
+                        if ($.trim($("#orientador").html()) == '') {
+                            id = ($("#orientador"));
+                            name = "OrientadorId";
+                        }
+
+
+                        id.attr("data-id", "autor-" + data.id);
+                        if (data.statusId == 2) {
+                            status = '<span class="fa fa-clock-o color-submissao"></span>';
+                        }
+                        else if (data.statusId == 3) {
+                            status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+                        }
+
+                        id.append('<div style="width:500px" id="autor-' + data.id + '">' + status + ' ' + data.nome + ' ' +
+                            data.sobrenome + '<b> ' + data.email + '</b><a class="deleta-autor" onclick="deletarAutor(' + data.id + ')" value="' +
+                            data.id + '"><span class="fa fa-times margin-left-20 link"></span></a>' +
+                            '<input style = "visibility:hidden;float: right;width: 1px;" name="' + name + '" value="' + data.id + '" /></div>');
+                    },
+                    error: function (x, y, message) {
+                        $('#errors').empty();
+                        $('#errors').append('<div class="alert alert-danger" role="alert">' + x.responseText + '</div>');
+                    },
+                })
+                $(".input-add-autor").val("");
+            }
+        }
+    });
+
+    $("#adicionar-aluno").on("click", function () {
+        $('#aviso').empty();
+        var aluno = $("#input-add-aluno").val().trim();
+        var id = trim(aluno);
+
+        if (aluno != "") {
+            var qtdAlunos = $("div[id *= aluno]").length;
+
+            if (qtdAlunos > 7) {
+                $('#aviso').append('<div class="alert alert-danger" role="alert">Permitido apenas 7 alunos</div>');
+            }
+            else {
+                $("#nomes-alunos").append('<div style="width:500px" id="aluno-' + id + '">' + aluno + '<a onclick="deletarAluno(\'' + id + '\')" ><span class="fa fa-times margin-left-20 link"></span></a>' +
+                                '<input name="AlunosNome" style = "visibility: hidden; float: right; width: 1px;" value="' + aluno + '" /></div>');
+            }
+            $("#input-add-aluno").val(" ");
+        }
+    });
+
+    function deletarAutor(id) {
+        $(document).ready(function () {
+            $("#autor-" + id).remove();
+            var orientador = $("#orientador");
+
+            for (var i in autores) {
+                if (autores[i].id == id) {
+                    delete autores[i];
+                    break;
+                }
+            }
+
+            if ($.trim($("#orientador").html()) == '') {
+                $(("#input-email")).attr("placeholder", "Email do orientador");
+                $((".input-nome")).attr("placeholder", "Nome do orientador");
+            }
+            else {
+                $((".input-nome")).attr("placeholder", "Nome do coautor");
+                $(("#input-email")).attr("placeholder", "Email do coautor");
+            }
+        });
+    }
+
+    function deletarAluno(id) {
+        $(document).ready(function () {
+            $("#aluno-" + id).remove();
+        });
+    }
+
+    function trim(vlr) {
+        while (vlr.indexOf(" ") != -1) {
+            vlr = vlr.replace(" ", "");
+        }
+        return vlr;
+    }
+
+    function next() {
+        $('.nav-pills li.active').next('li').removeClass('disabled');
+        $('.nav-pills li.active').next('li').find('a').attr("data-toggle", "tab").trigger("click");
+        $('.nav-pills li').prev('li').find('a').removeAttr("data-toggle");
+        $('.nav-pills li').prev('li').addClass('disabled');
+    }
+
+    $("#checkFinanciado").on("change", function () {
+        if ($(this).is(":checked")) {
+            $("#Financiado").css("display", "block");
+        } else {
+            $("#Financiado").css("display", "none");
+
+        }
+    });
+
+    $(document).ready(function () {
+
+        $('.nav-pills li').not('.active').addClass('disabled');
+        $('.nav-pills li').not('.active').find('a').removeAttr("data-toggle");
+
+        $('button.next').click(function () {
+
+            $('.nav-pills li.active').next('li').removeClass('disabled');
+            $('.nav-pills li.active').next('li').find('a').attr("data-toggle", "tab").trigger("click");
+            $('.nav-pills li').prev('li').find('a').removeAttr("data-toggle");
+            $('.nav-pills li').prev('li').addClass('disabled');
+        });
+
+        $('button.prev').click(function () {
+            $('.nav-pills li.active').prev('li').find('a').attr("data-toggle", "tab").trigger("click");
+            $('.nav-pills li.active').prev('li').find('a').trigger("click");
+            $('.nav-pills li').next('li').find('a').removeAttr("data-toggle");
+            $('.nav-pills li').next('li').addClass('disabled');
+        });
+    });
+
+    $('#dropArea').subArea($('#dropSubArea'));
+    $(".telefone").mask("(99) 9999-9999");
+</script>

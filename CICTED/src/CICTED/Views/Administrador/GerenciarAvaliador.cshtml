@@ -1,0 +1,169 @@
+﻿@model List<CICTED.Domain.ViewModels.Administrador.Gerenciar>
+@{
+    Layout = "_Menu";
+}
+<title>Gerenciar Avaliador - CICTED</title>
+
+<div class="form-consultTrabAdm">
+    <h3><b><span class="fa fa-pencil-square-o"></span> Gerenciar Avaliador</b></h3>
+
+    <div class="form-group">
+        Pesquisar: <input class="input-consulta-trab-adm" id="autor-nome" style="width:350px !important" placeholder="Digite o nome ou email" autocomplete="off" />
+        <div style="height:0px; display:none" class="busca float-left">
+            <ul id="lista-nomes"></ul>
+        </div>
+        <button class="btn btn-primary margin-left-10"><span class="fa fa-search"></span></button>
+        <button class="fa fa-user-plus link btn btn-primary float-right" style="width:150px" type="submit" onclick="location.href='/administrador/cadastrarAvaliador'"> Novo Avaliador</button>
+
+    </div>
+
+    <hr />
+
+    <table class="table table-striped" style="margin:0 0 auto">
+        <tr>
+            <th style="width: 50px !important" class="form-group"></th>
+            <th>
+                Nome
+            </th>
+            <th>
+                Email
+            </th>
+            <th style="width: 80px !important" class="form-group"> Status</th>
+        </tr>
+
+        @foreach (var avaliadores in Model)
+        {
+            <tr>
+                <td><a class="fa fa-search link avaliador" data-toggle="modal" data-target="#myModal" data-id="@avaliadores.Id"></a></td>
+
+                <td>@avaliadores.Nome @avaliadores.Sobrenome</td>
+                <td>@avaliadores.Email</td>
+                @if (avaliadores.FirstAccess == false)
+                {
+                    <td><span class="fa fa-check-circle margin-left-10 color-aprovado"></span></td>
+                }
+                else
+                {
+                    <td><span class="fa fa-times-circle margin-left-10 color-reprovado"></span></td>
+                }
+            </tr>
+        }
+    </table>
+
+    <hr />
+
+    <h5>
+        <b>Legenda:</b>
+        <span class="fa fa-check-circle margin-left-10 color-aprovado"></span> Já acessou
+        <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Nunca acessou
+    </h5>
+
+    <div id="cadastroModal" class="modal fade" role="dialog">
+        <div style="width:40%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Cadastrar Avaliador</h3>
+
+                    <hr />
+
+                    <div class="float-center">
+                        <label>Nome: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <div class="float-center">
+                        <label>Sobrenome: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <div class="float-center">
+                        <label>Email: </label>
+                        <input class="input-consulta-trab-adm" style="width:350px !important" />
+                    </div>
+
+                    <br />
+
+                    <button class="btn btn-primary margin-top-10" style="margin-left:45%; width:100px"><span class="fa fa-pencil-square-o"></span> Cadastrar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog" data-backdrop="static">
+        <div style="width:50%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h3 style="font-weight:bold"><span class="fa fa-user"></span> Informações do Avaliador</h3>
+
+                    <hr />
+
+                    <table class="table table-striped">
+                        <tr><td><b>Nome: </b></td><td id="Nome"></td></tr>
+                        <tr><td><b>Email: </b></td><td id="Email"></td></tr>
+                        <tr><td><b>Telefone: </b></td><td id="Telefone"></td></tr>
+                        <tr><td><b>Celular: </b></td><td id="Celular"></td></tr>
+                        <tr><td><b>CPF: </b></td><td id="CPF"></td></tr>
+                        <tr><td><b>Data de Nascimento: </b></td><td id="Nascimento"></td></tr>
+                        <tr><td><b>Gênero: </b></td><td id="Genero"></td></tr>
+                        <tr><td><b>Endereço: </b></td><td id="Endereco"></td></tr>
+                        <tr><td><b>Evento: </b></td><td id="Evento"></td></tr>
+                        <tr><td><b>Subarea de Conhecimento: </b></td><td id="SubArea"></td></tr>
+                    </table>
+
+                    <br />
+
+                    <button class="btn btn-primary" style="margin-left:32%; width:100px"><span class="fa fa-pencil-square-o"></span> Editar</button>
+                    <button class="btn btn-primary margin-left-20" style="width:100px"><span class="fa fa-close"></span> Excluir</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(".avaliador").on("click", function () {
+        var avaliador = $(this);
+        var id = avaliador.attr("data-id");
+
+        $.ajax({
+            url: '/administrador/informacaoAvaliador',
+            type: 'get',
+            data: {
+                id: id
+            },
+
+            success: function (data) {
+                $('#Nome').text(data.nome + ' ' + data.sobrenome);
+                $('#Email').text(data.email);
+                $('#Telefone').text(data.phoneNumber);
+                $('#Celular').text(data.celular);
+                $('#CPF').text(data.cpf);
+                $('#Nascimento').text(data.nascimento);
+                $('#Endereco').text(data.logradouro + ', ' + data.numero + ', ' + data.bairro + ', ' + data.cidadeNome + ' - ' + data.sigla);
+
+                if (data.avaliador == false) {
+                    $('#Avaliador').text('Sim');
+                } else {
+                    $('#Avaliador').text('Não');
+
+                }
+
+                if (data.genero == true) {
+                    $('#Genero').text('Feminino');
+                } else {
+                    $('#Genero').text('Masculino');
+                }
+                $('#Evento').text(data.evento);
+                $('#SubArea').text(data.subAreaConhecimento);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,119 @@
+﻿@model CICTED.Domain.ViewModels.Administrador.Gerenciar
+@{
+    Layout = "_Menu";
+}
+<title>Cadastrar Avaliador - CICTED</title>
+
+<form class="form-cadastro-adm" asp-contoller="administrador" asp-action="cadastrarAvaliador" method="post">
+    <div style="text-align:center">
+        <h2><span class="fa fa-user-plus"></span><b> Cadastrar Avaliador</b></h2>
+    </div>
+
+    <div class="form-group">
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Nome: </label>
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="Nome" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Sobrenome: </label>
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="Sobrenome" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Email: </label>
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="Email" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Confirmar email: </label>
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row">
+            <div class="float-left" style="width:40%">
+                <label>Celular: </label>
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" id="Celular" placeholder="(99) 99999-9999" />
+            </div>
+
+            <div class="float-right" style="width:50%">
+                <label>Telefone: </label>
+                <input type="text" class="input-consulta-trab-adm" style="width:500px" asp-for="PhoneNumber" id="Telefone" placeholder="(99) 9999-9999" />
+            </div>
+        </div>
+
+        <div class="margin-top-10 row" id="avaliador">
+            <div>
+                <div class="float-left" style="width:40%">
+                    <label>Evento:</label>
+                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropEvento" value="@Model.EventoId" asp-for="EventoId">
+                        <option value="-1">Selecione o evento</option>
+                        @foreach (var evento in Model.Eventos)
+                        {
+                            <option value="@evento.Id"> @evento.Sigla</option>
+
+                        }
+                    </select>
+                </div>
+                <div class="float-right" style="width:50%">
+                    <label>Área:</label>
+                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId">
+                        <option value="-1">Selecione a área</option>
+                        @foreach (var areas in Model.AreaConhecimento)
+                        {
+                            <option value="@areas.Id">@areas.Area</option>
+
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <div class="float-left margin-top-10" style="width:40%">
+                    <label>Subarea:</label>
+                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropSubArea">
+                        <option value="-1">Selecione a subarea</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+        <br />
+        <div class="margin-top-10" style="margin-left:33%">
+            <div class="float-left">
+                <button type="submit" class="btn btn-primary" style="width:100px" formmethod="get" asp-controller="administrador" asp-action="GerenciarAvaliador"> Cancelar</button>
+            </div>
+            <div class="float-left margin-left-10">
+                <button type="submit" class="btn btn-primary" style="width:100px"> Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $('#dropArea').subArea($('#dropSubArea'));
+
+    $("#dropEvento").on("change", function () {
+        var evento = $(this);
+        var id = $(this).val();
+
+        $.ajax({
+            url: '/evento/descricao',
+            type: 'get',
+            data: {
+                id: id
+            },
+
+            error: function (x, y, message) {
+                alert("Evento nao encontrado ")
+            },
+        });
+    });
+</script>

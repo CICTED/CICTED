@@ -1,0 +1,255 @@
+﻿@model List<CICTED.Domain.ViewModels.Trabalho.ConsultaTrabalho>
+
+@{
+    Layout = "_Menu";
+}
+
+<title>Meus Trabalhos - CICTED</title>
+
+<div class="autor-home-content">
+    <h3 style="font-weight: bold">Meus Trabalhos</h3>
+    <hr />
+    <table class="table table-striped">
+        <tr>
+            <th style="width: 56px;">Status</th>
+            <th style="width: 180px;">Identificação</th>
+            <th>Titulo</th>
+            <th style="width: 130px">Data Cadastro</th>
+            <th style="width: 56px;"></th>
+        </tr>
+
+        @foreach (var trabalho in Model)
+        {
+            <tr>
+                <td>
+                    @if (trabalho.StatusTrabalhoId == 1)
+                    {
+                        <span style="font-size:18px" class="fa fa-check-circle color-aprovado"></span>
+                    }
+                    @if (trabalho.StatusTrabalhoId == 2)
+                    {
+                        <span style="font-size:18px" class="fa fa-times-circle color-reprovado"></span>
+                    }
+                    @if (trabalho.StatusTrabalhoId == 3)
+                    {
+                        <span style="font-size:18px" class="fa fa-clock-o color-submissao"></span>
+                    }
+                    @if (trabalho.StatusTrabalhoId == 4)
+                    {
+                        <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"></span>
+                    }
+                </td>
+
+                <td>@trabalho.Identificacao</td>
+                <td>@trabalho.Titulo</td>
+                <td>@trabalho.DataCadastro.ToString("dd-MM-yyyy")</td>
+                <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalho.Id"></a></td>
+            </tr>
+        }
+
+    </table>
+    <hr />
+
+    <h5>
+        Legenda:
+        <span class="fa fa-clock-o margin-left-30 color-submissao"></span> Aguardando Submissão
+        <span class="fa fa-exclamation-circle margin-left-30 color-avaliacao"></span> Aguardando Avaliação
+        <span class="fa fa-check-circle margin-left-30 color-aprovado"></span> Aprovado
+        <span class="fa fa-times-circle margin-left-30 color-reprovado"></span> Reprovado
+    </h5>
+
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div style="width:70%" class="modal-dialog">
+            <div style="padding:10px" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="font-weight:bold">Informações sobre o trabalho</h3>
+                    <hr />
+
+                    <h4><b style="color:#4e93ea">Dados</b></h4>
+                    <table class="table-trabalho">
+                        <tr><td><b class="margin-right-40">Identificação: </b></td><td id="identificacao"></td></tr>
+                        <tr><td><b>Área: </b></td><td id="area"></td></tr>
+                        <tr><td><b>Subárea: </b></td><td id="subarea"></td></tr>
+                        <tr><td><b>Evento: </b></td><td id="evento"></td></tr>
+                        <tr><td><b>Status: </b></td><td id="status"></td></tr>
+                        <tr><td><b>Data Cadastro: </b></td><td id="data-cadastro"></td></tr>
+                        <tr><td><b>Data Submissão: </b></td><td id="data-submissao">Trabalho não submetido</td></tr>
+                    </table>
+                    <hr />
+
+                    <div style="width:100%; height:50px">
+                        <h4 class="float-left"><b style="color:#4e93ea">Autores</b></h4>
+                        <a id="alterar-autores" href="" class="float-right btn-alterar">Alterar autores</a>
+                    </div>
+
+
+
+                    <table class="table-trabalho">
+                        <tr><td><b class="margin-right-40">Autor Responsável: </b></td><td id="autor-principal"></td></tr>
+
+
+
+                        <tr>
+                            <td>
+                                <b id="tipo-orientador"> </b>
+                            </td>
+                            <td id="orientador"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b id="tipo-autor"></b>
+                            </td>
+                            <td id="outros-autores"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b id="tipo-alunos"></b>
+                            </td>
+                            <td id="alunos"></td>
+                        </tr>
+                    </table>
+                    <hr />
+
+                    <div style="width:100%; height:50px">
+                        <h4 class="float-left"><b style="color:#4e93ea">Trabalho</b></h4>
+                        <a id="alterar-trabalho" href="" class="float-right btn-alterar">Alterar trabalho</a>
+                    </div>
+
+                    <h4 style="text-align:center" id="titulo"></h4>
+
+                    <b>Introdução:</b>
+                    <h5 id="introducao"></h5>
+
+                    <b>Metodologia:</b>
+                    <h5 id="metodologia"></h5>
+
+                    <b>Resultados:</b>
+                    <h5 id="resultados"></h5>
+
+                    <b>Conclusão:</b>
+                    <h5 id="conclusao"></h5>
+
+                    <b>Referências Bibliográficas: </b>
+                    <h5 id="referencia"></h5>
+
+                    <b>Palavras-chaves: </b>
+                    <h5 id="palavras-chave"> </h5>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar Trabalho</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+
+    $(".trabalho").on("click", function () {
+        var trabalho = $(this);
+        var id = trabalho.attr("data-id");
+
+        $.ajax({
+            url: '/trabalho/informacao',
+            type: 'get',
+            data: {
+                id: id
+            },
+
+            success: function (data) {
+
+                $("#alterar-autores").attr("href", "/trabalho/alterar/autor/" + data.eventoId + "/" + data.id);
+                $("#alterar-trabalho").attr("href", "/trabalho/editar/" + data.eventoId + "/" + data.id);
+                $('#identificacao').text(data.identificacao);
+                $('#area').text(data.areaConhecimento);
+                $('#subarea').text(data.subArea);
+                $('#evento').text(data.eventoNome);
+                $('#status').text(data.status);
+
+                var d = new Date(data.dataCadastro);
+                $('#data-cadastro').text(d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear());
+
+
+                if (data.statusTrabalhoId != 3) {
+                    var dataSubmissao = new Date(data.dataSubmissao);
+                    $('#data-submissao').text(dataSubmissao.getDate() + "/" + (dataSubmissao.getMonth() + 1) + "/" + dataSubmissao.getFullYear());
+                }
+                else {
+                    $('#data-submissao').text("Trabalho não submetido");
+                }
+
+
+                $('#outros-autores').html('');
+                $('#tipo-orientador').html('');
+                $('#tipo-autor').html('');
+                $('#tipo-alunos').html('');
+                $('#orientador').html('');
+                $('#alunos').html('');
+
+                if (data.alunos != 0) {
+                    $('#tipo-alunos').text('Alunos: ');
+                    $.each(data.alunos, function (i, item) {
+                        $('#alunos').append('<div style="width:100%"><b> ' + item + '</b></div>');
+                    });
+                }
+
+                $.each(data.autores, function (i, item) {
+                    var status;
+
+                    if (item.statusId == 1) {
+                        status = '<span class="fa fa-check-circle color-aprovado"></span>';
+                    }
+                    else if (item.statusId == 2) {
+                        status = '<span class="fa fa-clock-o color-submissao"></span>';
+                    }
+                    else if (item.statusId == 3) {
+                        status = '<span class="fa fa-clock-o color-avaliacao"></span>';
+                    }
+                    else if (item.statusId == 4) {
+                        status = '<span class="fa fa-times-circle color-reprovado"></span>';
+                    }
+
+                    if (item.orientador == true) {
+                        $('#tipo-orientador').text('Orientador: ');
+                        $('#orientador').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
+                    }
+                    else if (item.autorResponsavel == true) {
+                        $('#autor-principal').html(status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ');
+                    }
+                    else {
+                        $('#tipo-autor').text('Coautor: ');
+                        if (item.nome == null) {
+                            $('#outros-autores').append('<div style="width:100%">' + status + '<b> ' + item.email + '</b> ' + '</div>');
+                        } else {
+                            $('#outros-autores').append('<div style="width:100%">' + status + ' ' + item.nome + ' ' + item.sobrenome + '<b> ' + item.email + '</b> ' + '</div>');
+                        }
+                    }
+
+                });
+
+
+                $('#titulo').html("<b>" + data.titulo + "</b>");
+                $('#introducao').text(data.introducao);
+                $('#metodologia').text(data.metodologia);
+                $('#resultados').text(data.resultado);
+                $('#conclusao').text(data.conclusao);
+                $('#referencia').text(data.referencia);
+                $('#palavras-chave').text(data.palavrasChave);
+
+            },
+
+            error: function (x, y, message) {
+                alert("Trabalho nao encontrado ")
+            },
+        });
+    });
+
+</script>

@@ -1,0 +1,115 @@
+﻿@model CICTED.Domain.ViewModels.Account.LoginViewModel
+
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+
+    <title>Login - CICTED</title>
+</head>
+<body>
+    <div class="float-center margin-top-50 logo-login"></div>
+
+    <div class="margin-top-100" style="width: 794px; margin: 0 auto; height: 100%;">
+
+        <form class="form-login float-left margin-left-50" asp-contoller="account" asp-action="login">
+            <h1>Login</h1>
+            @if (ViewBag.EnviadoEmail == true)
+            {
+                <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
+                    <label style="color:green">Email de confirmação enviado novamente</label>
+                </div>
+            }
+            @if (ViewBag.EmailNaoConfirmado == true)
+            {
+                <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
+                    <label style="color:red">Email não confirmado</label>
+                </div>
+            }
+            @if (ViewBag.UsuarioNaoExiste == true)
+            {
+                <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
+                    <label style="color:red">Usuário não existe</label>
+                </div>
+            }
+            <div class="row margin-top-10" style="height:30px !important; ">
+                <span class="fa fa-user float-left font-size-15"></span>
+                <input class="float-right margin-left-20" placeholder="Email" name="EmailLogin" value="@Model.EmailLogin" />
+            </div>
+            <div class="row margin-top-20" style="height:30px !important;">
+                <span class="fa fa-key float-left font-size-15"></span>
+                <input class="float-right margin-left-10" placeholder="Senha" value="@Model.SenhaLogin" name="SenhaLogin" type="password" />
+            </div>
+            <div class="row margin-top-20 ">
+                <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
+            </div>
+
+            <div class="checkbox margin-top-10">
+                <label asp-for="RememberMe">
+                    <input asp-for="RememberMe" />
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                </label>
+            </div>
+            <div class="margin-top-10 margin-bottom-10">
+                <label>Caso não tenha recebido email de confirmação </label>
+                <label>de conta, selecione:</label>
+            </div>
+            <div class="checkbox">
+                <label asp-for="ConfirmaEmail">
+                    <input data-val="true" id="ConfirmaEmail" name="ConfirmaEmail" type="checkbox" value="true">
+                    Confirmar email
+                 </label>
+            </div>
+        </form>
+
+
+        <div class="float-left margin-left-10">
+
+
+
+            <form style="padding:0px 20px 0px 20px; height: 255px !important" class="form-login float-left margin-left-50" method="post" asp-controller="account" asp-action="cadastrar">
+                <h1>Ainda não tem cadastro?</h1>
+
+                @if (ViewBag.Errors != null)
+                {
+                    <div style="margin-left:-35px" class="message-error">
+                        @Html.Raw(ViewBag.Errors)
+                    </div>
+                }
+
+                @if (ViewBag.Cadastrado != null)
+                {
+                    <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
+                        <label style="color:green">Email de confirmação enviado</label>
+                    </div>
+                }
+
+                <div class="row margin-top-10 " style="height:30px !important; ">
+                    <span class="fa fa-user float-left font-size-15"></span>
+                    <input class="float-right margin-left-20" placeholder="Email" value="@Model.EmailCadastro" name="EmailCadastro" />
+                </div>
+                <div class="row margin-top-20 " style="height:30px !important;">
+                    <span class="fa fa-key float-left font-size-15"></span>
+                    <input type="password" class="float-right margin-left-10" placeholder="Senha" value="@Model.SenhaCadastro" name="SenhaCadastro" />
+                </div>
+                <div class="row margin-top-20 " style="height:30px !important;">
+                    <span class="fa fa-check float-left font-size-15"></span>
+                    <input type="password" class="float-right margin-left-10" placeholder="Confirme sua senha" value="@Model.ConfirmSenhaCadastro" name="ConfirmSenhaCadastro" />
+                </div>
+                @if (ViewBag.ErroSenha != null)
+                {
+                    <div class="message-error alert alert-danger margin-left-40" role="alert">
+                        <label style="color:red">Senha não correspondente</label>
+                    </div>
+                }
+
+                <button type="submit" class="btn btn-primary float-center margin-top-20" style="width: 100%">Cadastrar</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>
