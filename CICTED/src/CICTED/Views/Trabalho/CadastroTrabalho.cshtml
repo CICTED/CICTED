@@ -484,7 +484,7 @@
 
                         <div class="margin-left-10" id="imagens">
 
-                            <div id="imagem-1" class="width: 400px">
+                            <div id="imagem-1" class="row">
                                 <img class="imagem-trabalho float-left" id="arquivo-imagem" src="" />
                                 <div class="float-left margin-left-20">
 
@@ -499,12 +499,34 @@
                                     </div>
 
                                     <div class="margin-top-10" style="width: 100%">
-                                        <a style="padding: 3px" class="float-riht btn btn-primary float-right">excluir</a>
+                                        <a onclick="deletaImagem(1)" style="padding: 3px" class="float-riht btn btn-primary float-right">excluir</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
 
+
+                            <div id="imagem-2" class="row margin-top-10">
+                                <img class="imagem-trabalho float-left" id="arquivo-imagem" src="" />
+                                <div class="float-left margin-left-20">
+
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <b class="display-inline">Nome do arquivo:</b>
+                                        <h5 class="display-inline" id="nome-imagem"> sjlfasljfhnjsafn.png</h5>
+                                    </div>
+
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <b class="display-inline">Titulo:</b>
+                                        <h5 class="display-inline" id="titulo-imagem"> titulo titulo titulo </h5>
+                                    </div>
+
+                                    <div class="margin-top-10" style="width: 100%">
+                                        <a onclick="deletaImagem(1)" style="padding: 3px" class="float-riht btn btn-primary float-right">excluir</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
                         </div>
 
                     </div>
@@ -570,7 +592,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary margin-top-20" data-dismiss="modal">Cadastrar imagem</button>
+                        <button type="button" id="modal-cadastrar" class="btn btn-primary margin-top-20" data-dismiss="modal">Cadastrar imagem</button>
                     </div>
                 </div>
             </div>
@@ -597,7 +619,9 @@
         orientador: false,
     });
 
-
+    function deletaImagem(id){
+        $("#imagem-" + id).remove();    
+    }
 
     function readURL(input) {
         if (input.files && input.files[0]) {
