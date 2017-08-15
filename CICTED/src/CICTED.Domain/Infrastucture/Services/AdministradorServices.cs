@@ -127,6 +127,44 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
             }
         }
 
+        public async Task<string> GetEventoAvaliador(long userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var eventoId = await db.QueryAsync<int>("SELECT EventoId FROM dbo.AvaliadorEvento WHERE UsuarioId = @userId", new { userId = userId });
+
+                    var evento = await db.QueryAsync<string>("SELECT Sigla FROM dbo.Evento WHERE Id = @eventoId", new { eventoId = eventoId });
+
+                    return evento.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> GetAvaliadorSubArea(long userId)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var subAreaId = await db.QueryAsync<int>("SELECT SubAreaConhecimentoId FROM dbo.AvaliadorSubAreaConhecimento WHERE UsuarioId = @userID", new { userId = userId });
+
+                    var subArea = await db.QueryAsync<string>("SELECT Nome FROM dbo.SubAreaConhecimento WHERE Id = @subAreaId", new { subAreaId = subAreaId });
+
+                    return subArea.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<List<Gerenciar>> GetAutor()
         {
             try
