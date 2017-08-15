@@ -143,6 +143,13 @@ namespace CICTED.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, "ORGANIZADOR");
 
+                    if (model.Avaliador == true)
+                    {
+                        await _userManager.AddToRoleAsync(user, "AVALIADOR");
+                        var evento = await _administradorRepository.InsertAvaliadorEvento(model.EventoId, user.Id);
+                        var subArea = await _administradorRepository.InsertAvaliadorSubArea(model.SubAreaConhecimentoId, user.Id);
+                    }
+
                     //link
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Action(
@@ -335,6 +342,8 @@ namespace CICTED.Controllers
             var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
             var estado = await _localizacaoServices.GetEstado(cidade.Id);
             var isAvaliador = await _administradorRepository.IsAvaliador(organizadores.Id);
+            var evento = await _administradorServices.GetEventoAvaliador(organizadores.Id);
+            var subarea = await _administradorServices.GetAvaliadorSubArea(organizadores.Id);
 
             var model = new Gerenciar()
             {
@@ -352,6 +361,8 @@ namespace CICTED.Controllers
                 CidadeNome = cidade.CidadeNome,
                 Sigla = estado.Sigla,
                 Numero = endereco.Numero,
+                Evento = evento,
+                SubAreaConhecimento = subarea
             };
 
             return Json(model);
