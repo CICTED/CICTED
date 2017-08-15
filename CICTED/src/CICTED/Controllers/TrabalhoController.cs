@@ -11,7 +11,6 @@ using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Entities.Trabalho;
 using CICTED.Domain.ViewModels.Trabalho;
 using CICTED.Domain.ViewModels.Account;
-using NuGet.Packaging;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Infrastucture.Repository;
 
