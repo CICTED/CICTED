@@ -1,3 +1,9 @@
 CICTED/.vs/CICTED/v14/.suo
 CICTED/.vs/CICTED/v14/.suo
 CICTED/src/CICTED.Domain/Infrastucture/Repository/Interfaces/ITrabalhoRepository.cs
+CICTED/src/CICTED.Domain/bin
+CICTED/src/CICTED.Domain/obj
+CICTED/src/CICTED.Crosscutting/bin
+CICTED/src/CICTED.Crosscutting/obj
+CICTED/src/CICTED/bin
+CICTED/src/CICTED/obj
