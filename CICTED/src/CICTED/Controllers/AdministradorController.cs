@@ -10,6 +10,7 @@ using System;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Infrastucture.Helpers;
 using CICTED.Domain.Infrastucture.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

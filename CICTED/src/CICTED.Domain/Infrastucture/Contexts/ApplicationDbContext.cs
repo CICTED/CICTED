@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CICTED.Domain.Entities.Account;
+using Microsoft.AspNetCore.Identity;
 
 namespace CICTED.Domain.Infrastucture.Contexts
 {

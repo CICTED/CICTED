@@ -5,7 +5,6 @@
     <AssemblyName>CICTED.Crosscutting</AssemblyName>
     <PackageId>CICTED.Crosscutting</PackageId>
     <NetStandardImplicitPackageVersion>2.0</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>

@@ -16,6 +16,7 @@ using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Infrastucture.Services;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using CICTED.Domain.Infrastucture.Repository;
+using Microsoft.AspNetCore.Identity;
 
 namespace CICTED
 {
@@ -42,15 +43,8 @@ namespace CICTED
                 options.UseSqlServer(Configuration["ConnectionString"], option => option.MigrationsAssembly("CICTED"));
             });
 
-            services.AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 3;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            })
-                .AddEntityFrameworkStores<ApplicationDbContext, long>()
+            services.AddIdentity<ApplicationUser, Roles>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             // Configure MyOptions using config by installing Microsoft.Extensions.Options.ConfigurationExtensions
@@ -102,8 +96,8 @@ namespace CICTED
             }
 
             app.UseStaticFiles();
-
-            app.UseIdentity();
+            app.UseAuthentication();
+            //app.UseIdentity();
 
             app.UseMvc(routes =>
             {
