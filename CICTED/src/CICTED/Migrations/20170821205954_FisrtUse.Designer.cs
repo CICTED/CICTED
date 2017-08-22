@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace CICTED.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170821205954_FisrtUse")]
+    partial class FisrtUse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +30,11 @@ namespace CICTED.Migrations
 
                     b.Property<bool>("Bolsista");
 
-                    b.Property<string>("CPF");
+                    b.Property<string>("CPF")
+                        .IsRequired();
 
-                    b.Property<string>("Celular");
+                    b.Property<string>("Celular")
+                        .IsRequired();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -50,7 +52,8 @@ namespace CICTED.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("EmailSecundario");
+                    b.Property<string>("EmailSecundario")
+                        .IsRequired();
 
                     b.Property<long>("EnderecoId");
 
@@ -66,7 +69,8 @@ namespace CICTED.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired();
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -82,7 +86,8 @@ namespace CICTED.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<string>("Sobrenome");
+                    b.Property<string>("Sobrenome")
+                        .IsRequired();
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -110,9 +115,6 @@ namespace CICTED.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -127,8 +129,6 @@ namespace CICTED.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<long>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
@@ -210,16 +210,6 @@ namespace CICTED.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CICTED.Domain.Entities.Account.Roles", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<long>");
-
-
-                    b.ToTable("Roles");
-
-                    b.HasDiscriminator().HasValue("Roles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>

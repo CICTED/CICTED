@@ -43,7 +43,14 @@ namespace CICTED
                 options.UseSqlServer(Configuration["ConnectionString"], option => option.MigrationsAssembly("CICTED"));
             });
 
-            services.AddIdentity<ApplicationUser, Roles>()
+            services.AddIdentity<ApplicationUser, Roles> (options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

@@ -152,25 +152,33 @@ namespace CICTED.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "AUTOR");
-                   
-                    //link
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action(
-                       "ConfirmEmail", "Account",
-                       new { user = user.UserName, code = code });
+                    try
+                    {
+                        await _userManager.AddToRoleAsync(user, "AUTOR");
 
-                    var url = $"{urlRoot}{callbackUrl}";
+                        //link
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Action(
+                           "ConfirmEmail", "Account",
+                           new { user = user.UserName, code = code });
 
-                    //email
-                    var email = await _emailServices.EnviarEmail(user.Email, url);
+                        var url = $"{urlRoot}{callbackUrl}";
 
-                    ViewBag.Cadastrado = "cadastrado";
-                    return View("Login", new LoginViewModel());
+                        //email
+                        var email = await _emailServices.EnviarEmail(user.Email, url);
+
+                        ViewBag.Cadastrado = "cadastrado";
+                        return View("Login", new LoginViewModel());
+                    }
+                    catch (Exception ex)
+                    {
+                        await _userManager.DeleteAsync(user);
+                        return BadRequest(ex.Message);
+                    }
                 }
                 else
                 {
-                    await _userManager.DeleteAsync(user);
+                    //await _userManager.DeleteAsync(user);
                     ViewBag.Errors = result.ConvertToHTML();
                     return View("Login", model);
                 }

@@ -9,10 +9,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CICTED.Domain.Infrastucture.Contexts
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>        
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Roles, long>        
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-         
-
+        
     }
 }
