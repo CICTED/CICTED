@@ -13,5 +13,7 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
         Task<string> GetEvento(long userId);
         Task<string> GetSubAreaConhecimento(long userId);
         Task<List<Gerenciar>> GetAutor();
+        Task<string> GetEventoAvaliador(long userId);
+        Task<string> GetAvaliadorSubArea(long userId);
     }
 }

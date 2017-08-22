@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CICTED.Domain.Entities.Account;
@@ -10,7 +11,6 @@ using System;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Infrastucture.Helpers;
 using CICTED.Domain.Infrastucture.Services;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -143,6 +143,13 @@ namespace CICTED.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "ORGANIZADOR");
+
+                    if (model.Avaliador == true)
+                    {
+                        await _userManager.AddToRoleAsync(user, "AVALIADOR");
+                        var evento = await _administradorRepository.InsertAvaliadorEvento(model.EventoId, user.Id);
+                        var subArea = await _administradorRepository.InsertAvaliadorSubArea(model.SubAreaConhecimentoId, user.Id);
+                    }
 
                     //link
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -336,6 +343,8 @@ namespace CICTED.Controllers
             var cidade = await _localizacaoRepository.GetCidade(endereco.CidadeId);
             var estado = await _localizacaoServices.GetEstado(cidade.Id);
             var isAvaliador = await _administradorRepository.IsAvaliador(organizadores.Id);
+            var evento = await _administradorServices.GetEventoAvaliador(organizadores.Id);
+            var subarea = await _administradorServices.GetAvaliadorSubArea(organizadores.Id);
 
             var model = new Gerenciar()
             {
@@ -353,6 +362,8 @@ namespace CICTED.Controllers
                 CidadeNome = cidade.CidadeNome,
                 Sigla = estado.Sigla,
                 Numero = endereco.Numero,
+                Evento = evento,
+                SubAreaConhecimento = subarea
             };
 
             return Json(model);

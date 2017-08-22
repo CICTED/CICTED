@@ -46,13 +46,13 @@
         @foreach (var trabalhos in Model)
         {
             <tr>
-            <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalhos.Id"></a></td>
+                <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalhos.Id"></a></td>
 
-            <td>@trabalhos.Identificacao</td>
+                <td>@trabalhos.Identificacao</td>
 
-            <td>@trabalhos.EventoNome</td>
+                <td>@trabalhos.EventoNome</td>
 
-            <td>@trabalhos.AreaConhecimentoNome</td>
+                <td>@trabalhos.AreaConhecimentoNome</td>
 
                 <td>@trabalhos.SubAreaConhecimentoNome</td>
 
@@ -74,7 +74,7 @@
                         <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"> Aguardando Avaliação</span>
                     }
                 </td>
-                </tr>
+            </tr>
         }
     </table>
 
@@ -88,7 +88,7 @@
         <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Reprovado
     </h5>
 
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="myModal" class="modal fade" role="dialog" data-backdrop="static">
         <div style="width:70%" class="modal-dialog">
             <div style="padding:10px" class="modal-content">
                 <div class="modal-header">
