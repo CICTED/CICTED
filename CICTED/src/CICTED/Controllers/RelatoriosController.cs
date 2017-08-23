@@ -62,7 +62,7 @@ namespace CICTED.Controllers
             model.Submetidos = submetidos.Count();
             model.Avaliados = avaliados.Count();
 
-            return Json(model);
+            return RedirectToAction("/organizador/dashboard");
         }
 
         
