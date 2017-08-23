@@ -31,10 +31,10 @@
     <script src="~/js/jquery.maskedinput.js"></script>
     <script src="~/js/jquery.maskedinput.min.js"></script>
     <script src="~/js/CICTED.js"></script>
-    
+
     <script src="~/js/Chart.min.js"></script>
 
-</head> 
+</head>
 <body>
     <div class="navbar" style="position:relative">
         <img class="margin-right-100 float-right" src="~/images/logoUNITAU/logotipo_branco_unitau.png" />
@@ -91,6 +91,19 @@
                         <li><a><span class="fa fa-calendar"></span> Calendário</a></li>
                         <li><a>Consulta</a></li>
                         <li><a>Espaços</a></li>
+                    </ul>
+                </li>
+            }
+
+            @if (User.IsInRole("Avaliador"))
+            {
+                <li>
+                    <a><span class="fa fa-edit"></span> Avaliação</a>
+                    <ul style="margin-left:-60px!important">
+                        <li><a asp-controller="avaliador" asp-action="trabalhosPendentes"><span class="fa fa-exclamation-triangle"></span> Pendentes</a></li>
+                        <li><a asp-controller="avaliador" asp-action="trabalhosAprovados"><span class="fa fa-check"></span> Aprovados</a></li>
+                        <li><a><span class="fa fa-close"></span> Reprovados</a></li>
+                        <li><a><span class="fa fa-close"></span> Recusados</a></li>
                     </ul>
                 </li>
             }
