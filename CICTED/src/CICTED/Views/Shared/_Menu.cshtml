@@ -102,8 +102,8 @@
                     <ul style="margin-left:-60px!important">
                         <li><a asp-controller="avaliador" asp-action="trabalhosPendentes"><span class="fa fa-exclamation-triangle"></span> Pendentes</a></li>
                         <li><a asp-controller="avaliador" asp-action="trabalhosAprovados"><span class="fa fa-check"></span> Aprovados</a></li>
-                        <li><a><span class="fa fa-close"></span> Reprovados</a></li>
-                        <li><a><span class="fa fa-close"></span> Recusados</a></li>
+                        <li><a asp-controller="avaliador" asp-action="trabalhosReprovados"><span class="fa fa-close"></span> Reprovados</a></li>
+                        <li><a asp-controller="avaliador" asp-action="trabalhosRecusados"><span class="fa fa-close"></span> Recusados</a></li>
                     </ul>
                 </li>
             }

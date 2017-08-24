@@ -2,7 +2,7 @@
 @{
     Layout = "_Menu";
 }
-<title>Consultar Usuário - CICTED</title>
+<title>Trabalhos Pendentes - CICTED</title>
 
 <div class="form-consultTrabAdm">
     <h3><b><span class="fa fa-pencil-square-o"></span> Trabalhos Pendentes</b></h3>
@@ -24,6 +24,8 @@
        
             <tr>
                 <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal"></a></td>
+
+                <td></td>
 
                 <td></td>
 
@@ -94,6 +96,10 @@
                     <b>Palavras-chaves: </b>
                     <h5 id="palavras-chave"> </h5>
                 </div>
+                <br />
+
+                <button class="btn btn-primary" style="margin-left:32%; width:150px"><span class="fa fa-pencil-square-o"></span> Avaliar Trabalho</button>
+                <button id="excluir" href="" class="btn btn-primary margin-left-20" type="button" style="width:150px"><span class="fa fa-close"></span> Recusar Trabalho</button>
 
             </div>
         </div>
@@ -119,14 +125,6 @@
                 $('#area').text(data.areaConhecimento);
                 $('#subarea').text(data.subArea);
                 $('#evento').text(data.eventoNome);
-                $('#status').text(data.status);
-                $('#data-cadastro').text(data.dataCadastro.toString('dd/MM/yyyy'));
-
-                if (data.statusTrabalhoId != 3) {
-                    $('#data-submissao').text(data.dataSubmissao);
-                }
-
-                $('#data-submissao').text(data.subarea);
 
                 $('#outros-autores').html('');
 

@@ -61,5 +61,26 @@ namespace CICTED.Controllers
             return View();
         }
 
+        [HttpGet("trabalhosReprovados")]
+        [Authorize]
+        public async Task<IActionResult> TrabalhosReprovados()
+        {
+            return View();
+        }
+
+        [HttpGet("trabalhosRecusados")]
+        [Authorize]
+        public async Task<IActionResult> TrabalhosRecusados()
+        {
+            return View();
+        }
+
+        [HttpGet("avaliarTrabalho")]
+        [Authorize]
+        public async Task<IActionResult> AvaliarTrabalho()
+        {
+            return View();
+        }
+
     }
 }
