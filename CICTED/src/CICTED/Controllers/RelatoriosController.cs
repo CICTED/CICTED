@@ -48,19 +48,34 @@ namespace CICTED.Controllers
         }
 
         [HttpGet("trabalhos")]
-        public async Task<IActionResult>Trabalhos(int idEvento, DashboardViewModel model)
+        public async Task<IActionResult>Trabalhos(int idEvento)
         {
-            var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados(idEvento);
+            DashboardViewModel model = new DashboardViewModel();
+
             var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos(idEvento);
             var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao(idEvento);
 
-            model.TrabalhosBiologicas = await _organizadorServices.GetQuantidadeTrabalhos(1);
-            model.TrabalhosExatas = await _organizadorServices.GetQuantidadeTrabalhos(2);
-            model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhos(3);
+            model.TrabalhosBiologicas = await _organizadorServices.GetQuantidadeTrabalhos(1,idEvento);
+            model.TrabalhosExatas = await _organizadorServices.GetQuantidadeTrabalhos(2,idEvento);
+            model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhos(3, idEvento);
+            model.Cadastrados = model.TrabalhosBiologicas + model.TrabalhosExatas + model.TrabalhosHumanas;
 
-            model.Cadastrados = cadastrados.Count();
-            model.Submetidos = submetidos.Count();
-            model.Avaliados = avaliados.Count();
+            var totalSubmetidos = 0;
+            var totalAvaliados = 0;
+
+            foreach (var trabalho in submetidos)
+            {
+                totalSubmetidos += trabalho.Quantidade;
+            }
+
+            foreach (var trabalho in avaliados)
+            {
+                totalAvaliados += trabalho.Quantidade;
+            }
+
+            
+            model.Avaliados = totalAvaliados;
+            model.Submetidos = totalSubmetidos;
 
             return Json(model);
         }

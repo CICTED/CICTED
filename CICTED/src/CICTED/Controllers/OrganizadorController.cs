@@ -52,8 +52,7 @@ namespace CICTED.Controllers
             else
             {            
                 DashboardViewModel model = new DashboardViewModel();
-                
-                var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados();
+                                
                 var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();
                 var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao();
 
@@ -62,14 +61,10 @@ namespace CICTED.Controllers
                 model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhos(3);
 
 
-                var totalCadastrados = 0;
+                
                 var totalSubmetidos = 0;
                 var totalAvaliados = 0;
-
-                foreach (var trabalho in cadastrados)
-                {
-                    totalCadastrados += trabalho.Quantidade;
-                }
+                
 
                 foreach (var trabalho in submetidos)
                 {
@@ -81,7 +76,7 @@ namespace CICTED.Controllers
                     totalAvaliados += trabalho.Quantidade;
                 }
 
-                model.Cadastrados = totalCadastrados;
+                model.Cadastrados = model.TrabalhosBiologicas + model.TrabalhosExatas + model.TrabalhosHumanas;
                 model.Avaliados = totalAvaliados;
                 model.Submetidos = totalSubmetidos;
 

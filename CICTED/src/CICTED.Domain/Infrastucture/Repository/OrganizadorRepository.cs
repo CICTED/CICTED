@@ -64,6 +64,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             }
         }
 
+
         public async Task<List<Gerenciar>> GetUsuarios()
         {
             try

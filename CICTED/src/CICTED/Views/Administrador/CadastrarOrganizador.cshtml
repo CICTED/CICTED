@@ -64,8 +64,10 @@
         <div class="margin-top-10 row" id="avaliador" style="display: none">
             <div>
                 <div class="float-left" style="width:40%">
-                    <label>Evento: <br/>
-                    (pressione a tecla CTRL para selecionar mais de um evento)</label>
+                    <label>
+                        Evento: <br />
+                        (pressione a tecla CTRL para selecionar mais de um evento)
+                    </label>
                     <select class="input-consulta-trab-adm" style="width:300px !important" value="@Model.EventoId" asp-for="EventoId" multiple="multiple">
                         @foreach (var evento in Model.Eventos)
                         {
@@ -75,8 +77,10 @@
                     </select>
                 </div>
                 <div class="float-right" style="width:50%">
-                    <label>Área: <br />
-                    (pressione a tecla CTRL para selecionar mais de uma área)</label>
+                    <label>
+                        Área: <br />
+                        (pressione a tecla CTRL para selecionar mais de uma área)
+                    </label>
                     <select class="input-consulta-trab-adm" style="width:300px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId" multiple>
                         @foreach (var areas in Model.AreaConhecimento)
                         {
@@ -89,8 +93,10 @@
 
             <div>
                 <div class="float-left margin-top-10" style="width:40%">
-                    <label>Subarea: <br />
-                    (pressione a tecla CTRL para selecionar mais de uma subarea)</label>
+                    <label>
+                        Subarea: <br />
+                        (pressione a tecla CTRL para selecionar mais de uma subarea)
+                    </label>
                     <select class="input-consulta-trab-adm" style="width:300px !important" id="dropSubArea" multiple></select>
                 </div>
             </div>
@@ -119,11 +125,6 @@
             $("#avaliador").css("display", "none");
 
         }
-    });
-
-    $("#dropArea").on('change', function (e) {
-        alert($(this).val())
-        return false;
     });
 
     $('#dropArea').subAreas($('#dropSubArea'));

@@ -1,92 +1,42 @@
-﻿@model List<CICTED.Domain.ViewModels.Trabalho.ConsultaTrabalho>
-
+﻿@model List<CICTED.Domain.ViewModels.Administrador.Gerenciar>
 @{
     Layout = "_Menu";
 }
-
-<title>Trabalhos - CICTED</title>
+<title>Trabalhos Recusados - CICTED</title>
 
 <div class="form-consultTrabAdm">
-    <h3><b><span class="fa fa-book"></span> Consultar Trabalhos</b></h3>
-    <br />
-    <div class="form-group">
-        Pesquisar Autor: <input class="input-consulta-trab-adm" id="autor-nome" style="width:350px !important" placeholder="Digite o nome do autor" autocomplete="off" />
-        <div style="height:0px; display:none" class="busca float-left">
-            <ul id="lista-nomes"></ul>
-        </div>
-        <button class="btn btn-primary margin-left-10">Pesquisar</button>
-    </div>
-    <hr />
+    <h3><b><span class="fa fa-pencil-square-o"></span> Trabalhos Recusados</b></h3>
 
     <table class="table table-striped" style="margin:0 0 auto">
         <tr>
-            <th style="width: 80px !important" class="form-group"></th>
+            <th style="width: 50px !important" class="form-group"></th>
             <th>
-                Identificação <br />
-                <input style="width:130px !important" class="input-consulta-trab-adm" />
+                Identificação
             </th>
             <th>
-                Evento <br />
-                <input style="width:90px !important" class="input-consulta-trab-adm" />
+                Evento
             </th>
             <th>
-                Área <br />
-                <input style="width:150px !important" class="input-consulta-trab-adm" />
-            </th>
-            <th>
-                Subarea <br />
-                <input style="width:210px !important" class="input-consulta-trab-adm" />
-            </th>
-            <th>
-                Status <br />
-                <input style="width:130px !important" class="input-consulta-trab-adm" />
+                Titulo
             </th>
         </tr>
 
-        @foreach (var trabalhos in Model)
-        {
-            <tr>
-                <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal" data-id="@trabalhos.Id"></a></td>
 
-                <td>@trabalhos.Identificacao</td>
+        <tr>
+            <td><a class="fa fa-search link trabalho" data-toggle="modal" data-target="#myModal"></a></td>
 
-                <td>@trabalhos.EventoNome</td>
+            <td></td>
 
-                <td>@trabalhos.AreaConhecimentoNome</td>
+            <td></td>
 
-                <td>@trabalhos.SubAreaConhecimentoNome</td>
+            <td></td>
 
-                <td>
-                    @if (trabalhos.StatusTrabalhoId == 1)
-                    {
-                        <span style="font-size:18px" class="fa fa-check-circle color-aprovado"> Aprovado</span>
-                    }
-                    @if (trabalhos.StatusTrabalhoId == 2)
-                    {
-                        <span style="font-size:18px" class="fa fa-times-circle color-reprovado"> Reprovado</span>
-                    }
-                    @if (trabalhos.StatusTrabalhoId == 3)
-                    {
-                        <span style="font-size:18px" class="fa fa-clock-o color-submissao"> Aguardando Submissão</span>
-                    }
-                    @if (trabalhos.StatusTrabalhoId == 4)
-                    {
-                        <span style="font-size:18px" class="fa fa-exclamation-circle color-avaliacao"> Aguardando Avaliação</span>
-                    }
-                </td>
-            </tr>
-        }
+        </tr>
+
     </table>
 
     <hr />
 
-    <h5>
-        <b>Legenda:</b>
-        <span class="fa fa-clock-o margin-left-10 color-submissao"></span> Aguardando Submissão
-        <span class="fa fa-exclamation-circle margin-left-10 color-avaliacao"></span> Aguardando Avaliação
-        <span class="fa fa-check-circle margin-left-10 color-aprovado"></span> Aprovado
-        <span class="fa fa-times-circle margin-left-10 color-reprovado"></span> Reprovado
-    </h5>
 
     <div id="myModal" class="modal fade" role="dialog" data-backdrop="static">
         <div style="width:70%" class="modal-dialog">
@@ -102,9 +52,6 @@
                         <tr><td><b>Área: </b></td><td id="area"></td></tr>
                         <tr><td><b>Subárea: </b></td><td id="subarea"></td></tr>
                         <tr><td><b>Evento: </b></td><td id="evento"></td></tr>
-                        <tr><td><b>Status: </b></td><td id="status"></td></tr>
-                        <tr><td><b>Data Cadastro: </b></td><td id="data-cadastro"></td></tr>
-                        <tr><td><b>Data Submissão: </b></td><td id="data-submissao"></td></tr>
                     </table>
                     <hr />
 
@@ -250,11 +197,6 @@
         var id = $(this).attr("data-id");
 
         $.ajax({
-            //url: '/product/delete/picture',
-            //type: 'post',
-            //data: {
-            //    id: id
-            //},
 
             success: function () {
                 $("#autor-" + id).select();
