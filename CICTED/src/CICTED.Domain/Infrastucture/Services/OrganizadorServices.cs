@@ -19,26 +19,7 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
         {
             _settings = settings.Value;
         }
-        #endregion
-        public async Task<List<QuantidadeDatasViewModel>> GetQuantidadeDataAvaliacao(int idEvento)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var query = "SELECT DATEPART(MONTH, dbo.Trabalho.DataCadastro) AS Mes, COUNT(*) As Quantidade " +
-                                "FROM dbo.Trabalho, dbo.AvaliacaoTrabalho " +
-                                "WHERE dbo.AvaliacaoTrabalho.TrabalhoId = dbo.Trabalho.Id AND dbo.Trabalho.EventoId = @EventoId " +
-                                "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataCadastro)";
-                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,new {EventoId = idEvento });
-                    return selectDataAvaliacao.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        #endregion       
 
         public async Task<int> GetQuantidadeTrabalhosAprovados(int idArea, int idEvento)
         {
@@ -46,9 +27,43 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var query = "SELECT dbo.Trabalho.Id FROM dbo.Trabalho, dbo.AvaliacaoTrabalho "+
-                                 "WHERE dbo.AvaliacaoTrabalho.TrabalhoId = dbo.Trabalho.Id and dbo.Trabalho.EventoId = @EventoId";
-                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,new { EventoId = idEvento });
+                    var query = "SELECT dbo.Trabalho.Id"
+                               +" FROM dbo.SubAreaConhecimento, dbo.Trabalho "
+                               + $"{(idEvento > 0 ? $"Where dbo.Trabalho.EventoId = {idEvento} AND" : "Where")} dbo.SubAreaConhecimento.AreaConhecimentoId = @AreaConhecimentoId AND dbo.Trabalho.SubAreaConhecimentoId = dbo.SubAreaConhecimento.Id and dbo.Trabalho.StatusTrabalhoId = 1";
+
+                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,
+                        new {
+                            EventoId = idEvento,
+                            AreaId = idArea
+                        });
+
+                    return selectDataAvaliacao.ToList().Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+
+        public async Task<int> GetQuantidadeTrabalhosReprovados(int idArea, int idEvento)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = "SELECT dbo.Trabalho.Id"
+                               + " FROM dbo.SubAreaConhecimento, dbo.Trabalho "
+                               + $"{(idEvento > 0 ? $"Where dbo.Trabalho.EventoId = {idEvento} AND" : "Where")} dbo.SubAreaConhecimento.AreaConhecimentoId = @AreaConhecimentoId AND dbo.Trabalho.SubAreaConhecimentoId = dbo.SubAreaConhecimento.Id and dbo.Trabalho.StatusTrabalhoId = 2";
+
+                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,
+                        new
+                        {
+                            EventoId = idEvento,
+                            AreaId = idArea
+                        });
 
                     return selectDataAvaliacao.ToList().Count();
                 }
