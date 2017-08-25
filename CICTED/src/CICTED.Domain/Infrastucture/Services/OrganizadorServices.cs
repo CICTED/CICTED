@@ -40,7 +40,7 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
             }
         }
 
-        public async Task<int> GetQuantidadeTrabalhosAvaliados(int idArea, int idEvento)
+        public async Task<int> GetQuantidadeTrabalhosAprovados(int idArea, int idEvento)
         {
             try
             {

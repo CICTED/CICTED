@@ -12,63 +12,63 @@
         </div>
 
         <div class="float-left margin-left-20 margin-top-20">
-            <a class="dashboard-linkClicked">TODOS</a>
+            <a class="dashboard-link-clicked evento" id="evento-0" data-id="0">TODOS</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link evento" data-id="1">ENIC</a>
+            <a class="dashboard-link evento" id="evento-1" data-id="1">ENIC</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link evento" data-id="2">ENIC JR</a>
+            <a class="dashboard-link evento" id="evento-2" data-id="2">ENIC JR</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link evento" data-id="3">ENIC TEEN</a>
+            <a class="dashboard-link evento" id="evento-3" data-id="3">ENIC TEEN</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link evento" data-id="4">ENIC KIDS</a>
+            <a class="dashboard-link evento" id="evento-4" data-id="4">ENIC KIDS</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link evento" data-id="5">MIPG</a>
+            <a class="dashboard-link evento" id="evento-5" data-id="5">MIPG</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link evento" data-id="6">SEDUNI</a>
+            <a class="dashboard-link evento" id="evento-6" data-id="6">SEDUNI</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link evento" data-id="7">SEMEX</a>
+            <a class="dashboard-link evento" id="evento-7" data-id="7">SEMEX</a>
         </div>
 
         <div class="float-left margin-top-20">
-            <a class="dashboard-link evento" data-id="8">PP&I</a>
+            <a class="dashboard-link evento" id="evento-8" data-id="8">PP&I</a>
         </div>
     </div>
     <div class="form-group margin-top-30 margin-left-75">
         <div class="form-group float-left">
-            <input hidden name="Cadastrados" value="@Model.Cadastrados" /> <h1 class="margin-left-30"><b>@Model.Cadastrados</b></h1>
+            <h1 class="margin-left-30"><b id="cadastrados">@Model.Cadastrados</b></h1>
             <h4>Cadastrados</h4>
         </div>
 
         <div class="form-gorup float-left margin-left-50">
-            <input hidden name="Submetidos" value="@Model.Submetidos" /> <h1 class="margin-left-30"><b>@Model.Submetidos</b></h1>
+            <h1 class="margin-left-30" id="submetidos"><b>@Model.Submetidos</b></h1>
             <h4>Submetidos</h4>
         </div>
 
         <div class="form-gorup float-left margin-left-50">
-            <input hidden name="Avalidos" value="@Model.Avaliados" /> <h1 class="margin-left-30"><b>@Model.Avaliados</b></h1>
+            <h1 class="margin-left-30" id="avaliados"><b>@Model.Avaliados</b></h1>
             <h4>Avaliados</h4>
         </div>
 
         <div class="form-gorup float-left margin-left-50">
-            <input hidden name="Aprovados" value="@Model.Aprovados" /> <h1 class="margin-left-30"><b>@Model.Aprovados</b></h1>
+            <h1 class="margin-left-30" id="aprovados"><b>@Model.Aprovados</b></h1>
             <h4>Aprovados</h4>
         </div>
         <div class="form-gorup float-left margin-left-50">
-            <input hidden name="Reprovados" value="@Model.Reprovados" /> <h1 class="margin-left-30"><b>@Model.Reprovados</b></h1>
+            <h1 class="margin-left-30" id="reprovados"><b>@Model.Reprovados</b></h1>
             <h4>Reprovados</h4>
         </div>
     </div>    
@@ -81,18 +81,18 @@
         </tr>
         <tr>
             <td>Ciências Biológicas</td>
-            <td>@Model.TrabalhosBiologicas</td>
-            <td>@Model.AvaliadosBiologicas</td>
+            <td id="biologicas">@Model.TrabalhosBiologicas</td>
+            <td id="avaliadosBiologicas">@Model.AvaliadosBiologicas</td>
         </tr>
         <tr>
             <td>Ciências Exatas</td>
-            <td>@Model.TrabalhosExatas</td>
-            <td>@Model.AvaliadosExatas</td>
+            <td id="exatas">@Model.TrabalhosExatas</td>
+            <td id="avaliadosExatas">@Model.AvaliadosExatas</td>
         </tr>
         <tr>
             <td>Ciências Humanas</td>
-            <td>@Model.TrabalhosHumanas</td>
-            <td>@Model.AvaliadosHumanas</td>
+            <td id="humanas">@Model.TrabalhosHumanas</td>
+            <td id="avaliadosHumanas">@Model.AvaliadosHumanas</td>
         </tr>
     </table>
 </div>
@@ -106,7 +106,28 @@
             url: '/relatorios/trabalhos',
             type: 'GET',
             data: {
-                id : id
+                idEvento : id
+            },
+
+            success: function (data) {
+                $("#cadastrados").text(data.cadastrados);
+                $("#submetidos").text(data.submetidos);
+                $("#avaliados").text(data.avaliados);
+                $("#aprovados").text(data.aprovados);
+                $("#reprovados").text(data.reprovados);
+
+                $("#biologicas").text(data.trabalhosBiologicas);
+                $("#avaliadosBiologicas").text(data.avaliadosBiologicas);
+
+                $("#humanas").text(data.trabalhosHumanas);
+                $("#avaliadosHumanas").text(data.avaliadosHumanas);
+
+                $("#exatas").text(data.trabalhosExatas);
+                $("#avaliadosExatas").text(data.avaliadosExatas);
+
+                $(".evento").attr("class", "dashboard-link evento");
+                $("#evento-" + id).attr("class", "dashboard-link-clicked evento");
+
             }
 
         });

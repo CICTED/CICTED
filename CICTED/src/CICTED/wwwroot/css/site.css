@@ -700,7 +700,7 @@ input[type=checkbox] {
     font-family: 14px;
 }
 
-.dashboard-linkClicked {
+.dashboard-link-clicked {
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 10px;
@@ -713,6 +713,11 @@ input[type=checkbox] {
     cursor: pointer;
     font-family: 14px;
 }
+
+    .dashboard-link-clicked:hover {
+        color: white;
+        text-shadow: 0px 0px 5px #fff;
+    }
 
 a:hover .dashboard {
     text-decoration: none;
