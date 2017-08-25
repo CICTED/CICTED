@@ -17,7 +17,7 @@ namespace CICTED.Domain.Infrastucture.Repository
         public AdministradorRepository(IOptions<CustomSettings> settings)
         {
             _settings = settings.Value;
-        }       
+        }
 
         public async Task<bool> IsAvaliador(long userID)
         {
@@ -145,7 +145,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                 {
                     var instituicao = await db.QueryAsync<string>("SELECT InstituicaoNome FROM dbo.Instituicao WHERE Id = @instituicaoId", new { instituicaoId = instituicaoId });
 
-                    
+
                     return instituicao.FirstOrDefault();
                 }
 
@@ -153,6 +153,53 @@ namespace CICTED.Domain.Infrastucture.Repository
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        public async Task<long> InsertAvaliadorSubArea(int idSubArea, long idUser)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var avaliadorSubAreaInsertQuery = "INSERT INTO dbo.AvaliadorSubAreaConhecimento(UsuarioId, SubAreaConhecimentoId) VALUES (@UsuarioId, @SubAreaConhecimentoId)";
+
+                    var avaliadorSubAreaInsert = await db.QueryAsync<long>(avaliadorSubAreaInsertQuery,
+                        new
+                        {
+                            UsuarioId = idUser,
+                            SubAreaConhecimentoId = idSubArea
+                        });
+
+                    return avaliadorSubAreaInsert.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<long> InsertAvaliadorEvento(int idEvento, long idUser)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var avaliadorEventoInsertQuery = "INSERT INTO dbo.AvaliadorEvento(EventoId, UsuarioId) VALUES (@EventoId, @UsuarioId)";
+
+                    var avaliadorEventoInsert = await db.QueryAsync<long>(avaliadorEventoInsertQuery,
+                        new
+                        {
+                            EventoId = idEvento,
+                            UsuarioId = idUser
+                        });
+                    return avaliadorEventoInsert.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
 
