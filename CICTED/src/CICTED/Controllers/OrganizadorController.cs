@@ -51,26 +51,23 @@ namespace CICTED.Controllers
             }
             else
             {            
-                DashboardViewModel model = new DashboardViewModel();
-                                
-                var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos();                
+                DashboardViewModel model = new DashboardViewModel();                                                                             
 
-                var totalSubmetidos = 0;                
+                model.TrabalhosBiologicas = await _organizadorServices.GetQuantidadeTrabalhosArea(1);
+                model.TrabalhosExatas = await _organizadorServices.GetQuantidadeTrabalhosArea(2);
+                model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhosArea(3);
 
-
-                foreach (var trabalho in submetidos)
-                {
-                    totalSubmetidos += trabalho.Quantidade;
-                }
-
-                model.TrabalhosBiologicas = await _organizadorServices.GetQuantidadeTrabalhos(1);
-                model.TrabalhosExatas = await _organizadorServices.GetQuantidadeTrabalhos(2);
-                model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhos(3);
-                                                
-
-                model.Cadastrados = model.TrabalhosBiologicas + model.TrabalhosExatas + model.TrabalhosHumanas;
+                model.AvaliadosBiologicas = await _organizadorServices.GetQuantidadeTrabalhosAvaliadosArea(1);
+                model.AvaliadosExatas = await _organizadorServices.GetQuantidadeTrabalhosAvaliadosArea(2);
+                model.AvaliadosHumanas = await _organizadorServices.GetQuantidadeTrabalhosAvaliadosArea(3);
                 
-                model.Submetidos = totalSubmetidos;
+                model.Cadastrados = model.TrabalhosBiologicas + model.TrabalhosExatas + model.TrabalhosHumanas;
+                model.Avaliados = model.AvaliadosBiologicas + model.AvaliadosExatas + model.AvaliadosHumanas;
+                model.Submetidos = await _organizadorRepository.GetQuantidadeTrabalhosSubmetidos();
+                
+
+                model.Aprovados = await _organizadorRepository.GetQuantidadeTrabalhosAprovados();
+                model.Reprovados = await _organizadorRepository.GetQuantidadeTrabalhosReprovados();
 
                 return View("Dashboard", model);
             }
