@@ -67,7 +67,7 @@ namespace CICTED.Controllers
 
                     var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
                        model.SenhaLogin, model.RememberMe, user.EmailConfirmed);
-
+                    
                     if (result.Succeeded)
                     {
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
@@ -107,6 +107,7 @@ namespace CICTED.Controllers
                     else
                     {
                         ModelState.AddModelError("", "Invalid login attempt");
+                        ViewBag.LoginError = "Usuário ou senha incorretas";
                         return View(model);
                     }
                 }

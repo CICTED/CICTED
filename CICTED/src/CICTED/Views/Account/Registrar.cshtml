@@ -8,18 +8,18 @@
 
 <form class="form-cadastro !important" asp-controller="account" asp-action="registrar" method="post">
     <div style="text-align:center">
-        <h2><b>Registrar</b></h2>
+        <h1>Registrar</h1>
     </div>
     <div class="form-group">
         <h4>Dados Pessoais:</h4>
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Nome:</label>
-                <input type="text" name="Nome" value="@Model.Nome" required style="width:500px" />
+                <input type="text" name="Nome" value="@Model.Nome" required />
             </div>
             <div class="float-right" style="width:50%">
                 <label>Sobrenome:</label>
-                <input type="text" name="Sobrenome" value="@Model.Sobrenome" required style="width:500px" />
+                <input type="text" name="Sobrenome" value="@Model.Sobrenome" required />
             </div>
         </div>
 
@@ -28,7 +28,7 @@
 
             <div class="float-left" style="width:40%">
                 <label>CPF:</label>
-                <input type="text" name="CPF" value="@Model.CPF" style="width:500px" />
+                <input type="text" name="CPF" value="@Model.CPF"  />
 
             </div>
 
