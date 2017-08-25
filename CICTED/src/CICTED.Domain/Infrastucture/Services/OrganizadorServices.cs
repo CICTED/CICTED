@@ -20,62 +20,9 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
             _settings = settings.Value;
         }
         #endregion       
+       
 
-        public async Task<int> GetQuantidadeTrabalhosAprovados(int idArea, int idEvento)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var query = "SELECT dbo.Trabalho.Id"
-                               +" FROM dbo.SubAreaConhecimento, dbo.Trabalho "
-                               + $"{(idEvento > 0 ? $"Where dbo.Trabalho.EventoId = {idEvento} AND" : "Where")} dbo.SubAreaConhecimento.AreaConhecimentoId = @AreaConhecimentoId AND dbo.Trabalho.SubAreaConhecimentoId = dbo.SubAreaConhecimento.Id and dbo.Trabalho.StatusTrabalhoId = 1";
-
-                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,
-                        new {
-                            EventoId = idEvento,
-                            AreaId = idArea
-                        });
-
-                    return selectDataAvaliacao.ToList().Count();
-                }
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
-
-        }
-
-
-        public async Task<int> GetQuantidadeTrabalhosReprovados(int idArea, int idEvento)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var query = "SELECT dbo.Trabalho.Id"
-                               + " FROM dbo.SubAreaConhecimento, dbo.Trabalho "
-                               + $"{(idEvento > 0 ? $"Where dbo.Trabalho.EventoId = {idEvento} AND" : "Where")} dbo.SubAreaConhecimento.AreaConhecimentoId = @AreaConhecimentoId AND dbo.Trabalho.SubAreaConhecimentoId = dbo.SubAreaConhecimento.Id and dbo.Trabalho.StatusTrabalhoId = 2";
-
-                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,
-                        new
-                        {
-                            EventoId = idEvento,
-                            AreaId = idArea
-                        });
-
-                    return selectDataAvaliacao.ToList().Count();
-                }
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
-
-        }
-
-        public async Task<int> GetQuantidadeTrabalhos(int idArea, int idEvento = 0)
+        public async Task<int> GetQuantidadeTrabalhosArea(int idArea, int idEvento = 0)
         {
             try
             {
@@ -99,6 +46,28 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
                 return 0;
             }
         }
-                
+
+        public async Task<int> GetQuantidadeTrabalhosAvaliadosArea(int idArea, int idEvento = 0)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectTrabalhosAvaliados = await db.QueryAsync<int>("SELECT dbo.Trabalho.Id"
+                                                          + " FROM dbo.SubAreaConhecimento, dbo.Trabalho, dbo.AvaliacaoTrabalho "
+                                                          + $"{(idEvento > 0 ? $"Where dbo.Trabalho.EventoId = {idEvento} AND" : "Where")} dbo.SubAreaConhecimento.AreaConhecimentoId = @AreaConhecimentoId" 
+                                                          + " AND dbo.Trabalho.SubAreaConhecimentoId = dbo.SubAreaConhecimento.Id and dbo.AvaliacaoTrabalho.TrabalhoId = dbo.Trabalho.Id AND dbo.AvaliacaoTrabalho.TipoAvaliacao = 1",
+                                                          new
+                                                          {
+                                                              AreaConhecimentoId = idArea
+                                                          });
+                    return selectTrabalhosAvaliados.ToList().Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
     }
 }
