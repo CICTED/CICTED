@@ -17,6 +17,13 @@
 
         <form class="form-login float-left margin-left-50" asp-contoller="account" asp-action="login">
             <h1>Login</h1>
+            @if (!string.IsNullOrEmpty(ViewBag.LoginError))
+            {
+                <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
+                    <div class="message-error" id="errors">@Html.Raw(ViewBag.LoginError)</div>
+                </div>
+
+            }
             @if (ViewBag.EnviadoEmail == true)
             {
                 <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
@@ -26,7 +33,7 @@
             @if (ViewBag.EmailNaoConfirmado == true)
             {
                 <div style="margin-top: -10px; margin-bottom:-10px" class="alert alert-danger margin-left-40" role="alert">
-                    <label style="color:red">Email não confirmado</label>
+                    <div class="message-error" id="errors">Email não confirmado</div>
                 </div>
             }
             @if (ViewBag.UsuarioNaoExiste == true)
@@ -61,7 +68,7 @@
                 <label asp-for="ConfirmaEmail">
                     <input data-val="true" id="ConfirmaEmail" name="ConfirmaEmail" type="checkbox" value="true">
                     Confirmar email
-                 </label>
+                </label>
             </div>
         </form>
 
@@ -105,6 +112,7 @@
                         <label style="color:red">Senha não correspondente</label>
                     </div>
                 }
+
 
                 <button type="submit" class="btn btn-primary float-center margin-top-20" style="width: 100%">Cadastrar</button>
 

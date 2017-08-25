@@ -774,7 +774,8 @@ a:hover .dashboard {
     .form-cadastro input {
         border: 1px solid #DDD;
         height: 30px;
-        width: 200px;
+        width: 500px;
+        padding: 5px;
         outline: none;
     }
 
@@ -937,7 +938,7 @@ label {
 
 .message-error {
     color: red !important;
-    margin-bottom: -10px !important;
+    font-family: sans-serif;
     margin-top: -10px !important;
 }
 
