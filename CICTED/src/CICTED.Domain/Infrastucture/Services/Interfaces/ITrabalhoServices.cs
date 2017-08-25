@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CICTED.Domain.ViewModels.Trabalho;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,5 +10,6 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
     {
         Task<List<string>> GetPalavrasChave(long idTrabalho);
         Task<bool> CadastraPalavrasChave(string palavras, long trabalhoId);
+        Task<AvaliacaoTrabalhoViewModel> TrabalhosPendentes(long idAvaliador);
     }
 }
