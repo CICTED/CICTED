@@ -1061,9 +1061,11 @@ label {
 }
 /*END Switch*/
 
+.alert-success{
+    color: green;
+}
 
 /* tooltip */
-
 
 .tool-tip {
     color: #fff;

@@ -55,19 +55,19 @@ namespace CICTED.Controllers
         [Authorize]
         public async Task<IActionResult> TrabalhosPendentes()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var trabalhos = await _trabalhoServices.TrabalhosPendentes(user.Id);
+            //var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            //var trabalhos = await _trabalhoServices.TrabalhosPendentes(user.Id);
 
-            List<AvaliacaoTrabalhoViewModel> model = new List<AvaliacaoTrabalhoViewModel>();
+            //List<AvaliacaoTrabalhoViewModel> model = new List<AvaliacaoTrabalhoViewModel>();
 
-            foreach (var trabalho in trabalhos)
-            {
-                var trabalhoConsulta = new AvaliacaoTrabalhoViewModel()
-                {
+            //foreach (var trabalho in trabalhos)
+            //{
+            //    var trabalhoConsulta = new AvaliacaoTrabalhoViewModel()
+            //    {
 
-                };
-                model.Add(trabalhoConsulta);
-            }
+            //    };
+            //    model.Add(trabalhoConsulta);
+            //}
 
             return View();
         }

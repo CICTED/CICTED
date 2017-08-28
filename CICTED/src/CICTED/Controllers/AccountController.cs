@@ -43,7 +43,7 @@ namespace CICTED.Controllers
 
         [HttpGet("login")]
         public IActionResult Login()
-        {
+       {
             LoginViewModel model = new LoginViewModel();
 
             return View(model);

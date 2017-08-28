@@ -31,8 +31,10 @@
                 <div class="alert alert-success" role="alert">@ViewBag.Success</div>
             }
 
-            <input style="width:100%" type="email" asp-for="Email" />
-            <button style="width:100%" type="submit" class="margin-top-10 btn btn-primary">Enviar</button>
+            <input style="width:100%; max-width: 100% !important" type="email" asp-for="Email" />
+            <button style="width:100px; float: right" type="submit" class="margin-top-10 btn btn-primary">Enviar</button>
+            <button style="width:100px" type="submit" formmethod="get" formaction="/account/login" class="btn btn-primary margin-top-10 btn btn-primary">Cancelar</button>
+            
         </form>
     </div>
 
