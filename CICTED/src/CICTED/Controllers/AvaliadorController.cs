@@ -63,7 +63,6 @@ namespace CICTED.Controllers
         }
  
         [HttpGet("trabalhosPendentes")]
-
         [Authorize]
         public async Task<IActionResult> TrabalhosPendentes()
         {
@@ -72,14 +71,14 @@ namespace CICTED.Controllers
 
             List<AvaliacaoTrabalhoViewModel> model = new List<AvaliacaoTrabalhoViewModel>();
 
-            foreach (var trabalho in trabalhos)
-            {
-                var trabalhoConsulta = new AvaliacaoTrabalhoViewModel()
-                {
+            //foreach (var trabalho in trabalhos)
+            //{
+            //    var trabalhoConsulta = new AvaliacaoTrabalhoViewModel()
+            //    {
 
-                };
-                model.Add(trabalhoConsulta);
-            }
+            //    };
+            //    model.Add(trabalhoConsulta);
+            //}
 
             return View();
         }

@@ -29,7 +29,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
                     var query = $"SELECT dbo.Trabalho.Id"
-                    + "FROM dbo.Trabalho "
+                    + " FROM dbo.Trabalho "
                     + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} AND " : "WHERE ")} dbo.Trabalho.DataSubmissao is not null ";
 
                     var selectDataSubmissao = await db.QueryAsync<int>(query);
