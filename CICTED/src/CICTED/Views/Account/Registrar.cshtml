@@ -34,19 +34,19 @@
 
             <div class="float-right" style="width:50%">
                 <label>Outros Documentos(RG, Passaporte, Etc):</label>
-                <input type="text" name="Documento" value="@Model.Documento" style="width:500px" />
+                <input type="text" name="Documento" value="@Model.Documento" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Data de Nascimento:</label>
-                <input type="date" name="DataNascimento" value="@Model.DataNascimento" required style="width:500px" />
+                <input type="date" name="DataNascimento" value="@Model.DataNascimento" required />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Gênero: </label>
-                <select class="form-control" name="Genero" value="@Model.Genero" style="width:500px">
+                <select class="form-control" name="Genero" value="@Model.Genero">
                     <option value="-1">Selecione um genero</option>
                     <option value="false">Masculino</option>
                     <option value="true">Feminino</option>
@@ -57,24 +57,24 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Telefone:</label>
-                <input type="tel" name="Telefone" id="Telefone" placeholder="(99) 9999-9999" value="@Model.Telefone" style="width:500px" />
+                <input type="tel" name="Telefone" id="Telefone" placeholder="(99) 9999-9999" value="@Model.Telefone"  />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Celular:</label>
-                <input type="text" name="Celular" id="Celular" placeholder="(99) 99999-9999" value="@Model.Celular" style="width:500px" />
+                <input type="text" name="Celular" id="Celular" placeholder="(99) 99999-9999" value="@Model.Celular" />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Email Principal:</label>
-                <input type="text" asp-for="Email" value="@Model.Email" disabled="disabled" style="width:500px" />
+                <input type="text" asp-for="Email" value="@Model.Email" disabled="disabled" />
             </div>
 
             <div class="float-right" style="width:50%">
                 <label>Email Secundario:</label>
-                <input type="text" asp-for="EmailSecundario" value="@Model.EmailSecundario" required style="width:500px" />
+                <input type="text" asp-for="EmailSecundario" value="@Model.EmailSecundario" required  />
             </div>
         </div>
     </div>
@@ -86,29 +86,29 @@
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Logradouro:</label>
-                <input type="text" name="Logradouro" value="@Model.Logradouro" required style="width:500px" />
+                <input type="text" name="Logradouro" value="@Model.Logradouro" required />
             </div>
             <div class="float-right" style="width:50%">
                 <label>Número:</label>
-                <input type="text" name="Numero" value="@Model.Numero" required style="width:500px" />
+                <input type="text" name="Numero" value="@Model.Numero" required />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:50%">
                 <label>Bairro:</label>
-                <input type="text" name="Bairro" value="@Model.Bairro" required style="width:500px" />
+                <input type="text" name="Bairro" value="@Model.Bairro" required />
             </div>
             <div class="float-right" style="width:50%">
                 <label>CEP:</label>
-                <input type="text" name="CEP" id="Cep" placeholder="99999-999" value="@Model.CEP" required style="width:500px" />
+                <input type="text" name="CEP" id="Cep" placeholder="99999-999" value="@Model.CEP" required />
             </div>
         </div>
 
         <div class="margin-top-10 row">
             <div class="float-left" style="width:40%">
                 <label>Estado:</label>
-                <select class="form-control" id="dropEstado" name="Estado" value="@Model.EstadoID" style="width:500px">
+                <select class="form-control" id="dropEstado" name="Estado" value="@Model.EstadoID" >
                     <option value="-1">Selecione seu estado</option>
                     @foreach (var estado in Model.Estados)
                     {
@@ -126,7 +126,7 @@
 
             <div class="float-right" style="width:50%">
                 <label>Cidade: </label>
-                <select class="form-control" id="dropCidade" name="CidadeId" value="@Model.CidadeId" style="width:500px">
+                <select class="form-control" id="dropCidade" name="CidadeId" value="@Model.CidadeId" >
                     <option value="-1">Selecione sua cidade</option>
                     @if (Model.CidadeId > 0)
                     {
@@ -144,7 +144,7 @@
         <h4>Educacional:</h4>
         <div class="margin-top-10 row">
             <label>Instituição:</label>
-            <select class="form-control" name="InstituicaoId" value="@Model.InstituicaoId" style="width:500px">
+            <select class="form-control" name="InstituicaoId" value="@Model.InstituicaoId" >
                 <option value="-1">Selecione sua instituição</option>
                 @foreach (var instituicao in Model.Instituicoes)
                 {
@@ -167,7 +167,7 @@
                     <div class="float-right row">
                         <label>Curso:</label>
 
-                        <select name="CursoId" value="@Model.CursoId" style="width:500px" class="form-control">
+                        <select name="CursoId" value="@Model.CursoId" class="form-control">
                             <option value="-1">Selecione seu Curso</option>
                             @foreach (var cursos in Model.Cursos)
                             {
@@ -175,7 +175,7 @@
                             }
                         </select>
                         <label class="margin-top-20">Outro:</label>
-                        <input type="text" value="@Model.Curso" style="width:500px" />
+                        <input type="text" value="@Model.Curso" />
                     </div>
                 </div>
             </div>

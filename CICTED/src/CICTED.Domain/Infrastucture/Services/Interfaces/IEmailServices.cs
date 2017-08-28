@@ -7,6 +7,6 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
 {
     public interface IEmailServices
     {
-        Task<bool> EnviarEmail(string email, string link, string password = null);
+        Task<bool> EnviarEmail(string email, string link, string subject = "Confirm Email - CICTED", string password = null);
     }
 }

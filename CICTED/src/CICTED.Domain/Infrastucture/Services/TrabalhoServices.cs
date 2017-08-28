@@ -1,5 +1,6 @@
 ﻿using CICTED.Domain.Infrastucture.Services.Interfaces;
 using CICTED.Domain.Models.Settings;
+using CICTED.Domain.ViewModels.Trabalho;
 using Dapper;
 using Microsoft.Extensions.Options;
 using System;
@@ -100,6 +101,27 @@ namespace CICTED.Domain.Infrastucture.Services
             {
                 return false;
             }
+        }
+
+
+        public async Task<AvaliacaoTrabalhoViewModel> TrabalhosPendentes(long idAvaliador)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var selectIdTrabalhoQuery = await db.QueryAsync<AvaliacaoTrabalhoViewModel>("SELECT TrabalhoId FROM dbo.AvaliadorTrabalho WHERE AvaliadorId = @AvaliadorId", new { AvaliadorId = idAvaliador });
+
+                    var selectTrabalhoQuery = await db.QueryAsync<AvaliacaoTrabalhoViewModel>("SELECT Identificador, Titulo, EventoId FROM dbo.Trabalho WHERE Id = @Id", new { Id = selectIdTrabalhoQuery });
+
+                    return selectTrabalhoQuery.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
         }
 
     }

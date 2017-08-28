@@ -631,6 +631,15 @@ input[type=file] {
     }
 
 
+.link-underline {
+    text-decoration: none !important;
+    color: #868585;
+    cursor: pointer;
+}
+    .link-underline:hover{
+        text-decoration: underline !important;
+    }
+
 .logo-login {
     width: 260px;
     height: 75px;

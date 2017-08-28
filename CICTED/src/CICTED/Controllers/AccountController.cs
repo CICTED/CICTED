@@ -57,6 +57,7 @@ namespace CICTED.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(model.EmailLogin);
+                //_userManager.GeneratePasswordResetTokenAsync
 
                 if (user != null)
                 {
@@ -64,7 +65,7 @@ namespace CICTED.Controllers
                     {
                         return BadRequest();
                     }
-
+                    
                     var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
                        model.SenhaLogin, model.RememberMe, user.EmailConfirmed);
                     
@@ -155,7 +156,7 @@ namespace CICTED.Controllers
                 {
                     try
                     {
-                        await _userManager.AddToRoleAsync(user, "AUTOR");
+                       var resultRole =  await _userManager.AddToRoleAsync(user, "AUTOR");
 
                         //link
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -585,6 +586,7 @@ namespace CICTED.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                
                 var senhaAtual = user.PasswordHash;
 
                 var result = await _signInManager.PasswordSignInAsync(user.Email,
@@ -595,6 +597,7 @@ namespace CICTED.Controllers
                 {
                     if (novaSenha == model.ConfirmarSenha)
                     {
+                        
                         var bite = Encoding.UTF8.GetBytes(novaSenha);
                         using(var hash = SHA256.Create())
                         {
@@ -628,6 +631,96 @@ namespace CICTED.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("recuperar")]
+        public async Task<IActionResult> RecuperarSenha()
+        {
+            return View();
+        }
+
+        [HttpPost("recuperar")]
+        public async Task<IActionResult> RecuperarSenha(RecuperarSenhaViewModel model)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user == null)
+                {
+                    ViewBag.Message = "Usuário não encontrado para o email fornecido.";
+                    return View("RecuperarSenha", model);
+                }
+
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callbackUrl = Url.Action("ForgotPasswordConfirmation", "Account", new { email = user.Email, code = code }, protocol: HttpContext.Request.Scheme);
+                await _emailServices.EnviarEmail(model.Email, callbackUrl, "Recuperar conta - CICTED");
+
+                ViewBag.Success = $"Um email foi enviado para que você possa realizar a recuperação de conta. Acesse seu endereço de email {model.Email}.";
+                return View("RecuperarSenha");
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Message = "Usuário não encontrado para o email fornecido.";
+                return View("RecuperarSenha", model);
+            }
+        }
+
+        [HttpGet("ForgotPasswordConfirmation")]
+        public async Task<IActionResult> ForgotPasswordConfirmation(string email, string code)
+        {
+            return View(new ForgotPasswordConfirmationViewModel()
+            {
+                Email = email,
+                Token = code
+            });
+        }
+
+        [HttpPost("ForgotPasswordConfirmation")]
+        public async Task<IActionResult> ForgotPasswordConfirmation(ForgotPasswordConfirmationViewModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View("ForgotPasswordConfirmation", model);
+                }
+
+                if (model.NewPassword != model.ConfirmNewPassword)
+                {
+                    ModelState.AddModelError("password", "A senha e a confirmação de senha não batem.");
+                    return View("ForgotPasswordConfirmation", model);
+                }
+
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("email", "Não foi encontrado nenhum usuário com o email fornecido.");
+                    return View("ForgotPasswordConfirmation", model);
+                }
+
+                var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+
+                if(!result.Succeeded)
+                {
+                    model.Succeeded = false;
+                    model.Message = result.Errors.ToString();
+                }
+                else
+                {
+                    model.Succeeded = true;
+                    model.Message = "Senha alterada com sucesso!";
+                }
+
+                return View("ForgotPasswordConfirmation", model);
+            }
+            catch(Exception ex)
+            {
+                model.Succeeded = false;
+                model.Message = "Houve um erro interno e não foi possível alterar a senha. Tente novamente.";
+                return View("ForgotPasswordConfirmation", model);
             }
         }
     }
