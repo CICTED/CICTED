@@ -23,59 +23,29 @@ namespace CICTED.Controllers
             _trabalhoRepository = trabalhoRepository;
             _organizadorRepository = dashboardRepository;
             _organizadorServices = organizadorServices;
-        }
-        [HttpGet("trabalhos/cadastrados")]
-        public async Task<IActionResult> TrabalhosCadastrados(int idEvento)
-        {
-            var cadastrados = await _organizadorRepository.GetQuantidadeDatasCadastrados(idEvento);
-                       
-            return Json(cadastrados);
-        }
-        [HttpGet("trabalhos/submetidos")]
-        public async Task<IActionResult> TrabalhosSubmetidos(int idEvento)
-        {
-            var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos(idEvento);
+        }            
 
-            return Json(submetidos);
-        }
-
-        [HttpGet("trabalhos/avaliados")]
-        public async Task<IActionResult> TrabalhosAvaliados(int idEvento)
-        {
-            var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao(idEvento);
-
-            return Json(avaliados);
-        }
 
         [HttpGet("trabalhos")]
         public async Task<IActionResult>Trabalhos(int idEvento)
         {
             DashboardViewModel model = new DashboardViewModel();
 
-            var submetidos = await _organizadorRepository.GetQuantidadeDatasSubmetidos(idEvento);
-            var avaliados = await _organizadorServices.GetQuantidadeDataAvaliacao(idEvento);
+            model.TrabalhosBiologicas = await _organizadorServices.GetQuantidadeTrabalhosArea(1);
+            model.TrabalhosExatas = await _organizadorServices.GetQuantidadeTrabalhosArea(2);
+            model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhosArea(3);
 
-            model.TrabalhosBiologicas = await _organizadorServices.GetQuantidadeTrabalhos(1,idEvento);
-            model.TrabalhosExatas = await _organizadorServices.GetQuantidadeTrabalhos(2,idEvento);
-            model.TrabalhosHumanas = await _organizadorServices.GetQuantidadeTrabalhos(3, idEvento);
+            model.AvaliadosBiologicas = await _organizadorServices.GetQuantidadeTrabalhosAvaliadosArea(1);
+            model.AvaliadosExatas = await _organizadorServices.GetQuantidadeTrabalhosAvaliadosArea(2);
+            model.AvaliadosHumanas = await _organizadorServices.GetQuantidadeTrabalhosAvaliadosArea(3);
+
             model.Cadastrados = model.TrabalhosBiologicas + model.TrabalhosExatas + model.TrabalhosHumanas;
+            model.Avaliados = model.AvaliadosBiologicas + model.AvaliadosExatas + model.AvaliadosHumanas;
+            model.Submetidos = await _organizadorRepository.GetQuantidadeTrabalhosSubmetidos();
 
-            var totalSubmetidos = 0;
-            var totalAvaliados = 0;
 
-            foreach (var trabalho in submetidos)
-            {
-                totalSubmetidos += trabalho.Quantidade;
-            }
-
-            foreach (var trabalho in avaliados)
-            {
-                totalAvaliados += trabalho.Quantidade;
-            }
-
-            
-            model.Avaliados = totalAvaliados;
-            model.Submetidos = totalSubmetidos;
+            model.Aprovados = await _organizadorRepository.GetQuantidadeTrabalhosAprovados();
+            model.Reprovados = await _organizadorRepository.GetQuantidadeTrabalhosReprovados();
 
             return Json(model);
         }

@@ -20,48 +20,80 @@ namespace CICTED.Domain.Infrastucture.Repository
         {
             _settings = settings.Value;
         }
-        #endregion
+        #endregion        
 
-        public async Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasCadastrados(int idEvento)
+        public async Task<int> GetQuantidadeTrabalhosSubmetidos(int idEvento)
         {
             try
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var query = $"SELECT DATEPART(MONTH, dbo.Trabalho.DataCadastro) AS Mes, COUNT(*) As Quantidade "
+                    var query = $"SELECT dbo.Trabalho.Id"
                     + "FROM dbo.Trabalho "
-                    + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} " : "")} "
-                    + "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataCadastro)";
-
-                    var selectDataCadastrados = await db.QueryAsync<QuantidadeDatasViewModel>(query);
-                    return selectDataCadastrados.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
-        public async Task<List<QuantidadeDatasViewModel>> GetQuantidadeDatasSubmetidos(int idEvento)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var query = $"SELECT DATEPART(MONTH, dbo.Trabalho.DataSubmissao) AS Mes, COUNT(*) As Quantidade "
-                    + "FROM dbo.Trabalho "
-                    + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} AND" : "WHERE")} dbo.Trabalho.DataSubmissao is not null "
-                    + "GROUP BY DATEPART(MONTH, dbo.Trabalho.DataSubmissao)";
+                    + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} AND" : "WHERE")} dbo.Trabalho.DataSubmissao is not null ";
 
                     var selectDataSubmissao = await db.QueryAsync<QuantidadeDatasViewModel>(query);
-                    return selectDataSubmissao.ToList();
+                    return selectDataSubmissao.ToList().Count();
                 }
             }
             catch (Exception ex)
             {
-                return null;
+                return 0;
             }
+        }
+        
+
+        public async Task<int> GetQuantidadeTrabalhosAprovados(int idEvento)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = "SELECT dbo.Trabalho.Id"
+                               + " FROM dbo.SubAreaConhecimento, dbo.Trabalho "
+                               + $"{(idEvento > 0 ? $"Where dbo.Trabalho.EventoId = {idEvento} AND" : "Where")} dbo.Trabalho.StatusTrabalhoId = 1";
+
+                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,
+                        new
+                        {
+                            EventoId = idEvento,
+                        });
+
+                    return selectDataAvaliacao.ToList().Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+
+        public async Task<int> GetQuantidadeTrabalhosReprovados(int idEvento)
+        {
+            try
+            {
+                using (var db = new SqlConnection(_settings.ConnectionString))
+                {
+                    var query = "SELECT dbo.Trabalho.Id"
+                               + " FROM dbo.SubAreaConhecimento, dbo.Trabalho "
+                               + $"{(idEvento > 0 ? $"Where dbo.Trabalho.EventoId = {idEvento} AND" : "Where")} dbo.Trabalho.StatusTrabalhoId = 2";
+
+                    var selectDataAvaliacao = await db.QueryAsync<QuantidadeDatasViewModel>(query,
+                        new
+                        {
+                            EventoId = idEvento
+                        });
+
+                    return selectDataAvaliacao.ToList().Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
         }
 
 

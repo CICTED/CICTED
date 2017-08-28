@@ -9,7 +9,8 @@ namespace CICTED.Domain.ViewModels.Trabalho
     public class AvaliacaoTrabalhoViewModel
     {
         public List<Evento> Eventos { get; set; }
-        public int EventoId { get; set; }        
+        public int EventoId { get; set; }
+        public long TrabalhoId { get; set; }
         public string IdentificadorTrabalho { get; set; }
         public string TituloTrabalho { get; set; }
         public string SubArea { get; set; }
