@@ -54,11 +54,15 @@
                 <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
             </div>
 
-            <div class="checkbox margin-top-10">
+            @*<div class="checkbox margin-top-10">
                 <label asp-for="RememberMe">
                     <input asp-for="RememberMe" />
                     @Html.DisplayNameFor(m => m.RememberMe)
                 </label>
+            </div>*@
+
+            <div class="margin-top-10 margin-bottom-10">
+                <a class="link" asp-controller="Account" asp-action="recuperar"><label class="link-underline">Esqueceu a senha?</label></a>
             </div>
             <div class="margin-top-10 margin-bottom-10">
                 <label>Caso não tenha recebido email de confirmação </label>
@@ -77,7 +81,7 @@
 
 
 
-            <form style="padding:0px 20px 0px 20px; height: 255px !important" class="form-login float-left margin-left-50" method="post" asp-controller="account" asp-action="cadastrar">
+            <form class="form-login float-left margin-left-50" method="post" asp-controller="account" asp-action="cadastrar">
                 <h1>Ainda não tem cadastro?</h1>
 
                 @if (ViewBag.Errors != null)
