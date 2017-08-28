@@ -50,8 +50,19 @@ namespace CICTED.Controllers
             _trabalhoServices = trabalhoServices;
         }
 
-        [HttpGet("trabalhosPendentes")]
+        [HttpGet("home")]
+        [Authorize]
+        public async Task<IActionResult>Home()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
+            return View();
+        }
+ 
+        [HttpGet("trabalhosPendentes")]
         [Authorize]
         public async Task<IActionResult> TrabalhosPendentes()
         {
