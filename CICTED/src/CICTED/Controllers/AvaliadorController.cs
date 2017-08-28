@@ -47,6 +47,18 @@ namespace CICTED.Controllers
             _localizacaoServices = localizacaoServices;
         }
 
+        [HttpGet("home")]
+        [Authorize]
+        public async Task<IActionResult>Home()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            return View();
+        }
+ 
         [HttpGet("trabalhosPendentes")]
         [Authorize]
         public async Task<IActionResult> TrabalhosPendentes()

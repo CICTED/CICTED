@@ -30,9 +30,10 @@ namespace CICTED.Domain.Infrastucture.Repository
                 {
                     var query = $"SELECT dbo.Trabalho.Id"
                     + "FROM dbo.Trabalho "
-                    + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} AND" : "WHERE")} dbo.Trabalho.DataSubmissao is not null ";
+                    + $"{(idEvento > 0 ? $"WHERE dbo.Trabalho.EventoId = {idEvento} AND " : "WHERE ")} dbo.Trabalho.DataSubmissao is not null ";
 
-                    var selectDataSubmissao = await db.QueryAsync<QuantidadeDatasViewModel>(query);
+                    var selectDataSubmissao = await db.QueryAsync<int>(query);
+
                     return selectDataSubmissao.ToList().Count();
                 }
             }
