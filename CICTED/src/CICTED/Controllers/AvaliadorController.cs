@@ -88,11 +88,16 @@ namespace CICTED.Controllers
 
         [HttpGet("avaliarTrabalho")]
         [Authorize]
-        public async Task<IActionResult> AvaliarTrabalho()
+        public async Task<IActionResult> AvaliarTrabalho(string identificacao)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             AvaliacaoTrabalhoViewModel model = new AvaliacaoTrabalhoViewModel();
+
+            var identificacaoTrabalho = new AvaliacaoTrabalhoViewModel()
+            {
+                IdentificadorTrabalho = identificacao
+            };
 
             return View();
 
