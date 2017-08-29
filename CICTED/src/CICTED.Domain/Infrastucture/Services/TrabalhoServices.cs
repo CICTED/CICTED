@@ -104,7 +104,7 @@ namespace CICTED.Domain.Infrastucture.Services
         }
 
 
-        public async Task<AvaliacaoTrabalhoViewModel> TrabalhosPendentes(long idAvaliador)
+        public async Task<List<AvaliacaoTrabalhoViewModel>> TrabalhosPendentes(long idAvaliador)
         {
             try
             {
@@ -112,9 +112,9 @@ namespace CICTED.Domain.Infrastucture.Services
                 {
                     var selectIdTrabalhoQuery = await db.QueryAsync<AvaliacaoTrabalhoViewModel>("SELECT TrabalhoId FROM dbo.AvaliadorTrabalho WHERE AvaliadorId = @AvaliadorId", new { AvaliadorId = idAvaliador });
 
-                    var selectTrabalhoQuery = await db.QueryAsync<AvaliacaoTrabalhoViewModel>("SELECT Identificador, Titulo, EventoId FROM dbo.Trabalho WHERE Id = @Id", new { Id = selectIdTrabalhoQuery });
+                    var selectTrabalhoQuery = await db.QueryAsync<AvaliacaoTrabalhoViewModel>("SELECT Identificacao, Titulo, EventoId FROM dbo.Trabalho WHERE Id = @Id", new { Id = selectIdTrabalhoQuery });
 
-                    return selectTrabalhoQuery.FirstOrDefault();
+                    return selectTrabalhoQuery.ToList();
                 }
             }
             catch (Exception ex)

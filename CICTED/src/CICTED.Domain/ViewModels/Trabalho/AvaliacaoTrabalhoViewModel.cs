@@ -10,6 +10,7 @@ namespace CICTED.Domain.ViewModels.Trabalho
     {
         public List<Evento> Eventos { get; set; }
         public int EventoId { get; set; }
+        public string EventoNome { get; set; }
         public long TrabalhoId { get; set; }
         public string IdentificadorTrabalho { get; set; }
         public string TituloTrabalho { get; set; }
