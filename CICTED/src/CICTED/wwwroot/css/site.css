@@ -374,6 +374,16 @@ input[type=file] {
     border-radius: 0;
 }
 
+.navbar-saibaMais {
+    top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0 !important;
+    border-radius: 0;
+}
+
 .inputfile {
     width: 0.1px;
     height: 0.1px;
@@ -625,6 +635,15 @@ input[type=file] {
     height: 250px;
     width: 100%;
     padding: 5px 80px 5px 80px;
+    color: white;
+}
+
+.button-saibaMais{
+    height: 30px;
+    color: white;
+    border-bottom-color: white;
+    background: none !important;
+    margin-top: 30px;
 }
 
 .form-saibaMais {
