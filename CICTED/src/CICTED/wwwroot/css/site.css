@@ -693,6 +693,14 @@ input[type=file] {
     background-size: cover;
 }
 
+.button-a:hover{
+    color: white;
+}
+
+.button-a{
+    color: white;
+}
+
 .form-login {
     width: 300px;
     height: auto;
