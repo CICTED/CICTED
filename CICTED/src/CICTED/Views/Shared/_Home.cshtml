@@ -38,13 +38,16 @@
 <body>
     <div class="navbar-saibaMais" style="position:absolute">
         <div class="margin-top-10" style="position:relative">
-            <img class="margin-left-100 float-left" style="height: 70px; width: 250px" src="~/images/logoCICTED/logo2017.png"/>
+            <img class="margin-left-100 float-left" style="height: 70px; width: 250px" src="~/images/logoCICTED/logo2017.png" />
         </div>
-        <div class="margin-top-10" style="position:fixed; right: 0px; top: 10px">
-            <img class="margin-right-100 float-right" style="display:block" src="~/images/logoUNITAU/logotipo_branco_unitau.png" />
+        <div style="position:fixed; right: 0px; top: 10px">
+            <img class="float-right" id="logoUnitau" style="height: 90px; width: 80px; margin-right: 150px" src="~/images/logoUNITAU/logo_unitau.png" />
         </div>
-
-       
+        <div class="float-right">
+            <ul>
+                <button class="btn btn-primary margin-top-75 margin-right-20"><a class="button-a" asp-controller="account" asp-action="login">Entrar</a></button>
+            </ul>
+        </div>
     </div>
 
     <div class="float-right margin-top-10">
@@ -66,3 +69,4 @@
 
 </body>
 </html>
+
