@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/CICTED.min.js" asp-append-version="true"></script>
+    </environment>
+
+    <script src="~/js/CICTED.js"></script>
+
+    <script src="~/js/jquery.maskedinput.js"></script>
+    <script src="~/js/jquery.maskedinput.min.js"></script>
+    <script src="~/js/CICTED.js"></script>
+
+    <script src="~/js/Chart.min.js"></script>
+
+</head>
+<body>
+    <div class="navbar-saibaMais" style="position:absolute">
+        <div class="margin-top-10" style="position:relative">
+            <img class="margin-left-100 float-left" style="height: 70px; width: 250px" src="~/images/logoCICTED/logo2017.png" />
+        </div>
+        <div style="position:fixed; right: 0px; top: 10px">
+            <img class="float-right" id="logoUnitau" style="height: 90px; width: 80px; margin-right: 150px" src="~/images/logoUNITAU/logo_unitau.png" />
+        </div>
+    </div>
+
+    <div class="float-right margin-top-10">
+
+    </div>
+
+    <div class="admin-content">
+        @RenderBody()
+    </div>
+
+    <div class="footer-home margin-bottom-10">
+        <img class="float-left margin-top-10" style="height: 70px; width: 250px" src="~/images/rodapé/rodapeCerebro.png" />
+        <img class="float-left margin-top-10 margin-left-20" style="height: 70px; width: 250px" src="~/images/logoCICTED/logo2017.png" />
+        <img style="height: 90px; width: 550px" class="float-right" src="~/images/rodapé/apoio.png" />
+        <h5 class="float-right margin-right-20">APOIO:</h5>
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+

@@ -52,7 +52,7 @@ namespace CICTED.Controllers
 
         [HttpGet("home")]
         [Authorize]
-        public async Task<IActionResult>Home()
+        public async Task<IActionResult> Home()
         {
             if (!ModelState.IsValid)
             {
@@ -61,33 +61,43 @@ namespace CICTED.Controllers
 
             return View();
         }
- 
+
         [HttpGet("trabalhosPendentes")]
         [Authorize]
         public async Task<IActionResult> TrabalhosPendentes()
         {
-            //var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            //var trabalhos = await _trabalhoServices.TrabalhosPendentes(user.Id);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var trabalhos = await _trabalhoServices.TrabalhosPendentes(user.Id);
 
-            //List<AvaliacaoTrabalhoViewModel> model = new List<AvaliacaoTrabalhoViewModel>();
+            List<AvaliacaoTrabalhoViewModel> model = new List<AvaliacaoTrabalhoViewModel>();
 
-            //foreach (var trabalho in trabalhos)
-            //{
-            //    var trabalhoConsulta = new AvaliacaoTrabalhoViewModel()
-            //    {
-
-            //    };
-            //    model.Add(trabalhoConsulta);
-            //}
+            foreach (var trabalho in trabalhos)
+            {
+                var evento = await _eventoRepository.GetEvento(trabalho.EventoId);
+                var trabalhoConsulta = new AvaliacaoTrabalhoViewModel()
+                {
+                    IdentificadorTrabalho = trabalho.IdentificadorTrabalho,
+                    TituloTrabalho = trabalho.TituloTrabalho,
+                    EventoNome = evento.Sigla
+                };
+                model.Add(trabalhoConsulta);
+            }
 
             return View();
         }
 
         [HttpGet("avaliarTrabalho")]
         [Authorize]
-        public async Task<IActionResult> AvaliarTrabalho()
+        public async Task<IActionResult> AvaliarTrabalho(string identificacao)
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
             AvaliacaoTrabalhoViewModel model = new AvaliacaoTrabalhoViewModel();
+
+            var identificacaoTrabalho = new AvaliacaoTrabalhoViewModel()
+            {
+                IdentificadorTrabalho = identificacao
+            };
 
             return View();
 

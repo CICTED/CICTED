@@ -10,6 +10,6 @@ namespace CICTED.Domain.Infrastucture.Services.Interfaces
     {
         Task<List<string>> GetPalavrasChave(long idTrabalho);
         Task<bool> CadastraPalavrasChave(string palavras, long trabalhoId);
-        Task<AvaliacaoTrabalhoViewModel> TrabalhosPendentes(long idAvaliador);
+        Task<List<AvaliacaoTrabalhoViewModel>> TrabalhosPendentes(long idAvaliador);
     }
 }

@@ -374,6 +374,16 @@ input[type=file] {
     border-radius: 0;
 }
 
+.navbar-saibaMais {
+    top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0 !important;
+    border-radius: 0;
+}
+
 .inputfile {
     width: 0.1px;
     height: 0.1px;
@@ -612,6 +622,42 @@ input[type=file] {
     position: relative;
 }
 
+.footer-home {
+    bottom: 0px;
+    background: rgba(225, 225, 225, 0);
+    width: 100%;
+    height: 100px;
+    padding: 5px 80px 5px 80px;
+    position: relative;
+}
+
+.saibaMais {
+    height: 250px;
+    width: 100%;
+    padding: 5px 80px 5px 80px;
+    color: white;
+}
+
+.button-saibaMais{
+    height: 30px;
+    color: white;
+    border-bottom-color: white;
+    background: none !important;
+    margin-top: 30px;
+}
+
+.form-saibaMais {
+    width: 700px;
+    height: auto;
+    max-height: 450px;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 10px 20px 20px 30px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    font-size: 12px;
+}
+
 .barra {
     height: 40px;
     width: 1px;
@@ -645,6 +691,14 @@ input[type=file] {
     height: 75px;
     background-image: url(../images/logoCICTED/logo_blue.png);
     background-size: cover;
+}
+
+.button-a:hover{
+    color: white;
+}
+
+.button-a{
+    color: white;
 }
 
 .form-login {
