@@ -37,12 +37,15 @@
 </head>
 <body>
     <div class="navbar-saibaMais" style="position:absolute">
-        <div class="margin-top-10" style="position:relative">
+        <div class="margin-top-40" style="position:relative">
             <img class="margin-left-100 float-left" style="height: 70px; width: 250px" src="~/images/logoCICTED/logo2017.png" />
         </div>
-        <div style="position:fixed; right: 0px; top: 10px">
-            <img class="float-right" id="logoUnitau" style="height: 90px; width: 80px; margin-right: 150px" src="~/images/logoUNITAU/logo_unitau.png" />
-        </div>
+        @*<div style="position:fixed; right: 0px; top: 10px">
+                <img class="float-right" id="logoUnitau" style="height: 90px; width: 80px; margin-right: 150px" src="~/images/logoUNITAU/logo_unitau.png" />
+            </div>*@
+        
+            <div class="imgright"></div>
+        
     </div>
 
     <div class="float-right margin-top-10">
@@ -64,4 +67,18 @@
 
 </body>
 </html>
+<script type="text/javascript">
+    jQuery("document").ready(function ($) {
+        var nav = $('.imgright');
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 95) {
+                nav.removeClass("imgright");
+                nav.addClass("imgwhite");
+            } else {
+                nav.removeClass("imgwhite");
+                nav.addClass("imgright");
+            }
+        });
 
+    });
+</script>
