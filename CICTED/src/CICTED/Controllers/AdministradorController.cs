@@ -147,8 +147,14 @@ namespace CICTED.Controllers
                     if (model.Avaliador == true)
                     {
                         await _userManager.AddToRoleAsync(user, "AVALIADOR");
-                        var evento = await _administradorRepository.InsertAvaliadorEvento(model.EventoId, user.Id);
-                        var subArea = await _administradorRepository.InsertAvaliadorSubArea(model.SubAreaConhecimentoId, user.Id);
+
+                        foreach(var eventoId in model.EventoId) { 
+                        var evento = await _administradorRepository.InsertAvaliadorEvento(eventoId, user.Id);
+                        }
+
+                        foreach(var subareaConhecimentoId in model.SubAreaConhecimentoId) { 
+                        var subArea = await _administradorRepository.InsertAvaliadorSubArea(subareaConhecimentoId, user.Id);
+                        }
                     }
 
                     //link
