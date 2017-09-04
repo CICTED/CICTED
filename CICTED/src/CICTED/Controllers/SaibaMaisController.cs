@@ -14,5 +14,11 @@ namespace CICTED.Controllers
         {
             return View();
         }
+
+        [HttpGet("enic")]
+        public async Task<IActionResult> Enic()
+        {
+            return View();
+        }
     }
 }

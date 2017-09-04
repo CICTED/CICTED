@@ -646,6 +646,13 @@ input[type=file] {
     margin-top: 30px;
 }
 
+.button-eventos {
+    height: 30px;
+    color: black;
+    background: none !important;
+    margin-top: 30px;
+}
+
 .form-saibaMais {
     width: 700px;
     height: auto;
@@ -700,6 +707,10 @@ input[type=file] {
 
 .button-a {
     color: white;
+}
+
+.button-e {
+    color: black;
 }
 
 .form-login {
