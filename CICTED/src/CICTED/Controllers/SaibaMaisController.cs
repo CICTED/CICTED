@@ -20,5 +20,42 @@ namespace CICTED.Controllers
         {
             return View();
         }
+
+        [HttpGet("enkids")]
+        public async Task<IActionResult> EnicKids()
+        {
+            return View();
+        }
+
+        [HttpGet("enteensjr")]
+        public async Task<IActionResult> EnicTeensJr()
+        {
+            return View();
+        }
+
+        [HttpGet("mipg")]
+        public async Task<IActionResult> Mipg()
+        {
+            return View();
+        }
+
+        [HttpGet("semex")]
+        public async Task<IActionResult> Semex()
+        {
+            return View();
+        }
+
+        [HttpGet("seduni")]
+        public async Task<IActionResult> Seduni()
+        {
+            return View();
+        }
+
+        [HttpGet("pp&i")]
+        public async Task<IActionResult> PPEI()
+        {
+            return View();
+        }
+
     }
 }
