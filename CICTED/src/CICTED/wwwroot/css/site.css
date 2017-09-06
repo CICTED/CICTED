@@ -638,6 +638,13 @@ input[type=file] {
     color: white;
 }
 
+.saibaMais-itens {
+    height: 600px;
+    width: 100%;
+    padding: 5px 80px 5px 80px;
+    color: white;
+}
+
 .button-saibaMais {
     height: 30px;
     color: white;
