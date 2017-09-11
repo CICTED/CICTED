@@ -17,12 +17,50 @@ namespace CICTED.Domain.Infrastucture.Services
         {
             try
             {
+                var builder = new BodyBuilder();
+                builder.HtmlBody = GetHTMLBody(link, password);
+
+                Email(email, link, "Recuperar senha", null, builder);
+                //var message = new MimeMessage();
+                //message.From.Add(new MailboxAddress("informativo@cicted.com.br"));
+                //message.To.Add(new MailboxAddress(email));
+                //message.Subject = subject;
+
+                //var builder = new BodyBuilder();
+                //builder.HtmlBody = GetHTMLBody(link, password);
+
+                //message.Body = builder.ToMessageBody();
+                //using (var client = new SmtpClient())
+                //{
+                //    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                //    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                //    client.AuthenticationMechanisms.Remove("NTLM");
+                //    client.Connect("server22.integrator.com.br", 465);
+
+                //    // Note: only needed if the SMTP server requires authentication
+                //    client.Authenticate("informativo@cicted.com.br", "cictedunitau2015");
+
+                //    client.Send(message);
+                //    client.Disconnect(true);
+
+            //}
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public static bool Email(string email, string link, string subject = "Confirm Email - CICTED", string password = null, BodyBuilder builder = null)
+        {
+            try
+            {
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("informativo@cicted.com.br"));
                 message.To.Add(new MailboxAddress(email));
                 message.Subject = subject;
 
-                var builder = new BodyBuilder();
                 builder.HtmlBody = GetHTMLBody(link, password);
 
                 message.Body = builder.ToMessageBody();
@@ -47,7 +85,6 @@ namespace CICTED.Domain.Infrastucture.Services
                 return false;
             }
         }
-
 
         public static string GetHTMLBody(string url, string password = null)
         {

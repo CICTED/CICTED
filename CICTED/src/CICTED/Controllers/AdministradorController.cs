@@ -451,6 +451,7 @@ namespace CICTED.Controllers
             return Json(subAreas);
         }
 
+
         [HttpPost("excluir")]
         public async Task<IActionResult> Excluir(string id)
         {
