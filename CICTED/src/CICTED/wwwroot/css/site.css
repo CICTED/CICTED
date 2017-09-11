@@ -1214,13 +1214,13 @@ label {
 }
 
 .imgright {
-    background: url(../images/logoUNITAU/logo_unitau.png) no-repeat;
+    background: url(../images/logoUNITAU/unitau_azul.png) no-repeat;
     position: fixed;
     top: 0px;
     right: 0px;
-    margin: 10px 130px 0px auto;
-    height: 140px;
-    width: 120px;
+    margin: 15px 100px 0px auto;
+    height: 123px;
+    width: 160px;
 }
 
 .imgwhite {
@@ -1228,7 +1228,7 @@ label {
     position: fixed;
     top: 0px;
     right: 0px;
-    margin: 10px 100px 0px auto;
+    margin: 15px 100px 0px auto;
     width: 160px;
     height: 123px;
 }
