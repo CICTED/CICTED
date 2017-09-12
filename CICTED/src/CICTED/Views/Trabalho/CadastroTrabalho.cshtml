@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="float-left margin-left-75">
-                            <select data-id="sub-area" class="form-control input-trabalho" name="SubAreaId" value="@Model.SubAreaId" id="dropSubArea">
+                            <select data-id="sub-area" class="form-control input-trabalho" name="SubAreaId" value="@Model.SubAreaId" id="dropSubAreas">
                                 <option disabled selected>Selecione uma subarea</option>
                                 @if (Model.SubAreaId > 0)
                                 {
@@ -1020,6 +1020,6 @@
         });
     });
 
-    $('#dropArea').subArea($('#dropSubArea'));
+    $('#dropArea').subArea($('#dropSubAreas'));
     $(".telefone").mask("(99) 9999-9999");
 </script>

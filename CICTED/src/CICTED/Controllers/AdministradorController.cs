@@ -440,9 +440,9 @@ namespace CICTED.Controllers
         }
 
         [HttpGet("list/subarea/{areaId}")]
-        public async Task<IActionResult> Subarea(List<int> areaId)
+        public async Task<IActionResult> Subarea(int areaId)
         {
-            var subAreas = await _areaRepository.GetSubAreass(areaId);
+            var subAreas = await _areaRepository.GetSubAreas(areaId);
 
             if (subAreas == null)
             {

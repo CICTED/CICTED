@@ -78,26 +78,26 @@ namespace CICTED.Domain.Infrastucture.Repository
         }
 
 
-        public async Task<List<SubAreaConhecimento>> GetSubAreass(List<int> areaId)
-        {
-            try
-            {
-                using (var db = new SqlConnection(_settings.ConnectionString))
-                {
-                    var getSubAreaQuery = await db.QueryAsync<SubAreaConhecimento>("SELECT * FROM dbo.SubAreaConhecimento WHERE  AreaConhecimentoId = @AreaConhecimentoId",
-                        new
-                        {
-                            AreaConhecimentoId = areaId
-                        });
+        //public async Task<List<SubAreaConhecimento>> GetSubAreass(List<int> areaId)
+        //{
+        //    try
+        //    {
+        //        using (var db = new SqlConnection(_settings.ConnectionString))
+        //        {
+        //            var getSubAreaQuery = await db.QueryAsync<SubAreaConhecimento>("SELECT * FROM dbo.SubAreaConhecimento WHERE  AreaConhecimentoId = @AreaConhecimentoId",
+        //                new
+        //                {
+        //                    AreaConhecimentoId = areaId
+        //                });
 
-                    return getSubAreaQuery.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        //            return getSubAreaQuery.ToList();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return null;
+        //    }
+        //}
 
     }
 }
