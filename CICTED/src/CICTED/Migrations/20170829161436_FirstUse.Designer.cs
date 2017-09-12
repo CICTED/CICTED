@@ -11,8 +11,8 @@ using System;
 namespace CICTED.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170821205954_FisrtUse")]
-    partial class FisrtUse
+    [Migration("20170829161436_FirstUse")]
+    partial class FirstUse
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,11 +30,9 @@ namespace CICTED.Migrations
 
                     b.Property<bool>("Bolsista");
 
-                    b.Property<string>("CPF")
-                        .IsRequired();
+                    b.Property<string>("CPF");
 
-                    b.Property<string>("Celular")
-                        .IsRequired();
+                    b.Property<string>("Celular");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -52,8 +50,7 @@ namespace CICTED.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("EmailSecundario")
-                        .IsRequired();
+                    b.Property<string>("EmailSecundario");
 
                     b.Property<long>("EnderecoId");
 
@@ -69,8 +66,7 @@ namespace CICTED.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("Nome")
-                        .IsRequired();
+                    b.Property<string>("Nome");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -86,8 +82,7 @@ namespace CICTED.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<string>("Sobrenome")
-                        .IsRequired();
+                    b.Property<string>("Sobrenome");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -107,7 +102,7 @@ namespace CICTED.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>
+            modelBuilder.Entity("CICTED.Domain.Entities.Account.Roles", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -214,7 +209,7 @@ namespace CICTED.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<long>")
+                    b.HasOne("CICTED.Domain.Entities.Account.Roles")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -238,7 +233,7 @@ namespace CICTED.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<long>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<long>")
+                    b.HasOne("CICTED.Domain.Entities.Account.Roles")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);

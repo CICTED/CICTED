@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\Account\ReenviarConfirmacaoEmailViewModel.cs" />
+    <Compile Remove="ViewModels\Account\ReenviarEmailConfirmacao.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
     <PackageReference Include="NETCore.MailKit" Version="1.0.1" />

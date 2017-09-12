@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Account\ReenviarEmail.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
@@ -54,6 +58,10 @@
   <ItemGroup>
     <ProjectReference Include="..\CICTED.Crosscutting\CICTED.Crosscutting.csproj" />
     <ProjectReference Include="..\CICTED.Domain\CICTED.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 

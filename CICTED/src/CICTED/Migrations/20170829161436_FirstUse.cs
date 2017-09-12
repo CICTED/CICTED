@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CICTED.Migrations
 {
-    public partial class FisrtUse : Migration
+    public partial class FirstUse : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,8 +32,8 @@ namespace CICTED.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false),
                     Bolsista = table.Column<bool>(type: "bit", nullable: false),
-                    CPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Celular = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CPF = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Celular = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CursosId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -41,7 +41,7 @@ namespace CICTED.Migrations
                     Documento = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    EmailSecundario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailSecundario = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EnderecoId = table.Column<long>(type: "bigint", nullable: false),
                     Estudante = table.Column<bool>(type: "bit", nullable: false),
                     FirstAccess = table.Column<bool>(type: "bit", nullable: false),
@@ -49,14 +49,14 @@ namespace CICTED.Migrations
                     InstituicaoId = table.Column<int>(type: "int", nullable: false),
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
                 },

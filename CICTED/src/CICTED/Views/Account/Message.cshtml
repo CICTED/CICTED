@@ -1,0 +1,29 @@
+﻿@model CICTED.Domain.ViewModels.Account.MessageViewModel
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+
+    <title>Mensagem - CICTED</title>
+</head>
+<body>
+
+    <div class="float-center margin-top-50 logo-login"></div>
+
+    <div class="margin-top-100" style="width: 794px; margin: 0 auto; height: 100%;">
+        <form style="padding-top:2px" class="form-login" asp-controller="MessageController">
+
+            <h2 class="margin-top-10">Mensagem</h2>
+                <ul>@foreach (var descricao in Model.Description) {
+                    <li> @descricao</li>
+                     }
+               </ul>
+        </form>
+    </div>
+
+</body>
+</html>

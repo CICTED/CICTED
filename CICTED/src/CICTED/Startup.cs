@@ -82,7 +82,7 @@ namespace CICTED
             services.AddTransient<IAdministradorServices, AdministradorServices>();
             services.AddTransient<IAreaServices, AreaServices>();
             services.AddTransient<ITrabalhoServices, TrabalhoServices>();
-
+            services.AddTransient<IAvaliacaoRepository, AvaliacaoRepository>();
             services.AddMvc();
         }
 

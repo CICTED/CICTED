@@ -9,6 +9,8 @@ using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.ViewModels.Trabalho;
+using CICTED.Domain.ViewModels.Avaliador;
+using CICTED.Domain.Infrastucture.Repository;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,9 +33,9 @@ namespace CICTED.Controllers
         private IAdministradorServices _administradorServices;
         private ILocalizacaoServices _localizacaoServices;
         private ITrabalhoServices _trabalhoServices;
+        private IAvaliacaoRepository _avaliacaoRepository;
 
-
-        public AvaliadorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository, IEmailServices emailServices, IAdministradorServices administradorServices, ILocalizacaoServices localizacaoServices, ITrabalhoServices trabalhoServices)
+        public AvaliadorController(ITrabalhoRepository trabalhoRepository, UserManager<ApplicationUser> userManager, IAccountRepository accountRepository, IEventoRepository eventoRepository, IAreaRepository areaRepository, IAutorRepository autorRepository, IAgenciaRepository agenciaRepository, IAdministradorRepository administradorRepository, ILocalizacaoRepository localizacaoRepository, IEmailServices emailServices, IAdministradorServices administradorServices, ILocalizacaoServices localizacaoServices, ITrabalhoServices trabalhoServices, IAvaliacaoRepository avaliacaoRepository)
         {
             _trabalhoRepository = trabalhoRepository;
             _userManager = userManager;
@@ -48,6 +50,7 @@ namespace CICTED.Controllers
             _administradorServices = administradorServices;
             _localizacaoServices = localizacaoServices;
             _trabalhoServices = trabalhoServices;
+            _avaliacaoRepository = avaliacaoRepository;
         }
 
         [HttpGet("home")]
@@ -91,17 +94,28 @@ namespace CICTED.Controllers
         public async Task<IActionResult> AvaliarTrabalho(string identificacao)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var trabalho = await _trabalhoRepository.GetTrabalho(identificacao);
 
-            AvaliacaoTrabalhoViewModel model = new AvaliacaoTrabalhoViewModel();
+            AvaliaTrabalhoViewModel model = new AvaliaTrabalhoViewModel();
 
-            var identificacaoTrabalho = new AvaliacaoTrabalhoViewModel()
-            {
-                IdentificadorTrabalho = identificacao
-            };
-
-            return View();
+            model.TrabalhoId = trabalho.Id;
+            model.UsuarioId = user.Id;
+          
+            return View(model);
 
         }
 
+        [HttpPost("avaliarTrabalho")]
+        [Authorize]
+        public async Task<IActionResult> AvaliarTrabalho(AvaliaTrabalhoViewModel model)
+        {
+            var dataAvaliacao = DateTime.Now;
+            model.DataAvaliacao = dataAvaliacao;
+            if (await _avaliacaoRepository.InsertAvaliacao(model.StatusTrabalhoId, model.UsuarioId, model.TrabalhoId, model.Nota, model.NotaResumo, model.NotaMetodologia, model.NotaResultado, model.NotaObjetivo, model.Favorito, model.Comentario, model.DataAvaliacao, model.TipoAvaliacao))
+            {
+                return RedirectToAction("Home");
+            }
+            return RedirectToAction("AvaliarTrabalho");
+        }
     }
 }
