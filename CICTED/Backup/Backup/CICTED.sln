@@ -1,17 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5985462A-47DA-4CFB-BD00-3369FC8D81B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F950C88E-7B28-453E-AE82-D71322FAAD80}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CICTED.Domain", "src\CICTED.Domain\CICTED.Domain.csproj", "{C990A570-5C72-4B88-B431-C19CC5C3C55F}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CICTED.Domain", "src\CICTED.Domain\CICTED.Domain.xproj", "{C990A570-5C72-4B88-B431-C19CC5C3C55F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CICTED.Crosscutting", "src\CICTED.Crosscutting\CICTED.Crosscutting.csproj", "{9A76022C-883A-44B7-8BCE-4CA18FBC3F14}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CICTED.Crosscutting", "src\CICTED.Crosscutting\CICTED.Crosscutting.xproj", "{9A76022C-883A-44B7-8BCE-4CA18FBC3F14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CICTED", "src\CICTED\CICTED.csproj", "{E0BDC4F8-456C-4FBD-B47A-D5C67294481F}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CICTED", "src\CICTED\CICTED.xproj", "{E0BDC4F8-456C-4FBD-B47A-D5C67294481F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +42,5 @@ Global
 		{C990A570-5C72-4B88-B431-C19CC5C3C55F} = {5985462A-47DA-4CFB-BD00-3369FC8D81B5}
 		{9A76022C-883A-44B7-8BCE-4CA18FBC3F14} = {5985462A-47DA-4CFB-BD00-3369FC8D81B5}
 		{E0BDC4F8-456C-4FBD-B47A-D5C67294481F} = {5985462A-47DA-4CFB-BD00-3369FC8D81B5}
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5489B2CB-2B47-460B-85DC-D2071B9D9B7F}
 	EndGlobalSection
 EndGlobal
