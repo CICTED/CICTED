@@ -100,7 +100,7 @@ namespace CICTED.Domain.Infrastucture.Repository
                             Referencia = referencias,
                             NomeEscola = nomeEscola,
                             TelefoneEscola = telefoneEscola,
-                            Identificacao = identificacao,
+                            Identiicacao = identificacao,
                             DataCadastro = dataCadastro,
                             TextoFinanciadora = textoFinanciadora,
                             CodigoCEP = codigoCep,

@@ -54,18 +54,25 @@
                 <button type="submit" class="btn btn-primary float-center" style="width: 100%">Entrar</button>
             </div>
 
-            <div class="checkbox margin-top-10">
+            @*<div class="checkbox margin-top-10">
                 <label asp-for="RememberMe">
                     <input asp-for="RememberMe" />
                     @Html.DisplayNameFor(m => m.RememberMe)
                 </label>
-            </div>
+            </div>*@
 
             <div class="margin-top-10 margin-bottom-10">
                 <a class="link" asp-controller="Account" asp-action="recuperar"><label class="link-underline">Esqueceu a senha?</label></a>
             </div>
             <div class="margin-top-10 margin-bottom-10">
-                <a class="link" asp-action="reenviarEmail" asp-controller="account"><label class="link-underline">Reenviar email de confirmação</label></a>
+                <label>Caso não tenha recebido email de confirmação </label>
+                <label>de conta, selecione:</label>
+            </div>
+            <div class="checkbox">
+                <label asp-for="ConfirmaEmail">
+                    <input data-val="true" id="ConfirmaEmail" name="ConfirmaEmail" type="checkbox" value="true">
+                    Confirmar email
+                </label>
             </div>
         </form>
 

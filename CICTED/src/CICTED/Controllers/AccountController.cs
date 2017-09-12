@@ -11,7 +11,6 @@ using CICTED.Domain.Entities.Localizacao;
 using CICTED.Domain.Infrastucture.Repository.Interfaces;
 using System.Text;
 using System.Security.Cryptography;
-using System.Collections.Generic;
 
 namespace CICTED.Controllers
 {
@@ -722,52 +721,6 @@ namespace CICTED.Controllers
                 model.Succeeded = false;
                 model.Message = "Houve um erro interno e não foi possível alterar a senha. Tente novamente.";
                 return View("ForgotPasswordConfirmation", model);
-            }
-        }
-
-        [HttpGet("reenviarEmail")]
-        public async Task<IActionResult> ReenviarEmailConfirmacao()
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            ReenviarEmailConfirmacaoViewModel model = new ReenviarEmailConfirmacaoViewModel();
-            return View(model);
-        }
-
-        [HttpPost("reenviarEmail")]
-        public async Task<IActionResult> ReenviarEmailConfirmacao(ReenviarEmailConfirmacaoViewModel model)
-        {
-            
-            try
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                var messages = new List<string>();
-                if (user == null)
-                {
-                    ViewBag.Message = "Usuário não encontrado para o email fornecido.";
-                    return View("ReenviarEmailConfirmacao", model);
-                }
-
-                var callbackUrl = Url.Action("reenviarEmail", "Account", new { email = user.Email}, protocol: HttpContext.Request.Scheme);
-                await _emailServices.EnviarEmail(model.Email, callbackUrl, "Confirmar  Email - CICTED");
-
-                messages.Add($"Um email de confirmação de cadastro foi reenviado. Acesse seu endereço de email {model.Email}.");
-
-                var message = new MessageViewModel()
-                {
-                    Description = messages
-
-                };
-                return RedirectToRoute("Message", message);
-                //return RedirectToAction("Login");
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = "Usuário não encontrado para o email fornecido.";
-                return View("ReenviarEmailConfirmacao", model);
             }
         }
     }

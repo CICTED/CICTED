@@ -24,7 +24,7 @@ namespace CICTED.Domain.Infrastucture.Repository
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var insertAvaliacao = await db.QueryAsync<bool>("INSERT INTO dbo.AvaliacaoTrabalho(StatusTrabalhoId, UsuarioId, TrabalhoId, Nota, NotaResumo, NotaMetodologia, NotaResultado, NotaObjetivo, Favorito, Comentario, DataAvaliacao, TipoAvaliacao) VALUES(@StatusTrabalhoId, @UsuarioId, @TrabalhoId, @Nota, @NotaResumo, @NotaMetodologia, @NotaResultado, @NotaObjetivo, @Favorito, @Comentario, @DataAvaliacao, @TipoAvaliacao)",
+                    var insetAvaliacao = await db.QueryAsync<bool>("INSERT INTO dbo.AvaliacaoTrabalho(StatusTrabalhoId, UsuarioId, TrabalhoId, Nota, NotaResumo, NotaMetodologia, NotaResultado, NotaObjetivo, Favorito, Comentario, DataAvaliacao, TipoAvaliacao) VALUES(@StatusTrabalhoId, @UsuarioId, @TrabalhoId, @Nota, @NotaResumo, @NotaMetodologia, @NotaResultado, @NotaObjetivo, @Favorito, @Comentario, @DataAvaliacao, @TipoAvaliacao)",
                         new
                         {
                             StatusTrabalhoId = statusTrabalhoId,
@@ -41,12 +41,12 @@ namespace CICTED.Domain.Infrastucture.Repository
                             TipoAvaliacao = tipoAvaliacao,
                         });
                 
-                    return insertAvaliacao.FirstOrDefault();
+                    return true;
                 }
             }
             catch (Exception ex)
             {
-                return false;
+                return true;
             }
             
         }
