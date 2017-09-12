@@ -51,8 +51,7 @@
             <div>
                 <div class="float-left" style="width:40%">
                     <label>Evento:</label>
-                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropEvento" value="@Model.EventoId" asp-for="EventoId">
-                        <option value="-1">Selecione o evento</option>
+                    <select multiple="multiple" style="width:500px !important" id="dropEvento" value="@Model.EventoId" asp-for="EventoId">                        
                         @foreach (var evento in Model.Eventos)
                         {
                             <option value="@evento.Id"> @evento.Sigla</option>
@@ -62,8 +61,7 @@
                 </div>
                 <div class="float-right" style="width:50%">
                     <label>Área:</label>
-                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId">
-                        <option value="-1">Selecione a área</option>
+                    <select multiple="multiple" style="width:500px !important" id="dropArea" asp-for="AreaConhecimentoId" value="@Model.AreaConhecimentoId">                        
                         @foreach (var areas in Model.AreaConhecimento)
                         {
                             <option value="@areas.Id">@areas.Area</option>
@@ -74,10 +72,9 @@
             </div>
 
             <div>
-                <div class="float-left margin-top-10" style="width:40%">
+                <div class="float-left margin-top-40" style="width:40%">
                     <label>Subarea:</label>
-                    <select class="input-consulta-trab-adm" style="width:500px !important" id="dropSubArea">
-                        <option value="-1">Selecione a subarea</option>
+                    <select multiple="multiple" style="width:500px !important" id="dropSubArea">                        
                     </select>
                 </div>
             </div>
@@ -86,7 +83,7 @@
 
 
         <br />
-        <div class="margin-top-10" style="margin-left:33%">
+        <div class="margin-top-40" style="margin-left:33%">
             <div class="float-left">
                 <button type="submit" class="btn btn-primary" style="width:100px" formmethod="get" asp-controller="administrador" asp-action="GerenciarAvaliador"> Cancelar</button>
             </div>
@@ -112,8 +109,11 @@
             },
 
             error: function (x, y, message) {
-                alert("Evento nao encontrado ")
+                //alert("Evento nao encontrado ")
             },
         });
     });
+
+    $('select').multipleSelect();
+
 </script>

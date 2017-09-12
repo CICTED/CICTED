@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
 
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -34,6 +36,12 @@
 
     <script src="~/js/Chart.min.js"></script>
 
+    <style>
+        #map {
+            height: 300px;
+            width: 450px;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar-saibaMais" style="position:absolute">
@@ -53,7 +61,34 @@
         @RenderBody()
     </div>
 
-    <div class="footer-home margin-bottom-10">
+
+    <div class="form-group margin-top-100">
+        <div class="float-left margin-top-75" style="margin-left: 200px; text-align: center">
+            <h4><b>O evento acontece de 20 à 23 de setembro de 2017</b></h4>
+            <h4><b>Campus da juta</b></h4>
+            <h4><b>Rua Daniel Danielli, S/N, Jardim Morumbi - Taubaté - SP</b></h4>
+        </div>
+        <div class="float-right" style="margin-right: 200px">
+            <div id="map"></div>
+            <script>
+                var map;
+                function initMap() {
+                    var juta = { lat: -23.020046, lng: -45.558137 };
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        center: juta
+                    });
+                    var marker = new google.maps.Marker({
+                        position: juta,
+                        map: map
+                    });
+                }
+            </script>
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqTov4ponp1Q6jiIbn5Asl79W2tHyhcjU&callback=initMap"></script>
+        </div>
+    </div>
+
+    <div class="footer-home margin-bottom-10 margin-top-75">
         <img class="float-left margin-top-10" style="height: 70px; width: 250px" src="~/images/rodapé/rodapeCerebro.png" />
         <img class="float-left margin-top-10 margin-left-20" style="height: 70px; width: 250px" src="~/images/logoCICTED/logo2017.png" />
         <img style="height: 90px; width: 550px" class="float-right" src="~/images/rodapé/apoio.png" />
@@ -65,17 +100,17 @@
 </body>
 </html>
 <script type="text/javascript">
-    jQuery("document").ready(function ($) {
-        var nav = $('.imgright');
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 100) {
-                nav.removeClass("imgright");
-                nav.addClass("imgwhite");
-            } else {
-                nav.removeClass("imgwhite");
-                nav.addClass("imgright");
-            }
-        });
+                jQuery("document").ready(function ($) {
+                    var nav = $('.imgright');
+                    $(window).scroll(function () {
+                        if ($(this).scrollTop() > 100) {
+                            nav.removeClass("imgright");
+                            nav.addClass("imgwhite");
+                        } else {
+                            nav.removeClass("imgwhite");
+                            nav.addClass("imgright");
+                        }
+                    });
 
-    });
+                });
 </script>

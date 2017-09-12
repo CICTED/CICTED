@@ -29,8 +29,7 @@
         var subAreaId = dropSubAreas.val();
 
         dropDown.on('change', function () {
-            var areaId = $(this).val();
-            dropSubAreas.html('<option value="-1">Selecione a subarea</option>');
+            var areaId = $(this).val();           
 
                 $.ajax({
                     url: '/trabalho/list/subarea/' + areaId,
@@ -55,7 +54,7 @@
         var dropDown = $(this);
         var subAreaId = dropSubAreas.val();
 
-        dropDown.on('change', function () {
+        dropDown.on('click', function () {
             var areaId = $(this).val();
 
            
@@ -63,18 +62,7 @@
                     url: '/administrador/list/subarea/' + areaId,
                     method: 'GET',
                     success: function (data) {
-                        console.log(data);
-                        if (areaId == 1) {
-                            dropSubAreas.append('<optgroup label="Ciencias Biologicas"></optgroup>')
-                        } else {
-                            if (areaId == 2) {
-                                dropSubAreas.append('<optgroup label="Ciencias Exatas"></optgroup>')
-                            } else {
-                                if (areaId == 3) {
-                                    dropSubAreas.append('<optgroup label="Ciencias Humanas"></optgroup>')
-                                }
-                            }
-                        }
+                        console.log(data);                     
                         $.each(data, function (i, item) {
                             dropSubAreas.append('<option value="' + item.id + '">' + item.nome + '</option>');
 

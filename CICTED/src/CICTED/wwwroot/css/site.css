@@ -533,7 +533,7 @@ input[type=file] {
 }
 
 .textarea-avaliador {
-    width: 650px!important;
+    width: 650px !important;
     height: 33px;
     padding: 0 0 0 8px;
     border-width: 1px;
@@ -638,10 +638,24 @@ input[type=file] {
     color: white;
 }
 
-.button-saibaMais{
+.saibaMais-itens {
+    height: 600px;
+    width: 100%;
+    padding: 5px 80px 5px 80px;
+    color: white;
+}
+
+.button-saibaMais {
     height: 30px;
     color: white;
     border-bottom-color: white;
+    background: none !important;
+    margin-top: 30px;
+}
+
+.button-eventos {
+    height: 30px;
+    color: black;
     background: none !important;
     margin-top: 30px;
 }
@@ -682,7 +696,8 @@ input[type=file] {
     color: #868585;
     cursor: pointer;
 }
-    .link-underline:hover{
+
+    .link-underline:hover {
         text-decoration: underline !important;
     }
 
@@ -693,12 +708,16 @@ input[type=file] {
     background-size: cover;
 }
 
-.button-a:hover{
+.button-a:hover {
     color: white;
 }
 
-.button-a{
+.button-a {
     color: white;
+}
+
+.button-e {
+    color: black;
 }
 
 .form-login {
@@ -1115,7 +1134,7 @@ label {
 }
 /*END Switch*/
 
-.alert-success{
+.alert-success {
     color: green;
 }
 
@@ -1190,6 +1209,26 @@ label {
     border-bottom: 1px solid #DDD;
 }
 
-.display-inline{
+.display-inline {
     display: inline !important;
+}
+
+.imgright {
+    background: url(../images/logoUNITAU/unitau_azul.png) no-repeat;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    margin: 15px 100px 0px auto;
+    height: 123px;
+    width: 160px;
+}
+
+.imgwhite {
+    background: url(../images/logoUNITAU/logotipo_branco_unitau.png) no-repeat;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    margin: 15px 100px 0px auto;
+    width: 160px;
+    height: 123px;
 }
