@@ -1,0 +1,42 @@
+﻿@model CICTED.Domain.ViewModels.Account.ReenviarEmailConfirmViewModel
+
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+
+    <title>Reeenviar Email de Confirmação - CICTED</title>
+</head>
+<body>
+
+    <div class="float-center margin-top-50 logo-login"></div>
+
+    <div class="margin-top-100" style="width: 794px; margin: 0 auto; height: 100%;">
+        <form style="padding-top:2px" class="form-login" asp-controller="Account" asp-action="ReenviarEmailConfirm" method="post">
+
+            <h1 class="margin-top-10">Reenviar Email de Confirmação</h1>
+
+            @if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+                <div class="alert alert-warning" role="alert">@ViewBag.Message</div>
+            }
+            <h3>Para reenviar novamente a confirmação informe seu email:</h3>
+
+            @if (!string.IsNullOrEmpty(ViewBag.Success))
+            {
+                <div class="alert alert-success" role="alert">@ViewBag.Success</div>
+            }
+
+            <input style="width:100%; max-width: 100% !important" type="email" asp-for="Email" value="@Model.Email" />
+            <button style="width:100px; float: right" type="submit" class="margin-top-10 btn btn-primary">Enviar</button>
+            <button style="width:100px" type="submit" formmethod="get" formaction="/account/login" class="btn btn-primary margin-top-10 btn btn-primary">Cancelar</button>
+
+        </form>
+    </div>
+
+</body>
+</html>

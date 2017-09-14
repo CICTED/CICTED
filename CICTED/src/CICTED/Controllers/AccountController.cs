@@ -43,7 +43,7 @@ namespace CICTED.Controllers
 
         [HttpGet("login")]
         public IActionResult Login()
-       {
+        {
             LoginViewModel model = new LoginViewModel();
 
             return View(model);
@@ -65,10 +65,10 @@ namespace CICTED.Controllers
                     {
                         return BadRequest();
                     }
-                    
+
                     var result = await _signInManager.PasswordSignInAsync(model.EmailLogin,
                        model.SenhaLogin, model.RememberMe, user.EmailConfirmed);
-                    
+
                     if (result.Succeeded)
                     {
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
@@ -156,7 +156,7 @@ namespace CICTED.Controllers
                 {
                     try
                     {
-                       var resultRole =  await _userManager.AddToRoleAsync(user, "AUTOR");
+                        var resultRole = await _userManager.AddToRoleAsync(user, "AUTOR");
 
                         //link
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -586,7 +586,7 @@ namespace CICTED.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
-                
+
                 var senhaAtual = user.PasswordHash;
 
                 var result = await _signInManager.PasswordSignInAsync(user.Email,
@@ -597,14 +597,14 @@ namespace CICTED.Controllers
                 {
                     if (novaSenha == model.ConfirmarSenha)
                     {
-                        
+
                         var bite = Encoding.UTF8.GetBytes(novaSenha);
-                        using(var hash = SHA256.Create())
+                        using (var hash = SHA256.Create())
                         {
                             var hashedInputBytes = hash.ComputeHash(bite);
                             var hashedInputStringBuilder = new StringBuilder(128);
                             string hexNumber = "";
-                            foreach(var b in hashedInputBytes)
+                            foreach (var b in hashedInputBytes)
                             {
                                 hexNumber += String.Format("{0:X2}", b);
                             }
@@ -660,7 +660,7 @@ namespace CICTED.Controllers
                 ViewBag.Success = $"Um email foi enviado para que você possa realizar a recuperação de conta. Acesse seu endereço de email {model.Email}.";
                 return View("RecuperarSenha");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Message = "Usuário não encontrado para o email fornecido.";
                 return View("RecuperarSenha", model);
@@ -703,7 +703,7 @@ namespace CICTED.Controllers
 
                 var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
 
-                if(!result.Succeeded)
+                if (!result.Succeeded)
                 {
                     model.Succeeded = false;
                     model.Message = result.Errors.ToString();
@@ -716,13 +716,52 @@ namespace CICTED.Controllers
 
                 return View("ForgotPasswordConfirmation", model);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 model.Succeeded = false;
                 model.Message = "Houve um erro interno e não foi possível alterar a senha. Tente novamente.";
                 return View("ForgotPasswordConfirmation", model);
             }
         }
+
+        [HttpGet("reenviarEmail")]
+        public async Task<ActionResult> ReenviarEmailConfirm()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            ReenviarEmailConfirmViewModel model = new ReenviarEmailConfirmViewModel();
+            return View(model);
+        }
+
+        [HttpPost("reenviarEmail")]
+        public async Task<ActionResult> ReenviarEmailConfirm(ReenviarEmailConfirmViewModel model)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user == null)
+                {
+                    ViewBag.Message = "Usuário não encontrado para o email fornecido.";
+                    return View("ReenviarEmailConfirm", model);
+                }
+
+                var callbackUrl = Url.Action("ReenviarEmailConfirm", "Account", new { email = user.Email}, protocol: HttpContext.Request.Scheme);
+                await _emailServices.EnviarEmail(model.Email, callbackUrl, "Confirmar Email - CICTED");
+
+                ViewBag.Success = $"Um email de confirmação foi reenviado. Acessa seu endereço de email{model.Email}.";
+                return RedirectToAction("Login");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "Usuário não encontrado para o email fornecido.";
+                return View("ReenvirEmailConfirm", model);
+            }
+        }
+
     }
 }
 
