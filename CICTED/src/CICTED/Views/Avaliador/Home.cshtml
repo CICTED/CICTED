@@ -2,7 +2,41 @@
 @{
     Layout = "_Menu";
 }
-<body>
 
+<div class="form-avaliador-home">
+    <h3 style="text-align:center"><span class="fa fa-fw fa-clipboard"></span><b>Página Inicial - Módulo Avaliador</b></h3>
+    <h3>Bem vindo(a)!</h3>
+    <br />
+    <h4>Neste espaço você poderá avaliar os trabalhos dos participantes do evento, e visualizar
+        todas suas avaliações realizadas sem complicações a qualquer hora</h4>
+    <br />
+    <h4><b>Atenção:</b> Neste ano os trabalhos avaliados poderão ser classificados como relevantes, a fim de auxiliar na escolha
+           dos melhores trabalhos. Você poderá selecionar até 10 trabalhos como relevantes na hora da avaliação ou na página
+           "Consultar avaliações."</h4>
+    <br />
+    <div class="form-group float-center" style="width:900px; height:150px">
+        <div class="form-group float-left margin-left-75">
+            <span class="fa fa-fw fa-exclamation-triangle fa-5x" style="color:darkblue"></span>
+            <h4>Pendentes</h4>
+            <h1 class="margin-left-30" id="pendentes"<b>@Model.Pendentes</b></h1>
+        </div>
+        <div class="form-group float-left margin-left-75">
+            <span class="fa fa-fw fa-clipboard fa-5x" style="color:saddlebrown"></span>
+            <h4>Avaliados</h4>
+        </div>
+        <div class="form-group float-left margin-left-75">
+            <span class="fa fa-fw fa-star-o fa-5x" style="color:darkkhaki"></span>
+            <h4>Relevantes</h4>
+            <h1 class="margin-left-30" id="relevantes"><b>@Model.Relevantes</b></h1>
+        </div>
+        <div class="form-group float-left margin-left-75">
+            <span class="fa fa-fw fa-smile-o fa-5x" style="color:green"></span>
+            <h4>Aprovados</h4>
+        </div>
+        <div class="form-group float-left margin-left-75">
+            <span class="fa fa-fw fa-frown-o fa-5x" style="color:red"></span>
+            <h4>Reprovados</h4>
+        </div>
+    </div>
 
-</body>
+</div>
