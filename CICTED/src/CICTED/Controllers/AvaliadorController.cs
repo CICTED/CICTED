@@ -9,6 +9,7 @@ using CICTED.Domain.Entities.Account;
 using CICTED.Domain.Infrastucture.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using CICTED.Domain.ViewModels.Trabalho;
+using CICTED.Domain.ViewModels.Avaliador;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -58,8 +59,9 @@ namespace CICTED.Controllers
             {
                 return BadRequest();
             }
+            AvaliadorHomeViewModel model = new AvaliadorHomeViewModel();
 
-            return View();
+            return View(model);
         }
 
         [HttpGet("trabalhosPendentes")]

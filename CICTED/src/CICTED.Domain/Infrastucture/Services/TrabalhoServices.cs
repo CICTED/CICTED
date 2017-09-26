@@ -110,7 +110,7 @@ namespace CICTED.Domain.Infrastucture.Services
             {
                 using (var db = new SqlConnection(_settings.ConnectionString))
                 {
-                    var selectIdTrabalhoQuery = await db.QueryAsync<AvaliacaoTrabalhoViewModel>("SELECT TrabalhoId FROM dbo.AvaliadorTrabalho WHERE AvaliadorId = @AvaliadorId", new { AvaliadorId = idAvaliador });
+                    var selectIdTrabalhoQuery = await db.QueryAsync<AvaliacaoTrabalhoViewModel>("SELECT TrabalhoId FROM dbo.AvaliadorTrabalho, dbo.AvaliacaoTrabalho WHERE AvaliadorId = @AvaliadorId and dbo.AvaliacaoTrabalho.UsuarioId", new { AvaliadorId = idAvaliador });
 
                     var selectTrabalhoQuery = await db.QueryAsync<AvaliacaoTrabalhoViewModel>("SELECT Identificacao, Titulo, EventoId FROM dbo.Trabalho WHERE Id = @Id", new { Id = selectIdTrabalhoQuery });
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model CICTED.Domain.ViewModels.Avaliador.AvaliadorHomeViewModel
 @{
     Layout = "_Menu";
 }
@@ -23,6 +23,7 @@
         <div class="form-group float-left margin-left-75">
             <span class="fa fa-fw fa-clipboard fa-5x" style="color:saddlebrown"></span>
             <h4>Avaliados</h4>
+            <h1 class="margin-left-30" id="avaliados"><b>@Model.Avaliados</b></h1>
         </div>
         <div class="form-group float-left margin-left-75">
             <span class="fa fa-fw fa-star-o fa-5x" style="color:darkkhaki"></span>
@@ -32,10 +33,12 @@
         <div class="form-group float-left margin-left-75">
             <span class="fa fa-fw fa-smile-o fa-5x" style="color:green"></span>
             <h4>Aprovados</h4>
+            <h1 class="margin-left-30" id="aprovados"><b>@Model.Aprovados</b></h1>
         </div>
         <div class="form-group float-left margin-left-75">
             <span class="fa fa-fw fa-frown-o fa-5x" style="color:red"></span>
             <h4>Reprovados</h4>
+            <h1 class="margin-left-30" id="reprovados"><b>@Model.Reprovados</b></h1>
         </div>
     </div>
 

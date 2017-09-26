@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CICTED.Domain.ViewModels.Avaliador
 {
-    class AvaliadorHomeViewModel
+    public class AvaliadorHomeViewModel
     {
         public int Pendentes { get; set; }
         public int Avaliados { get; set; }
